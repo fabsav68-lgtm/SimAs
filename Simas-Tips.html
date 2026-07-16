@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SimTips AS · SimAS DEAS</title>
+<meta name="theme-color" content="#080c14">
+<style>
+:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#60a8f8;--amber:#e8a030;--red:#e84040;--green:#40c878;--purple:#a060ff;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;}
+h1{font-family:Georgia,serif;font-size:22px;color:var(--em);margin-bottom:4px;}
+.sub{font-size:11px;color:var(--txt2);margin-bottom:20px;font-family:monospace;}
+.loterie{text-align:center;padding:24px 16px;background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;margin-bottom:16px;}
+.loterie h2{font-size:16px;color:var(--txt);margin-bottom:6px;}
+.loterie p{font-size:12px;color:var(--txt2);margin-bottom:16px;}
+.btn-loterie{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#1a5a9a,#60a8f8);color:#080c14;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;}
+.btn-small{display:inline-block;padding:7px 14px;background:rgba(255,255,255,.06);color:var(--txt2);border:1px solid var(--bdr);border-radius:8px;font-size:11px;cursor:pointer;margin:3px;}
+.chrono-wrap{text-align:center;margin-bottom:12px;}
+.chrono{font-size:32px;font-weight:700;font-family:monospace;color:var(--em);}
+.chrono.urgent{color:var(--red);}
+.chrono-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:16px;overflow:hidden;}
+.chrono-fill{height:100%;background:var(--em);border-radius:2px;transition:width .5s linear;}
+.chrono-fill.urgent{background:var(--red);}
+.sujet-card{background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;padding:16px;margin-bottom:16px;display:none;}
+.sujet-card.show{display:block;}
+.tip-type{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-family:monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.tip-type.quotidien{background:rgba(96,168,248,.1);color:var(--em);border:1px solid rgba(96,168,248,.2);}
+.tip-type.soin{background:rgba(64,200,120,.1);color:var(--green);border:1px solid rgba(64,200,120,.2);}
+.tip-type.communication{background:rgba(160,96,255,.1);color:var(--purple);border:1px solid rgba(160,96,255,.2);}
+.tip-type.urgence{background:rgba(232,64,64,.1);color:var(--red);border:1px solid rgba(232,64,64,.2);}
+.tip-title{font-size:17px;font-weight:700;margin-bottom:10px;line-height:1.3;}
+.tip-situation{background:rgba(255,255,255,.03);border-left:3px solid var(--amber);padding:10px;border-radius:0 8px 8px 0;font-size:13px;color:var(--txt);margin-bottom:16px;line-height:1.6;}
+.reponse-wrap{display:none;}
+.reponse-wrap.show{display:block;}
+textarea{width:100%;padding:12px;background:rgba(255,255,255,.06);border:1.5px solid var(--bdr);border-radius:10px;color:var(--txt);font-size:13px;font-family:system-ui,sans-serif;line-height:1.6;resize:vertical;min-height:120px;outline:none;}
+textarea:focus{border-color:rgba(96,168,248,.4);}
+.btn-correction{width:100%;padding:12px;background:linear-gradient(135deg,#1a5a9a,#60a8f8);color:#080c14;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;}
+.btn-passer{width:100%;padding:10px;background:rgba(255,255,255,.04);color:var(--txt2);border:1px solid var(--bdr);border-radius:10px;font-size:13px;cursor:pointer;margin-top:8px;}
+.correction-wrap{display:none;margin-top:16px;}
+.correction-wrap.show{display:block;}
+.correction-card{border-radius:12px;padding:14px;margin-bottom:12px;}
+.correction-card.ia{background:rgba(96,168,248,.06);border:1px solid rgba(96,168,248,.2);}
+.correction-card.etapes{background:rgba(255,255,255,.03);border:1px solid var(--bdr);}
+.correction-card h3{font-size:13px;font-weight:700;margin-bottom:8px;}
+.correction-card.ia h3{color:var(--em);}
+.correction-card.etapes h3{color:var(--txt2);}
+.correction-texte{font-size:13px;line-height:1.7;color:var(--txt);}
+.etape-item{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;display:flex;gap:8px;align-items:flex-start;}
+.etape-item:last-child{border-bottom:none;}
+.etape-num{background:rgba(96,168,248,.15);color:var(--em);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.etape-num.green{background:rgba(64,200,120,.15);color:var(--green);}
+.etape-num.purple{background:rgba(160,96,255,.15);color:var(--purple);}
+.etape-num.red{background:rgba(232,64,64,.15);color:var(--red);}
+.tip-alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);margin-top:10px;}
+.tip-memo{background:rgba(96,168,248,.06);border:1px solid rgba(96,168,248,.15);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--em);margin-top:8px;}
+.btn-nouveau{width:100%;padding:10px;background:linear-gradient(135deg,#1a5a9a,#60a8f8);color:#080c14;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;}
+.loading{text-align:center;padding:20px;color:var(--txt2);font-size:13px;}
+.loading span{display:inline-block;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.liste-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:12px;margin-bottom:16px;overflow:hidden;display:none;}
+.liste-wrap.show{display:block;}
+.liste-item{padding:10px 14px;border-bottom:1px solid var(--bdr);cursor:pointer;display:flex;align-items:center;gap:10px;font-size:12px;}
+.liste-item:last-child{border-bottom:none;}
+</style>
+</head>
+<body>
+<h1>SimTips AS</h1>
+<p class="sub">Preparation aux epreuves DEAS · Situations aleatoires · Vie quotidienne · Soins · Communication · Urgences</p>
+
+<div class="loterie" id="loterie-screen">
+  <h2>Tirage au sort</h2>
+  <p>Comme a l'epreuve — un sujet au hasard, vous repondez, puis Claude analyse votre reponse.</p>
+  <button class="btn-loterie" onclick="tirerAuSort(null)">🎲 Tirer un sujet</button>
+  <br><br>
+  <button class="btn-small" onclick="tirerAuSort('quotidien')">🏠 Vie quotidienne</button>
+  <button class="btn-small" onclick="tirerAuSort('soin')">💊 Soin AS</button>
+  <button class="btn-small" onclick="tirerAuSort('communication')">💬 Communication</button>
+  <button class="btn-small" onclick="tirerAuSort('urgence')">🚨 Urgence</button>
+  <br><br>
+  <button class="btn-small" onclick="toggleListe()">📚 Choisir un sujet</button>
+</div>
+
+<div class="liste-wrap" id="tips-liste"></div>
+
+<div class="chrono-wrap" id="chrono-wrap" style="display:none">
+  <div class="chrono" id="chrono-display">3:00</div>
+  <div class="chrono-bar"><div class="chrono-fill" id="chrono-fill" style="width:100%"></div></div>
+</div>
+
+<div class="sujet-card" id="sujet-card">
+  <span class="tip-type" id="tip-type-badge"></span>
+  <div class="tip-title" id="tip-title"></div>
+  <div class="tip-situation" id="tip-situation"></div>
+</div>
+
+<div class="reponse-wrap" id="reponse-wrap">
+  <textarea id="reponse-etudiant" placeholder="Ecrivez votre reponse ici... Decrivez votre demarche, les etapes, ce que vous feriez et diriez."></textarea>
+  <button class="btn-correction" onclick="voirCorrection()">✅ Voir la correction et l'analyse</button>
+  <button class="btn-passer" onclick="passerDirectement()">Passer sans repondre</button>
+</div>
+
+<div class="correction-wrap" id="correction-wrap">
+  <div class="correction-card ia">
+    <h3>🤖 Analyse de votre reponse</h3>
+    <div class="correction-texte" id="analyse-texte"><div class="loading"><span>Analyse en cours...</span></div></div>
+  </div>
+  <div class="correction-card etapes">
+    <h3>📋 Correction complete</h3>
+    <div id="etapes-correction"></div>
+    <div class="tip-alert" id="correction-alert" style="display:none"></div>
+    <div class="tip-memo" id="correction-memo" style="display:none"></div>
+  </div>
+  <button class="btn-nouveau" onclick="nouveauTirage()">🎲 Nouveau sujet</button>
+</div>
+
+<script>
+var TIPS = [
+  // VIE QUOTIDIENNE
+  {type:"quotidien",titre:"Aide a la toilette - personne agee dependante",situation:"Mme Leblanc, 85 ans, est en EHPAD. Elle presente une hemiplegie droite suite a un AVC. Ce matin, elle doit etre aidee pour sa toilette au lavabo. Elle est consciente et exprime ses preferences.",etapes:["Frapper avant d'entrer et se presenter","Expliquer le soin et recueillir le consentement","Preparer le materiel : gants, serviette, savon, change","Respecter la pudeur : fermer la porte, couvrir ce qui n'est pas lave","Commencer par le visage, puis descendre en respectant la logique propre/sale","Laisser faire ce que la personne peut faire seule - stimuler l'autonomie","Verifier l'etat cutane : rougeurs, escarres, plaies","Installer confortablement apres la toilette et transmettre les observations"],alerte:"Ne jamais faire A LA PLACE ce que la personne peut faire AVEC. L'autonomie prime.",memo:"Regle du propre au sale, du haut vers le bas. Observer + transmettre = role AS fondamental."},
+  {type:"quotidien",titre:"Aide a l'alimentation - patient avec troubles de la deglutition",situation:"M. Durand, 78 ans, a des troubles de la deglutition suite a un AVC recent. La dieteticienne a prescrit une alimentation mixee et des liquides epaissis. Il refuse de manger ce matin.",etapes:["Installer en position assise a 90 degres minimum - jamais allonge","Verifier que la texture est conforme a la prescription","Explorer la raison du refus : gout, appetit, douleur, tristesse","Proposer des petites quantites, cuillere a cafe, rythme adapte","Surveiller les signes de fausse route : toux, deglutition difficile, voix gargouillante","Ne jamais forcer - respecter le refus et le signaler","Transmettre a l'IDE : quantite consommee, comportement, signes d'alerte"],alerte:"Fausse route = urgence. Si toux persistante apres ingestion = arreter et appeler l'IDE immediatement.",memo:"Position assise obligatoire + texture prescrite + surveillance deglutition + transmission."},
+  {type:"quotidien",titre:"Aide a l'elimination - pose d'une protection",situation:"M. Martin, 72 ans, est incontinant urinaire. Il est alite suite a une fracture du col femoral. Il est gene et refuse la protection au debut.",etapes:["Aborder le sujet avec tact et sans jugement","Expliquer l'utilite de la protection pour son confort et l'hygiene de la peau","Respecter sa decision : ne pas forcer, proposer le bassin de lit","Si accepte : respecter la pudeur, fermer la porte","Changer des que souilee : maceration = risque d'escarre","Surveiller l'etat cutane lors de chaque change : rougeurs, irritations","Transmettre les observations sur la diurese : quantite, aspect, odeur"],alerte:"Une protection mouilee laissee en place = risque majeur d'escarre et d'infection urinaire.",memo:"Tact + pudeur + surveillance cutanee + transmission diurese = 4 piliers du soin d'elimination."},
+  {type:"quotidien",titre:"Installation et confort d'une personne alitee",situation:"Mme Simon, 80 ans, est alitee depuis 3 jours suite a une pneumonie. Elle se plaint de douleurs dans le dos et vous demande de changer sa position.",etapes:["Evaluer la douleur : localisation, intensite, type (EVA ou echelle adaptee)","Transmettre la douleur a l'IDE avant de deplacer si douleur intense","Expliquer ce que vous allez faire et obtenir son accord","Utiliser les techniques de manutention adaptees : drap de glisse, ceinture de manutention","Installer en position confortable : cote ou demi-assise selon prescription","Verifier les points d'appui : talons, sacrum, omoplates, coudes","Placer des coussins de decharge aux points de pression","Fixer l'heure pour le prochain repositionnement : toutes les 2h maximum"],alerte:"Maintien en decubitus dorsal prolonge = escarre en 2h chez une personne a risque. Repositionnement toutes les 2h obligatoire.",memo:"EVA + transmission IDE + manutention adaptee + verification points d'appui + planifier repositionnement."},
+  {type:"quotidien",titre:"Aide au coucher - personne demente",situation:"M. Petit, 82 ans, souffre de maladie d'Alzheimer moderee. Il est 21h et il refuse d'aller se coucher. Il est agite et ne reconnait pas sa chambre.",etapes:["Rester calme, voix douce, pas de confrontation","Se mettre a sa hauteur, etablir un contact visuel bienveillant","Ne pas corriger ses erreurs de realite - valider son ressenti","Utiliser des reperes : photo de famille, musique qu'il aime","Proposer une activite de transition : tisane, petite balade dans le couloir","Eviter les consignes multiples : une seule instruction a la fois","Alerter l'IDE si agitation persistante ou comportement inhabituel","Tracer dans le dossier : comportement, heure, ce qui a fonctionne"],alerte:"Ne jamais contraindre physiquement une personne demente agitee. Appeler l'IDE si echec des approches douces.",memo:"Validation + approche non conflictuelle + reperes + une instruction a la fois = approche Alzheimer."},
+
+  // SOINS AS
+  {type:"soin",titre:"Prevention des escarres - evaluation et soins",situation:"Vous prenez en charge Mme Dupont, 75 ans, alitee depuis 5 jours. Lors de la toilette, vous observez une zone rouge persistante au niveau du sacrum apres appui. Elle ne blanchit pas a la pression.",etapes:["Identifier le stade : rougeur non blanchissante = escarre stade 1","Ne pas masser la zone rouge - contre-indique car risque d'aggraver","Signaler immediatement a l'IDE : localisation, taille, aspect","Repositionner immediatement pour supprimer l'appui sur la zone","Mettre en place les mesures de prevention : matelas anti-escarres, repositionnements","Verifier et corriger la nutrition et l'hydratation","Tracer dans le dossier : date de decouverte, stade, mesures prises"],alerte:"Une rougeur non blanchissante = escarre stade 1 = URGENCE preventive. Signalement IDE immediat et suppression de l'appui.",memo:"Stade 1 = rougeur non blanchissante. Ne JAMAIS masser. Signaler + repositionner + prevenir + tracer."},
+  {type:"soin",titre:"Aide a la prise des medicaments",situation:"Vous aidez M. Bernard, 70 ans, a prendre ses medicaments du matin prepares par l'IDE dans un pilulier. Il vous dit qu'un comprime lui semble different de d'habitude et refuse de le prendre.",etapes:["Prendre le refus au serieux - ne jamais forcer","Ne pas administrer si doute - votre role est l'aide, pas la prescription","Appeler l'IDE immediatement pour verifier le medicament","Expliquer calmement a M. Bernard que vous allez verifier","Attendre le retour de l'IDE avant toute action","Ne jamais ecraser un medicament sans prescription medicale","Tracer dans le dossier : medicament refuse, raison, heure, transmission IDE"],alerte:"L'AS n'administre pas les medicaments - il AIDE a la prise. Tout doute = appel IDE immediat. Ne jamais forcer.",memo:"Aide a la prise ≠ administration. Doute = IDE. Refus = respecter + transmettre."},
+  {type:"soin",titre:"Soin de bouche - patient inconscient",situation:"M. Garcia, 68 ans, est inconscient et sous assistance respiratoire en reanimation. Vous devez realiser le soin de bouche selon le protocole du service.",etapes:["Verifier la prescription et le protocole du service","Installer en position laterale de securite ou tete tournee sur le cote","Aspirer les secretions avant le soin si necessite","Utiliser une compresse humidifiee ou baton mousse selon protocole","Nettoyer dents, langue, joues et gencives en respectant l'ordre","Hydrater les levres avec du baume ou de la vaseline","Verifier l'absence de stomatite ou de muguet","Tracer dans le dossier et transmettre les observations"],alerte:"Patient inconscient = risque de fausse route. Jamais de liquide en quantite. Position laterale obligatoire.",memo:"Soin de bouche = prevention des infections + confort. Position laterale + aspiration si besoin + observer la muqueuse."},
+  {type:"soin",titre:"Surveillance et change d'une stomie",situation:"Mme Leroy, 65 ans, a une colostomie depuis 6 mois. Elle est hospitalisee pour une autre pathologie. Lors de votre passage, vous observez que sa poche est pleine et que la peau autour de la stomie est rouge.",etapes:["Prevenir l'IDE de la rougeur cutanee avant d'intervenir","Preparer le materiel : nouvelle poche, nettoyant, compresses, gants","Retirer l'ancienne poche delicatement en soutenant la peau","Nettoyer la peau peristomiale a l'eau tiede et secher","Evaluer la rougeur : taille, aspect, signes d'infection","Poser la nouvelle poche selon le protocole","Transmettre a l'IDE : aspect de la stomie, etat cutane, aspect des selles"],alerte:"Rougeur peristomiale = signaler a l'IDE avant le change. Ne pas appliquer de creme sans prescription.",memo:"Observation + transmission IDE + technique aseptique + tracer les observations = soin de stomie AS."},
+  {type:"soin",titre:"Soins post-mortem",situation:"M. Dupuis, 80 ans, est decede ce matin a 6h30 en EHPAD. Le medecin a constate le deces. L'IDE vous demande de realiser les soins post-mortem.",etapes:["Verifier que le deces est bien constate par le medecin","Respecter les croyances et convictions religieuses de la famille et du defunt","Fermer les yeux delicatement, fermer la bouche","Laver et habiller le defunt avec dignite","Retirer les appareillages non necessaires (sonde, perf) sur prescription","Installer dans une position digne : bras le long du corps","Identifier le defunt avec le bracelet d'identification","Informer la famille et les accompagner dans ce moment"],alerte:"Les soins post-mortem sont realises avec respect et dignite. Toute croyance religieuse doit etre respectee.",memo:"Dignite + respect des croyances + identification + famille = 4 principes des soins post-mortem."},
+
+  // COMMUNICATION
+  {type:"communication",titre:"Accompagnement d'une personne en fin de vie",situation:"Mme Martin, 92 ans, est en soins palliatifs. Elle sait qu'elle va mourir. Ce matin, lors de la toilette, elle vous dit : 'J'ai peur de mourir seule la nuit.'",etapes:["Arreter ce que vous faites et lui accorder toute votre attention","S'asseoir a cote d'elle, prendre sa main si elle le permet","Ecouter sans interrompre ni minimiser : 'Je vous entends'","Ne pas donner de fausses promesses : 'Je serai toujours avec vous'","Explorer sa peur : qu'est-ce qui l'angoisse le plus ?","Transmettre a l'IDE et a l'equipe : presence renforcee, visite palliative","Informer la famille si la patiente le souhaite","Tracer dans le dossier : paroles, ressenti, mesures prises"],alerte:"Ne jamais minimiser la peur de mourir. Ne jamais faire de fausses promesses sur la presence.",memo:"Ecoute active + presence + transmission equipe + famille = accompagnement palliatif AS."},
+  {type:"communication",titre:"Relation avec une famille en detresse",situation:"La fille de M. Petit, 88 ans, vous interpelle dans le couloir en pleurant : 'Mon pere a maigri, il ne mange plus, vous ne faites rien !' Elle eleve la voix.",etapes:["Garder son calme, ne pas se justifier immediatement","Proposer un endroit calme et prive : 'Venez, on va s'asseoir'","Laisser la famille exprimer sa detresse sans l'interrompre","Reconnaitre son inquietude : 'Je comprends que vous etes tres inquiete'","Expliquer ce qui est fait sans rentrer dans les details medicaux","Orienter vers l'IDE ou le medecin pour les questions medicales","Transmettre l'echange a l'equipe dans le dossier"],alerte:"Ne jamais repondre aux accusations en public ni donner d'informations medicales. Orienter vers l'IDE.",memo:"Calme + lieu prive + ecoute + validation + orientation IDE = gestion de famille en detresse."},
+  {type:"communication",titre:"Personne refusant les soins par peur",situation:"M. Dupont, 75 ans, refuse sa toilette ce matin. Il dit avoir peur de tomber. Il n'a pas ete lave depuis 2 jours. Vous devez trouver une solution.",etapes:["Accueillir la peur sans la minimiser : 'Je comprends que vous avez peur'","Explorer la peur : qu'est-ce qui lui fait peur exactement ?","Expliquer les mesures de securite : siege de douche, barre d'appui, presence","Proposer des alternatives : toilette au lit, debarbouillage partiel","Ne jamais forcer - un refus est un droit","Transmettre a l'IDE : refus, raison, solution proposee, hygiene","Elaborer avec l'equipe une strategie pour les prochains soins"],alerte:"Forcer un soin = maltraitance. Le refus doit etre respecte et transmis. L'equipe cherche des solutions ensemble.",memo:"Ecoute + alternatives + respect du refus + transmission equipe = approche bientraitante."},
+  {type:"communication",titre:"Signalement d'une suspicion de maltraitance",situation:"Lors de la toilette de Mme Lebrun, 82 ans, vous observez des hematomes a differents stades sur les bras et les cuisses. Elle refuse d'en parler et semble effrayee.",etapes:["Ne pas interroger la personne directement - risque de la mettre en danger","Observer et noter precisement : localisation, taille, couleur des hematomes","Ne pas promettre de garder le secret","Signaler immediatement et confidentiellement a l'IDE et au cadre de sante","Ne pas confronter la personne ou la famille suspectee","L'AS n'enquete pas - il observe et transmet","Tracer les observations objectives dans le dossier sans interpretations"],alerte:"Suspicion de maltraitance = signalement immediat obligatoire. L'AS ne gere pas seul. Il observe et transmet.",memo:"Observer + noter objectivement + signaler IDE/cadre + ne pas promettre le secret + ne pas confronter."},
+
+  // URGENCES
+  {type:"urgence",titre:"Chute d'une personne agee en EHPAD",situation:"Vous entendez un bruit dans la chambre de M. Bernard, 83 ans. En entrant vous le trouvez au sol entre son lit et la fenetre. Il est conscient et se plaint de la hanche droite.",etapes:["Ne pas le relever seul - risque de fracture","Evaluer : conscience, douleur, deformation, saignement, capacite a bouger","Appeler a l'aide et alerter l'IDE immediatement","Rester aupres de lui, le rassurer, le couvrir pour eviter le refroidissement","Ne pas donner a boire ou manger en attendant le medecin","Surveiller : conscience, couleur, douleur, pouls si possible","Remplir la fiche d'evenement indesirable","Tracer dans le dossier : heure, circonstances, etat clinique"],alerte:"Ne JAMAIS relever seul un patient chute. Fracture du col femoral = chirurgie en urgence possible.",memo:"NE PAS RELEVER + appeler IDE + surveiller + couvrir + fiche evenement indesirable."},
+  {type:"urgence",titre:"Personne qui s'etouffe pendant le repas",situation:"Vous aidez M. Petit, 79 ans, a manger. Il tousse violemment, devient rouge puis bleu, et ne peut plus parler ni respirer. Il porte ses mains a sa gorge.",etapes:["Reconnaitre le signe universel de l'etouffement : mains a la gorge, incapacite a parler","Appeler a l'aide immediatement en criant","Si adulte conscient : manoeuvre de Heimlich - 5 compressions abdominales","Alterner 5 claques dans le dos et 5 compressions abdominales","Si perte de conscience : allonger et debuter la RCP - appeler le 15","Ne jamais faire de balayage digital a l'aveugle dans la bouche","Continuer jusqu'a liberation des voies ou arrivee des secours"],alerte:"Obstruction complete des voies aeriennes = urgence vitale absolue. Heimlich immediat sans attendre.",memo:"Signe universel + Heimlich (5 claques dos + 5 compressions) + appel 15 si perte conscience."},
+  {type:"urgence",titre:"Patient qui ne repond plus a votre appel",situation:"Vous entrez dans la chambre de Mme Martin, 75 ans, pour lui apporter son plateau repas. Vous la trouvez assise dans son fauteuil, les yeux fermes, elle ne repond pas quand vous l'appelez.",etapes:["Stimuler verbalement et doucement : 'Madame Martin, vous m'entendez ?'","Stimuler physiquement : secouer les epaules delicatement","Si pas de reponse : appeler a l'aide IMMEDIATEMENT - crier ou sonner","Verifier la respiration : regarder, ecouter, sentir pendant 10 secondes maximum","Si respiration absente : appel 15 et debut de la RCP","Si respiration presente : position laterale de securite (PLS)","Rester aupres d'elle jusqu'a l'arrivee de l'IDE ou des secours"],alerte:"Toute perte de conscience = urgence. Ne pas laisser seul. RCP si pas de respiration. PLS si respiration presente.",memo:"Stimuler + appeler aide + verifier respiration + RCP si absent + PLS si present + rester present."},
+  {type:"urgence",titre:"Hypoglycemie chez un patient diabetique",situation:"M. Durand, 65 ans, diabetique insulino-dependant, vous appelle. Il est pale, en sueurs, tremble et semble confus. Il dit se sentir 'bizarre'.",etapes:["Reconnaitre les signes d'hypoglycemie : paleur, sueurs, tremblements, confusion","Appeler l'IDE immediatement - ne pas agir seul sur le traitement","Si l'IDE est disponible rapidement : ne rien donner en attendant","Si l'IDE demande : donner 3 sucres ou jus de fruit si patient conscient et peut deglutir","Ne jamais donner a manger ou boire si confusion importante ou trouble de deglutition","Rester aupres du patient, le surveiller, le rassurer","Surveiller la conscience et alerter si aggravation"],alerte:"Hypoglycemie severe avec confusion = appel IDE immediat. Ne pas donner sucre si trouble de conscience.",memo:"Reconnaitre les signes + appel IDE + ne rien donner sans accord IDE + surveiller + ne pas laisser seul."},
+];
+
+var currentTip = null;
+var chronoInterval = null;
+var chronoTotal = 180;
+var chronoRestant = 180;
+
+function tirerAuSort(filtre){
+  var pool = filtre ? TIPS.filter(function(t){ return t.type === filtre; }) : TIPS;
+  var tip = pool[Math.floor(Math.random() * pool.length)];
+  afficherSujet(tip);
+  document.getElementById('tips-liste').classList.remove('show');
+}
+
+function afficherSujet(tip){
+  currentTip = tip;
+  stopChrono();
+  var labels = {quotidien:'🏠 Vie quotidienne', soin:'💊 Soin AS', communication:'💬 Communication', urgence:'🚨 Urgence'};
+  document.getElementById('tip-type-badge').textContent = labels[tip.type];
+  document.getElementById('tip-type-badge').className = 'tip-type ' + tip.type;
+  document.getElementById('tip-title').textContent = tip.titre;
+  document.getElementById('tip-situation').textContent = tip.situation;
+  document.getElementById('reponse-etudiant').value = '';
+  document.getElementById('loterie-screen').style.display = 'none';
+  document.getElementById('sujet-card').className = 'sujet-card show';
+  document.getElementById('reponse-wrap').className = 'reponse-wrap show';
+  document.getElementById('correction-wrap').className = 'correction-wrap';
+  document.getElementById('chrono-wrap').style.display = 'block';
+  demarrerChrono();
+  window.scrollTo(0, 0);
+}
+
+function demarrerChrono(){
+  chronoRestant = chronoTotal;
+  updateChronoDisplay();
+  chronoInterval = setInterval(function(){
+    chronoRestant--;
+    updateChronoDisplay();
+    if(chronoRestant <= 0) stopChrono();
+  }, 1000);
+}
+
+function stopChrono(){
+  if(chronoInterval) clearInterval(chronoInterval);
+  chronoInterval = null;
+}
+
+function updateChronoDisplay(){
+  var min = Math.floor(chronoRestant / 60);
+  var sec = chronoRestant % 60;
+  document.getElementById('chrono-display').textContent = min + ':' + (sec < 10 ? '0' : '') + sec;
+  document.getElementById('chrono-display').className = 'chrono' + (chronoRestant <= 30 ? ' urgent' : '');
+  var pct = Math.round(chronoRestant / chronoTotal * 100);
+  document.getElementById('chrono-fill').style.width = pct + '%';
+  document.getElementById('chrono-fill').className = 'chrono-fill' + (chronoRestant <= 30 ? ' urgent' : '');
+}
+
+async function voirCorrection(){
+  stopChrono();
+  var reponse = document.getElementById('reponse-etudiant').value.trim();
+  document.getElementById('correction-wrap').className = 'correction-wrap show';
+  document.getElementById('reponse-wrap').className = 'reponse-wrap';
+  document.getElementById('chrono-wrap').style.display = 'none';
+  afficherEtapes();
+  document.getElementById('analyse-texte').innerHTML = '<div class="loading"><span>Analyse de votre reponse en cours...</span></div>';
+
+  if(!reponse){
+    document.getElementById('analyse-texte').textContent = "Vous n'avez pas fourni de reponse. Consultez la correction ci-dessous.";
+    return;
+  }
+
+  try {
+    var prompt = "Tu es un formateur expert en formation d'Aides-Soignants (DEAS, arrete du 10 juin 2021). " +
+      "Un etudiant AS vient de repondre a un sujet d'entrainement pour son epreuve de certification. " +
+      "\n\nSujet : " + currentTip.titre +
+      "\nSituation : " + currentTip.situation +
+      "\nReponse attendue : " + currentTip.etapes.join(' / ') +
+      "\n\nReponse de l'etudiant : " + reponse +
+      "\n\nDonne un retour pedagogique en 3 parties :" +
+      "\n1. Ce que l'etudiant a bien identifie (points positifs)" +
+      "\n2. Ce qui manque ou est incorrect selon le referentiel DEAS (points a ameliorer)" +
+      "\n3. Un conseil pratique pour l'epreuve DEAS" +
+      "\nSois bienveillant, precis et concis. Maximum 200 mots. Ecris en francais simple.";
+
+    var response = await fetch("https://uhbbwtxmsomqhuvzvoxy.supabase.co/functions/v1/analyse-reponse", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({prompt: prompt})
+    });
+
+    var data = await response.json();
+    document.getElementById('analyse-texte').textContent = data.texte || "Analyse indisponible.";
+  } catch(err) {
+    document.getElementById('analyse-texte').textContent = "Analyse indisponible. Consultez la correction ci-dessous.";
+  }
+  window.scrollTo(0, 0);
+}
+
+function passerDirectement(){
+  stopChrono();
+  document.getElementById('correction-wrap').className = 'correction-wrap show';
+  document.getElementById('reponse-wrap').className = 'reponse-wrap';
+  document.getElementById('chrono-wrap').style.display = 'none';
+  document.getElementById('analyse-texte').textContent = "Vous avez choisi de voir directement la correction.";
+  afficherEtapes();
+  window.scrollTo(0, 0);
+}
+
+function afficherEtapes(){
+  var etapesEl = document.getElementById('etapes-correction');
+  etapesEl.innerHTML = '';
+  var colors = {quotidien:'', soin:'green', communication:'purple', urgence:'red'};
+  var color = colors[currentTip.type] || '';
+  currentTip.etapes.forEach(function(e, i){
+    var div = document.createElement('div');
+    div.className = 'etape-item';
+    div.innerHTML = '<span class="etape-num ' + color + '">' + (i+1) + '</span><span>' + e + '</span>';
+    etapesEl.appendChild(div);
+  });
+  var alertEl = document.getElementById('correction-alert');
+  alertEl.textContent = currentTip.alerte ? '⚠️ ' + currentTip.alerte : '';
+  alertEl.style.display = currentTip.alerte ? 'block' : 'none';
+  var memoEl = document.getElementById('correction-memo');
+  memoEl.textContent = currentTip.memo ? '💡 ' + currentTip.memo : '';
+  memoEl.style.display = currentTip.memo ? 'block' : 'none';
+}
+
+function nouveauTirage(){
+  stopChrono();
+  document.getElementById('loterie-screen').style.display = 'block';
+  document.getElementById('sujet-card').className = 'sujet-card';
+  document.getElementById('reponse-wrap').className = 'reponse-wrap';
+  document.getElementById('correction-wrap').className = 'correction-wrap';
+  document.getElementById('chrono-wrap').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function toggleListe(){
+  var liste = document.getElementById('tips-liste');
+  if(liste.classList.contains('show')){ liste.classList.remove('show'); return; }
+  liste.innerHTML = '';
+  var labels = {quotidien:'🏠', soin:'💊', communication:'💬', urgence:'🚨'};
+  TIPS.forEach(function(tip){
+    var item = document.createElement('div');
+    item.className = 'liste-item';
+    item.innerHTML = '<span style="font-size:16px">' + labels[tip.type] + '</span><span>' + tip.titre + '</span>';
+    item.onclick = function(){ afficherSujet(tip); };
+    liste.appendChild(item);
+  });
+  liste.classList.add('show');
+}
+
+document.addEventListener('click', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+document.addEventListener('keypress', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+</script>
+</body>
+</html>
