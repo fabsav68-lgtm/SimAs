@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SimSoins · Module 04 DEAS</title>
+<meta name="theme-color" content="#080c14">
+<style>
+:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#40c878;--amber:#e8a030;--red:#e84040;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;}
+.header{background:linear-gradient(135deg,rgba(64,200,120,.15),rgba(64,200,120,.05));border:1px solid rgba(64,200,120,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
+.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}
+h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}
+.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}
+.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}
+.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}
+.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}
+.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}
+.fiche ul{list-style:none;padding:0;}
+.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}
+.fiche ul li:last-child{border-bottom:none;}
+.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}
+.fiche p{font-size:12px;color:var(--txt2);line-height:1.6;}
+.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}
+.memo{background:rgba(64,200,120,.06);border:1px solid rgba(64,200,120,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}
+.stade{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);}
+.stade:last-child{border-bottom:none;}
+.stade-badge{min-width:60px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;text-align:center;font-family:monospace;}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(64,200,120,.1);color:var(--em);border:1px solid rgba(64,200,120,.2);margin:2px;}
+.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}
+</style>
+</head>
+<body>
+<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
+
+<div class="header">
+  <div class="module-num">MODULE 04 · BLOC 2 · 182 heures</div>
+  <h1>SimSoins</h1>
+  <div class="module-info">Mise en oeuvre des soins adaptes - Module specifique AS</div>
+</div>
+
+<!-- PREVENTION ESCARRES -->
+<div class="section">
+  <h2>🛡️ Prevention et surveillance des escarres</h2>
+  <div class="fiche">
+    <h3>Stades de l'escarre</h3>
+    <div class="stade"><span class="stade-badge" style="background:rgba(232,168,48,.2);color:#e8a030">Stade 1</span><span style="font-size:12px">Rougeur persistante NON blanchissante a la pression. Peau integre.</span></div>
+    <div class="stade"><span class="stade-badge" style="background:rgba(232,96,48,.2);color:#e86030">Stade 2</span><span style="font-size:12px">Phlyctene (cloque) ou erosion superficielle. Peau abimee.</span></div>
+    <div class="stade"><span class="stade-badge" style="background:rgba(232,64,48,.2);color:#e84030">Stade 3</span><span style="font-size:12px">Perte de substance jusqu'au muscle. Plaie profonde.</span></div>
+    <div class="stade"><span class="stade-badge" style="background:rgba(160,48,48,.2);color:#a03030">Stade 4</span><span style="font-size:12px">Atteinte osseuse, tendineuse ou articulaire. Stade severe.</span></div>
+  </div>
+  <div class="fiche">
+    <h3>Prevention - role AS</h3>
+    <ul>
+      <li>Repositionnement toutes les 2 heures maximum</li>
+      <li>Verifier les points d'appui a chaque soin : sacrum, talons, omoplates, coudes</li>
+      <li>Coussins de decharge aux points de pression</li>
+      <li>Matelas anti-escarres selon prescription</li>
+      <li>Hydrater la peau : creme hydratante apres la toilette</li>
+      <li>Surveiller la nutrition et l'hydratation</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ Ne JAMAIS masser une zone rouge. Le massage favorise les lesions. Stade 1 = signaler IDE IMMEDIAT + supprimer l'appui.</div>
+  <div class="memo">💡 Echelle de Braden : evalue le risque d'escarre. Score faible = risque eleve. L'AS participe a la surveillance et a la prevention.</div>
+</div>
+
+<!-- AIDE MEDICAMENTS -->
+<div class="section">
+  <h2>💊 Aide a la prise des medicaments</h2>
+  <div class="fiche">
+    <h3>Role de l'AS dans l'aide medicamenteuse</h3>
+    <ul>
+      <li>L'AS AIDE a la prise - il n'administre pas</li>
+      <li>Les medicaments sont prepares par l'IDE dans le pilulier</li>
+      <li>Verifier que la personne avale bien chaque comprime</li>
+      <li>Ne jamais ecraser sans prescription ecrite du medecin</li>
+      <li>Respecter l'heure de prise prescrite</li>
+      <li>Tracer la prise effectuee dans le dossier</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Situations necessitant l'appel IDE immediat</h3>
+    <ul>
+      <li>Refus du patient de prendre les medicaments</li>
+      <li>Doute sur l'identite ou la dose du medicament</li>
+      <li>Patient vomit apres la prise</li>
+      <li>Signe inhabituel apres la prise</li>
+      <li>Comprime casse ou pilulier mal rempli</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ L'AS n'administre PAS les medicaments. Aide a la prise ≠ administration. Tout doute = appel IDE. Ne jamais forcer.</div>
+</div>
+
+<!-- SOINS DE BOUCHE -->
+<div class="section">
+  <h2>👄 Soins de bouche</h2>
+  <div class="fiche">
+    <h3>Patient conscient - brossage</h3>
+    <ul>
+      <li>Materiel : brosse a dents souple, dentifrice, verre d'eau, haricot</li>
+      <li>Brosser de la gencive vers la dent, toutes faces</li>
+      <li>Nettoyer la langue, le palais, les joues</li>
+      <li>Rincer abondamment</li>
+      <li>Nettoyer et ranger le dentier si besoin</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Patient inconscient ou a risque</h3>
+    <ul>
+      <li>Position laterale ou tete tournee - JAMAIS allonge face en haut</li>
+      <li>Aspirer les secretions si necessaire avant le soin</li>
+      <li>Compresse humide ou baton mousse selon protocole</li>
+      <li>Nettoyer dents, langue, joues, gencives</li>
+      <li>Hydrater les levres : vaseline ou baume</li>
+      <li>Observer : muguet, stomatite, saignement</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ Patient inconscient : jamais de liquide en quantite. Position laterale obligatoire. Risque majeur de fausse route.</div>
+</div>
+
+<!-- SOINS POST-MORTEM -->
+<div class="section">
+  <h2>🕊️ Soins post-mortem</h2>
+  <div class="fiche">
+    <h3>Principes et etapes</h3>
+    <ul>
+      <li>Deces constate par le medecin OBLIGATOIREMENT avant tout soin</li>
+      <li>Respecter les croyances religieuses et culturelles</li>
+      <li>Fermer les yeux et la bouche delicatement</li>
+      <li>Laver et habiller avec dignite</li>
+      <li>Retirer les appareillages sur prescription (sonde, perfusion)</li>
+      <li>Installer dans une position digne : bras le long du corps</li>
+      <li>Identifier le defunt : bracelet d'identification</li>
+      <li>Accompagner la famille avec bienveillance</li>
+    </ul>
+  </div>
+  <div class="memo">💡 Dignite + respect des croyances + identification + accompagnement famille = 4 piliers des soins post-mortem.</div>
+</div>
+
+<!-- STOMIES -->
+<div class="section">
+  <h2>🔄 Surveillance des stomies</h2>
+  <div class="fiche">
+    <h3>Role AS dans la surveillance</h3>
+    <ul>
+      <li>Observer l'aspect de la stomie : couleur, relief, odeur</li>
+      <li>Observer la peau peristomiale : rougeur, irritation, maceration</li>
+      <li>Signaler toute anomalie a l'IDE avant le change</li>
+      <li>Changer la poche quand pleine aux 2/3 maximum</li>
+      <li>Nettoyer la peau a l'eau tiede et secher soigneusement</li>
+      <li>Ne jamais appliquer de creme sans prescription</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ Stomie noire ou bleutee = necrose = urgence absolue. Appeler l'IDE immediatement.</div>
+</div>
+
+<!-- MOTS CLES -->
+<div class="section">
+  <h2>🏷️ Mots cles du module</h2>
+  <div style="padding:8px 0">
+    <span class="tag">Escarre</span>
+    <span class="tag">Braden</span>
+    <span class="tag">Repositionnement</span>
+    <span class="tag">Aide medicamenteuse</span>
+    <span class="tag">Pilulier</span>
+    <span class="tag">Soin de bouche</span>
+    <span class="tag">Post-mortem</span>
+    <span class="tag">Stomie</span>
+    <span class="tag">Peristomiale</span>
+    <span class="tag">Protocole</span>
+    <span class="tag">Transmission IDE</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('click', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+</script>
+</body>
+</html>
