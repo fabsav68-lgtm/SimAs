@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SimVieQuotidienne · Module 01 DEAS</title>
+<meta name="theme-color" content="#080c14">
+<style>
+:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#60a8f8;--amber:#e8a030;--red:#e84040;--green:#40c878;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;}
+.header{background:linear-gradient(135deg,rgba(96,168,248,.15),rgba(96,168,248,.05));border:1px solid rgba(96,168,248,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
+.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}
+h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}
+.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}
+.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}
+.section h2{font-size:14px;color:var(--em);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.competence{padding:10px 12px;border-bottom:1px solid var(--bdr);font-size:13px;display:flex;gap:10px;align-items:flex-start;}
+.competence:last-child{border-bottom:none;}
+.comp-num{background:rgba(96,168,248,.15);color:var(--em);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}
+.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}
+.fiche p{font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:6px;}
+.fiche ul{list-style:none;padding:0;}
+.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}
+.fiche ul li:last-child{border-bottom:none;}
+.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}
+.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}
+.memo{background:rgba(96,168,248,.06);border:1px solid rgba(96,168,248,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(96,168,248,.1);color:var(--em);border:1px solid rgba(96,168,248,.2);margin:2px;}
+.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}
+</style>
+</head>
+<body>
+<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
+
+<div class="header">
+  <div class="module-num">MODULE 01 · BLOC 1 · 147 heures</div>
+  <h1>SimVieQuotidienne</h1>
+  <div class="module-info">Accompagnement dans les activites de la vie quotidienne et sociale</div>
+</div>
+
+<!-- COMPETENCES -->
+<div class="section">
+  <h2>🎯 Competences du module</h2>
+  <div class="competence"><span class="comp-num">1</span><span>Accompagner les personnes dans les actes essentiels de la vie quotidienne en personnalisant l'accompagnement</span></div>
+  <div class="competence"><span class="comp-num">2</span><span>Identifier les situations a risque lors de l'accompagnement et mettre en oeuvre les actions de prevention</span></div>
+  <div class="competence"><span class="comp-num">3</span><span>Mettre en oeuvre les activites d'accompagnement a la vie sociale</span></div>
+  <div class="competence"><span class="comp-num">4</span><span>Adapter la communication avec la personne, les aidants et les autres professionnels</span></div>
+  <div class="competence"><span class="comp-num">5</span><span>Aider et accompagner les aidants dans leur role</span></div>
+</div>
+
+<!-- AIDE A LA TOILETTE -->
+<div class="section">
+  <h2>🚿 Aide a la toilette</h2>
+  <div class="fiche">
+    <h3>Principes fondamentaux</h3>
+    <ul>
+      <li>Frapper, se presenter, expliquer le soin et obtenir le consentement</li>
+      <li>Respecter la pudeur : fermer la porte, couvrir ce qui n'est pas lave</li>
+      <li>Du propre au sale, du haut vers le bas</li>
+      <li>Laisser faire ce que la personne peut faire seule - stimuler l'autonomie</li>
+      <li>Observer l'etat cutane : rougeurs, plaies, escarres</li>
+      <li>Transmettre les observations a l'IDE</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Ordre de la toilette</h3>
+    <ul>
+      <li>Visage, yeux (exterieur vers interieur), oreilles, nez</li>
+      <li>Cou, thorax, membres superieurs</li>
+      <li>Abdomen, membres inferieurs</li>
+      <li>Dos (en lateralisant)</li>
+      <li>Parties genitales en dernier (zone la plus contaminee)</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ La toilette genitale se fait toujours EN DERNIER avec un gant propre. Chez la femme : de l'avant vers l'arriere (uretral vers anal).</div>
+  <div class="memo">💡 Principe d'autonomie : ne jamais faire A LA PLACE ce que la personne peut faire AVEC.</div>
+</div>
+
+<!-- AIDE A L'ALIMENTATION -->
+<div class="section">
+  <h2>🍽️ Aide a l'alimentation</h2>
+  <div class="fiche">
+    <h3>Installation indispensable</h3>
+    <ul>
+      <li>Position assise a 90 degres OBLIGATOIRE - jamais allonge</li>
+      <li>Tete legerement flechie en avant (pas en hyperextension)</li>
+      <li>Table a hauteur adaptee</li>
+      <li>Environnement calme, sans distraction</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Textures adaptees (selon prescription)</h3>
+    <ul>
+      <li>Normal : pas de modification</li>
+      <li>Hache : viandes hachees, legumes coupes</li>
+      <li>Mixe : consistance homogene, lisse</li>
+      <li>Liquides epaissis : neссaire si troubles de deglutition</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Surveillance pendant le repas</h3>
+    <ul>
+      <li>Signe de fausse route : toux pendant/apres ingestion</li>
+      <li>Voix gargouillante apres deglutition</li>
+      <li>Regard inquiet, difficulte a avaler</li>
+      <li>Si fausse route : arreter, position laterale, appeler IDE</li>
+    </ul>
+  </div>
+  <div class="alert">⚠️ Fausse route = urgence. Toux persistante apres ingestion = arreter et appeler l'IDE immediatement. Ne jamais donner a boire pour "faire passer".</div>
+</div>
+
+<!-- AIDE A L'ELIMINATION -->
+<div class="section">
+  <h2>🚽 Aide a l'elimination</h2>
+  <div class="fiche">
+    <h3>Urines - surveillance</h3>
+    <ul>
+      <li>Quantite : normale 1 a 1,5 L/jour</li>
+      <li>Couleur : jaune pale a ambre (foncee = deshydratation)</li>
+      <li>Odeur : legere (forte = infection possible)</li>
+      <li>Aspect : clair (trouble = infection, hematurie)</li>
+      <li>Transmettre toute anomalie a l'IDE</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Selles - surveillance</h3>
+    <ul>
+      <li>Frequence normale : 3/jour a 3/semaine</li>
+      <li>Consistance : ni trop dure, ni liquide</li>
+      <li>Couleur : brun (noire = saignement haut, rouge = saignement bas)</li>
+      <li>Signaler : constipation > 3 jours, diarrhee, sang</li>
+    </ul>
+  </div>
+  <div class="memo">💡 Protections : changer des que souilee. Maceration = risque d'escarre et d'infection. Observer la peau a chaque change.</div>
+</div>
+
+<!-- AIDE AU SOMMEIL -->
+<div class="section">
+  <h2>😴 Aide au sommeil et au repos</h2>
+  <div class="fiche">
+    <h3>Favoriser le sommeil</h3>
+    <ul>
+      <li>Respecter les rituels du coucher de la personne</li>
+      <li>Chambre calme, obscure, temperature adaptee (18-20 degres)</li>
+      <li>Limiter les soins la nuit au strict necessaire</li>
+      <li>Proposer une boisson chaude si habitude</li>
+      <li>Signaler les troubles du sommeil a l'IDE</li>
+    </ul>
+  </div>
+</div>
+
+<!-- VIE SOCIALE -->
+<div class="section">
+  <h2>🤝 Accompagnement a la vie sociale</h2>
+  <div class="fiche">
+    <h3>Maintien du lien social</h3>
+    <ul>
+      <li>Encourager les visites de la famille et des amis</li>
+      <li>Proposer des activites adaptees aux capacites</li>
+      <li>Faciliter l'acces aux activites collectives en EHPAD</li>
+      <li>Respecter les choix et les envies de la personne</li>
+      <li>Eviter l'isolement : parler pendant les soins</li>
+    </ul>
+  </div>
+  <div class="fiche">
+    <h3>Accompagnement des aidants</h3>
+    <ul>
+      <li>Reconnaitre leur role et leur investissement</li>
+      <li>Les inclure dans les soins si ils le souhaitent</li>
+      <li>Les informer sur les ressources disponibles</li>
+      <li>Alerter l'equipe si l'aidant semble epuise</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MOTS CLES -->
+<div class="section">
+  <h2>🏷️ Mots cles du module</h2>
+  <div style="padding:8px 0">
+    <span class="tag">Autonomie</span>
+    <span class="tag">Pudeur</span>
+    <span class="tag">Dignite</span>
+    <span class="tag">Bientraitance</span>
+    <span class="tag">Projet de vie</span>
+    <span class="tag">Stimulation</span>
+    <span class="tag">Observation</span>
+    <span class="tag">Transmission</span>
+    <span class="tag">Fausse route</span>
+    <span class="tag">Texture adaptee</span>
+    <span class="tag">Diurese</span>
+    <span class="tag">Lien social</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('click', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+</script>
+</body>
+</html>
