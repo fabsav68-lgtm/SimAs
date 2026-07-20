@@ -1,8 +1,444 @@
-<div class="module-card" onclick="ouvrirModule('PraxisMobilite-AS.html')" style="border-color:rgba(232,168,64,.2)">
-  <div class="module-num">MODULE 11</div>
-  <div class="module-icon">🤲</div>
-  <div class="module-name" style="color:#e8a840">PraxisMobilité</div>
-  <div class="module-sub">ALM - Accompagner La Mobilité - Bloc 1</div>
-  <div class="module-desc">Aides techniques, transfert lit-fauteuil, espace CANTOU - la bonne aide pour ce résident.</div>
-  <div class="module-btn" style="background:rgba(232,168,64,.1);color:#e8a840;border-color:rgba(232,168,64,.3)">Ouvrir</div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PraxisMobilité · SimAs</title>
+<meta name="theme-color" content="#04090f">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#04090f;color:#e8edf2;font-family:system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+body{min-height:100%;padding-bottom:60px}
+header{padding:20px 20px 8px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07)}
+header h1{font-family:Georgia,serif;font-size:26px;font-weight:300;letter-spacing:-1px}
+header h1 strong{font-weight:700;color:#e8a840}
+header p{font-size:12px;color:#5a7080;margin-top:4px}
+.tabs{display:flex;gap:6px;padding:12px 12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{flex:1;min-width:90px;padding:10px 6px;border-radius:10px 10px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:none;background:rgba(255,255,255,.03);color:#5a7080;font-size:11px;font-weight:700;text-align:center;cursor:pointer;white-space:nowrap}
+.tab.active{background:rgba(232,168,64,.12);color:#e8a840;border-color:rgba(232,168,64,.3)}
+.panel{display:none;padding:16px;max-width:640px;margin:0 auto}
+.panel.active{display:block}
+h2{font-family:Georgia,serif;font-size:19px;font-weight:400;margin:14px 0 10px;color:#e8a840}
+h2.violet{color:#b8a0e8}
+.intro{font-size:13px;color:#8fa4b3;line-height:1.7;margin-bottom:14px}
+.niveau{margin-bottom:18px;border-left:3px solid;border-radius:0 12px 12px 0;background:rgba(255,255,255,.03);padding:12px 14px}
+.niveau h3{font-size:14px;margin-bottom:8px}
+.aide{margin-bottom:10px}
+.aide b{font-size:13px;display:block}
+.aide span{font-size:12px;color:#8fa4b3;line-height:1.6}
+.vigilance{font-size:11px;color:#e8a840;background:rgba(232,168,64,.08);border-radius:6px;padding:6px 8px;margin-top:4px;display:block}
+.etape{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:14px}
+.etape-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:6px}
+.etape h3{font-size:15px;color:#e8edf2;margin-bottom:8px}
+.etape svg{display:block;margin:8px auto;background:rgba(255,255,255,.02);border-radius:8px}
+.etape p{font-size:13px;color:#8fa4b3;line-height:1.65}
+.prap{margin-top:8px;font-size:12px;color:#5ecb7a;background:rgba(94,203,122,.08);border-radius:6px;padding:7px 9px}
+.prap b{color:#5ecb7a}
+.qcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:14px}
+.qcard .profil{font-size:13px;line-height:1.65;color:#e8edf2;margin-bottom:12px}
+.qcard .profil b{color:#e8a840}
+.opt{display:block;width:100%;text-align:left;padding:11px 12px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e8edf2;font-size:13px;cursor:pointer}
+.opt.good{background:rgba(94,203,122,.15);border-color:#5ecb7a;color:#5ecb7a}
+.opt.bad{background:rgba(232,64,64,.12);border-color:#e84040;color:#e88a8a}
+.explic{display:none;font-size:12px;line-height:1.65;color:#8fa4b3;background:rgba(255,255,255,.04);border-radius:8px;padding:10px;margin-top:6px}
+.explic.show{display:block}
+.score-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(4,9,15,.95);border-top:1px solid rgba(255,255,255,.1);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.score-bar span{font-size:12px;color:#5a7080}
+.score-bar b{color:#e8a840;font-size:15px}
+.btn-retour{background:none;border:1px solid rgba(255,255,255,.15);color:#8fa4b3;padding:6px 14px;border-radius:16px;font-size:12px;cursor:pointer}
+.cantou-bloc{background:rgba(184,160,232,.06);border:1px solid rgba(184,160,232,.2);border-radius:12px;padding:14px;margin-bottom:14px}
+.cantou-bloc h3{font-size:14px;color:#b8a0e8;margin-bottom:8px}
+.cantou-bloc ul{list-style:none}
+.cantou-bloc li{font-size:13px;color:#c8d2da;line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.cantou-bloc li::before{content:'›';position:absolute;left:0;color:#b8a0e8}
+.jamais{background:rgba(232,64,64,.07);border-color:rgba(232,64,64,.25)}
+.jamais h3{color:#e88a8a}
+.jamais li::before{color:#e88a8a;content:'✕';font-size:10px;top:3px}
+.reset{display:block;margin:10px auto 30px;background:none;border:1px solid rgba(255,255,255,.12);color:#5a7080;padding:8px 18px;border-radius:8px;font-size:12px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Praxis<strong>Mobilité</strong></h1>
+  <p>SimAs · ALM — Accompagner La Mobilité · Module 05 · Bloc 1 · 35 h</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="go('aides',this)">🛠️ Aides techniques</div>
+  <div class="tab" onclick="go('scenette',this)">🎬 Scénette</div>
+  <div class="tab" onclick="go('quiz',this)">🎯 Quiz</div>
+  <div class="tab" onclick="go('cantou',this)">🧠 Espace CANTOU</div>
 </div>
+
+<!-- ================= AIDES TECHNIQUES ================= -->
+<div class="panel active" id="aides">
+  <p class="intro">La bonne aide technique dépend d'une seule question : <b style="color:#e8a840">que peut faire le résident ?</b> Évaluez toujours avant de choisir. Sur-assister accélère la perte d'autonomie ; sous-assister met tout le monde en danger.</p>
+
+  <div class="niveau" style="border-color:#e84040">
+    <h3 style="color:#e88a8a">Dépendance totale — aucune participation</h3>
+    <div class="aide"><b>Lève-personne mobile (avec sangle)</b>
+      <span>Transferts lit-fauteuil des résidents grabataires. Vérifier l'état de la sangle et sa taille avant chaque usage.</span>
+      <span class="vigilance">⚠ Toujours à 2 soignants. Jamais seul, même « pour aller vite ».</span></div>
+    <div class="aide"><b>Rail plafonnier</b>
+      <span>Même principe, fixé au plafond. Présent dans les chambres dédiées des établissements récents.</span></div>
+    <div class="aide"><b>Drap de glisse / alèse de glissement</b>
+      <span>Rehaussement et retournement au lit sans porter. Le geste le plus fréquent de la journée d'une AS.</span></div>
+  </div>
+
+  <div class="niveau" style="border-color:#e8a840">
+    <h3 style="color:#e8a840">Participation partielle — appui possible sur les jambes</h3>
+    <div class="aide"><b>Verticalisateur</b>
+      <span>Le résident tient debout quelques secondes avec appui et peut agripper les poignées.</span>
+      <span class="vigilance">⚠ La frontière clé : s'il se verticalise, le lève-personne est de la sur-assistance.</span></div>
+    <div class="aide"><b>Disque de transfert pivotant</b>
+      <span>Au sol pour pivoter un résident debout, ou sur l'assise pour faciliter la rotation.</span></div>
+    <div class="aide"><b>Guidon de transfert</b>
+      <span>Le résident se hisse et pivote en s'agrippant au cadre. Idéal lit ↔ fauteuil ↔ toilettes.</span></div>
+    <div class="aide"><b>Ceinture de transfert</b>
+      <span>Prise sécurisée pour le soignant.</span>
+      <span class="vigilance">⚠ On ne tire jamais sur un bras ni sur les vêtements.</span></div>
+  </div>
+
+  <div class="niveau" style="border-color:#5ecb7a">
+    <h3 style="color:#5ecb7a">Participation active — marche possible</h3>
+    <div class="aide"><b>Planche de transfert</b>
+      <span>Le résident glisse seul du lit au fauteuil (hémiplégie stabilisée, paraplégie avec membres supérieurs toniques).</span></div>
+    <div class="aide"><b>Déambulateur / rollator, cannes, barres d'appui, potence de lit</b>
+      <span>Sécuriser la marche et les redressements autonomes. Surveiller, ne pas faire à la place.</span></div>
+  </div>
+
+  <div class="niveau" style="border-color:#40b0f8">
+    <h3 style="color:#40b0f8">L'environnement — la première aide technique</h3>
+    <div class="aide"><b>Lit médicalisé à hauteur variable</b>
+      <span>Régler la hauteur AVANT le geste : gratuit en effort, épargné pour votre dos.</span></div>
+    <div class="aide"><b>Chaise de douche, fauteuil coquille, coussin anti-glisse</b>
+      <span>Chaque pièce de l'établissement a ses aides dédiées. Les connaître, c'est les utiliser.</span></div>
+  </div>
+</div>
+
+<!-- ================= SCENETTE ================= -->
+<div class="panel" id="scenette">
+  <h2>Transfert lit → fauteuil</h2>
+  <p class="intro"><b style="color:#e8edf2">Mme R., 84 ans</b>, hémiparésie gauche. Tient debout quelques secondes avec appui, comprend les consignes. Aide retenue : <b style="color:#e8a840">verticalisation accompagnée avec ceinture de transfert</b>.</p>
+
+  <div class="etape">
+    <div class="etape-num">ÉTAPE 1 / 5</div>
+    <h3>Préparer l'environnement</h3>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <rect x="15" y="60" width="90" height="14" rx="3" fill="none" stroke="#40b0f8" stroke-width="2"/>
+      <line x1="25" y1="74" x2="25" y2="95" stroke="#40b0f8" stroke-width="2"/>
+      <line x1="95" y1="74" x2="95" y2="95" stroke="#40b0f8" stroke-width="2"/>
+      <path d="M140 55 v30 h35 v-18" fill="none" stroke="#e8a840" stroke-width="2"/>
+      <circle cx="147" cy="93" r="6" fill="none" stroke="#e8a840" stroke-width="2"/>
+      <circle cx="170" cy="93" r="6" fill="none" stroke="#e8a840" stroke-width="2"/>
+      <path d="M150 45 l-8 8 M150 45 l-8 -2" stroke="#5ecb7a" stroke-width="2" fill="none"/>
+      <text x="110" y="112" fill="#5a7080" font-size="9" text-anchor="middle">Fauteuil à 45° côté sain · freins serrés · lit à hauteur</text>
+    </svg>
+    <p>Fauteuil placé à 45° du <b style="color:#e8edf2">côté sain</b> (droit pour Mme R.), freins serrés, repose-pieds relevés. Lit remonté à hauteur de vos hanches. Prévenir : « Mme R., nous allons passer au fauteuil. »</p>
+    <div class="prap"><b>PRAP ›</b> Tout se règle AVANT de toucher la personne. Un fauteuil mal placé = un pivot rallongé = un dos qui trinque.</div>
+  </div>
+
+  <div class="etape">
+    <div class="etape-num">ÉTAPE 2 / 5</div>
+    <h3>Asseoir au bord du lit</h3>
+    <svg width="240" height="140" viewBox="0 0 240 140">
+      <line x1="10" y1="122" x2="230" y2="122" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+      <rect x="14" y="80" width="104" height="13" rx="4" fill="none" stroke="#40b0f8" stroke-width="2"/>
+      <line x1="24" y1="93" x2="24" y2="121" stroke="#40b0f8" stroke-width="2"/>
+      <line x1="108" y1="93" x2="108" y2="121" stroke="#40b0f8" stroke-width="2"/>
+      <circle cx="104" cy="36" r="9" fill="none" stroke="#e8edf2" stroke-width="2.5"/>
+      <line x1="104" y1="46" x2="104" y2="80" stroke="#e8edf2" stroke-width="6" stroke-linecap="round"/>
+      <line x1="104" y1="80" x2="126" y2="83" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="126" y1="83" x2="127" y2="114" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="121" y1="119" x2="137" y2="119" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="104" y1="57" x2="92" y2="74" stroke="#e8edf2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="176" cy="26" r="9" fill="none" stroke="#5ecb7a" stroke-width="2.5"/>
+      <line x1="176" y1="35" x2="171" y2="76" stroke="#5ecb7a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="171" y1="76" x2="152" y2="93" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="152" y1="93" x2="154" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="147" y1="119" x2="163" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="171" y1="76" x2="193" y2="98" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="193" y1="98" x2="198" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="192" y1="119" x2="208" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="174" y1="50" x2="144" y2="60" stroke="#5ecb7a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="142" cy="60" r="3.5" fill="#5ecb7a"/>
+      <text x="120" y="136" fill="#5a7080" font-size="9" text-anchor="middle">Pieds à plat au sol · soignant en fente, dos droit</text>
+    </svg>
+    <p>Roulement sur le côté puis redressement assis, jambes pendantes, <b style="color:#e8edf2">pieds à plat au sol</b>. Laisser 30 secondes assise : on guette le vertige (hypotension orthostatique).</p>
+    <div class="prap"><b>PRAP ›</b> Position en fente, dos droit, genoux fléchis. C'est le mouvement de vos jambes qui accompagne, jamais la traction de vos bras.</div>
+  </div>
+
+  <div class="etape" style="border-color:rgba(232,64,64,.25)">
+    <div class="etape-num">FOCUS VIGILANCE</div>
+    <h3 style="color:#e88a8a">Hypotension orthostatique</h3>
+    <p><b style="color:#e8edf2">Définition :</b> chute de la pression artérielle au lever supérieure à 20 mmHg (systolique).<br>
+    <b style="color:#e8edf2">Signes :</b> vertiges, vue trouble, jambes molles au moment du lever.<br>
+    <b style="color:#e8edf2">Prévention :</b> lever toujours progressif — assis au bord du lit d'abord, 30 secondes minimum.<br>
+    <b style="color:#e8edf2">Si signes :</b> recoucher immédiatement, surélever les jambes, prévenir l'IDE.</p>
+  </div>
+
+  <div class="etape">
+    <div class="etape-num">ÉTAPE 3 / 5</div>
+    <h3>Poser la ceinture, verrouiller la consigne</h3>
+    <p>Ceinture de transfert ajustée à la taille de Mme R. Consigne unique et simple : « À trois, vous poussez sur vos jambes. » Vos mains sur la ceinture — jamais sous les aisselles, jamais sur le bras hémiparétique.</p>
+    <div class="prap"><b>PRAP ›</b> La prise sous les aisselles luxe les épaules fragiles. La ceinture répartit l'effort et vous donne un point d'appui stable.</div>
+  </div>
+
+  <div class="etape">
+    <div class="etape-num">ÉTAPE 4 / 5</div>
+    <h3>Verticaliser puis pivoter</h3>
+    <svg width="240" height="140" viewBox="0 0 240 140">
+      <line x1="10" y1="122" x2="230" y2="122" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+      <circle cx="100" cy="20" r="9" fill="none" stroke="#e8edf2" stroke-width="2.5"/>
+      <line x1="100" y1="29" x2="100" y2="74" stroke="#e8edf2" stroke-width="6" stroke-linecap="round"/>
+      <line x1="92" y1="66" x2="108" y2="66" stroke="#e8a840" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="74" x2="92" y2="112" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="86" y1="118" x2="101" y2="118" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="100" y1="74" x2="110" y2="112" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="104" y1="118" x2="119" y2="118" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="100" y1="42" x2="128" y2="50" stroke="#e8edf2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="146" cy="22" r="9" fill="none" stroke="#5ecb7a" stroke-width="2.5"/>
+      <line x1="146" y1="31" x2="143" y2="72" stroke="#5ecb7a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="145" y1="46" x2="108" y2="64" stroke="#5ecb7a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="107" cy="65" r="3.5" fill="#5ecb7a"/>
+      <line x1="143" y1="72" x2="130" y2="92" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="130" y1="92" x2="132" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="125" y1="119" x2="140" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="143" y1="72" x2="162" y2="98" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="162" y1="98" x2="166" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="160" y1="119" x2="175" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M70 90 a30 30 0 0 0 -16 26" fill="none" stroke="#e8a840" stroke-width="2.5" stroke-dasharray="4 3"/>
+      <path d="M54 116 l3 -7 M54 116 l7 1" stroke="#e8a840" stroke-width="2.5" fill="none"/>
+      <text x="120" y="136" fill="#5a7080" font-size="9" text-anchor="middle">Pivot à petits pas — on tourne les pieds, pas le dos</text>
+    </svg>
+    <p>« Un, deux, trois » — Mme R. pousse, vous accompagnez par la ceinture. Une fois debout et stable : pivot vers le fauteuil <b style="color:#e8edf2">à petits pas</b>, en tournant les pieds.</p>
+    <div class="prap"><b>PRAP ›</b> La torsion du tronc pieds fixes est LA cause n°1 de lombalgie du soignant. On tourne avec les pieds, jamais avec la colonne.</div>
+  </div>
+
+  <div class="etape">
+    <div class="etape-num">ÉTAPE 5 / 5</div>
+    <h3>Installer et vérifier</h3>
+    <svg width="240" height="140" viewBox="0 0 240 140">
+      <line x1="10" y1="122" x2="230" y2="122" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+      <path d="M190 42 v46 h-40" fill="none" stroke="#e8a840" stroke-width="3"/>
+      <line x1="190" y1="66" x2="156" y2="66" stroke="#e8a840" stroke-width="2.5"/>
+      <circle cx="182" cy="103" r="15" fill="none" stroke="#e8a840" stroke-width="2.5"/>
+      <circle cx="152" cy="112" r="6" fill="none" stroke="#e8a840" stroke-width="2.5"/>
+      <circle cx="116" cy="38" r="9" fill="none" stroke="#e8edf2" stroke-width="2.5"/>
+      <line x1="116" y1="47" x2="124" y2="80" stroke="#e8edf2" stroke-width="6" stroke-linecap="round"/>
+      <line x1="118" y1="58" x2="152" y2="65" stroke="#e8edf2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="154" cy="65" r="3.5" fill="#e8edf2"/>
+      <line x1="124" y1="80" x2="108" y2="94" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="108" y1="94" x2="110" y2="114" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="103" y1="119" x2="118" y2="119" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="124" y1="80" x2="117" y2="96" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="117" y1="96" x2="120" y2="114" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <line x1="114" y1="119" x2="129" y2="119" stroke="#e8edf2" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="74" cy="28" r="9" fill="none" stroke="#5ecb7a" stroke-width="2.5"/>
+      <line x1="74" y1="37" x2="78" y2="74" stroke="#5ecb7a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="76" y1="50" x2="112" y2="68" stroke="#5ecb7a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="114" cy="68" r="3.5" fill="#5ecb7a"/>
+      <line x1="78" y1="74" x2="64" y2="94" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="64" y1="94" x2="66" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="59" y1="119" x2="74" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="78" y1="74" x2="94" y2="100" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="94" y1="100" x2="98" y2="114" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="92" y1="119" x2="107" y2="119" stroke="#5ecb7a" stroke-width="5" stroke-linecap="round"/>
+      <text x="120" y="136" fill="#5a7080" font-size="9" text-anchor="middle">Descente freinée par la ceinture · main sur l'accoudoir</text>
+    </svg>
+    <p>Descente contrôlée : Mme R. sent le fauteuil derrière ses jambes, attrape l'accoudoir du côté sain, et s'assied en fléchissant. Vous freinez la descente par la ceinture. Puis : assise au fond, pieds calés, bras hémiparétique soutenu, sonnette à portée. « Vous êtes bien installée ? »</p>
+    <div class="prap"><b>PRAP ›</b> Le geste se termine quand la personne est en sécurité ET confortable — pas quand elle touche le fauteuil.</div>
+  </div>
+</div>
+
+<!-- ================= QUIZ ================= -->
+<div class="panel" id="quiz">
+  <h2>Quelle aide pour ce résident ?</h2>
+  <p class="intro">Lisez le profil, choisissez l'aide adaptée. Chaque erreur est expliquée.</p>
+
+  <div class="qcard">
+    <p class="profil"><b>M. B., 91 ans.</b> Grabataire, ne tient pas assis sans soutien, aucune participation motrice possible.</p>
+    <button class="opt" onclick="rep(this,false,'q1')">Verticalisateur</button>
+    <button class="opt" onclick="rep(this,true,'q1')">Lève-personne, à 2 soignants</button>
+    <button class="opt" onclick="rep(this,false,'q1')">Guidon de transfert</button>
+    <div class="explic" id="q1">✅ Aucune participation = lève-personne, toujours à 2. Le verticalisateur et le guidon exigent un appui sur les jambes que M. B. n'a plus.</div>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>Mme R., 84 ans.</b> Hémiparésie gauche, tient debout quelques secondes avec appui, comprend et suit les consignes.</p>
+    <button class="opt" onclick="rep(this,false,'q2')">Lève-personne « pour aller plus vite »</button>
+    <button class="opt" onclick="rep(this,true,'q2')">Verticalisation accompagnée + ceinture de transfert</button>
+    <button class="opt" onclick="rep(this,false,'q2')">La laisser se transférer seule</button>
+    <div class="explic" id="q2">✅ Elle se verticalise : on utilise ses capacités. Le lève-personne serait de la sur-assistance (perte d'autonomie accélérée) ; seule, c'est la chute assurée côté hémiparétique.</div>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>M. T., 68 ans.</b> Paraplégique, membres supérieurs toniques, se redresse seul en position assise.</p>
+    <button class="opt" onclick="rep(this,true,'q3')">Planche de transfert</button>
+    <button class="opt" onclick="rep(this,false,'q3')">Lève-personne</button>
+    <button class="opt" onclick="rep(this,false,'q3')">Disque de transfert au sol</button>
+    <div class="explic" id="q3">✅ Membres supérieurs toniques = il glisse seul sur la planche, vous sécurisez. Le disque au sol exige un appui des jambes qu'il n'a pas.</div>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>Mme L., 79 ans.</b> Marche avec rollator, se lève seule du fauteuil mais fatigue vite et a déjà chuté deux fois ce mois-ci.</p>
+    <button class="opt" onclick="rep(this,false,'q4')">Fauteuil roulant systématique</button>
+    <button class="opt" onclick="rep(this,true,'q4')">Supervision rapprochée + ceinture de marche</button>
+    <button class="opt" onclick="rep(this,false,'q4')">La laisser faire sans surveillance</button>
+    <div class="explic" id="q4">✅ On sécurise SANS remplacer : ceinture de marche et présence. Le fauteuil systématique après chute est le premier pas vers la grabatisation.</div>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>Rehaussement au lit</b> de Mme K., 88 ans, qui a glissé vers le pied du lit. Elle peut plier les jambes et pousser un peu.</p>
+    <button class="opt" onclick="rep(this,false,'q5')">La tirer sous les aisselles à deux</button>
+    <button class="opt" onclick="rep(this,true,'q5')">Drap de glisse + participation (elle pousse sur ses jambes)</button>
+    <button class="opt" onclick="rep(this,false,'q5')">Lève-personne</button>
+    <div class="explic" id="q5">✅ Drap de glisse + « pliez les genoux et poussez à trois ». La traction sous les aisselles abîme ses épaules et votre dos.</div>
+  </div>
+</div>
+
+<!-- ================= CANTOU ================= -->
+<div class="panel" id="cantou">
+  <h2 class="violet">Espace CANTOU · Unité protégée Alzheimer</h2>
+  <p class="intro">Le CANTOU (ou UVP) accueille 12 à 14 résidents atteints de troubles cognitifs majeurs, dans un environnement sécurisé où la déambulation est libre. En manutention comme en soin, <b style="color:#b8a0e8">la relation précède toujours le geste</b>.</p>
+
+  <div class="cantou-bloc">
+    <h3>Avant tout geste : l'approche</h3>
+    <ul>
+      <li>Entrer dans le champ de vision de face — jamais par derrière, jamais par surprise</li>
+      <li>Capter le regard, sourire, se présenter à CHAQUE fois (« Bonjour Mme D., c'est Julie, l'aide-soignante »)</li>
+      <li>Une consigne à la fois, phrases courtes, ton calme et grave</li>
+      <li>Le toucher rassurant (main, avant-bras) avant le toucher technique</li>
+      <li>Expliquer chaque geste, même sans réponse : la compréhension émotionnelle persiste</li>
+    </ul>
+  </div>
+
+  <div class="cantou-bloc">
+    <h3>Pendant la mobilisation</h3>
+    <ul>
+      <li>Mouvements lents et annoncés — un geste rapide est perçu comme une agression</li>
+      <li>Guider par l'imitation : montrer le geste attendu plutôt que le décrire</li>
+      <li>Utiliser les automatismes préservés (se lever d'une chaise, marcher) plutôt que des consignes complexes</li>
+      <li>Si opposition : ne pas forcer, ne pas insister — différer et revenir dans 15-20 minutes</li>
+      <li>Le refus de soin est un symptôme, pas un caprice</li>
+    </ul>
+  </div>
+
+  <div class="cantou-bloc">
+    <h3>Comportements fréquents et réponses AS</h3>
+    <ul>
+      <li>Déambulation : ne jamais entraver — sécuriser le parcours, proposer une pause, hydrater</li>
+      <li>Agitation vespérale (fin de journée) : baisser les stimulations, lumière douce, présence calme</li>
+      <li>Cris répétés : chercher la cause (douleur ? peur ? besoin ?) avant de conclure au trouble</li>
+      <li>Toute modification du comportement se transmet à l'IDE : c'est souvent le premier signe d'une douleur ou d'une infection</li>
+    </ul>
+  </div>
+
+  <div class="cantou-bloc jamais">
+    <h3>À ne jamais faire</h3>
+    <ul>
+      <li>Arriver dans le dos ou saisir sans prévenir</li>
+      <li>Contredire frontalement ou raisonner (« Mais si, vous avez déjà mangé ! »)</li>
+      <li>Infantiliser (ton, surnoms non choisis, tutoiement non convenu)</li>
+      <li>Parler du résident à la 3e personne devant lui</li>
+      <li>Contention sans prescription — jamais une solution de facilité</li>
+    </ul>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>Situation :</b> Mme D., unité protégée, refuse de se lever pour la toilette et repousse votre main en criant.</p>
+    <button class="opt" onclick="rep(this,false,'q6')">Insister fermement, la toilette est planifiée</button>
+    <button class="opt" onclick="rep(this,false,'q6')">Appeler un collègue pour la lever à deux</button>
+    <button class="opt" onclick="rep(this,true,'q6')">Différer, revenir plus tard avec une autre approche</button>
+    <div class="explic" id="q6">✅ On diffère et on revient — souvent avec succès 20 minutes plus tard. Forcer transforme le soin en agression et ancre le refus. Le planning s'adapte à la personne, pas l'inverse.</div>
+  </div>
+
+  <div class="qcard">
+    <p class="profil"><b>Situation :</b> M. G. déambule dans le couloir depuis 2 heures et semble épuisé, mais refuse de s'asseoir.</p>
+    <button class="opt" onclick="rep(this,false,'q7')">Le maintenir assis dans un fauteuil</button>
+    <button class="opt" onclick="rep(this,true,'q7')">Marcher un moment avec lui, proposer une pause et un verre d'eau</button>
+    <button class="opt" onclick="rep(this,false,'q7')">L'ignorer, c'est son habitude</button>
+    <div class="explic" id="q7">✅ Accompagner la déambulation, hydrater, guetter la fatigue et les pieds (chaussures, ampoules). L'entraver déclenche l'agitation ; l'ignorer expose à la chute d'épuisement.</div>
+  </div>
+
+  <button class="reset" onclick="resetQuiz()">Recommencer les quiz</button>
+</div>
+
+<div class="score-bar">
+  <span>Score : <b id="score">0</b> / <b id="total">7</b></span>
+  <button class="btn-retour" onclick="retour()">‹ SimAs</button>
+</div>
+
+<script>
+function go(id, tab){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  tab.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+var _reponses = {};
+function rep(btn, ok, qid){
+  if(_reponses[qid]) return; // une seule réponse par question
+  _reponses[qid] = true;
+  var card = btn.closest('.qcard');
+  card.querySelectorAll('.opt').forEach(function(o){ o.style.pointerEvents='none'; });
+  if(ok){ btn.classList.add('good'); incScore(); }
+  else {
+    btn.classList.add('bad');
+    // révéler la bonne réponse
+    card.querySelectorAll('.opt').forEach(function(o){
+      if(o.getAttribute('onclick').indexOf('true') !== -1) o.classList.add('good');
+    });
+  }
+  document.getElementById(qid).classList.add('show');
+  sauver();
+}
+
+var _score = 0;
+function incScore(){
+  _score++;
+  document.getElementById('score').textContent = _score;
+}
+
+function sauver(){
+  try {
+    var stats = JSON.parse(localStorage.getItem('simas_manutention') || '{}');
+    stats.score = _score;
+    stats.repondues = Object.keys(_reponses).length;
+    stats.date = new Date().toISOString();
+    localStorage.setItem('simas_manutention', JSON.stringify(stats));
+  } catch(e){}
+}
+
+function resetQuiz(){
+  _reponses = {};
+  _score = 0;
+  document.getElementById('score').textContent = 0;
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.classList.remove('good','bad');
+    o.style.pointerEvents = 'auto';
+  });
+  document.querySelectorAll('.explic').forEach(function(e){ e.classList.remove('show'); });
+  sauver();
+}
+
+function retour(){
+  if(window.parent !== window){
+    window.parent.postMessage({type:'retour'}, '*');
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+
+// Tracking activite pour les stats formateur SimAs
+document.addEventListener('click', function(){
+  if(window.parent !== window){
+    window.parent.postMessage({type:'activite'}, '*');
+  }
+});
+</script>
+</body>
+</html>
