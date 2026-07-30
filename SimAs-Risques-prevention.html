@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisPrévention-AS · Module 02 · Bloc 1</title>
+<style>
+  :root {
+    --blue: #1a6fb5;
+    --blue-light: #e8f2fb;
+    --blue-mid: #2d87d0;
+    --blue-dark: #124f85;
+    --orange: #e07b2a;
+    --green: #2a9d5c;
+    --red: #c0392b;
+    --yellow: #f0a500;
+    --purple: #7b52ab;
+    --gray-bg: #f5f7fa;
+    --gray-border: #dde3ec;
+    --text: #1e2a3a;
+    --text-light: #5a6a7e;
+    --white: #ffffff;
+    --radius: 10px;
+    --shadow: 0 2px 10px rgba(26,111,181,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+  header{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 60%,var(--blue-mid) 100%);color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,0.25);}
+  .header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .module-badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:6px;padding:3px 9px;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;white-space:nowrap;}
+  header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+  header p.subtitle{font-size:0.75rem;opacity:0.8;margin-top:2px;}
+  .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);border-radius:7px 7px 0 0;padding:7px 13px;font-size:0.78rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.18s;}
+  .tab-btn:hover{background:rgba(255,255,255,0.22);color:#fff;}
+  .tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+  .content{max-width:820px;margin:0 auto;padding:20px 16px 100px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+  .card.orange{border-left-color:var(--orange);}
+  .card.green{border-left-color:var(--green);}
+  .card.red{border-left-color:var(--red);}
+  .card.yellow{border-left-color:var(--yellow);}
+  .card.purple{border-left-color:var(--purple);}
+  .card.teal{border-left-color:#0097a7;}
+  .card h2{font-size:1rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .card.orange h2{color:#b55f10;}
+  .card.green h2{color:#1e7a45;}
+  .card.red h2{color:var(--red);}
+  .card.yellow h2{color:#b07800;}
+  .card.purple h2{color:#5a3a8a;}
+  .card.teal h2{color:#006978;}
+  .card h3{font-size:0.88rem;font-weight:700;color:var(--text);margin:14px 0 8px;}
+  .card p,.card li{font-size:0.85rem;line-height:1.6;color:var(--text);}
+  .card ul,.card ol{padding-left:18px;margin-top:6px;}
+  .card li{margin-bottom:4px;}
+
+  .intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+  .intro-banner .icon{font-size:2rem;flex-shrink:0;}
+  .intro-banner h2{font-size:0.95rem;font-weight:700;margin-bottom:6px;}
+  .intro-banner p{font-size:0.81rem;line-height:1.6;opacity:0.9;}
+
+  .ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:0.73rem;font-weight:700;margin-bottom:14px;}
+
+  .prap-box{background:linear-gradient(135deg,#f0f7ff,#e2eef9);border:1px solid #b3d0f0;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+  .prap-box .prap-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+  .prap-box .prap-text{font-size:0.82rem;color:var(--blue-dark);line-height:1.5;}
+  .prap-box strong{color:var(--blue-dark);}
+
+  .stades-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  @media(max-width:480px){.stades-grid{grid-template-columns:1fr;}}
+  .stade-card{border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+  .stade-card .stade-num{font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;}
+  .stade-card p{font-size:0.8rem;line-height:1.5;}
+  .stade-1{background:#fff8e1;border-color:#ffe082;}.stade-1 .stade-num{color:#b07800;}
+  .stade-2{background:#fff3e0;border-color:#ffcc80;}.stade-2 .stade-num{color:#e65100;}
+  .stade-3{background:#fdecea;border-color:#ef9a9a;}.stade-3 .stade-num{color:#c62828;}
+  .stade-4{background:#f3e5f5;border-color:#ce93d8;}.stade-4 .stade-num{color:#6a1b9a;}
+
+  .zones-container{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:12px 0;}
+  .zone-figure{text-align:center;}
+  .zone-figure p{font-size:0.75rem;color:var(--text-light);margin-top:4px;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  @media(max-width:480px){.two-col{grid-template-columns:1fr;}}
+  .two-col-cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+  .two-col-cell h4{font-size:0.82rem;font-weight:700;margin-bottom:6px;}
+  .two-col-cell p,.two-col-cell li{font-size:0.79rem;line-height:1.55;}
+
+  .flow-steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+  .flow-step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+  .flow-step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+  .step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+  .step-body{padding:6px 0 18px;flex:1;}
+  .step-body strong{font-size:0.86rem;color:var(--text);display:block;margin-bottom:3px;}
+  .step-body p{font-size:0.8rem;color:var(--text-light);line-height:1.5;}
+
+  .braden-table{width:100%;border-collapse:collapse;font-size:0.78rem;margin-top:10px;}
+  .braden-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+  .braden-table td{padding:7px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;}
+  .braden-table tr:nth-child(even) td{background:var(--blue-light);}
+  .braden-score-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .braden-score-legend div{padding:4px 12px;border-radius:20px;font-size:0.77rem;font-weight:600;}
+
+  .oms-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;}
+  @media(max-width:560px){.oms-steps{grid-template-columns:1fr 1fr;}}
+  .oms-step{background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;}
+  .oms-step .oms-num{font-size:1.4rem;font-weight:900;color:var(--blue-dark);line-height:1;}
+  .oms-step .oms-txt{font-size:0.72rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;}
+
+  .morse-grid{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .morse-item{background:var(--gray-bg);border-radius:8px;padding:10px 14px;border:1px solid var(--gray-border);}
+  .morse-item label.morse-label{font-size:0.82rem;font-weight:700;color:var(--text);display:block;margin-bottom:6px;}
+  .morse-options{display:flex;flex-direction:column;gap:4px;}
+  .morse-option{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 6px;border-radius:5px;transition:background 0.15s;}
+  .morse-option:hover{background:var(--blue-light);}
+  .morse-option input[type=radio]{accent-color:var(--blue);width:15px;height:15px;}
+  .morse-option span{font-size:0.8rem;color:var(--text);}
+  .morse-option .pts{margin-left:auto;font-size:0.75rem;font-weight:700;color:var(--text-light);white-space:nowrap;}
+  .morse-score-display{background:var(--blue-dark);color:#fff;border-radius:10px;padding:16px;margin-top:14px;text-align:center;}
+  .morse-score-display .big-score{font-size:2.4rem;font-weight:900;line-height:1;}
+  .morse-score-display .score-label{font-size:0.85rem;opacity:0.85;margin-top:4px;}
+  .morse-risk{display:inline-block;margin-top:8px;padding:5px 16px;border-radius:20px;font-size:0.82rem;font-weight:700;}
+  .morse-risk.low{background:#e6f4ee;color:#1e7a45;}
+  .morse-risk.mid{background:#fff3e0;color:#e65100;}
+  .morse-risk.high{background:#fdecea;color:var(--red);}
+  .morse-actions{margin-top:10px;font-size:0.8rem;text-align:left;background:rgba(255,255,255,0.12);border-radius:7px;padding:10px 12px;line-height:1.6;}
+  .morse-actions li{margin-bottom:3px;}
+
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;}
+  .tag.risk{background:#fdecea;color:var(--red);}
+  .tag.warn{background:#fff3e0;color:#e65100;}
+
+  .info-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .info-pill{background:var(--blue-light);color:var(--blue-dark);border-radius:20px;padding:3px 11px;font-size:0.77rem;font-weight:600;}
+  .info-pill.warn{background:#fff3e0;color:#b55f10;}
+  .info-pill.ok{background:#e6f4ee;color:#1e7a45;}
+
+  .divider{height:1px;background:var(--gray-border);margin:14px 0;}
+
+  /* QUIZ */
+  .quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+  .quiz-q .q-text{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+  .quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all 0.15s;font-size:0.83rem;}
+  .quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+  .quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+  .quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+  .quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+  .quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:0.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+  .btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:0.88rem;font-weight:700;cursor:pointer;transition:background 0.18s;}
+  .btn:hover{background:var(--blue-dark);}
+  .btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+  .btn.secondary:hover{background:var(--blue-light);}
+  .quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+  .quiz-score-box .qs-num{font-size:2.5rem;font-weight:900;}
+  .quiz-score-box .qs-label{font-size:0.85rem;opacity:0.85;margin-top:4px;}
+  .quiz-score-box .qs-msg{font-size:0.88rem;margin-top:10px;}
+
+  #audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,0.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background 0.18s,transform 0.18s;}
+  #audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+  #audio-btn.playing{background:var(--orange);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 02 · BLOC 1 · 21h</div>
+    <div>
+      <h1>PraxisPrévention-AS</h1>
+      <p class="subtitle">Repérage et prévention des situations à risque · DEAS 2021 + Arrêté 26/02/2025</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('chutes',this)">⚠️ Chutes</button>
+    <button class="tab-btn" onclick="showTab('escarres',this)">🩹 Escarres</button>
+    <button class="tab-btn" onclick="showTab('contention',this)">🔒 Contention</button>
+    <button class="tab-btn" onclick="showTab('maltraitance',this)">🛡️ Maltraitance</button>
+    <button class="tab-btn" onclick="showTab('nutrition',this)">🥗 Nutrition</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== CHUTES ===== -->
+<div id="tab-chutes" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">⚠️</div>
+    <div>
+      <h2>Risques de chute</h2>
+      <p>La chute est la 1re cause d'accident chez la personne âgée. En EHPAD, 30 à 50 % des résidents chutent chaque année. L'AS joue un rôle clé dans la prévention et la surveillance.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 1 · Module 2 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🔍 Facteurs de risque à repérer</h2>
+    <h3>Facteurs intrinsèques (liés à la personne)</h3>
+    <ul>
+      <li>Âge avancé, antécédents de chute dans les 3 derniers mois</li>
+      <li>Troubles de l'équilibre et de la marche</li>
+      <li>Troubles cognitifs (confusion, démence)</li>
+      <li>Hypotension orthostatique — voir PraxisMobilité pour la fiche dédiée</li>
+      <li>Polymédication : psychotropes, diurétiques, antihypertenseurs</li>
+      <li>Déficits sensoriels : vue, audition, sensibilité plantaire</li>
+      <li>Dénutrition, fonte musculaire, ostéoporose</li>
+    </ul>
+    <h3>Facteurs extrinsèques (liés à l'environnement)</h3>
+    <ul>
+      <li>Sol glissant, éclairage insuffisant la nuit</li>
+      <li>Chaussures inadaptées ou absentes</li>
+      <li>Mobilier instable, absence de barres d'appui</li>
+      <li>Matériel encombrant : câbles, bassins, urinals laissés à terre</li>
+      <li>Lits trop hauts, barrières mal positionnées</li>
+      <li>Sonnette hors de portée</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> En formation PRAP, vous avez appris à analyser l'environnement pour protéger votre dos. Ces mêmes réflexes s'appliquent pour sécuriser la personne soignée : un sol dégagé et une circulation fluide protègent autant le résident que vous.</div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>📏 Échelle de Morse — Évaluation interactive</h2>
+    <p style="font-size:0.82rem;color:#6a3a00;margin-bottom:10px;">Complétez les 6 items pour Mme Dupont, 82 ans, chutée il y a 6 semaines, marchant avec une canne, sous antihypertenseurs, tendant à surestimer ses capacités.</p>
+    <div class="morse-grid">
+      <div class="morse-item">
+        <label class="morse-label">1. Antécédents de chute (3 derniers mois)</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m1" value="0" onchange="calcMorse()"><span>Non</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m1" value="25" onchange="calcMorse()"><span>Oui</span><span class="pts">25 pts</span></label>
+        </div>
+      </div>
+      <div class="morse-item">
+        <label class="morse-label">2. Diagnostic secondaire (≥ 2 pathologies)</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m2" value="0" onchange="calcMorse()"><span>Non</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m2" value="15" onchange="calcMorse()"><span>Oui</span><span class="pts">15 pts</span></label>
+        </div>
+      </div>
+      <div class="morse-item">
+        <label class="morse-label">3. Aide à la marche utilisée</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m3" value="0" onchange="calcMorse()"><span>Aucune / alité / fauteuil roulant</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m3" value="15" onchange="calcMorse()"><span>Béquilles / canne / déambulateur</span><span class="pts">15 pts</span></label>
+          <label class="morse-option"><input type="radio" name="m3" value="30" onchange="calcMorse()"><span>S'appuie sur les meubles</span><span class="pts">30 pts</span></label>
+        </div>
+      </div>
+      <div class="morse-item">
+        <label class="morse-label">4. Perfusion IV / héparine lock</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m4" value="0" onchange="calcMorse()"><span>Non</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m4" value="20" onchange="calcMorse()"><span>Oui</span><span class="pts">20 pts</span></label>
+        </div>
+      </div>
+      <div class="morse-item">
+        <label class="morse-label">5. Démarche observée</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m5" value="0" onchange="calcMorse()"><span>Normale / alité / immobile</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m5" value="10" onchange="calcMorse()"><span>Faible (lente, voûtée)</span><span class="pts">10 pts</span></label>
+          <label class="morse-option"><input type="radio" name="m5" value="20" onchange="calcMorse()"><span>Altérée (trébuchante, efforts)</span><span class="pts">20 pts</span></label>
+        </div>
+      </div>
+      <div class="morse-item">
+        <label class="morse-label">6. État mental</label>
+        <div class="morse-options">
+          <label class="morse-option"><input type="radio" name="m6" value="0" onchange="calcMorse()"><span>Conscient de ses capacités</span><span class="pts">0 pt</span></label>
+          <label class="morse-option"><input type="radio" name="m6" value="15" onchange="calcMorse()"><span>Surestime / oublie ses limites</span><span class="pts">15 pts</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="morse-score-display" id="morse-result">
+      <div class="big-score" id="morse-score">—</div>
+      <div class="score-label">Score total / 125</div>
+      <div id="morse-risk-label"></div>
+      <ul class="morse-actions" id="morse-actions" style="display:none;"></ul>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Rôle AS — Prévention et CAT après chute</h2>
+    <h3>Avant le déplacement</h3>
+    <ul>
+      <li>Vérifier que le patient porte des <strong>chaussures fermées antidérapantes</strong></li>
+      <li>Laisser le patient s'asseoir au bord du lit 1 à 2 minutes avant de se lever (pause orthostatique)</li>
+      <li>Dégager le passage, s'assurer que l'aide technique est à portée</li>
+    </ul>
+    <h3>Pendant le déplacement</h3>
+    <ul>
+      <li>Accompagner sans se substituer : encourager l'autonomie</li>
+      <li>Rester à côté, surveiller la démarche et l'essoufflement</li>
+    </ul>
+    <h3>Après une chute</h3>
+    <ul>
+      <li><strong>Ne pas relever immédiatement</strong> — évaluer d'abord</li>
+      <li>Appeler l'IDE ou le médecin avant toute mobilisation</li>
+      <li>Rester avec la personne, la rassurer</li>
+      <li>Rédiger une <strong>fiche d'événement indésirable (FEI)</strong></li>
+      <li>Transmettre : heure, lieu, circonstances, état du patient</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> La technique de relèvement d'une personne à terre est enseignée en PRAP. Ne jamais relever seul sans évaluation médicale préalable ni technique adaptée — risque de blessure pour vous et aggravation pour le patient.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ESCARRES ===== -->
+<div id="tab-escarres" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🩹</div>
+    <div>
+      <h2>Prévention des escarres</h2>
+      <p>L'escarre est une lésion cutanée d'origine ischémique liée à la compression des tissus. 95 % des escarres sont évitables. L'AS est en première ligne de la prévention.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 1 · Module 2 · DEAS 2021 — Arrêté 26/02/2025 : surveillance peau intégrée aux soins courants</span>
+
+  <div class="card">
+    <h2>📊 Les 4 stades de l'escarre</h2>
+    <div class="stades-grid">
+      <div class="stade-card stade-1">
+        <div class="stade-num">⬤ Stade 1</div>
+        <p><strong>Érythème persistant</strong> sur peau intacte. La rougeur ne blanchit pas à la pression du doigt. Peau encore intacte mais en danger.</p>
+      </div>
+      <div class="stade-card stade-2">
+        <div class="stade-num">⬤ Stade 2</div>
+        <p><strong>Plaie superficielle</strong> : perte partielle de l'épiderme ou du derme. Peut ressembler à une phlyctène ou une érosion.</p>
+      </div>
+      <div class="stade-card stade-3">
+        <div class="stade-num">⬤ Stade 3</div>
+        <p><strong>Perte de substance complète</strong> jusqu'aux tissus sous-cutanés. Le muscle n'est pas visible. Risque infectieux majeur.</p>
+      </div>
+      <div class="stade-card stade-4">
+        <div class="stade-num">⬤ Stade 4</div>
+        <p><strong>Perte totale</strong> avec exposition de l'os, du tendon ou du muscle. Risque d'ostéite. Pronostic vital possible.</p>
+      </div>
+    </div>
+    <p style="font-size:0.79rem;color:var(--text-light);margin-top:10px;">⚠️ L'AS <strong>signale immédiatement</strong> tout érythème persistant (stade 1) à l'IDE — c'est à ce stade que la prévention est encore pleinement efficace.</p>
+  </div>
+
+  <div class="card orange">
+    <h2>🗺️ Zones d'appui selon la position</h2>
+    <div class="zones-container">
+      <div class="zone-figure">
+        <svg width="110" height="190" viewBox="0 0 110 190">
+          <rect width="110" height="190" fill="#f5f7fa" rx="8"/>
+          <ellipse cx="55" cy="25" rx="16" ry="18" fill="#c9d9ec"/>
+          <rect x="37" y="43" width="36" height="55" rx="8" fill="#c9d9ec"/>
+          <rect x="40" y="98" width="13" height="50" rx="6" fill="#c9d9ec"/>
+          <rect x="57" y="98" width="13" height="50" rx="6" fill="#c9d9ec"/>
+          <rect x="24" y="46" width="13" height="36" rx="5" fill="#c9d9ec"/>
+          <rect x="73" y="46" width="13" height="36" rx="5" fill="#c9d9ec"/>
+          <circle cx="55" cy="25" r="7" fill="#ef5350" opacity="0.75"/>
+          <circle cx="55" cy="53" r="6" fill="#ef5350" opacity="0.7"/>
+          <ellipse cx="55" cy="96" rx="10" ry="5" fill="#ef5350" opacity="0.75"/>
+          <circle cx="43" cy="143" r="6" fill="#ef5350" opacity="0.7"/>
+          <circle cx="67" cy="143" r="6" fill="#ef5350" opacity="0.7"/>
+          <text x="55" y="182" text-anchor="middle" font-size="9" fill="#5a6a7e">Décubitus dorsal</text>
+        </svg>
+      </div>
+      <div class="zone-figure">
+        <svg width="110" height="190" viewBox="0 0 110 190">
+          <rect width="110" height="190" fill="#f5f7fa" rx="8"/>
+          <ellipse cx="55" cy="25" rx="14" ry="16" fill="#c9d9ec"/>
+          <ellipse cx="55" cy="70" rx="20" ry="28" fill="#c9d9ec"/>
+          <rect x="46" y="98" width="14" height="52" rx="6" fill="#c9d9ec"/>
+          <rect x="50" y="108" width="12" height="46" rx="5" fill="#b0c8e0"/>
+          <circle cx="55" cy="25" r="6" fill="#ef5350" opacity="0.7"/>
+          <circle cx="35" cy="56" r="5" fill="#ef5350" opacity="0.7"/>
+          <circle cx="55" cy="84" r="7" fill="#ef5350" opacity="0.75"/>
+          <circle cx="53" cy="146" r="6" fill="#ef5350" opacity="0.7"/>
+          <circle cx="50" cy="126" r="4" fill="#ef5350" opacity="0.6"/>
+          <text x="55" y="182" text-anchor="middle" font-size="9" fill="#5a6a7e">Décubitus latéral</text>
+        </svg>
+      </div>
+      <div class="zone-figure">
+        <svg width="110" height="190" viewBox="0 0 110 190">
+          <rect width="110" height="190" fill="#f5f7fa" rx="8"/>
+          <ellipse cx="55" cy="25" rx="14" ry="16" fill="#c9d9ec"/>
+          <rect x="35" y="41" width="40" height="46" rx="8" fill="#c9d9ec"/>
+          <rect x="37" y="87" width="15" height="42" rx="6" fill="#c9d9ec"/>
+          <rect x="58" y="87" width="15" height="42" rx="6" fill="#c9d9ec"/>
+          <rect x="18" y="44" width="17" height="32" rx="5" fill="#c9d9ec"/>
+          <rect x="75" y="44" width="17" height="32" rx="5" fill="#c9d9ec"/>
+          <circle cx="42" cy="87" r="6" fill="#ef5350" opacity="0.75"/>
+          <circle cx="68" cy="87" r="6" fill="#ef5350" opacity="0.75"/>
+          <circle cx="42" cy="126" r="5" fill="#ef5350" opacity="0.65"/>
+          <circle cx="68" cy="126" r="5" fill="#ef5350" opacity="0.65"/>
+          <text x="55" y="182" text-anchor="middle" font-size="9" fill="#5a6a7e">Position assise</text>
+        </svg>
+      </div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--text-light);">Zones clés : talons · sacrum · ischions · trochanters · malléoles · occiput · omoplates</p>
+  </div>
+
+  <div class="card green">
+    <h2>🛡️ Échelle de Braden — Évaluation du risque</h2>
+    <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">Score de 6 à 23 pts — Plus le score est bas, plus le risque est élevé.</p>
+    <table class="braden-table">
+      <tr><th>Item</th><th>1 pt (risque max)</th><th>2 pts</th><th>3 pts</th><th>4 pts</th></tr>
+      <tr><td><strong>Perception sensorielle</strong></td><td>Absente</td><td>Très limitée</td><td>Légèrement limitée</td><td>Normale</td></tr>
+      <tr><td><strong>Humidité cutanée</strong></td><td>Constamment humide</td><td>Souvent humide</td><td>Occasionnelle</td><td>Rarement humide</td></tr>
+      <tr><td><strong>Activité</strong></td><td>Alité</td><td>Limité au fauteuil</td><td>Marche parfois</td><td>Marche souvent</td></tr>
+      <tr><td><strong>Mobilité</strong></td><td>Immobile</td><td>Très limitée</td><td>Légèrement limitée</td><td>Non limitée</td></tr>
+      <tr><td><strong>Nutrition</strong></td><td>Très pauvre</td><td>Inadéquate</td><td>Adéquate</td><td>Excellente</td></tr>
+      <tr><td><strong>Friction / cisaillement</strong></td><td>Problème</td><td>Problème potentiel</td><td>Pas de problème</td><td>—</td></tr>
+    </table>
+    <div class="braden-score-legend">
+      <div style="background:#fdecea;color:#c0392b;">≤ 12 : Risque élevé</div>
+      <div style="background:#fff3e0;color:#e65100;">13–14 : Risque modéré</div>
+      <div style="background:#fff8e1;color:#b07800;">15–16 : Risque faible</div>
+      <div style="background:#e6f4ee;color:#1e7a45;">≥ 17 : Pas de risque</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Protocole de prévention — Rôle AS</h2>
+    <h3>Changements de position</h3>
+    <ul>
+      <li>Toutes les <strong>2 à 3 heures</strong> selon protocole et état du patient</li>
+      <li>Talons systématiquement <strong>surélevés</strong> : coussin sous mollets, pas sous talons</li>
+      <li>Inclination du lit : <strong>jamais > 30°</strong> pour éviter le cisaillement sacré</li>
+      <li>Utiliser coussins de positionnement et oreillers entre les genoux</li>
+    </ul>
+    <h3>Soins de peau</h3>
+    <ul>
+      <li>Inspecter la peau à <strong>chaque soin</strong> : plis, zones d'appui, plaies</li>
+      <li><strong>Pas de massage</strong> sur les zones rouges — risque d'aggravation</li>
+      <li>Sécher soigneusement sans frotter, hydrater si peau sèche</li>
+      <li>Changer rapidement les protections souillées</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> Les repositionnements toutes les 2-3h doivent être réalisés avec les techniques PRAP : hauteur de lit adaptée à votre bassin, drap de glisse, deux soignants si nécessaire. Ces techniques protègent votre dos et évitent le cisaillement cutané qui aggrave le risque d'escarre.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTENTION ===== -->
+<div id="tab-contention" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🔒</div>
+    <div>
+      <h2>Contention — Liberté & surveillance</h2>
+      <p>La contention est un acte de soin à visée sécuritaire. Elle doit rester exceptionnelle, prescrite, tracée et réévaluée. L'AS ne décide jamais seul d'une contention.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 1 · Module 2 · DEAS 2021 — Loi 2002-303 relative aux droits des malades</span>
+
+  <div class="card red">
+    <h2>⚖️ Cadre légal — Ce que l'AS doit savoir</h2>
+    <ul>
+      <li>Toute contention est une <strong>restriction de liberté</strong> — droit fondamental protégé par la loi</li>
+      <li>Elle nécessite obligatoirement une <strong>prescription médicale</strong></li>
+      <li>Le <strong>consentement</strong> du patient ou de son représentant légal est recherché</li>
+      <li>Elle doit être <strong>tracée dans le dossier</strong> : indication, type, horaires, surveillance</li>
+      <li>Elle est <strong>réévaluée régulièrement</strong> — durée toujours limitée</li>
+      <li><strong>L'AS ne décide, ne pose, ne retire jamais</strong> une contention sans ordre de l'IDE</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>📋 Types de contention et surveillance AS</h2>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <h4>🛏️ Barrières de lit</h4>
+        <ul><li>La plus fréquente en EHPAD</li><li>Surveiller que le patient ne tente pas de passer par-dessus</li><li>Demi-barrières préférables aux barrières complètes</li></ul>
+      </div>
+      <div class="two-col-cell">
+        <h4>🪑 Ceinture de fauteuil</h4>
+        <ul><li>Indiquée si risque de glissement</li><li>Vérifier positionnement toutes les 2h</li><li>Ne jamais attacher aux parties mobiles</li></ul>
+      </div>
+      <div class="two-col-cell">
+        <h4>🤲 Attaches de poignets</h4>
+        <ul><li>Contentions les plus restrictives</li><li>Surveillance toutes les heures</li><li>Vérifier circulation, chaleur, absence de plaie</li></ul>
+      </div>
+      <div class="two-col-cell">
+        <h4>🌿 Alternatives à proposer</h4>
+        <ul><li>Tapis de détection de chute</li><li>Lit abaissé au maximum</li><li>Stimulation, présence, réassurance</li><li>Activités occupationnelles si confusion</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card yellow">
+    <h2>👁️ Surveillance obligatoire par l'AS</h2>
+    <ul>
+      <li>État circulatoire des zones contenues : couleur, chaleur, sensibilité</li>
+      <li>Intégrité cutanée sous la contention</li>
+      <li>État psychologique : agitation, détresse, cris</li>
+      <li>Toute tentative d'arrachage ou de fuite</li>
+      <li>Besoin d'élimination — ne jamais laisser attendre</li>
+      <li>Confort général : hydratation, position, douleur</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> Une personne contenue et agitée peut provoquer des mouvements brusques lors des soins. La PRAP vous a formé à anticiper les réactions imprévues et à adopter une posture stable — des réflexes particulièrement importants lors des soins aux patients contentionnés ou confus.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MALTRAITANCE ===== -->
+<div id="tab-maltraitance" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🛡️</div>
+    <div>
+      <h2>Maltraitance & signalement</h2>
+      <p>Repérer et signaler la maltraitance est une obligation légale et éthique. L'AS est souvent le premier témoin, par sa proximité quotidienne avec les patients.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 1 · Module 2 · DEAS 2021 — Loi 2015-1776 relative à l'adaptation de la société au vieillissement</span>
+
+  <div class="card red">
+    <h2>⚠️ Les formes de maltraitance</h2>
+    <div class="two-col">
+      <div class="two-col-cell"><h4 style="color:#c0392b;">🤛 Physique</h4><p>Coups, pincements, gifles, brûlures, contention abusive, soins douloureux intentionnels, privation de nourriture.</p></div>
+      <div class="two-col-cell"><h4 style="color:#7b52ab;">🧠 Psychologique</h4><p>Humiliations, insultes, menaces, infantilisation, isolement, chantage affectif, dénigrement devant les autres.</p></div>
+      <div class="two-col-cell"><h4 style="color:#1565c0;">💰 Financière</h4><p>Vol, abus de faiblesse, pression pour modification de testament, utilisation non autorisée de l'argent.</p></div>
+      <div class="two-col-cell"><h4 style="color:#e65100;">😶 Négligence</h4><p>Active (refus de soin) ou passive (oubli involontaire). Abandon, non-réponse aux appels, hygiène négligée.</p></div>
+    </div>
+    <p style="font-size:0.79rem;color:var(--red);margin-top:12px;font-weight:700;">La maltraitance institutionnelle existe aussi : routines imposées, langage condescendant systématique, non-respect de l'intimité.</p>
+  </div>
+
+  <div class="card orange">
+    <h2>🔍 Signes d'alerte à repérer</h2>
+    <h3>Signes physiques</h3>
+    <div class="tag-row">
+      <span class="tag risk">Hématomes inexpliqués</span>
+      <span class="tag risk">Fractures répétées</span>
+      <span class="tag risk">Brûlures atypiques</span>
+      <span class="tag risk">Malnutrition inexpliquée</span>
+      <span class="tag risk">Plaies non soignées</span>
+    </div>
+    <h3>Signes comportementaux</h3>
+    <div class="tag-row">
+      <span class="tag warn">Peur au retour d'un proche</span>
+      <span class="tag warn">Retrait soudain</span>
+      <span class="tag warn">Pleurs fréquents sans raison</span>
+      <span class="tag warn">Agitation inhabituelle</span>
+      <span class="tag warn">Refus de parler seul</span>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>📢 Procédure de signalement</h2>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="step-num">1</div><div class="step-body"><strong>Observer et noter</strong><p>Consignez les faits avec précision : date, heure, ce que vous avez vu ou entendu. Restez factuel — ne pas interpréter, ne pas interroger la personne.</p></div></div>
+      <div class="flow-step"><div class="step-num">2</div><div class="step-body"><strong>Alerter votre hiérarchie immédiate</strong><p>Informez l'IDE référent puis le cadre de santé. Ne restez jamais seul avec une suspicion de maltraitance.</p></div></div>
+      <div class="flow-step"><div class="step-num">3</div><div class="step-body"><strong>Protection de la victime</strong><p>Assurer la sécurité immédiate de la personne. Ne jamais promettre de garder le secret.</p></div></div>
+      <div class="flow-step"><div class="step-num">4</div><div class="step-body"><strong>Signalement officiel</strong><p>Procureur de la République, Conseil départemental, ou le <strong>numéro national 3977</strong> (maltraitance personnes âgées et handicapées).</p></div></div>
+      <div class="flow-step"><div class="step-num">5</div><div class="step-body"><strong>Traçabilité</strong><p>Tout signalement est tracé dans le dossier. Vous êtes protégé par la loi si vous signalez de bonne foi.</p></div></div>
+    </div>
+    <div class="info-row">
+      <span class="info-pill">📞 3977 — Allô Maltraitance</span>
+      <span class="info-pill warn">L'AS n'enquête pas — il observe et transmet</span>
+      <span class="info-pill ok">Bonne foi = protection légale</span>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h2>💡 Bientraitance — l'autre face de la médaille</h2>
+    <ul>
+      <li>Respecter le rythme et les choix de la personne</li>
+      <li>S'adresser par son nom, maintenir le vouvoiement si elle le préfère</li>
+      <li>Expliquer chaque soin avant de le faire</li>
+      <li>Préserver son intimité en permanence</li>
+      <li>Valoriser ses capacités restantes plutôt que ses limitations</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== NUTRITION & HYDRATATION ===== -->
+<div id="tab-nutrition" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🥗</div>
+    <div>
+      <h2>Nutrition, hydratation & hygiène</h2>
+      <p>La dénutrition et la déshydratation sont des risques majeurs chez la personne âgée. L'AS surveille, prévient et transmet. L'hygiène des mains est le premier geste de prévention infectieuse.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 1 · Module 2 · DEAS 2021</span>
+
+  <div class="card orange">
+    <h2>💧 Risque de déshydratation</h2>
+    <h3>Populations à risque</h3>
+    <ul>
+      <li>Personnes âgées : sensation de soif diminuée, réserves hydriques réduites</li>
+      <li>Fortes chaleurs, fièvre, diarrhée, vomissements</li>
+      <li>Traitements diurétiques</li>
+      <li>Troubles de la déglutition (refus de boire)</li>
+    </ul>
+    <h3>Signes à repérer</h3>
+    <div class="tag-row">
+      <span class="tag risk">Urines foncées ou rares</span>
+      <span class="tag risk">Pli cutané persistant</span>
+      <span class="tag risk">Bouche et muqueuses sèches</span>
+      <span class="tag risk">Confusion soudaine</span>
+      <span class="tag risk">Fatigue inhabituelle</span>
+      <span class="tag risk">Hypotension</span>
+    </div>
+    <h3>Rôle AS</h3>
+    <ul>
+      <li>Proposer à boire <strong>régulièrement</strong> sans attendre la demande (verre toutes les heures)</li>
+      <li>Varier les boissons : eau, jus, potage, compote, eau gélifiée si troubles déglutition</li>
+      <li>Surveiller la diurèse — signaler si < 500 mL/jour</li>
+      <li>Transmettre à l'IDE tout signe de déshydratation</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h2>🍽️ Risque de dénutrition</h2>
+    <h3>Signes à surveiller</h3>
+    <div class="tag-row">
+      <span class="tag risk">Perte de poids involontaire</span>
+      <span class="tag risk">Refus alimentaires répétés</span>
+      <span class="tag risk">Asthénie, fonte musculaire</span>
+      <span class="tag risk">Plaies qui cicatrisent mal</span>
+      <span class="tag risk">Peau fragile</span>
+    </div>
+    <h3>Rôle AS</h3>
+    <ul>
+      <li><strong>Peser</strong> selon prescription, à jour et heure fixes, avec les mêmes vêtements</li>
+      <li>Noter les quantités consommées et les refus dans le dossier</li>
+      <li>Installer confortablement avant le repas, respecter les textures prescrites</li>
+      <li>Ne jamais faire manger trop vite — risque de fausse route</li>
+      <li>Transmettre à l'IDE et à la diététicienne toute variation significative</li>
+      <li>Proposer des collations entre les repas si prescrites</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> L'aide au repas implique des postures prolongées en position penchée si la table n'est pas à bonne hauteur. Pensez à régler la hauteur de la table et à vous asseoir au niveau de la personne — un réflexe PRAP qui préserve votre dos pendant toute la durée du repas.</div>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h2>🦠 Prévention des infections — Hygiène des mains</h2>
+    <h3>Les 5 moments de l'OMS</h3>
+    <div class="oms-steps">
+      <div class="oms-step"><div class="oms-num">1</div><div class="oms-txt">Avant de toucher le patient</div></div>
+      <div class="oms-step"><div class="oms-num">2</div><div class="oms-txt">Avant un geste aseptique</div></div>
+      <div class="oms-step"><div class="oms-num">3</div><div class="oms-txt">Après risque d'exposition aux liquides biologiques</div></div>
+      <div class="oms-step"><div class="oms-num">4</div><div class="oms-txt">Après avoir touché le patient</div></div>
+      <div class="oms-step"><div class="oms-num">5</div><div class="oms-txt">Après avoir touché l'environnement du patient</div></div>
+    </div>
+    <div class="divider"></div>
+    <h3>SHA vs lavage au savon</h3>
+    <div class="two-col" style="margin-top:8px;">
+      <div class="two-col-cell">
+        <h4>✅ SHA (Solution Hydro-Alcoolique)</h4>
+        <ul>
+          <li>Utilisation <strong>préférentielle</strong> dans les soins</li>
+          <li>Frotter toutes les surfaces 30 secondes jusqu'à séchage complet</li>
+          <li>Ne pas rincer</li>
+        </ul>
+      </div>
+      <div class="two-col-cell">
+        <h4>🚿 Lavage au savon — obligatoire si</h4>
+        <ul>
+          <li>Mains visiblement souillées</li>
+          <li><em>Clostridium difficile</em> ou Norovirus (SHA inefficace sur les spores)</li>
+          <li>Sortie des toilettes</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:0.79rem;color:#006978;margin-top:10px;font-weight:600;">💡 SHA inefficace sur C. difficile et Norovirus — lavage au savon obligatoire dans ces cas.</p>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Module 02 · Prévention des risques</h2>
+      <p>10 questions couvrant chutes, escarres, contention, maltraitance, nutrition et hygiène.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+// ===== TABS =====
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+// ===== TRACKING =====
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+  setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);
+});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+// ===== MORSE =====
+function calcMorse(){
+  const items=['m1','m2','m3','m4','m5','m6'];
+  let total=0,filled=0;
+  items.forEach(n=>{const s=document.querySelector(`input[name="${n}"]:checked`);if(s){total+=parseInt(s.value);filled++;}});
+  if(filled===0)return;
+  document.getElementById('morse-score').textContent=total;
+  let rc,rt,actions;
+  if(total<=24){rc='low';rt='🟢 Pas de risque (0–24)';actions=['Surveillance standard','Rappeler les précautions habituelles (chaussures, éclairage, sonnette à portée)'];}
+  else if(total<=44){rc='mid';rt='🟠 Risque faible (25–44)';actions=['Chaussures antidérapantes obligatoires','Lit en position basse','Appel patient avant tout déplacement','Dossier de chute ouvert'];}
+  else{rc='high';rt='🔴 Risque élevé (≥ 45)';actions=['Protocole de prévention des chutes déclenché','Pancarte signalétique "risque de chute"','Accompagnement systématique lors de tous les déplacements','Alerter l\'IDE — réévaluer la prescription','Tapis anti-chute au pied du lit'];}
+  document.getElementById('morse-risk-label').innerHTML=`<span class="morse-risk ${rc}">${rt}</span>`;
+  const a=document.getElementById('morse-actions');
+  a.style.display='block';
+  a.innerHTML='<strong style="display:block;margin-bottom:6px;">Actions AS :</strong>'+actions.map(x=>`<li>${x}</li>`).join('');
+}
+
+// ===== QUIZ =====
+const questions=[
+  {q:"Un patient de 79 ans a chuté il y a 5 semaines. Il marche avec une canne. Son score de Morse est :",opts:["Forcément élevé car il a une canne","À calculer avec les 6 items — on ne peut pas le savoir sans les autres données","Toujours ≥ 45 après une chute récente","Nul si le médecin ne l'a pas prescrit"],correct:1,expl:"La grille de Morse nécessite les 6 items pour être valide. Un antécédent de chute ajoute 25 pts et une canne 15 pts, mais les 4 autres items (diagnostic secondaire, perfusion, démarche, état mental) sont indispensables pour calculer le score total."},
+  {q:"Après une chute, l'AS doit en priorité :",opts:["Relever immédiatement la personne pour lui éviter de rester au sol","Rester avec la personne, la rassurer et appeler l'IDE avant toute mobilisation","Appeler la famille avant l'IDE","Rédiger la FEI avant de s'occuper du patient"],correct:1,expl:"La première priorité est de ne pas relever seul et sans évaluation. L'AS reste au sol avec la personne, la rassure et alerte l'IDE. La FEI est rédigée après la prise en charge."},
+  {q:"Vous observez une rougeur au sacrum de M. B. qui ne blanchit pas à la pression du doigt. Quel stade d'escarre ?",opts:["Stade 2 — phlyctène","Stade 3 — perte de substance","Stade 1 — érythème persistant","Stade 4 — os exposé"],correct:2,expl:"Une rougeur qui ne blanchit pas à la pression est un stade 1 : la peau est encore intacte mais la circulation est compromise. C'est le moment clé pour agir : signalement à l'IDE et repositionnement immédiat."},
+  {q:"Pour prévenir l'escarre du talon en décubitus dorsal, la bonne position est :",opts:["Coussin directement sous les talons","Pieds en appui sur la barrière de lit","Coussin sous les mollets pour que les talons soient en suspension","Massage des talons toutes les 2h"],correct:2,expl:"Les talons doivent être en suspension complète. Le coussin se place sous les mollets, jamais directement sous les talons. Le massage est contre-indiqué sur les zones rouges ou à risque."},
+  {q:"L'AS peut décider de mettre une ceinture de fauteuil si le patient risque de glisser. Cette affirmation est :",opts:["Vraie si l'IDE est absent et le risque immédiat","Fausse — toute contention nécessite une prescription médicale","Vraie si le patient donne son accord oral","Vraie pour les ceintures, fausse pour les attaches de poignets"],correct:1,expl:"Quelle que soit la forme de contention, une prescription médicale est obligatoire. L'AS ne décide jamais seul. Il alerte l'IDE et attend la décision médicale, même en urgence."},
+  {q:"Lors de la toilette, vous remarquez plusieurs hématomes à différents stades dans le dos de Mme R. Que faites-vous ?",opts:["Vous n'en parlez pas pour ne pas créer de conflits","Vous interrogez la patiente sur l'origine des hématomes","Vous notez précisément vos observations et alertez immédiatement l'IDE ou le cadre","Vous attendez de voir si d'autres hématomes apparaissent"],correct:2,expl:"Des hématomes à différents stades dans des zones atypiques sont un signe d'alerte de maltraitance. L'AS observe et note factuellement (localisation, couleur, taille) puis alerte l'IDE ou le cadre. Il n'interroge pas et ne promet pas de garder le secret."},
+  {q:"Quel numéro national permet de signaler une maltraitance de personne âgée ?",opts:["15 — SAMU","119 — enfance en danger","3977 — Allô Maltraitance","17 — police secours"],correct:2,expl:"Le 3977 est le numéro national dédié à la maltraitance des personnes âgées et adultes handicapés. Tout professionnel ou particulier peut l'appeler. Il fonctionne du lundi au vendredi de 9h à 19h."},
+  {q:"Mme G., 84 ans, a les muqueuses sèches, des urines très foncées et est confuse depuis ce matin. Votre première action ?",opts:["Lui donner un grand verre d'eau et surveiller","Signaler immédiatement à l'IDE ces signes de déshydratation","Attendre le passage médical du lendemain","Augmenter la fréquence des repas"],correct:1,expl:"Confusion soudaine + muqueuses sèches + urines foncées = tableau de déshydratation à signaler immédiatement à l'IDE. L'AS ne prend pas seul la décision de réhydrater par voie orale sans évaluation médicale si la conscience est altérée."},
+  {q:"Lors d'un soin, dans quel cas le lavage au savon est-il obligatoire à la place du SHA ?",opts:["Si les mains sont froides","En cas de Clostridium difficile ou si les mains sont visiblement souillées","Toujours après un soin de nursing","Si le patient est en isolement contact"],correct:1,expl:"Le SHA est inefficace sur les spores de Clostridium difficile et sur le Norovirus. Dans ces cas, et si les mains sont visiblement souillées ou en sortant des toilettes, le lavage au savon est obligatoire."},
+  {q:"Votre formation PRAP vous aide directement dans la prévention des escarres car :",opts:["La PRAP concerne uniquement la protection de votre dos, pas les escarres","Les techniques de manutention sécurisées (hauteur du lit, drap de glisse) permettent de repositionner fréquemment sans blessure pour vous ni cisaillement pour le patient","La PRAP vous apprend à masser les zones rouges","Il n'y a aucun lien entre PRAP et escarres"],correct:1,expl:"Les repositionnements toutes les 2-3h nécessaires pour prévenir les escarres doivent utiliser les techniques PRAP : lit à hauteur du bassin, drap de glisse, deux soignants si besoin. Ces techniques protègent votre dos et évitent le cisaillement cutané qui aggrave le risque d'escarre."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){
+      const c=parseInt(sel.value);
+      if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}
+      else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    }else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const msgs=['Révisez les fiches avant de continuer 💪','Bon début, continuez la révision !','Bien ! Quelques points à revoir','Très bien ! Bonne maîtrise du module 👍','Excellent ! Module 02 maîtrisé ✅'];
+  document.getElementById('qs-msg').textContent=msgs[Math.min(Math.floor(score/2),4)];
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+// ===== AUDIO natif (praxis-audio.js gérera si disponible) =====
+let speaking=false;
+const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){
+  const active=document.querySelector('.tab-panel.active');
+  if(!active)return'';
+  return [...active.querySelectorAll('h2,h3,p,li,.q-text')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');
+}
+function toggleAudio(){
+  if(speaking){stopAudio();return;}
+  const text=getTabText();if(!text)return;
+  const utt=new SpeechSynthesisUtterance(text);
+  utt.lang='fr-FR';utt.rate=0.95;
+  const voices=synth.getVoices();
+  const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));
+  if(fr)utt.voice=fr;
+  utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};
+  synth.speak(utt);speaking=true;
+  const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';
+}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+
+buildQuiz();
+</script>
+
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
