@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisModuleC-AS · Arrêté 26/02/2025</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;--pink:#c0396b;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card.pink{border-left-color:var(--pink);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card.pink h2{color:#8a1040;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+
+.obj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+@media(max-width:500px){.obj-grid{grid-template-columns:1fr;}}
+.obj-card{background:#fff;border-radius:9px;border:1.5px solid var(--blue);padding:14px;box-shadow:var(--shadow);}
+.obj-card .obj-num{font-size:1.4rem;font-weight:900;color:var(--blue);line-height:1;margin-bottom:6px;}
+.obj-card p{font-size:.8rem;line-height:1.5;color:var(--text);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+
+.fragilite-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+.fragilite-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;}
+@media(max-width:480px){.fragilite-card{grid-template-columns:1fr;}}
+.fragilite-icon{font-size:1.8rem;flex-shrink:0;}
+.fragilite-body h4{font-size:.86rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.fragilite-body p{font-size:.79rem;line-height:1.55;color:var(--text-light);}
+.fragilite-body .signes{margin-top:6px;}
+.fragilite-body .signes span{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);margin:2px;}
+.fragilite-action{min-width:130px;background:var(--blue-light);border-radius:7px;padding:8px 10px;font-size:.75rem;color:var(--blue-dark);font-weight:600;line-height:1.4;}
+
+.steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-num.green{background:var(--green);}
+.step-num.orange{background:var(--orange);}
+.step-num.red{background:var(--red);}
+.step-body{padding:6px 0 16px;flex:1;}
+.step-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.step-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.step-body .as-do{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.step-body .as-dont{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+/* ÉQUIPE PLURIPRO */
+.equipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+@media(max-width:540px){.equipe-grid{grid-template-columns:1fr 1fr;}}
+.equipe-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
+.equipe-card .eq-icon{font-size:1.4rem;margin-bottom:6px;}
+.equipe-card h4{font-size:.8rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.equipe-card p{font-size:.72rem;color:var(--text-light);line-height:1.4;}
+.equipe-card .as-lien{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);}
+
+/* TABLEAU PREVENTION */
+.prev-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:10px;}
+.prev-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+.prev-table td{padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;line-height:1.5;}
+.prev-table tr:nth-child(even) td{background:var(--blue-light);}
+.prev-table td:first-child{font-weight:700;color:var(--blue-dark);}
+
+/* AIDES TECHNIQUES */
+.at-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
+@media(max-width:540px){.at-grid{grid-template-columns:1fr 1fr;}}
+.at-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.at-card .at-icon{font-size:1.5rem;margin-bottom:8px;}
+.at-card h4{font-size:.82rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.at-card p{font-size:.76rem;line-height:1.5;color:var(--text-light);}
+.at-card .at-indic{display:inline-block;margin-top:6px;padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:600;background:#e6f4ee;color:#1e7a45;}
+
+/* ÉVALUATION */
+.eval-cycle{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.eval-step{background:var(--blue);color:#fff;border-radius:9px;padding:10px 14px;text-align:center;font-size:.78rem;font-weight:700;min-width:110px;}
+.eval-arrow{font-size:1.2rem;color:var(--blue);font-weight:700;}
+@media(max-width:480px){.eval-cycle{flex-direction:column;}.eval-arrow{transform:rotate(90deg);}}
+
+/* ÉTUDE DE SITUATION */
+.situation-box{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+.situation-header{background:linear-gradient(135deg,var(--purple),#5a3a8a);color:#fff;padding:14px 18px;}
+.situation-header h3{font-size:.92rem;font-weight:700;margin-bottom:4px;}
+.situation-header p{font-size:.77rem;opacity:.85;}
+.situation-body{padding:16px 18px;}
+.situation-context{background:#f5f0ff;border-radius:8px;padding:12px;margin-bottom:14px;border-left:3px solid var(--purple);font-size:.82rem;line-height:1.65;color:#3a2060;}
+.situation-q{background:var(--gray-bg);border-radius:8px;padding:12px;margin-bottom:10px;border:1px solid var(--gray-border);}
+.situation-q .sq-label{font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.situation-q p{font-size:.83rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+.situation-reponse{display:none;background:var(--blue-light);border-radius:6px;padding:10px 12px;font-size:.8rem;color:var(--blue-dark);line-height:1.6;border-left:3px solid var(--blue);}
+.reveal-btn{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:.78rem;font-weight:700;cursor:pointer;margin-top:4px;}
+.reveal-btn:hover{background:var(--blue-dark);}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.74rem;font-weight:600;margin:2px;}
+.tag.blue{background:var(--blue-light);color:var(--blue-dark);}
+.tag.red{background:#fdecea;color:var(--red);}
+.tag.green{background:#e6f4ee;color:#1e7a45;}
+.tag.warn{background:#fff3e0;color:#e65100;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE C · Arrêté 26/02/2025 · 1 jour</div>
+    <div>
+      <h1>PraxisModuleC-AS</h1>
+      <p class="subtitle">Identifier, analyser les situations à risque et mettre en place les actions de prévention</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('objectifs',this)">🎯 Objectifs</button>
+    <button class="tab-btn" onclick="showTab('fragilites',this)">🔍 Fragilités</button>
+    <button class="tab-btn" onclick="showTab('maltraitance',this)">🛡️ Risques</button>
+    <button class="tab-btn" onclick="showTab('pluripro',this)">🤝 Pluripro</button>
+    <button class="tab-btn" onclick="showTab('prevention',this)">🧰 Prévention</button>
+    <button class="tab-btn" onclick="showTab('evaluation',this)">✅ Évaluation</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== OBJECTIFS ===== -->
+<div id="tab-objectifs" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🎯</div>
+    <div>
+      <h2>Module C — Ce que dit l'arrêté du 26 février 2025</h2>
+      <p>Ce module d'une journée forme l'AS à identifier et analyser les situations à risque lors de l'accompagnement, et à proposer des actions de prévention adaptées en collaboration pluriprofessionnelle.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module C · Arrêté 26/02/2025 · Texte officiel Journal Officiel</span>
+
+  <div class="obj-grid">
+    <div class="obj-card">
+      <div class="obj-num">01</div>
+      <p><strong>Identifier les signes</strong> pouvant évoquer des fragilités potentielles ou des vulnérabilités dans les différents domaines de la vie quotidienne et <strong>transmettre les informations nécessaires</strong> dans le cadre d'une collaboration pluriprofessionnelle.</p>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">02</div>
+      <p><strong>Repérer les situations à risque</strong>, en particulier la maltraitance, pour la personne, pour les intervenants ou pour les proches aidants, et <strong>alerter</strong>.</p>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">03</div>
+      <p><strong>Proposer des mesures de prévention</strong> dans le champ d'intervention et dans le cadre d'une <strong>collaboration pluriprofessionnelle</strong>.</p>
+    </div>
+    <div class="obj-card">
+      <div class="obj-num">04</div>
+      <p><strong>Évaluer les mesures mises en œuvre</strong> le cas échéant — observer si la prévention a porté ses fruits et identifier les ajustements nécessaires.</p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>📋 Ce que ce module couvre — Vue d'ensemble</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🔍 Domaines de fragilité repérés</h4>
+        <ul>
+          <li>Risque de chute</li>
+          <li>Dénutrition et déshydratation</li>
+          <li>Troubles cognitifs</li>
+          <li>Douleur non exprimée</li>
+          <li>Isolement social</li>
+          <li>Maltraitance (toutes formes)</li>
+          <li>Épuisement des proches aidants</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🧰 Actions de prévention proposées</h4>
+        <ul>
+          <li>Aides techniques adaptées</li>
+          <li>Environnement sécurisé</li>
+          <li>Surveillance nutritionnelle</li>
+          <li>Stimulation cognitive</li>
+          <li>Signalement maltraitance</li>
+          <li>Transmission pluriprofessionnelle</li>
+          <li>Évaluation des mesures mises en place</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>📝 Modalité d'évaluation — Arrêté 2025</h2>
+    <p>L'évaluation du Module C est une <strong>étude de situation</strong> : une vignette clinique est présentée, l'AS doit identifier les fragilités, les risques, proposer des mesures de prévention et évaluer leur pertinence.</p>
+    <p style="margin-top:8px;">L'onglet Quiz de ce module contient une étude de situation complète pour s'entraîner à ce format d'évaluation.</p>
+    <div class="info-banner">💡 Critères d'évaluation officiels : pertinence de l'analyse des signes de fragilités ou vulnérabilités · repérage des situations à risque · pertinence des mesures de prévention proposées.</div>
+  </div>
+</div>
+
+<!-- ===== FRAGILITÉS ===== -->
+<div id="tab-fragilites" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🔍</div>
+    <div>
+      <h2>Fragilités et vulnérabilités — Les repérer au quotidien</h2>
+      <p>Une fragilité, c'est un signe discret que quelque chose ne va pas comme avant. L'AS est placé idéalement pour les repérer — il voit la personne chaque jour, lors des soins les plus intimes.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Objectif 1 · Module C · Arrêté 26/02/2025</span>
+
+  <div class="fragilite-grid">
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">⚠️</div>
+      <div class="fragilite-body">
+        <h4>Risque de chute</h4>
+        <p>Modification de la démarche, appui sur les meubles, vertiges au lever, confusion, crainte de tomber qui réduit l'autonomie.</p>
+        <div class="signes">
+          <span>Démarche hésitante</span><span>Vertiges orthostatiques</span><span>Peur de tomber</span><span>Antécédent de chute récent</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Signaler à l'IDE<br>→ Grille Morse<br>→ Aides techniques<br>→ Environnement sécurisé</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">🍽️</div>
+      <div class="fragilite-body">
+        <h4>Dénutrition</h4>
+        <p>La personne mange moins, les portions diminuent progressivement, les vêtements deviennent trop grands. Souvent silencieuse et progressive.</p>
+        <div class="signes">
+          <span>Perte de poids récente</span><span>Refus alimentaires</span><span>Asthénie</span><span>Fonte musculaire visible</span><span>Plaies qui cicatrisent mal</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Peser selon prescription<br>→ Quantifier les repas<br>→ Signaler IDE + diét.<br>→ Enrichir les textures</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">💧</div>
+      <div class="fragilite-body">
+        <h4>Déshydratation</h4>
+        <p>La personne âgée ne ressent plus la soif. Elle peut se déshydrater progressivement sans s'en plaindre, surtout en été ou lors d'une fièvre.</p>
+        <div class="signes">
+          <span>Urines foncées</span><span>Muqueuses sèches</span><span>Confusion soudaine</span><span>Fatigue inhabituelle</span><span>Pli cutané persistant</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Proposer à boire ttes les heures<br>→ Surveiller diurèse<br>→ Signaler si < 500 mL/j</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">🧠</div>
+      <div class="fragilite-body">
+        <h4>Troubles cognitifs</h4>
+        <p>Oublis inhabituels, confusion sur les personnes ou les lieux, répétitions, désorientation temporelle, difficultés à réaliser des gestes habituels.</p>
+        <div class="signes">
+          <span>Désorientation</span><span>Oublis répétés récents</span><span>Confusion inhabituelle</span><span>Agitation nouvelle</span><span>Apathie soudaine</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Signaler IDE<br>→ Ne pas corriger devant autrui<br>→ Maintenir les routines<br>→ Évaluation cognitive IDE/médecin</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">😣</div>
+      <div class="fragilite-body">
+        <h4>Douleur non exprimée</h4>
+        <p>Chez la personne âgée ou démenciée, la douleur s'exprime rarement en mots. Elle se manifeste par des signes comportementaux que l'AS est seul à pouvoir repérer au quotidien.</p>
+        <div class="signes">
+          <span>Grimaces lors des soins</span><span>Refus de mobilisation</span><span>Gémissements</span><span>Agitation inexpliquée</span><span>Position antalgique</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Échelle DOLOPLUS / ALGOPLUS<br>→ Signaler IDE<br>→ Adapter les soins<br>→ Tracer les observations</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">💙</div>
+      <div class="fragilite-body">
+        <h4>Isolement social et dépression</h4>
+        <p>Le repli sur soi, le manque de visites, la perte d'intérêt pour les activités habituelles sont des signaux silencieux d'une souffrance psychique.</p>
+        <div class="signes">
+          <span>Refuse les activités</span><span>Ne parle plus</span><span>Pleure sans raison apparente</span><span>Désintérêt pour la toilette</span><span>Perte d'appétit sans cause physique</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Maintenir le lien<br>→ Signaler IDE / psychologue<br>→ Impliquer la famille<br>→ Activités adaptées</div>
+    </div>
+
+    <div class="fragilite-card">
+      <div class="fragilite-icon">👨‍👩‍👧</div>
+      <div class="fragilite-body">
+        <h4>Épuisement des proches aidants</h4>
+        <p>La famille ou les proches qui s'occupent de la personne à domicile peuvent s'épuiser physiquement et psychologiquement — avec un risque de maltraitance involontaire.</p>
+        <div class="signes">
+          <span>Aidant épuisé, irritable</span><span>Aidant qui néglige ses propres soins</span><span>Conflits lors des visites</span><span>Demande d'aide croissante</span>
+        </div>
+      </div>
+      <div class="fragilite-action">→ Signaler au cadre / AS sociale<br>→ Orienter vers dispositifs de répit<br>→ Écouter sans juger</div>
+    </div>
+
+  </div>
+
+  <div class="card teal">
+    <h2>📡 Transmettre les informations — À qui et comment</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce que l'AS transmet</h4>
+        <ul>
+          <li>Les <strong>faits observés</strong> — pas les interprétations</li>
+          <li>La <strong>date et l'heure</strong> de l'observation</li>
+          <li>Le <strong>contexte</strong> (lors de la toilette, au repas…)</li>
+          <li>L'<strong>évolution</strong> par rapport aux jours précédents</li>
+          <li>Les <strong>paramètres mesurés</strong> si disponibles</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Les transmissions ciblées</h4>
+        <ul>
+          <li><strong>D</strong>onnée — ce que j'ai observé</li>
+          <li><strong>A</strong>ction — ce que j'ai fait</li>
+          <li><strong>R</strong>ésultat — l'effet observé</li>
+        </ul>
+        <p style="margin-top:8px;font-size:.77rem;">Exemple : "Mme B. a refusé son repas (D). Je lui ai proposé de petites quantités et un entretien (A). Elle a mangé un quart du repas et a évoqué une douleur au ventre (R)."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RISQUES & MALTRAITANCE ===== -->
+<div id="tab-maltraitance" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🛡️</div>
+    <div>
+      <h2>Situations à risque — Analyse et alerte</h2>
+      <p>Au-delà des fragilités individuelles, certaines situations constituent un risque direct pour la personne, pour les soignants ou pour les proches. Les identifier et alerter est une obligation professionnelle.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Objectif 2 · Module C · Arrêté 26/02/2025</span>
+
+  <div class="card red">
+    <h2>⚠️ Les situations à risque — Périmètre élargi du Module C</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">L'arrêté 2025 élargit le repérage à <strong>trois types d'acteurs</strong> : la personne accompagnée, les intervenants (soignants), et les proches aidants.</p>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">👴 Pour la personne accompagnée</h4>
+        <ul>
+          <li>Toutes les fragilités listées dans l'onglet précédent</li>
+          <li>Maltraitance physique, psychologique, financière, négligence</li>
+          <li>Automutilation, idées suicidaires</li>
+          <li>Situation de danger imminent</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--orange);">
+        <h4 style="color:#b55f10;">🧑‍⚕️ Pour les intervenants (soignants)</h4>
+        <ul>
+          <li>Violence des patients (coups, morsures, insultes)</li>
+          <li>Situations de danger lors des soins</li>
+          <li>Épuisement professionnel (burn-out)</li>
+          <li>Situations d'isolement professionnel</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--purple);">
+        <h4 style="color:#5a3a8a;">👨‍👩‍👧 Pour les proches aidants</h4>
+        <ul>
+          <li>Épuisement physique et moral (aidant âgé lui-même)</li>
+          <li>Risque de maltraitance involontaire par épuisement</li>
+          <li>Isolement social de l'aidant</li>
+          <li>Problèmes financiers liés au rôle d'aidant</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--teal);">
+        <h4 style="color:#006978;">🏛️ Maltraitance institutionnelle</h4>
+        <ul>
+          <li>Routines imposées sans respect des préférences</li>
+          <li>Infantilisation systématique</li>
+          <li>Non-respect de l'intimité</li>
+          <li>Sous-effectif chronique conduisant à des soins dégradés</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🔍 Repérer — Les signes d'alerte spécifiques</h2>
+    <h3>Maltraitance physique</h3>
+    <div class="tag blue">Hématomes à différents stades</div>
+    <div class="tag red">Brûlures atypiques</div>
+    <div class="tag red">Fractures inexpliquées</div>
+    <div class="tag warn">Plaies non soignées</div>
+    <div class="tag warn">Peur lors des soins avec certains intervenants</div>
+
+    <h3>Maltraitance psychologique</h3>
+    <div class="tag warn">Retrait soudain</div>
+    <div class="tag warn">Pleurs fréquents sans raison</div>
+    <div class="tag red">Peur au retour d'un proche ou d'un soignant</div>
+    <div class="tag warn">Propos alarmants ("je voudrais mourir", "j'ai peur")</div>
+
+    <h3>Maltraitance financière</h3>
+    <div class="tag warn">Manque d'argent inexpliqué</div>
+    <div class="tag red">Proche qui signe à la place</div>
+    <div class="tag warn">Achats inhabituels imposés</div>
+
+    <h3>Négligence</h3>
+    <div class="tag red">Hygiène très dégradée sur longue période</div>
+    <div class="tag red">Sous-alimentation évidente</div>
+    <div class="tag warn">Appels sans réponse systématiques</div>
+  </div>
+
+  <div class="card green">
+    <h2>📢 Alerter — La procédure en 5 étapes</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Observer — noter les faits objectivement</strong><p>Date, heure, ce que vous avez vu exactement. Sans interpréter, sans minimiser, sans juger. "J'ai observé un hématome de 3 cm au niveau du bras gauche lors de la toilette du 12 mars à 8h30."</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">2</div>
+        <div class="step-body"><strong>Alerter immédiatement l'IDE ou le cadre</strong><p>Ne pas attendre. Ne pas tenter de résoudre seul. Ne pas en parler à la famille avant d'avoir alerté la hiérarchie.</p><div class="as-dont">🚫 Ne jamais promettre de garder le secret à la personne</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Protéger la personne</strong><p>S'assurer qu'elle est en sécurité immédiate. Si le présumé maltraitant est présent, alerter le cadre pour séparer les protagonistes discrètement.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num red">4</div>
+        <div class="step-body"><strong>Signalement officiel si nécessaire</strong><p>Le cadre ou le médecin organisera le signalement. En urgence ou si la hiérarchie ne réagit pas : <strong>3977</strong> (Allô Maltraitance personnes âgées et handicapées) ou le Procureur de la République.</p><div class="as-do">✅ Vous êtes protégé par la loi si vous signalez de bonne foi</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">5</div>
+        <div class="step-body"><strong>Tracer et assurer le suivi</strong><p>Tout signalement tracé dans le dossier. Suivre l'évolution de la situation — une alerte n'est pas une fin en soi.</p></div>
+      </div>
+    </div>
+    <div class="info-banner">📞 3977 — Allô Maltraitance Personnes Âgées et Adultes Handicapés · Lundi-vendredi 9h-19h</div>
+  </div>
+
+  <div class="card purple">
+    <h2>💡 Bientraitance — La posture quotidienne</h2>
+    <p style="margin-bottom:10px;">La bientraitance n'est pas l'absence de maltraitance. C'est une démarche active qui se construit à chaque soin.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Dans les gestes</h4>
+        <ul>
+          <li>Frapper avant d'entrer, toujours</li>
+          <li>Expliquer chaque geste avant de le faire</li>
+          <li>Adapter le rythme à la personne</li>
+          <li>Ne jamais brusquer, même quand on est pressé</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Dans les mots</h4>
+        <ul>
+          <li>Vouvoyer si c'est le souhait de la personne</li>
+          <li>Appeler par son nom (pas "mamie" ou "papi")</li>
+          <li>Parler à la personne et non à sa pathologie</li>
+          <li>Prendre en compte ses préférences même minimes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLURIPRO ===== -->
+<div id="tab-pluripro" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🤝</div>
+    <div>
+      <h2>Collaboration pluriprofessionnelle</h2>
+      <p>L'AS n'est jamais seul face à une fragilité ou un risque. Il est un maillon essentiel d'une chaîne pluriprofessionnelle. Savoir qui fait quoi, et comment transmettre efficacement, c'est la compétence clé du Module C.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Objectifs 1 & 3 · Module C · Arrêté 26/02/2025</span>
+
+  <div class="card">
+    <h2>👥 Qui fait quoi dans l'équipe</h2>
+    <div class="equipe-grid">
+      <div class="equipe-card">
+        <div class="eq-icon">👩‍⚕️</div>
+        <h4>Infirmier (IDE)</h4>
+        <p>Évalue l'état clinique, prescrit ou délègue les soins, coordonne les transmissions médicales.</p>
+        <span class="as-lien">AS → IDE : tout signe clinique anormal</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🩺</div>
+        <h4>Médecin</h4>
+        <p>Diagnostique, prescrit les traitements, constate le décès, signe les ordonnances d'aides techniques.</p>
+        <span class="as-lien">AS → IDE → Médecin</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🏃</div>
+        <h4>Kinésithérapeute</h4>
+        <p>Rééducation motrice, prévention des chutes, maintien de la mobilité, apprentissage des aides techniques.</p>
+        <span class="as-lien">AS → IDE → Kiné si perte d'autonomie</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🥗</div>
+        <h4>Diététicien(ne)</h4>
+        <p>Évalue la dénutrition, adapte les textures, prescrit les compléments nutritionnels.</p>
+        <span class="as-lien">AS → IDE → Diét si perte de poids</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🧠</div>
+        <h4>Psychologue</h4>
+        <p>Évalue l'état cognitif et psychologique, accompagne la personne et la famille, soutient l'équipe.</p>
+        <span class="as-lien">AS → IDE → Psy si dépression, deuil</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🏠</div>
+        <h4>Assistante sociale</h4>
+        <p>Évalue la situation sociale, coordonne les aides à domicile, oriente vers les dispositifs de répit.</p>
+        <span class="as-lien">AS → Cadre → AS sociale si isolement</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">🧩</div>
+        <h4>Ergothérapeute</h4>
+        <p>Évalue les besoins en aides techniques, adapte l'environnement, préconise les équipements.</p>
+        <span class="as-lien">AS → IDE → Ergo si besoin aide technique</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">💊</div>
+        <h4>Pharmacien</h4>
+        <p>Valide les prescriptions, alerte sur les interactions médicamenteuses, conseille sur les formes galéniques.</p>
+        <span class="as-lien">AS → IDE en cas de doute médicament</span>
+      </div>
+      <div class="equipe-card">
+        <div class="eq-icon">📋</div>
+        <h4>Cadre de santé</h4>
+        <p>Manage l'équipe, arbitre les situations complexes, reçoit les signalements de maltraitance.</p>
+        <span class="as-lien">AS → Cadre si maltraitance ou conflit</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h2>📋 La réunion pluriprofessionnelle — Rôle AS</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Les réunions de synthèse, de staff ou de transmissions sont des espaces de collaboration. L'AS y a toute sa place.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✅ Ce que l'AS apporte</h4>
+        <ul>
+          <li>Les observations quotidiennes du soin (ce qu'il voit chaque matin)</li>
+          <li>L'évolution du comportement, de l'appétit, de l'humeur</li>
+          <li>Les changements récents : nouveau signe, régression ou amélioration</li>
+          <li>Les préférences exprimées par la personne lors des soins</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📣 Comment s'exprimer en réunion</h4>
+        <ul>
+          <li>Faits observés — pas de jugement ni de diagnostic</li>
+          <li>"J'ai observé que…" plutôt que "je pense que…"</li>
+          <li>Dater les observations : "depuis lundi…", "ce matin…"</li>
+          <li>Poser des questions si quelque chose n'est pas clair pour vous</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ La voix de l'AS en réunion pluripro est irremplaçable — personne d'autre ne voit la personne aussi souvent et dans des moments aussi intimes.</div>
+  </div>
+
+  <div class="card green">
+    <h2>💬 La méthode SBAR pour transmettre</h2>
+    <div class="two-col">
+      <div class="cell"><h4>S — Situation</h4><p>"Mme Aubert, chambre 14 — je vous appelle car elle refuse de s'alimenter depuis 3 jours."</p></div>
+      <div class="cell"><h4>B — Background (contexte)</h4><p>"Elle est sous antidépresseurs depuis 2 mois, a perdu son mari il y a 6 semaines."</p></div>
+      <div class="cell"><h4>A — Assessment (observation)</h4><p>"Elle pleure lors de la toilette, refuse de me parler, a perdu 1,5 kg depuis lundi."</p></div>
+      <div class="cell"><h4>R — Recommandation</h4><p>"Je pense qu'elle présente un épisode dépressif — serait-il possible qu'elle soit vue par le psychologue ?"</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRÉVENTION ===== -->
+<div id="tab-prevention" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🧰</div>
+    <div>
+      <h2>Proposer des mesures de prévention</h2>
+      <p>L'AS ne subit pas les risques — il propose des mesures pour les réduire. Dans son champ d'action, en collaboration avec l'équipe. Les aides techniques sont un levier majeur de prévention.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Objectif 3 · Module C · Arrêté 26/02/2025</span>
+
+  <div class="card">
+    <h2>📊 Tableau — Fragilité → Mesure → Collaboration</h2>
+    <table class="prev-table">
+      <tr><th>Fragilité repérée</th><th>Mesures AS dans son champ</th><th>Collaboration pluripro</th></tr>
+      <tr><td>Risque de chute</td><td>Chaussures antidérapantes · sol dégagé · sonnette à portée · accompagnement lors des déplacements</td><td>IDE (Morse) · Kiné (rééducation) · Ergo (aides techniques) · Médecin (révision des médicaments)</td></tr>
+      <tr><td>Dénutrition</td><td>Peser régulièrement · quantifier les repas · enrichir les textures · proposer des collations · installer confortablement</td><td>IDE · Diét (compléments) · Médecin (prescription) · Famille</td></tr>
+      <tr><td>Déshydratation</td><td>Proposer à boire toutes les heures · varier les boissons · eau gélifiée si dysphagie · surveiller la diurèse</td><td>IDE · Médecin (bilan biologique) · Diét</td></tr>
+      <tr><td>Troubles cognitifs</td><td>Maintenir les routines · repères temporels (calendrier, horloge) · communication adaptée · stimulation douce</td><td>IDE · Psychologue · Médecin (évaluation cognitive) · Famille</td></tr>
+      <tr><td>Douleur non exprimée</td><td>Observer les mimiques et comportements · adapter le rythme des soins · signaler tout signe</td><td>IDE (grille DOLOPLUS/ALGOPLUS) · Médecin (prescription antalgique)</td></tr>
+      <tr><td>Isolement social</td><td>Maintenir le lien lors des soins · encourager les activités · informer la famille des changements</td><td>Psychologue · AS sociale · Animateur · Famille</td></tr>
+      <tr><td>Maltraitance suspectée</td><td>Observer et noter factuellement · ne pas confronter · alerter immédiatement l'IDE ou le cadre</td><td>Cadre · IDE · Médecin · 3977 · Procureur si nécessaire</td></tr>
+      <tr><td>Épuisement aidant</td><td>Écouter sans juger · signaler au cadre et à l'AS sociale · valoriser leur rôle</td><td>AS sociale (répit, EHPAD temporaire) · Psychologue · Associations aidants</td></tr>
+    </table>
+  </div>
+
+  <div class="card orange">
+    <h2>🦽 Les aides techniques — Rappel complet</h2>
+    <p style="font-size:.82rem;color:#6a3a00;margin-bottom:4px;">Les aides techniques sont prescrites par le médecin, évaluées par l'ergothérapeute, mais c'est l'AS qui les utilise au quotidien et qui observe si elles sont adaptées.</p>
+
+    <h3>🚶 Mobilité et déplacements</h3>
+    <div class="at-grid">
+      <div class="at-card">
+        <div class="at-icon">🦯</div>
+        <h4>Canne simple</h4>
+        <p>Appui unilatéral. Côté sain si hémiplégie. Hauteur : poignet bras tendu le long du corps.</p>
+        <span class="at-indic">Instabilité légère · arthrose membre inf.</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🦽</div>
+        <h4>Déambulateur</h4>
+        <p>2 types : fixe (soulève et avance) ou à roulettes (pousse). Hauteur réglable. Évite les coudes fléchis.</p>
+        <span class="at-indic">Instabilité modérée · Parkinson · post-chute</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">♿</div>
+        <h4>Fauteuil roulant</h4>
+        <p>Manuel ou électrique. Réglage assise, repose-pieds, accoudoirs. Frein obligatoire lors des transferts.</p>
+        <span class="at-indic">Perte autonomie locomotrice · longues distances</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🛗</div>
+        <h4>Verticalisateur / lève-personne</h4>
+        <p>Permet le transfert lit-fauteuil pour les personnes non marchantes. Harnais adapté obligatoire.</p>
+        <span class="at-indic">Personne non marchante · surpoids</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">👟</div>
+        <h4>Chaussures thérapeutiques</h4>
+        <p>Chaussures fermées, semelles antidérapantes, maintien de la cheville. Jamais de chaussettes seules ou de chaussons ouverts.</p>
+        <span class="at-indic">Prévention chute · diabète · œdème</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🛏️</div>
+        <h4>Lit médicalisé</h4>
+        <p>Hauteur réglable électrique. Position Fowler, Trendelenburg. Barrières latérales. Télécommande à portée.</p>
+        <span class="at-indic">Personne dépendante · prévention escarres</span>
+      </div>
+    </div>
+
+    <h3>🚿 Hygiène et autonomie</h3>
+    <div class="at-grid">
+      <div class="at-card">
+        <div class="at-icon">🪑</div>
+        <h4>Chaise de douche / de bain</h4>
+        <p>Permet la douche ou le bain en position assise. Avec ou sans dossier. Antidérapante.</p>
+        <span class="at-indic">Fatigabilité · instabilité debout</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🚽</div>
+        <h4>Siège surélevé de WC</h4>
+        <p>Augmente la hauteur des toilettes. Réduit la flexion de hanche (essentiel après PTH). Avec accoudoirs.</p>
+        <span class="at-indic">PTH · PTG · arthrose sévère</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🔧</div>
+        <h4>Barres d'appui</h4>
+        <p>Fixées au mur dans WC, salle de bain, couloir. Permettent l'appui lors des transferts et déplacements.</p>
+        <span class="at-indic">Prévention chute · aide au transfert</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🥄</div>
+        <h4>Couverts et vaisselle adaptés</h4>
+        <p>Couverts à gros manches (arthrose mains), assiettes à rebords, verre à bec verseur, tapis antidérapant sous assiette.</p>
+        <span class="at-indic">Arthrose · tremblement · hémiplégie</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🔔</div>
+        <h4>Dispositif d'appel</h4>
+        <p>Sonnette d'appel à portée du lit et des WC. Certains établissements ont des bracelets connectés.</p>
+        <span class="at-indic">Prévention chute · urgence · isolement</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🛡️</div>
+        <h4>Protections contre les chutes</h4>
+        <p>Tapis de détection de chute au sol du lit. Protecteurs de hanche (sous-vêtements rembourrés). Matelas de sol.</p>
+        <span class="at-indic">Risque chute très élevé · agitation nocturne</span>
+      </div>
+    </div>
+
+    <h3>🧠 Aide cognitive et communication</h3>
+    <div class="at-grid">
+      <div class="at-card">
+        <div class="at-icon">📅</div>
+        <h4>Repères temporels</h4>
+        <p>Calendrier grand format avec la date du jour, horloge à grands chiffres, tableau de la semaine visible depuis le lit.</p>
+        <span class="at-indic">Troubles cognitifs · désorientation</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🖼️</div>
+        <h4>Pictogrammes et photos</h4>
+        <p>Photos de la famille avec prénoms, pictogrammes pour les soins (toilette, repas, médicaments). Facilite la communication non verbale.</p>
+        <span class="at-indic">Aphasie · Alzheimer · barrière de langue</span>
+      </div>
+      <div class="at-card">
+        <div class="at-icon">🔍</div>
+        <h4>Lunettes et aides auditives</h4>
+        <p>Vérifier que la personne porte ses lunettes et son appareil auditif lors des soins et des repas. Les ranger à un endroit fixe.</p>
+        <span class="at-indic">Déficits sensoriels · risque de chute · isolement</span>
+      </div>
+    </div>
+
+    <div class="alert-banner" style="margin-top:14px;">⚠️ L'AS observe si l'aide technique est bien utilisée, bien ajustée et si elle est encore adaptée. Tout problème (fauteuil mal réglé, déambulateur trop haut, protège-talon qui comprime) doit être signalé à l'IDE ou à l'ergothérapeute.</div>
+  </div>
+</div>
+
+<!-- ===== ÉVALUATION ===== -->
+<div id="tab-evaluation" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✅</div>
+    <div>
+      <h2>Évaluer les mesures mises en œuvre</h2>
+      <p>Le 4e objectif du Module C est souvent oublié mais fondamental : une mesure de prévention doit être évaluée. Est-elle efficace ? Doit-elle être ajustée ? L'AS est en première ligne pour l'observer.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Objectif 4 · Module C · Arrêté 26/02/2025</span>
+
+  <div class="card green">
+    <h2>🔄 Le cycle d'évaluation des mesures de prévention</h2>
+    <div class="eval-cycle">
+      <div class="eval-step">1. Observer<br>la fragilité</div>
+      <div class="eval-arrow">→</div>
+      <div class="eval-step">2. Transmettre<br>à l'équipe</div>
+      <div class="eval-arrow">→</div>
+      <div class="eval-step">3. Mesure de<br>prévention mise en place</div>
+      <div class="eval-arrow">→</div>
+      <div class="eval-step">4. Évaluer<br>l'efficacité</div>
+      <div class="eval-arrow">→</div>
+      <div class="eval-step">5. Réajuster<br>si nécessaire</div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>❓ Les questions à se poser pour évaluer</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>La mesure est-elle mise en place ?</h4>
+        <ul>
+          <li>L'aide technique prescrite est-elle utilisée à chaque déplacement ?</li>
+          <li>Les repositionnements sont-ils tracés selon la fréquence prescrite ?</li>
+          <li>Le régime enrichi est-il proposé à chaque repas ?</li>
+          <li>Les barres d'appui sont-elles accessibles ?</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>La mesure est-elle efficace ?</h4>
+        <ul>
+          <li>Pas de nouvelle chute depuis la mise en place du protocole ?</li>
+          <li>Poids stable ou en hausse avec les compléments nutritionnels ?</li>
+          <li>La rougeur sacrum a-t-elle disparu après repositionnement ?</li>
+          <li>La personne accepte-t-elle mieux l'aide technique ?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📝 Tracer l'évaluation dans le dossier</h2>
+    <p style="margin-bottom:10px;">L'évaluation n'existe légalement que si elle est tracée. Voici ce que l'AS note :</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>La mesure réalisée</strong><p>"Repositionnement effectué à 8h en décubitus latéral droit — sacrum déchargé."</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">2</div>
+        <div class="step-body"><strong>L'observation post-mesure</strong><p>"Rougeur sacrum disparue lors du repositionnement de 10h — peau intègre et rosée."</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body"><strong>Le réajustement si nécessaire</strong><p>"Déambulateur réglé trop haut — épaules voûtées lors de la marche. Signalé à l'IDE pour contact ergothérapeute."</p><div class="as-do">✅ Réajustement = signe de professionnalisme, pas d'échec</div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Exemple concret de traçabilité de l'évaluation</h3>
+    <div style="background:var(--gray-bg);border-radius:8px;padding:14px;margin-top:8px;font-size:.81rem;line-height:1.7;border:1px solid var(--gray-border);">
+      <strong>14/03 · 8h15 · Mme Aubert</strong><br>
+      Toilette réalisée. Poids : 52,3 kg (stable vs 52,1 kg le 12/03). Compléments nutritionnels pris en totalité ce matin pour la 3e fois consécutive ✅. Appétit légèrement amélioré selon la patiente. Signalé à l'IDE lors de la transmission de 8h30 — mesure de prévention dénutrition efficace, à poursuivre.
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ + ÉTUDE DE SITUATION ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz + Étude de situation</h2>
+      <p>8 questions de connaissance, puis 1 étude de situation complète — format identique à l'évaluation prévue par l'arrêté 2025.</p>
+    </div>
+  </div>
+
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 8</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+
+  <div class="divider" style="margin:24px 0;"></div>
+
+  <!-- ÉTUDE DE SITUATION -->
+  <div class="situation-box">
+    <div class="situation-header">
+      <h3>📋 Étude de situation — Format évaluation Module C</h3>
+      <p>Lisez la vignette, puis répondez aux questions. Révélez la réponse après votre réflexion personnelle.</p>
+    </div>
+    <div class="situation-body">
+      <div class="situation-context">
+        <strong>Vignette clinique :</strong><br><br>
+        Mme Renée B., 83 ans, vit en EHPAD depuis 18 mois. Ancienne institutrice, elle était très active et sociable. Depuis 3 semaines, vous observez lors de vos soins : elle refuse de sortir de sa chambre, mange à peine la moitié de son repas, a perdu 2 kg (passant de 58 à 56 kg), parle peu et pleure parfois lors de la toilette sans explication. Ce matin, vous remarquez qu'elle porte le même pull depuis 4 jours et qu'elle a un hématome de 4 cm sur l'avant-bras droit qu'elle attribue vaguement à "un choc". Sa fille vous a dit en passant hier qu'elle "ne sait plus quoi faire avec sa mère" et semble elle-même épuisée.<br><br>
+        Mme B. n'a aucune pathologie psychiatrique connue. Elle est orientée et cohérente.
+      </div>
+
+      <div class="situation-q">
+        <div class="sq-label">Question 1</div>
+        <p>Identifiez toutes les fragilités et vulnérabilités présentes dans cette situation.</p>
+        <button class="reveal-btn" onclick="revealReponse('r1')">Voir la réponse</button>
+        <div class="situation-reponse" id="r1">
+          <strong>Fragilités identifiées :</strong><br>
+          • <strong>Dénutrition</strong> : perte de 2 kg en 3 semaines (> 5 % en 1 mois = critère HAS), repas à moitié pris<br>
+          • <strong>Isolement social</strong> : refus de sortir, repli sur soi, silence, personne qui était très sociable<br>
+          • <strong>Dépression probable</strong> : pleurs sans explication, perte d'intérêt, négligence de l'hygiène (même pull 4 jours)<br>
+          • <strong>Hématome inexpliqué</strong> : signe d'alerte de maltraitance potentielle — à investiguer<br>
+          • <strong>Épuisement de la proche aidante</strong> (la fille) : exprime ne plus savoir quoi faire, semble épuisée
+        </div>
+      </div>
+
+      <div class="situation-q">
+        <div class="sq-label">Question 2</div>
+        <p>Y a-t-il une situation à risque nécessitant une alerte immédiate ? Laquelle et pourquoi ?</p>
+        <button class="reveal-btn" onclick="revealReponse('r2')">Voir la réponse</button>
+        <div class="situation-reponse" id="r2">
+          <strong>Oui — deux alertes prioritaires :</strong><br>
+          • <strong>L'hématome inexpliqué</strong> est un signal d'alerte de maltraitance. L'explication vague de Mme B. ("un choc") et l'épuisement visible de la fille constituent un tableau préoccupant. L'AS doit alerter l'IDE et le cadre immédiatement, noter factuellement l'observation (localisation, taille, couleur) sans accuser ni confronter.<br>
+          • <strong>La dénutrition</strong> (2 kg en 3 semaines) est également urgente à signaler à l'IDE pour évaluation et prescription de compléments nutritionnels.
+        </div>
+      </div>
+
+      <div class="situation-q">
+        <div class="sq-label">Question 3</div>
+        <p>Proposez des mesures de prévention concrètes dans le champ d'action AS, et indiquez les professionnels à impliquer.</p>
+        <button class="reveal-btn" onclick="revealReponse('r3')">Voir la réponse</button>
+        <div class="situation-reponse" id="r3">
+          <strong>Mesures AS dans son champ :</strong><br>
+          • Peser Mme B. selon prescription, noter et tracer<br>
+          • Proposer des petites quantités enrichies, adapter les textures si besoin<br>
+          • Maintenir le lien de confiance lors des soins — présence, écoute sans forcer<br>
+          • Proposer des activités adaptées (écriture, lecture) en respectant son refus<br>
+          • Signaler l'hématome avec observation factuelle dans le dossier<br><br>
+          <strong>Collaborations pluriprofessionnelles :</strong><br>
+          • <strong>IDE</strong> : transmission SBAR, évaluation clinique dénutrition + hématome, signalement maltraitance si confirmé<br>
+          • <strong>Médecin</strong> : évaluation dépression, bilan nutritionnel, investigation hématome<br>
+          • <strong>Diététicien(ne)</strong> : prescription compléments nutritionnels, adaptation des textures<br>
+          • <strong>Psychologue</strong> : évaluation état psychologique, soutien<br>
+          • <strong>Assistante sociale</strong> : soutien à la fille aidante, orientation vers dispositifs de répit<br>
+          • <strong>Cadre de santé</strong> : information sur l'hématome et le signalement potentiel
+        </div>
+      </div>
+
+      <div class="situation-q">
+        <div class="sq-label">Question 4</div>
+        <p>Comment évaluerez-vous l'efficacité des mesures mises en place ? Que tracerez-vous dans le dossier ?</p>
+        <button class="reveal-btn" onclick="revealReponse('r4')">Voir la réponse</button>
+        <div class="situation-reponse" id="r4">
+          <strong>Indicateurs d'évaluation :</strong><br>
+          • <strong>Poids</strong> : stabilisation puis remontée progressive (objectif : pas de perte supplémentaire en 1 semaine)<br>
+          • <strong>Alimentation</strong> : pourcentage du repas consommé à chaque repas (objectif : > 75 %)<br>
+          • <strong>Comportement</strong> : pleurs moins fréquents, Mme B. parle davantage lors des soins, s'intéresse à nouveau à quelque chose<br>
+          • <strong>Sortie de chambre</strong> : accepte-t-elle progressivement des activités ?<br>
+          • <strong>Hématome</strong> : évolution de la coloration (résorption attendue en 10-15 jours) — absence de nouvel hématome<br><br>
+          <strong>Traçabilité :</strong><br>
+          Chaque observation quotidienne tracée avec date, heure, mesure réalisée, résultat observé. Exemple : "22/03 · Mme B. a mangé 80 % de son repas du midi ✅ — legère amélioration vs lundi. Toujours peu communicante mais a souri lors de la toilette. Poids demain matin selon prescription."
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+function revealReponse(id){
+  const el=document.getElementById(id);
+  el.style.display=el.style.display==='block'?'none':'block';
+  const btn=el.previousElementSibling;
+  btn.textContent=el.style.display==='block'?'Masquer la réponse':'Voir la réponse';
+}
+
+const questions=[
+  {q:"L'objectif 1 du Module C demande à l'AS d'identifier les fragilités et de :",opts:["Les traiter lui-même dans la limite de ses compétences","Transmettre les informations nécessaires dans le cadre d'une collaboration pluriprofessionnelle","Les noter dans le dossier sans en parler à l'équipe","Attendre que la personne se plaigne avant d'agir"],correct:1,expl:"L'objectif 1 du Module C est précis : identifier ET transmettre dans le cadre pluriprofessionnel. L'AS ne reste jamais seul face à une fragilité. Il est le premier observateur, mais c'est l'équipe pluripro qui prend les décisions thérapeutiques."},
+  {q:"Une personne âgée pleure lors de la toilette depuis plusieurs jours et refuse de sortir de sa chambre. L'AS suspecte une dépression. Quelle est sa conduite à tenir ?",opts:["Diagnostiquer une dépression dans le dossier et informer la famille","Observer, noter les faits objectivement et transmettre à l'IDE en utilisant la méthode SBAR","Prescrire lui-même une activité pour sortir la personne de sa chambre","Attendre que ça passe — c'est normal chez la personne âgée"],correct:1,expl:"L'AS n'établit pas de diagnostic (c'est le rôle médical) mais il observe, note factuellement et transmet. La méthode SBAR lui permet de structurer sa transmission : Situation (pleure depuis 3 jours, refus de sortir), Background (âge, antécédents), Assessment (observation), Recommandation (évaluation psy souhaitée)."},
+  {q:"Vous observez un hématome inexpliqué sur l'avant-bras d'une résidente lors de la toilette. La personne dit 'c'est rien, un choc'. Quelle est votre action ?",opts:["Vous acceptez l'explication et ne notez rien","Vous interrogez la résidente pour savoir qui lui a fait ça","Vous notez factuellement (localisation, taille, aspect) et alertez l'IDE et le cadre immédiatement","Vous attendez de voir si d'autres hématomes apparaissent avant d'agir"],correct:2,expl:"Un hématome inexpliqué est un signe d'alerte de maltraitance. L'AS note factuellement sans interpréter et alerte immédiatement. Il n'interroge pas la personne (risque de la mettre en danger ou de contaminer le signalement) et ne minimise pas. La bonne foi protège le signalant légalement."},
+  {q:"L'arrêté du 26 février 2025 étend le repérage des situations à risque à :",opts:["La personne accompagnée uniquement","La personne accompagnée ET les intervenants soignants","La personne accompagnée, les intervenants soignants ET les proches aidants","Uniquement les résidents en EHPAD"],correct:2,expl:"Le texte officiel de l'arrêté est explicite : 'situations à risque pour la personne, pour les intervenants ou pour les proches aidants'. Ce périmètre élargi inclut donc l'épuisement de l'aidant familial et la violence à l'encontre des soignants — deux situations que l'AS peut observer."},
+  {q:"Un déambulateur est prescrit à M. Dupont après une chute. Lors de la marche, vous observez qu'il a les épaules voûtées et les coudes très fléchis. Que faites-vous ?",opts:["Vous ne faites rien — c'est normal au début","Vous réglez vous-même le déambulateur à la bonne hauteur sans prévenir personne","Vous signalez à l'IDE ou à l'ergothérapeute que le déambulateur semble trop bas — réglage nécessaire","Vous supprimez le déambulateur car il est mal utilisé"],correct:2,expl:"L'évaluation de l'aide technique fait partie du rôle AS dans l'évaluation des mesures de prévention (objectif 4 du Module C). Un déambulateur trop bas provoque une voûture et une fatigue excessive, réduisant son efficacité préventive. L'AS signale à l'IDE ou à l'ergothérapeute pour réajustement."},
+  {q:"La méthode DAR utilisée dans les transmissions ciblées signifie :",opts:["Diagnostic, Action, Résultat","Donnée, Action, Résultat","Description, Alerte, Réévaluation","Décision, Application, Révision"],correct:1,expl:"DAR = Donnée (ce que j'ai observé), Action (ce que j'ai fait), Résultat (l'effet observé). Exemple : 'Mme B. a refusé son repas (D) — j'ai proposé de petites quantités (A) — elle a mangé un quart et signalé une douleur abdominale (R).' Cette méthode garantit des transmissions complètes, factuelles et exploitables par l'équipe."},
+  {q:"Évaluer les mesures de prévention mises en place (objectif 4 du Module C) signifie concrètement :",opts:["Vérifier dans le dossier que l'IDE a bien noté la mesure","Observer si la mesure a produit l'effet attendu, tracer le résultat et signaler si réajustement nécessaire","Attendre le bilan mensuel de l'équipe pour en discuter","Demander à la personne si elle est satisfaite de la mesure"],correct:1,expl:"L'évaluation est active et quotidienne, pas passive. L'AS observe l'effet de la mesure (le poids remonte-t-il ? la rougeur a-t-elle disparu après repositionnement ?) et trace cette évaluation dans le dossier. Si la mesure n'est pas efficace ou n'est plus adaptée, il le signale à l'IDE pour réajustement."},
+  {q:"Dans le cadre du Module C, la bientraitance est définie comme :",opts:["L'absence totale de maltraitance","Une démarche active qui se construit à chaque soin — respecter le rythme, expliquer les gestes, valoriser les capacités","Une formation obligatoire annuelle pour tous les soignants","Un outil d'évaluation de la satisfaction des résidents"],correct:1,expl:"La bientraitance n'est pas la simple absence de maltraitance — c'est une posture professionnelle active. Elle se manifeste dans les gestes (frapper avant d'entrer, expliquer chaque soin) et dans les mots (vouvoyer si c'est le souhait, appeler par son nom). Elle est l'opposé de la maltraitance institutionnelle."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/8';
+  const pct=score/8;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.75?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module C maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.step-body strong,.step-body p,.fragilite-body h4,.fragilite-body p,.situation-context')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
