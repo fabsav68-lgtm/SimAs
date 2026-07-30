@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisParamètres-AS · Module A · Arrêté 2025</title>
+<style>
+:root {
+  --blue:#1a6fb5; --blue-light:#e8f2fb; --blue-mid:#2d87d0; --blue-dark:#124f85;
+  --orange:#e07b2a; --green:#2a9d5c; --red:#c0392b; --yellow:#f0a500;
+  --purple:#7b52ab; --teal:#0097a7; --pink:#d63384;
+  --gray-bg:#f5f7fa; --gray-border:#dde3ec;
+  --text:#1e2a3a; --text-light:#5a6a7e; --white:#ffffff;
+  --radius:10px; --shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 60%,var(--blue-mid) 100%);color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,0.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:6px;padding:3px 9px;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:0.75rem;opacity:0.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:0.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.18s;}
+.tab-btn:hover{background:rgba(255,255,255,0.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card.pink{border-left-color:var(--pink);}
+.card h2{font-size:0.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card.pink h2{color:#a01050;}
+.card h3{font-size:0.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:0.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:0.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:0.81rem;line-height:1.6;opacity:0.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:0.73rem;font-weight:700;margin-bottom:14px;}
+
+.prap-box{background:linear-gradient(135deg,#f0f7ff,#e2eef9);border:1px solid #b3d0f0;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+.prap-box .prap-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.prap-box .prap-text{font-size:0.82rem;color:var(--blue-dark);line-height:1.5;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.two-col-cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.two-col-cell h4{font-size:0.82rem;font-weight:700;margin-bottom:6px;}
+.two-col-cell p,.two-col-cell li{font-size:0.79rem;line-height:1.55;}
+.two-col-cell ul{padding-left:14px;}
+
+/* ANATOMIE */
+.body-container{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:14px 0;}
+.body-figure{text-align:center;}
+.body-figure p{font-size:0.75rem;color:var(--text-light);margin-top:6px;font-weight:600;}
+.annotation-list{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.ann-item{display:flex;align-items:center;gap:10px;padding:7px 12px;background:var(--gray-bg);border-radius:7px;border:1px solid var(--gray-border);}
+.ann-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.ann-text{font-size:0.81rem;line-height:1.4;}
+.ann-text strong{color:var(--text);font-size:0.83rem;}
+.ann-text span{color:var(--text-light);}
+
+/* PARAMÈTRES */
+.param-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:540px){.param-grid{grid-template-columns:1fr;}}
+.param-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.param-card .param-icon{font-size:1.5rem;margin-bottom:6px;}
+.param-card h4{font-size:0.86rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
+.param-card .param-normal{background:var(--blue-light);border-radius:5px;padding:4px 8px;font-size:0.78rem;font-weight:700;color:var(--blue-dark);margin:6px 0;display:inline-block;}
+.param-card p{font-size:0.79rem;line-height:1.55;color:var(--text);}
+.param-card .alert-as{background:#fdecea;border-radius:5px;padding:5px 8px;font-size:0.77rem;color:var(--red);font-weight:600;margin-top:6px;}
+
+/* PATHOLOGIES */
+.patho-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+.patho-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.patho-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;}
+.patho-icon{font-size:1.4rem;flex-shrink:0;}
+.patho-title{font-size:0.88rem;font-weight:700;color:var(--blue-dark);}
+.patho-subtitle{font-size:0.75rem;color:var(--text-light);}
+.patho-body{font-size:0.81rem;line-height:1.6;}
+.patho-body .simple{background:#e8f2fb;border-radius:6px;padding:8px 10px;margin-bottom:8px;border-left:3px solid var(--blue);}
+.patho-body .simple strong{color:var(--blue-dark);}
+.patho-body .soins-as{background:#e6f4ee;border-radius:6px;padding:8px 10px;margin-bottom:6px;border-left:3px solid var(--green);}
+.patho-body .soins-as strong{color:#1e7a45;}
+.patho-body .alerte{background:#fdecea;border-radius:6px;padding:8px 10px;border-left:3px solid var(--red);}
+.patho-body .alerte strong{color:var(--red);}
+.toggle-btn{margin-left:auto;font-size:0.7rem;background:var(--blue-light);border:none;border-radius:4px;padding:3px 8px;color:var(--blue-dark);cursor:pointer;font-weight:700;flex-shrink:0;}
+
+/* ARTICULATIONS */
+.articu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
+@media(max-width:500px){.articu-grid{grid-template-columns:1fr 1fr;}}
+.articu-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
+.articu-card svg{display:block;margin:0 auto 8px;}
+.articu-card h4{font-size:0.82rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.articu-card p{font-size:0.75rem;color:var(--text-light);line-height:1.4;}
+.articu-card .patho-tag{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:10px;font-size:0.7rem;font-weight:600;background:#fff3e0;color:#b55f10;}
+
+/* ALERTE TABLE */
+.alert-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:10px;}
+.alert-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+.alert-table td{padding:7px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;}
+.alert-table tr:nth-child(even) td{background:var(--blue-light);}
+.signe-urgent{color:var(--red);font-weight:700;}
+.signe-warn{color:#b55f10;font-weight:600;}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all 0.15s;font-size:0.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:0.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:0.88rem;font-weight:700;cursor:pointer;transition:background 0.18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:0.85rem;opacity:0.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:0.88rem;margin-top:10px;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,0.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background 0.18s,transform 0.18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+.info-pill{display:inline-block;background:var(--blue-light);color:var(--blue-dark);border-radius:20px;padding:3px 11px;font-size:0.77rem;font-weight:600;margin:2px;}
+.info-pill.warn{background:#fff3e0;color:#b55f10;}
+.info-pill.ok{background:#e6f4ee;color:#1e7a45;}
+.info-pill.red{background:#fdecea;color:#c0392b;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE A · BLOC 2 · Arrêté 26/02/2025</div>
+    <div>
+      <h1>PraxisParamètres-AS</h1>
+      <p class="subtitle">Le corps, les paramètres vitaux et les pathologies du quotidien en EHPAD</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('corps',this)">🫀 Le corps</button>
+    <button class="tab-btn" onclick="showTab('quiz-corps',this)">🧩 Quiz corps</button>
+    <button class="tab-btn" onclick="showTab('params',this)">📏 Paramètres</button>
+    <button class="tab-btn" onclick="showTab('pathos',this)">🏥 Pathologies</button>
+    <button class="tab-btn" onclick="showTab('articu',this)">🦴 Articulations</button>
+    <button class="tab-btn" onclick="showTab('alertes',this)">🚨 Alertes</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== CORPS ===== -->
+<div id="tab-corps" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🫀</div>
+    <div>
+      <h2>Le corps humain — l'essentiel pour l'AS</h2>
+      <p>Pas besoin de tout connaître comme un médecin. Mais savoir où se trouvent les organes et les structures que vous allez toucher, mobiliser et surveiller chaque jour, c'est la base pour comprendre ce qui se passe et transmettre les bonnes informations.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module A · Arrêté 26/02/2025 — Rappels anatomie/physiologie en lien avec les paramètres</span>
+
+  <div class="card">
+    <h2>🫁 Les grands systèmes du corps</h2>
+    <div class="body-container">
+      <!-- SVG corps face -->
+      <div class="body-figure">
+        <svg width="160" height="320" viewBox="0 0 160 320">
+          <!-- tête -->
+          <ellipse cx="80" cy="28" rx="24" ry="26" fill="#dce8f5" stroke="#aac4e0" stroke-width="1.5"/>
+          <!-- cou -->
+          <rect x="70" y="53" width="20" height="14" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <!-- tronc -->
+          <rect x="45" y="67" width="70" height="90" rx="12" fill="#c5daf0" stroke="#aac4e0" stroke-width="1.5"/>
+          <!-- bras G -->
+          <rect x="18" y="70" width="26" height="70" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="18" y="138" width="22" height="42" rx="6" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <!-- bras D -->
+          <rect x="116" y="70" width="26" height="70" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="120" y="138" width="22" height="42" rx="6" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <!-- jambes -->
+          <rect x="50" y="158" width="26" height="90" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="84" y="158" width="26" height="90" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <!-- pieds -->
+          <ellipse cx="63" cy="252" rx="14" ry="8" fill="#c5daf0" stroke="#aac4e0" stroke-width="1"/>
+          <ellipse cx="97" cy="252" rx="14" ry="8" fill="#c5daf0" stroke="#aac4e0" stroke-width="1"/>
+          <!-- COEUR -->
+          <circle cx="72" cy="95" r="10" fill="#ef5350" opacity="0.75"/>
+          <text x="72" y="99" text-anchor="middle" font-size="10">♥</text>
+          <!-- POUMONS -->
+          <ellipse cx="60" cy="90" rx="7" ry="10" fill="#7ec8e3" opacity="0.6"/>
+          <ellipse cx="100" cy="90" rx="7" ry="10" fill="#7ec8e3" opacity="0.6"/>
+          <!-- FOIE -->
+          <ellipse cx="95" cy="112" rx="10" ry="7" fill="#c97c3a" opacity="0.6"/>
+          <!-- ESTOMAC -->
+          <ellipse cx="73" cy="115" rx="8" ry="7" fill="#f4a460" opacity="0.6"/>
+          <!-- INTESTINS -->
+          <ellipse cx="80" cy="135" rx="18" ry="12" fill="#d4a8c7" opacity="0.5"/>
+          <!-- REINS -->
+          <ellipse cx="63" cy="128" rx="5" ry="7" fill="#b5651d" opacity="0.55"/>
+          <ellipse cx="97" cy="128" rx="5" ry="7" fill="#b5651d" opacity="0.55"/>
+          <!-- GENOUX -->
+          <circle cx="63" cy="200" r="8" fill="#f0c040" opacity="0.7"/>
+          <circle cx="97" cy="200" r="8" fill="#f0c040" opacity="0.7"/>
+          <text x="80" y="310" text-anchor="middle" font-size="10" fill="#5a6a7e">Vue de face</text>
+        </svg>
+        <p>Vue de face</p>
+      </div>
+      <!-- SVG corps dos -->
+      <div class="body-figure">
+        <svg width="160" height="320" viewBox="0 0 160 320">
+          <ellipse cx="80" cy="28" rx="24" ry="26" fill="#dce8f5" stroke="#aac4e0" stroke-width="1.5"/>
+          <rect x="70" y="53" width="20" height="14" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="45" y="67" width="70" height="90" rx="12" fill="#c5daf0" stroke="#aac4e0" stroke-width="1.5"/>
+          <rect x="18" y="70" width="26" height="70" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="18" y="138" width="22" height="42" rx="6" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="116" y="70" width="26" height="70" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="120" y="138" width="22" height="42" rx="6" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="50" y="158" width="26" height="90" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <rect x="84" y="158" width="26" height="90" rx="8" fill="#dce8f5" stroke="#aac4e0" stroke-width="1"/>
+          <ellipse cx="63" cy="252" rx="14" ry="8" fill="#c5daf0" stroke="#aac4e0" stroke-width="1"/>
+          <ellipse cx="97" cy="252" rx="14" ry="8" fill="#c5daf0" stroke="#aac4e0" stroke-width="1"/>
+          <!-- COLONNE -->
+          <rect x="76" y="68" width="8" height="85" rx="3" fill="#e0d0a0" stroke="#c0a840" stroke-width="1"/>
+          <!-- vertèbres -->
+          <rect x="73" y="72" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="82" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="92" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="102" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="112" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="122" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <rect x="73" y="132" width="14" height="5" rx="2" fill="#d4b840" opacity="0.8"/>
+          <!-- SACRUM -->
+          <ellipse cx="80" cy="153" rx="10" ry="6" fill="#c0a840" opacity="0.7"/>
+          <!-- HANCHES -->
+          <ellipse cx="55" cy="160" rx="10" ry="8" fill="#f0c040" opacity="0.7"/>
+          <ellipse cx="105" cy="160" rx="10" ry="8" fill="#f0c040" opacity="0.7"/>
+          <!-- OMOPLATES -->
+          <ellipse cx="60" cy="88" rx="9" ry="12" fill="#9ab8d8" opacity="0.6"/>
+          <ellipse cx="100" cy="88" rx="9" ry="12" fill="#9ab8d8" opacity="0.6"/>
+          <!-- REINS DOS -->
+          <ellipse cx="67" cy="118" rx="7" ry="10" fill="#b5651d" opacity="0.6"/>
+          <ellipse cx="93" cy="118" rx="7" ry="10" fill="#b5651d" opacity="0.6"/>
+          <text x="80" y="310" text-anchor="middle" font-size="10" fill="#5a6a7e">Vue de dos</text>
+        </svg>
+        <p>Vue de dos</p>
+      </div>
+    </div>
+
+    <!-- LÉGENDE COULEURS -->
+    <div class="annotation-list">
+      <div class="ann-item"><div class="ann-dot" style="background:#ef5350;"></div><div class="ann-text"><strong>Cœur</strong> <span>— pompe le sang dans tout le corps. Quand il bat trop vite, trop lentement ou de façon irrégulière, c'est un signe à signaler.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#7ec8e3;"></div><div class="ann-text"><strong>Poumons</strong> <span>— permettent de respirer et d'envoyer l'oxygène dans le sang. La saturation (SpO2) mesure ce taux d'oxygène.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#b5651d;"></div><div class="ann-text"><strong>Reins</strong> <span>— filtrent le sang et produisent les urines. Couleur, quantité, odeur des urines = informations clés pour l'AS.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#d4a8c7;"></div><div class="ann-text"><strong>Intestins</strong> <span>— digèrent les aliments. Constipation, diarrhée, douleurs abdominales : à surveiller et signaler.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#d4b840;"></div><div class="ann-text"><strong>Colonne vertébrale (rachis)</strong> <span>— soutient le dos. Fragile chez la personne âgée (ostéoporose). À respecter lors de chaque mobilisation.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#f0c040;"></div><div class="ann-text"><strong>Hanches & genoux</strong> <span>— articulations les plus opérées chez la personne âgée (prothèse). Précautions spécifiques après chirurgie.</span></div></div>
+      <div class="ann-item"><div class="ann-dot" style="background:#9ab8d8;"></div><div class="ann-text"><strong>Omoplates</strong> <span>— zones d'appui en décubitus dorsal. À surveiller lors des soins de prévention des escarres.</span></div></div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>📍 Les grandes régions du corps — vocabulaire simple</h2>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <h4>🔼 Haut du corps</h4>
+        <ul>
+          <li><strong>Crâne/tête</strong> — os qui protège le cerveau</li>
+          <li><strong>Cou (nuque = dos du cou)</strong></li>
+          <li><strong>Thorax</strong> = la poitrine (contient cœur + poumons)</li>
+          <li><strong>Abdomen</strong> = le ventre (contient estomac, foie, intestins, reins)</li>
+          <li><strong>Épaule</strong> = jonction bras/tronc</li>
+          <li><strong>Bras · coude · avant-bras · poignet · main</strong></li>
+        </ul>
+      </div>
+      <div class="two-col-cell">
+        <h4>🔽 Bas du corps</h4>
+        <ul>
+          <li><strong>Bassin/pelvis</strong> = os qui soutient le bas du tronc</li>
+          <li><strong>Hanche</strong> = jonction bassin/cuisse</li>
+          <li><strong>Cuisse · genou · jambe · cheville · pied</strong></li>
+          <li><strong>Sacrum</strong> = base de la colonne, zone d'escarre fréquente</li>
+          <li><strong>Ischions</strong> = os des fesses, zone d'appui en position assise</li>
+          <li><strong>Malléoles</strong> = les "chevilles osseuses" de chaque côté</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> En PRAP, vous avez appris que votre propre rachis (colonne vertébrale) est à protéger lors des manutentions. Celui de la personne soignée aussi — surtout en cas d'ostéoporose ou de fracture vertébrale, fréquentes chez la personne âgée.</div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🩸 Le sang — ce que l'AS doit comprendre</h2>
+    <p>Le sang circule dans <strong>tout le corps</strong> grâce au cœur. Il transporte :</p>
+    <ul>
+      <li><strong>L'oxygène</strong> — pris dans les poumons → distribué à tous les organes</li>
+      <li><strong>Le glucose (sucre)</strong> — carburant des cellules, mesuré par la glycémie</li>
+      <li><strong>Les déchets</strong> — renvoyés vers les reins pour être éliminés dans les urines</li>
+    </ul>
+    <p style="margin-top:10px;">Quand la circulation est perturbée (tension trop basse, cœur fatigué, déshydratation), <strong>les organes manquent d'oxygène</strong> — c'est une urgence à signaler.</p>
+  </div>
+</div>
+
+<!-- ===== QUIZ CORPS ===== -->
+<div id="tab-quiz-corps" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🧩</div>
+    <div>
+      <h2>Quiz — Le corps en un coup d'œil</h2>
+      <p>8 questions pour vérifier que vous avez retenu l'essentiel sur l'anatomie et la physiologie de base.</p>
+    </div>
+  </div>
+  <div id="quiz-corps-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz('corps')">Valider</button>
+    <button class="btn secondary" onclick="resetQuiz('corps')">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-corps-score-box">
+    <div class="qs-num" id="qs-corps-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 8</div>
+    <div class="qs-msg" id="qs-corps-msg"></div>
+  </div>
+</div>
+
+<!-- ===== PARAMÈTRES ===== -->
+<div id="tab-params" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📏</div>
+    <div>
+      <h2>Les paramètres vitaux</h2>
+      <p>Ce sont des mesures qui permettent de savoir si le corps fonctionne normalement. L'AS les mesure, les note avec précision et alerte l'IDE en cas d'anomalie. Arrêté 2025 : traçabilité obligatoire.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module A · Arrêté 26/02/2025 — Mesure, analyse, alerte, traçabilité</span>
+
+  <div class="param-grid">
+
+    <div class="param-card">
+      <div class="param-icon">🫀</div>
+      <h4>Tension artérielle (TA)</h4>
+      <p><em>La pression du sang dans les artères quand le cœur bat, puis se repose.</em></p>
+      <div class="param-normal">Normale : 90-140 / 60-90 mmHg</div>
+      <p>On lit "12/8" → 120/80 mmHg. Le premier chiffre = pression quand le cœur bat (systole). Le second = quand il se repose (diastole).</p>
+      <div class="alert-as">🚨 AS alerte si : &lt; 90/60 (hypotension) ou &gt; 160/100 (HTA sévère) ou différence importante bras gauche/droit</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">💓</div>
+      <h4>Pouls (fréquence cardiaque)</h4>
+      <p><em>Nombre de fois que le cœur bat par minute. Se prend au poignet (artère radiale) ou au cou (artère carotide).</em></p>
+      <div class="param-normal">Normale adulte : 60–100 bpm</div>
+      <p>Compter les battements pendant 1 minute complète (ou 30 secondes × 2). Noter aussi si le rythme est régulier ou irrégulier.</p>
+      <div class="alert-as">🚨 AS alerte si : &lt; 50 ou &gt; 120 bpm, ou pouls irrégulier (possible fibrillation)</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">🌡️</div>
+      <h4>Température</h4>
+      <p><em>Indique si le corps lutte contre une infection ou s'il n'arrive plus à se réchauffer.</em></p>
+      <div class="param-normal">Normale : 36,1 – 37,5 °C</div>
+      <p>Voie axillaire (aisselle) +0,5°C par rapport à la valeur réelle. Voie rectale plus fiable mais rare en EHPAD. Tympanique = rapide.</p>
+      <div class="alert-as">🚨 AS alerte si : &gt; 38°C (fièvre) ou &lt; 36°C (hypothermie) — particulièrement grave chez la personne âgée</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">🫧</div>
+      <h4>Saturation O2 (SpO2)</h4>
+      <p><em>Taux d'oxygène dans le sang. Mesurée avec un petit appareil à mettre au bout du doigt (oxymètre de pouls).</em></p>
+      <div class="param-normal">Normale : ≥ 95 %</div>
+      <p>Une SpO2 à 92 % = les cellules commencent à manquer d'oxygène. En BPCO, le médecin peut tolérer 88-92 % — vérifier la cible prescrite.</p>
+      <div class="alert-as">🚨 AS alerte si : &lt; 95 % (ou sous la cible prescrite), associée à essoufflement, cyanose des lèvres</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">🍬</div>
+      <h4>Glycémie capillaire</h4>
+      <p><em>Taux de sucre dans le sang. Une petite piqûre au bout du doigt, une goutte de sang sur une bandelette.</em></p>
+      <div class="param-normal">Normale à jeun : 0,70 – 1,10 g/L</div>
+      <p>Trop de sucre (hyperglycémie) → fatigue, soif intense, urines abondantes. Pas assez (hypoglycémie) → sueurs, tremblements, confusion.</p>
+      <div class="alert-as">🚨 AS alerte immédiatement si : &lt; 0,60 g/L (hypoglycémie sévère) ou &gt; 2,50 g/L</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">💨</div>
+      <h4>Fréquence respiratoire (FR)</h4>
+      <p><em>Nombre de fois que la personne inspire par minute. Un "mouvement" = inspiration + expiration.</em></p>
+      <div class="param-normal">Normale adulte : 12–20 mouvements/min</div>
+      <p>Observer le thorax qui se soulève. Ne pas prévenir le patient — il modifiera inconsciemment sa respiration. Compter discrètement 1 minute.</p>
+      <div class="alert-as">🚨 AS alerte si : &lt; 12 (bradypnée) ou &gt; 25 (tachypnée), ou respiration bruyante, sifflante</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">💧</div>
+      <h4>Diurèse (urines)</h4>
+      <p><em>Quantité d'urine produite en 24h. Mesurée avec un bocal gradué ou une protection pesée.</em></p>
+      <div class="param-normal">Normale : 1 000 – 1 500 mL/24h</div>
+      <p>Observer aussi : couleur (foncée = déshydratation), odeur (forte = infection urinaire possible), présence de sang (hématurie).</p>
+      <div class="alert-as">🚨 AS alerte si : &lt; 500 mL/24h (oligurie), urines absentes, sang visible, odeur très forte</div>
+    </div>
+
+    <div class="param-card">
+      <div class="param-icon">⚖️</div>
+      <h4>Poids & IMC</h4>
+      <p><em>Le poids seul ne suffit pas — c'est l'évolution qui compte. L'IMC = poids (kg) ÷ taille² (m). Indice de corpulence.</em></p>
+      <div class="param-normal">IMC normal : 18,5 – 25 kg/m²</div>
+      <p>Peser toujours dans les mêmes conditions : même heure, même vêtements, même balance. Une prise ou perte de 2 kg en une semaine = signal.</p>
+      <div class="alert-as">🚨 AS signale si : perte &gt; 5 % du poids en 1 mois ou &gt; 10 % en 6 mois (critères dénutrition HAS)</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h2>📝 La traçabilité — obligation arrêté 2025</h2>
+    <p>Chaque mesure doit être <strong>notée dans le dossier patient</strong> avec :</p>
+    <ul>
+      <li>La <strong>date et l'heure</strong> précises</li>
+      <li>La <strong>valeur exacte</strong> (pas "normal" — noter le chiffre)</li>
+      <li>Les <strong>conditions de mesure</strong> si pertinentes (côté du bras, position du patient…)</li>
+      <li>L'<strong>action réalisée</strong> en cas d'anomalie (qui a été prévenu, à quelle heure)</li>
+    </ul>
+    <p style="margin-top:8px;color:var(--red);font-weight:600;font-size:0.83rem;">⚠️ Une mesure non tracée = une mesure qui n'existe pas légalement.</p>
+  </div>
+</div>
+
+<!-- ===== PATHOLOGIES ===== -->
+<div id="tab-pathos" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🏥</div>
+    <div>
+      <h2>Les pathologies du quotidien en EHPAD</h2>
+      <p>Ces maladies, vous les verrez chaque jour. Pas besoin de tout savoir sur le traitement — mais comprendre ce que vit la personne change tout à votre façon de la soigner.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module A · Arrêté 26/02/2025 — Adapter ses activités en fonction de l'état de santé</span>
+
+  <div class="patho-grid">
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🧠</div>
+        <div><div class="patho-title">Maladie d'Alzheimer</div><div class="patho-subtitle">et autres démences</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Le cerveau perd peu à peu sa capacité à mémoriser, à reconnaître les gens, à parler et à gérer les gestes du quotidien. Ce n'est pas de la paresse ou de la mauvaise volonté — les neurones meurent progressivement.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Parler lentement, phrase par phrase. Ne pas corriger devant les autres. Garder les routines (même heure, même ordre). Utiliser le prénom. Rester calme si la personne est agitée — votre stress est contagieux.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Agitation soudaine inhabituelle (peut cacher une douleur ou une infection), refus alimentaire brutal, chutes à répétition, crise de panique.</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🤲</div>
+        <div><div class="patho-title">Maladie de Parkinson</div><div class="patho-subtitle">Tremblements et rigidité</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Le cerveau ne produit plus assez de dopamine, une substance qui coordonne les mouvements. Résultat : tremblements au repos, rigidité musculaire, démarche hésitante, visage figé — mais la personne comprend et ressent tout.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Laisser du temps — ne jamais brusquer. La rigidité rend les soins plus longs. Risque de fausse route élevé (mâcher et avaler demande un effort). Risque de chute majeur (démarche à petits pas, pieds qui "collent" au sol).</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Tremblements qui s'aggravent soudainement, blocage total de la marche (freezing), toux répétée pendant les repas.</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">⚡</div>
+        <div><div class="patho-title">AVC — Accident Vasculaire Cérébral</div><div class="patho-subtitle">Séquelles au quotidien</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Un vaisseau du cerveau est bouché ou a éclaté. Une partie du cerveau n'a plus reçu de sang et est abîmée. Les séquelles dépendent de la zone touchée : paralysie d'un côté (hémiplégie), troubles de la parole (aphasie), troubles de la déglutition, troubles visuels.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Côté paralysé à protéger (ne jamais tirer sur le bras paralysé). Aborder la personne du côté sain si elle ne perçoit pas bien le côté atteint (héminégligence). Pour les repas : position assise stricte, nourriture côté sain.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Nouveau déficit (la personne ne bougeait plus le bras ce matin), trouble de la parole soudain, confusion nouvelle — peut être un 2e AVC.</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🍬</div>
+        <div><div class="patho-title">Diabète</div><div class="patho-subtitle">Type 1 et Type 2</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Le corps ne gère plus bien le sucre dans le sang. Type 2 (le plus fréquent en EHPAD) : le pancréas produit de l'insuline mais elle "ne fonctionne plus bien". Le sucre reste dans le sang au lieu d'entrer dans les cellules.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Surveiller les pieds chaque jour (plaies qui ne guérissent pas = urgence). Respecter les horaires des repas et des médicaments. Mesurer la glycémie sur prescription. Connaître les signes d'hypo et d'hyperglycémie.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Sueurs froides + confusion = hypoglycémie (urgent). Soif intense + urines abondantes = hyperglycémie. Plaie au pied, même minime.</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">💙</div>
+        <div><div class="patho-title">Insuffisance cardiaque</div><div class="patho-subtitle">Le cœur fatigue</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Le cœur ne pompe plus assez bien le sang. L'eau s'accumule dans les poumons (essoufflement) ou dans les jambes (œdèmes = jambes gonflées). La personne se fatigue vite, même au repos.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Ne pas faire trop d'efforts d'un coup. Surveiller le poids chaque jour (prise de 2 kg en 48h = rétention d'eau). Surveiller les chevilles gonflées. Position semi-assise préférée pour dormir.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Essoufflement au repos, jambes très gonflées, prise de poids brutale, crachat rosé (signe d'œdème pulmonaire = urgence absolue).</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🫁</div>
+        <div><div class="patho-title">BPCO</div><div class="patho-subtitle">Broncho-pneumopathie chronique obstructive</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> Les bronches sont abîmées (souvent par le tabac) et l'air ne circule plus bien. La personne a du mal à expirer — elle "retient" l'air vicié dans ses poumons. La toux chronique, les crachats et l'essoufflement à l'effort sont les signes typiques.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> SpO2 cible souvent plus basse (88-92 % tolérée). Ne pas s'alarmer si la SpO2 est à 90 % si c'est la cible prescrite. Donner de l'oxygène seulement sur prescription. Soins lents, pauses fréquentes.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> SpO2 sous la cible prescrite, crachats purulents (jaunes/verts), essoufflement nettement aggravé, lèvres bleues (cyanose).</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🦴</div>
+        <div><div class="patho-title">Arthrose & Ostéoporose</div><div class="patho-subtitle">Les os et les articulations qui s'usent</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>Arthrose :</strong> Le cartilage qui protège les articulations s'use. Douleur, raideur, déformation. Genoux, hanches, mains, rachis = zones les plus touchées. <strong>Ostéoporose :</strong> Les os deviennent poreux et fragiles. Un choc mineur peut causer une fracture (col du fémur, vertèbres, poignet).</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Arthrose = mobilisations douces, pas de gestes brusques, respecter la douleur. Ostéoporose = manipuler avec une extrême douceur, ne jamais forcer sur les articulations, prévenir les chutes++.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Douleur aiguë après un choc même léger (fracture possible), déformation nouvelle d'une articulation, genou gonflé chaud (poussée arthrosique).</div>
+      </div>
+    </div>
+
+    <div class="patho-card">
+      <div class="patho-header" onclick="togglePatho(this)">
+        <div class="patho-icon">🚽</div>
+        <div><div class="patho-title">Incontinence & troubles vésicaux</div><div class="patho-subtitle">Fréquent, jamais banal</div></div>
+        <button class="toggle-btn">▼ Voir</button>
+      </div>
+      <div class="patho-body" style="display:none;">
+        <div class="simple"><strong>C'est quoi en clair ?</strong> La personne ne contrôle plus bien sa vessie (incontinence urinaire) ou ses selles (incontinence fécale). Ce n'est pas une fatalité — c'est une pathologie qui mérite attention et respect, pas banalisation.</div>
+        <div class="soins-as"><strong>Ce que ça change pour vous :</strong> Changes réguliers sans attendre la demande. Hygiène soigneuse à chaque change (risque d'infection, d'escarre, de macération). Respecter absolument la dignité de la personne. Proposer les toilettes régulièrement.</div>
+        <div class="alerte"><strong>Signaler à l'IDE :</strong> Urines très foncées, odeur forte, sang, brûlures (infection urinaire), selles noires (saignement digestif), diarrhée persistante.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ARTICULATIONS ===== -->
+<div id="tab-articu" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🦴</div>
+    <div>
+      <h2>Les articulations — ce que vous mobilisez chaque jour</h2>
+      <p>Une articulation, c'est là où deux os se rejoignent et permettent le mouvement. En EHPAD, elles sont souvent abîmées, opérées ou douloureuses. Les connaître, c'est comprendre pourquoi certains gestes sont interdits.</p>
+    </div>
+  </div>
+
+  <div class="articu-grid">
+
+    <div class="articu-card">
+      <svg width="90" height="100" viewBox="0 0 90 100">
+        <ellipse cx="45" cy="22" rx="20" ry="18" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="35" y="38" width="20" height="8" rx="4" fill="#a0b8d0"/>
+        <ellipse cx="45" cy="55" rx="18" ry="14" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="37" y="68" width="16" height="24" rx="6" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1"/>
+        <circle cx="45" cy="46" r="6" fill="#f0c040" opacity="0.8"/>
+        <text x="45" y="98" text-anchor="middle" font-size="9" fill="#5a6a7e">Épaule</text>
+      </svg>
+      <h4>Épaule</h4>
+      <p>Articulation la plus mobile. Fragile si le bras est paralysé (AVC).</p>
+      <span class="patho-tag">⚠️ Ne jamais tirer sur le bras hémiplégique</span>
+    </div>
+
+    <div class="articu-card">
+      <svg width="90" height="100" viewBox="0 0 90 100">
+        <rect x="30" y="5" width="30" height="35" rx="6" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="28" y="55" width="34" height="35" rx="6" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="32" y="38" width="26" height="20" rx="4" fill="#f0c040" opacity="0.7"/>
+        <text x="45" y="98" text-anchor="middle" font-size="9" fill="#5a6a7e">Coude</text>
+      </svg>
+      <h4>Coude</h4>
+      <p>Permet la flexion du bras. Attention à l'arthrose du coude.</p>
+      <span class="patho-tag">Mobiliser en douceur</span>
+    </div>
+
+    <div class="articu-card">
+      <svg width="90" height="100" viewBox="0 0 90 100">
+        <rect x="28" y="5" width="34" height="45" rx="6" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="25" y="48" width="40" height="10" rx="4" fill="#f0c040" opacity="0.7"/>
+        <rect x="22" y="56" width="46" height="35" rx="6" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <text x="45" y="98" text-anchor="middle" font-size="9" fill="#5a6a7e">Poignet & main</text>
+      </svg>
+      <h4>Poignet</h4>
+      <p>Souvent déformé par l'arthrose ou sequelle de fracture.</p>
+      <span class="patho-tag">Appui interdit si fracture</span>
+    </div>
+
+    <div class="articu-card">
+      <svg width="90" height="110" viewBox="0 0 90 110">
+        <!-- bassin -->
+        <ellipse cx="45" cy="20" rx="30" ry="16" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <!-- col fémur G -->
+        <line x1="25" y1="28" x2="20" y2="45" stroke="#7aa8d0" stroke-width="3"/>
+        <!-- tête fémur G -->
+        <circle cx="18" cy="34" r="8" fill="#f0c040" opacity="0.85"/>
+        <!-- tête fémur D -->
+        <line x1="65" y1="28" x2="70" y2="45" stroke="#7aa8d0" stroke-width="3"/>
+        <circle cx="72" cy="34" r="8" fill="#f0c040" opacity="0.85"/>
+        <!-- fémurs -->
+        <rect x="12" y="46" width="14" height="50" rx="5" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <rect x="64" y="46" width="14" height="50" rx="5" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <text x="45" y="106" text-anchor="middle" font-size="9" fill="#5a6a7e">Hanche</text>
+      </svg>
+      <h4>Hanche</h4>
+      <p>La plus opérée en gériatrie (prothèse totale de hanche = PTH).</p>
+      <span class="patho-tag">⚠️ Précautions PTH : pas flexion &gt;90°</span>
+    </div>
+
+    <div class="articu-card">
+      <svg width="90" height="110" viewBox="0 0 90 110">
+        <rect x="30" y="2" width="30" height="40" rx="6" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <ellipse cx="45" cy="50" rx="20" ry="10" fill="#f0c040" opacity="0.8"/>
+        <rect x="32" y="40" width="26" height="20" rx="4" fill="#e8d870" opacity="0.6"/>
+        <rect x="30" y="58" width="30" height="42" rx="6" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <text x="45" y="106" text-anchor="middle" font-size="9" fill="#5a6a7e">Genou</text>
+      </svg>
+      <h4>Genou</h4>
+      <p>Gonarthrose fréquente. Prothèse de genou (PTG) de plus en plus courante.</p>
+      <span class="patho-tag">Surveiller gonflement/chaleur</span>
+    </div>
+
+    <div class="articu-card">
+      <svg width="90" height="110" viewBox="0 0 90 110">
+        <rect x="33" y="2" width="24" height="55" rx="6" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <ellipse cx="45" cy="60" rx="20" ry="10" fill="#f0c040" opacity="0.75"/>
+        <ellipse cx="30" cy="62" rx="7" ry="5" fill="#e8b840" opacity="0.8"/>
+        <ellipse cx="60" cy="62" rx="7" ry="5" fill="#e8b840" opacity="0.8"/>
+        <ellipse cx="45" cy="75" rx="28" ry="14" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <text x="45" y="106" text-anchor="middle" font-size="9" fill="#5a6a7e">Cheville</text>
+      </svg>
+      <h4>Cheville & pied</h4>
+      <p>Œdèmes fréquents (insuffisance cardiaque). Malléoles = zones d'escarre.</p>
+      <span class="patho-tag">Surveillance peau quotidienne</span>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h2>🦴 La colonne vertébrale (rachis) — à respecter absolument</h2>
+    <div class="body-container">
+      <svg width="120" height="280" viewBox="0 0 120 280">
+        <!-- cervicales C1-C7 -->
+        <rect x="48" y="10" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="18" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="26" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="34" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="42" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="50" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <rect x="48" y="58" width="24" height="4" rx="2" fill="#ef5350" opacity="0.8"/>
+        <!-- thoraciques D1-D12 -->
+        <rect x="45" y="70" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="80" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="90" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="100" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="110" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="120" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="130" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="140" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="150" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="160" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="170" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <rect x="45" y="180" width="30" height="5" rx="2" fill="#ff9800" opacity="0.8"/>
+        <!-- lombaires L1-L5 -->
+        <rect x="42" y="192" width="36" height="7" rx="3" fill="#4caf50" opacity="0.8"/>
+        <rect x="42" y="203" width="36" height="7" rx="3" fill="#4caf50" opacity="0.8"/>
+        <rect x="42" y="214" width="36" height="7" rx="3" fill="#4caf50" opacity="0.8"/>
+        <rect x="42" y="225" width="36" height="7" rx="3" fill="#4caf50" opacity="0.8"/>
+        <rect x="42" y="236" width="36" height="7" rx="3" fill="#4caf50" opacity="0.8"/>
+        <!-- sacrum -->
+        <ellipse cx="60" cy="255" rx="20" ry="12" fill="#9c27b0" opacity="0.7"/>
+        <!-- légendes -->
+        <text x="85" y="40" font-size="9" fill="#ef5350" font-weight="700">Cervicales</text>
+        <text x="85" y="49" font-size="8" fill="#5a6a7e">C1-C7</text>
+        <text x="85" y="130" font-size="9" fill="#e65100" font-weight="700">Thoraciques</text>
+        <text x="85" y="139" font-size="8" fill="#5a6a7e">D1-D12</text>
+        <text x="85" y="215" font-size="9" fill="#2e7d32" font-weight="700">Lombaires</text>
+        <text x="85" y="224" font-size="8" fill="#5a6a7e">L1-L5</text>
+        <text x="72" y="260" font-size="9" fill="#6a1b9a" font-weight="700">Sacrum</text>
+        <!-- ligne centrale -->
+        <line x1="60" y1="8" x2="60" y2="243" stroke="rgba(0,0,0,0.1)" stroke-width="1" stroke-dasharray="2"/>
+      </svg>
+      <div style="flex:1;min-width:200px;">
+        <div class="annotation-list">
+          <div class="ann-item"><div class="ann-dot" style="background:#ef5350;"></div><div class="ann-text"><strong>Cervicales (cou) C1-C7</strong><span> — très mobiles, très fragiles. Ne jamais forcer la rotation de la tête.</span></div></div>
+          <div class="ann-item"><div class="ann-dot" style="background:#ff9800;"></div><div class="ann-text"><strong>Thoraciques D1-D12</strong><span> — attachées aux côtes. Fractures vertébrales fréquentes en cas d'ostéoporose.</span></div></div>
+          <div class="ann-item"><div class="ann-dot" style="background:#4caf50;"></div><div class="ann-text"><strong>Lombaires L1-L5</strong><span> — supportent le poids du corps. Zone de lombalgie et de hernie discale.</span></div></div>
+          <div class="ann-item"><div class="ann-dot" style="background:#9c27b0;"></div><div class="ann-text"><strong>Sacrum</strong><span> — zone d'escarre numéro 1. Surveiller à chaque repositionnement.</span></div></div>
+        </div>
+        <div class="prap-box" style="margin-top:10px;">
+          <div class="prap-icon">🔗</div>
+          <div class="prap-text"><strong>Lien PRAP :</strong> Votre formation PRAP vous a appris à protéger votre propre colonne lors des manutentions. Pensez aussi à celle de la personne soignée : une fracture vertébrale sur ostéoporose peut survenir lors d'un geste trop brusque.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ALERTES ===== -->
+<div id="tab-alertes" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🚨</div>
+    <div>
+      <h2>Signes d'alerte — Quoi observer, quoi dire, à qui</h2>
+      <p>L'AS est les yeux et les oreilles de l'équipe soignante. Ce tableau vous aide à savoir quoi transmettre et avec quelle urgence.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module A · Arrêté 26/02/2025 — Alerte et mise en œuvre d'actions, traçabilité</span>
+
+  <div class="card">
+    <h2>📋 Tableau synthétique des alertes AS</h2>
+    <table class="alert-table">
+      <tr><th>Ce que vous observez</th><th>Ce que ça peut indiquer</th><th>Urgence</th><th>Que dire à l'IDE</th></tr>
+      <tr><td>Sueurs froides + confusion + tremblements</td><td>Hypoglycémie</td><td class="signe-urgent">🔴 Urgent</td><td>"M./Mme X est confus·e, transpire, tremble — glycémie ?"</td></tr>
+      <tr><td>Lèvres bleues, SpO2 &lt; cible</td><td>Manque d'oxygène (détresse respiratoire)</td><td class="signe-urgent">🔴 Urgent</td><td>"SpO2 à [X]%, lèvres cyanosées, essoufflement au repos"</td></tr>
+      <tr><td>Crachat rosé + essoufflement couché</td><td>Œdème pulmonaire (insuffisance cardiaque)</td><td class="signe-urgent">🔴 Urgent</td><td>"Crachat rosé, ne peut plus s'allonger, essoufflé·e"</td></tr>
+      <tr><td>Pouls irrégulier ou &lt; 50 / &gt; 120</td><td>Trouble du rythme cardiaque</td><td class="signe-urgent">🔴 Urgent</td><td>"Pouls à [X] bpm, irrégulier, depuis [heure]"</td></tr>
+      <tr><td>Chute + douleur hanche + jambe raccourcie/tournée</td><td>Fracture du col du fémur</td><td class="signe-urgent">🔴 Urgent</td><td>"Chute, jambe droite/gauche raccourcie et en rotation externe"</td></tr>
+      <tr><td>Fièvre &gt; 38,5°C</td><td>Infection (urinaire, pulmonaire, cutanée…)</td><td class="signe-warn">🟠 Rapide</td><td>"T° à [X]°C depuis [heure], [autre signe associé]"</td></tr>
+      <tr><td>Prise de poids &gt; 2 kg en 48h</td><td>Rétention d'eau (insuffisance cardiaque)</td><td class="signe-warn">🟠 Rapide</td><td>"Poids à [X] kg ce matin, +2 kg depuis avant-hier"</td></tr>
+      <tr><td>Agitation inhabituelle (dément·e calme)</td><td>Douleur, infection, globe vésical, fécalome</td><td class="signe-warn">🟠 Rapide</td><td>"M./Mme X inhabituellement agité·e depuis [heure]"</td></tr>
+      <tr><td>Urines très foncées, odeur forte, brûlures</td><td>Infection urinaire</td><td class="signe-warn">🟠 Rapide</td><td>"Urines foncées, odeur forte, se plaint de brûlures"</td></tr>
+      <tr><td>Plaie au pied chez un diabétique</td><td>Ulcère diabétique (risque d'amputation)</td><td class="signe-warn">🟠 Rapide</td><td>"Plaie pied droit/gauche, [taille], [couleur], depuis [date]"</td></tr>
+      <tr><td>Rougeur sacrum qui ne blanchit pas</td><td>Escarre stade 1</td><td>🟡 Sous 2h</td><td>"Rougeur sacrum persistante, ne blanchit pas à la pression"</td></tr>
+      <tr><td>Refus alimentaire depuis 2 jours</td><td>Dépression, douleur, infection, dysphagie</td><td>🟡 Sous 2h</td><td>"N'a presque rien mangé depuis 48h, [raison suspectée]"</td></tr>
+    </table>
+  </div>
+
+  <div class="card green">
+    <h2>💬 La méthode SBAR pour transmettre</h2>
+    <p style="margin-bottom:10px;font-size:0.83rem;">Pour alerter efficacement, structurez votre message :</p>
+    <div class="two-col">
+      <div class="two-col-cell"><h4>S — Situation</h4><p>"Mme Dupont, chambre 12, je vous appelle car elle est confuse depuis ce matin."</p></div>
+      <div class="two-col-cell"><h4>B — Background (contexte)</h4><p>"Elle est diabétique, sous insuline, a mangé la moitié de son petit-déjeuner."</p></div>
+      <div class="two-col-cell"><h4>A — Assessment (observation)</h4><p>"Elle transpire, tremble, glycémie à 0,58 g/L que je viens de mesurer."</p></div>
+      <div class="two-col-cell"><h4>R — Recommandation</h4><p>"Je pense qu'elle fait une hypoglycémie — que dois-je faire ?"</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ GENERAL ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Paramètres et pathologies</h2>
+      <p>10 questions sur les paramètres vitaux, les pathologies EHPAD et les alertes AS.</p>
+    </div>
+  </div>
+  <div id="quiz-general-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz('general')">Valider</button>
+    <button class="btn secondary" onclick="resetQuiz('general')">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-general-score-box">
+    <div class="qs-num" id="qs-general-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-general-msg"></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+// ===== TABS =====
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+// ===== TRACKING =====
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+// ===== PATHOLOGIES TOGGLE =====
+function togglePatho(header){
+  const body=header.nextElementSibling;
+  const btn=header.querySelector('.toggle-btn');
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  btn.textContent=open?'▼ Voir':'▲ Fermer';
+}
+
+// ===== QUIZ DATA =====
+const qCorps=[
+  {q:"Le cœur se trouve dans quelle partie du corps ?",opts:["Dans le ventre (abdomen)","Dans la poitrine (thorax), légèrement à gauche","Dans le dos, entre les omoplates","Dans le cou"],correct:1,expl:"Le cœur est situé dans le thorax (la poitrine), entre les deux poumons, légèrement décalé vers la gauche. C'est lui qui pompe le sang dans tout le corps."},
+  {q:"À quoi servent les reins ?",opts:["À digérer les aliments","À pomper le sang","À filtrer le sang et produire les urines","À transporter l'oxygène"],correct:2,expl:"Les reins filtrent le sang en permanence pour éliminer les déchets, produits sous forme d'urine. Surveiller la couleur, la quantité et l'odeur des urines fait partie du rôle AS."},
+  {q:"Le sacrum est une zone particulièrement surveillée car :",opts:["C'est là où se trouve le cœur","C'est une zone d'appui majeure en position couchée sur le dos, très exposée aux escarres","C'est l'os le plus solide du corps","C'est la zone où l'on mesure la température"],correct:1,expl:"Le sacrum (base de la colonne, dans le bas du dos) est le point de pression principal en décubitus dorsal. C'est la zone d'escarre numéro 1 chez la personne alitée — à inspecter à chaque soin."},
+  {q:"Les poumons permettent de :",opts:["Digérer les aliments","Produire les urines","Capter l'oxygène de l'air pour l'envoyer dans le sang","Contrôler la température du corps"],correct:2,expl:"Les poumons captent l'oxygène à chaque inspiration et l'envoient dans le sang. C'est pourquoi la saturation (SpO2) mesure le taux d'oxygène dans le sang — si les poumons fonctionnent mal, la SpO2 baisse."},
+  {q:"Quelle partie du corps appelle-t-on 'thorax' ?",opts:["Le ventre","La poitrine (contient cœur et poumons)","Le dos","Les fesses"],correct:1,expl:"Le thorax est la partie supérieure du tronc, délimitée par les côtes. Il contient le cœur et les poumons — les deux organes vitaux que l'AS surveille via la fréquence cardiaque, la tension et la saturation."},
+  {q:"Les ischions sont :",opts:["Les os du crâne","Les 'os des fesses' sur lesquels on s'appuie en position assise","Les os du poignet","Les vertèbres du cou"],correct:1,expl:"Les ischions sont les os du bassin sur lesquels repose le poids du corps en position assise. Ce sont des zones d'escarre fréquentes chez les personnes en fauteuil roulant ou peu mobiles."},
+  {q:"La colonne vertébrale (rachis) est à respecter particulièrement chez la personne âgée car :",opts:["Elle est plus grosse qu'un os normal","Elle peut être fragilisée par l'ostéoporose — une traction brutale peut provoquer une fracture","Elle contrôle la respiration","C'est là qu'on mesure la glycémie"],correct:1,expl:"L'ostéoporose rend les os poreux et fragiles. Les vertèbres peuvent se fracturer lors d'un choc même léger ou d'une manutention brusque. La PRAP et les techniques de mobilisation douce protègent à la fois votre dos et celui de la personne soignée."},
+  {q:"Le glucose (sucre dans le sang) sert principalement à :",opts:["Fabriquer les urines","Transporter l'oxygène","Fournir de l'énergie à toutes les cellules du corps","Lutter contre les infections"],correct:2,expl:"Le glucose est le carburant de toutes les cellules. Quand il manque (hypoglycémie), le cerveau est le premier à en souffrir — d'où la confusion, les tremblements, les sueurs. C'est une urgence à traiter rapidement."}
+];
+
+const qGeneral=[
+  {q:"Mme Martin a une tension à 85/55 mmHg. Quelle est votre action ?",opts:["C'est normal pour une personne âgée, je ne fais rien","Je lui donne à boire car elle est sûrement déshydratée","Je préviens l'IDE immédiatement car c'est une hypotension","Je lui fais faire des exercices pour augmenter sa tension"],correct:2,expl:"Une tension à 85/55 mmHg est une hypotension (tension basse). La limite d'alerte est 90/60 mmHg. L'AS prévient immédiatement l'IDE avec la valeur mesurée, l'heure et l'état général de la patiente."},
+  {q:"Un pouls à 52 bpm, régulier, chez une patiente habituellement à 70 bpm. Que faites-vous ?",opts:["Rien, c'est dans les limites normales","Je le signale à l'IDE car c'est une bradycardie inhabituelle pour cette patiente","J'attends la prochaine mesure programmée","Je lui donne plus à manger"],correct:1,expl:"52 bpm est dans la limite basse mais surtout c'est inhabituel pour cette patiente (habituellement à 70). Tout écart significatif par rapport au bilan habituel doit être signalé — l'IDE appréciera s'il faut agir."},
+  {q:"Lors d'un soin, M. Dupont (diabétique) vous dit qu'il se sent bizarre, tremble et transpire. Glycémie : 0,58 g/L. Que faites-vous en premier ?",opts:["Je termine le soin et préviens l'IDE après","J'appelle l'IDE immédiatement — c'est une hypoglycémie sévère","Je lui donne un verre de jus d'orange sans avertir l'IDE","Je mesure à nouveau la glycémie dans 30 minutes"],correct:1,expl:"0,58 g/L avec des signes cliniques = hypoglycémie sévère. C'est une urgence. L'AS appelle l'IDE immédiatement. Il ne donne rien par voie orale sans ordre médical si la conscience est altérée (risque de fausse route)."},
+  {q:"Quelle valeur de SpO2 est normale pour un adulte sans pathologie respiratoire ?",opts:["≥ 95 %","88–92 %","80–85 %","≥ 99 % obligatoirement"],correct:0,expl:"Une SpO2 ≥ 95 % est normale. En dessous de 95 %, c'est un signal. Attention : en BPCO, le médecin peut prescrire une cible plus basse (88-92 %) — toujours vérifier la cible prescrite avant d'alerter."},
+  {q:"Mme G. souffre d'Alzheimer et est habituellement calme. Ce matin, elle est très agitée et crie. Quelle est votre première réflexion ?",opts:["Elle fait une crise liée à sa démence, c'est normal","Une agitation inhabituelle peut cacher une douleur, une infection ou un globe vésical — à signaler à l'IDE","Il faut l'isoler pour calmer les autres résidents","On attend que ça passe"],correct:1,expl:"Chez une personne atteinte de démence, l'agitation inhabituelle est souvent le seul signe qu'elle peut exprimer pour communiquer une douleur, une infection urinaire, un besoin non satisfait ou une rétention urinaire. L'AS signale à l'IDE pour évaluation."},
+  {q:"Pour un résident porteur d'une prothèse totale de hanche (PTH), quelle position est interdite ?",opts:["Position allongée sur le dos","Flexion de la hanche au-delà de 90° (se pencher en avant trop fort)","Position demi-assise à 30°","Jambes légèrement écartées"],correct:1,expl:"Après une PTH, la flexion de hanche au-delà de 90° risque de luxer la prothèse (la faire sortir de son logement). L'AS veille à ce que le résident ne se penche pas trop en avant, ne croise pas les jambes et respecte les précautions prescrites."},
+  {q:"Lors d'une toilette, vous observez que les jambes de M. B. sont beaucoup plus gonflées que d'habitude. Il pèse 2 kg de plus qu'avant-hier. Vous suspectez :",opts:["Il mange trop","Une rétention d'eau liée à son insuffisance cardiaque — à signaler à l'IDE rapidement","Des escarres aux jambes","Une fracture des deux jambes"],correct:1,expl:"Prise de poids rapide (2 kg en 48h) + jambes gonflées = rétention d'eau, signe d'aggravation de l'insuffisance cardiaque. L'AS note le poids avec l'heure et les conditions de mesure, et prévient l'IDE dans les 2 heures."},
+  {q:"Vous mesurez la température de Mme R. en voie axillaire (sous l'aisselle) : 37,8°C. Sa vraie température est :",opts:["37,8°C exactement","Environ 38,3°C (la voie axillaire est 0,5°C en dessous de la réalité)","37,3°C","Impossible à savoir"],correct:1,expl:"La voie axillaire donne une valeur environ 0,5°C inférieure à la température réelle. 37,8°C en axillaire correspond donc à environ 38,3°C — c'est une fièvre à signaler à l'IDE."},
+  {q:"Comment transmettre une alerte efficacement à l'IDE ? Vous utilisez la méthode :",opts:["URGENCE : juste dire le problème sans contexte","SBAR : Situation, Background, Assessment, Recommandation","ABCDE : Airways, Breathing, Circulation, Disability, Exposure","Il n'y a pas de méthode, chacun fait comme il veut"],correct:1,expl:"La méthode SBAR structure la transmission : Situation (qui, quoi), Background (contexte médical), Assessment (ce que vous observez), Recommandation (ce que vous demandez). Elle évite les oublis et permet à l'IDE d'évaluer rapidement la gravité."},
+  {q:"Une mesure de paramètre non notée dans le dossier patient :",opts:["Est valable si vous vous en souvenez","N'existe pas légalement — la traçabilité est une obligation réglementaire (arrêté 2025)","Peut être notée le lendemain","Est la responsabilité de l'IDE, pas de l'AS"],correct:1,expl:"L'arrêté du 26 février 2025 exige explicitement la traçabilité des données avec exactitude. Une mesure non tracée n'a pas d'existence légale et ne peut pas servir à suivre l'évolution de l'état du patient. Chaque mesure = date, heure, valeur, signature."}
+];
+
+// ===== QUIZ ENGINE =====
+function buildQuiz(questions, containerId){
+  document.getElementById(containerId).innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="${containerId}-qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="${containerId}-opt-${i}-${j}"><input type="radio" name="${containerId}-q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="${containerId}-corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(type){
+  const questions=type==='corps'?qCorps:qGeneral;
+  const containerId=type==='corps'?'quiz-corps-container':'quiz-general-container';
+  const total=questions.length;
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="${containerId}-q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`${containerId}-opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){
+      const c=parseInt(sel.value);
+      if(c===q.correct){document.getElementById(`${containerId}-opt-${i}-${c}`).classList.add('correct');score++;}
+      else{document.getElementById(`${containerId}-opt-${i}-${c}`).classList.add('wrong');document.getElementById(`${containerId}-opt-${i}-${q.correct}`).classList.add('correct');}
+    }else{document.getElementById(`${containerId}-opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`${containerId}-corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById(`quiz-${type}-score-box`);
+  box.style.display='block';
+  document.getElementById(`qs-${type}-num`).textContent=`${score}/${total}`;
+  const pct=score/total;
+  const msgs=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à revoir':'Excellent ! Module maîtrisé ✅';
+  document.getElementById(`qs-${type}-msg`).textContent=msgs;
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(type){
+  const containerId=type==='corps'?'quiz-corps-container':'quiz-general-container';
+  document.querySelectorAll(`#${containerId} .quiz-opt`).forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll(`#${containerId} input[type=radio]`).forEach(r=>r.checked=false);
+  document.querySelectorAll(`#${containerId} .quiz-correction`).forEach(c=>c.style.display='none');
+  document.getElementById(`quiz-${type}-score-box`).style.display='none';
+}
+
+// ===== AUDIO =====
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.ann-text')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+
+// INIT
+buildQuiz(qCorps,'quiz-corps-container');
+buildQuiz(qGeneral,'quiz-general-container');
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
