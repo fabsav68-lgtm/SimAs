@@ -1,182 +1,825 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>SimSoins · Module 04 DEAS</title>
-<meta name="theme-color" content="#080c14">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisSoinsQuotidiens-AS · Module 04 · Bloc 2</title>
 <style>
-:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#40c878;--amber:#e8a030;--red:#e84040;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;padding-bottom:80px;}
-.header{background:linear-gradient(135deg,rgba(64,200,120,.15),rgba(64,200,120,.05));border:1px solid rgba(64,200,120,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
-.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}
-h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}
-.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}
-.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}
-.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}
-.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}
-.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}
-.fiche ul{list-style:none;padding:0;}
-.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}
-.fiche ul li:last-child{border-bottom:none;}
-.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}
-.fiche p{font-size:12px;color:var(--txt2);line-height:1.6;}
-.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}
-.memo{background:rgba(64,200,120,.06);border:1px solid rgba(64,200,120,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}
-.stade{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);}
-.stade:last-child{border-bottom:none;}
-.stade-badge{min-width:60px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;text-align:center;font-family:monospace;}
-.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(64,200,120,.1);color:var(--em);border:1px solid rgba(64,200,120,.2);margin:2px;}
-.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+
+.prap-box{background:linear-gradient(135deg,#f0f7ff,#e2eef9);border:1px solid #b3d0f0;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+.prap-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.prap-text{font-size:.82rem;color:var(--blue-dark);line-height:1.5;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+
+.steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-num.green{background:var(--green);}
+.step-num.orange{background:var(--orange);}
+.step-num.red{background:var(--red);}
+.step-body{padding:6px 0 16px;flex:1;}
+.step-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.step-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.step-body .as-do{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.step-body .as-dont{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+.stades-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:480px){.stades-grid{grid-template-columns:1fr;}}
+.stade-card{border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.stade-card .snum{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.stade-card p{font-size:.8rem;line-height:1.5;}
+.s1{background:#fff8e1;border-color:#ffe082;}.s1 .snum{color:#b07800;}
+.s2{background:#fff3e0;border-color:#ffcc80;}.s2 .snum{color:#e65100;}
+.s3{background:#fdecea;border-color:#ef9a9a;}.s3 .snum{color:#c62828;}
+.s4{background:#f3e5f5;border-color:#ce93d8;}.s4 .snum{color:#6a1b9a;}
+
+.cinq-b{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;}
+@media(max-width:500px){.cinq-b{grid-template-columns:1fr 1fr;}}
+.b-card{background:var(--blue-dark);color:#fff;border-radius:9px;padding:12px 8px;text-align:center;}
+.b-card .b-num{font-size:1.6rem;font-weight:900;line-height:1;}
+.b-card .b-txt{font-size:.72rem;margin-top:4px;opacity:.9;line-height:1.3;}
+
+.religion-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:480px){.religion-grid{grid-template-columns:1fr;}}
+.rel-card{background:#fff;border-radius:8px;padding:12px;border:1.5px solid var(--gray-border);box-shadow:var(--shadow);}
+.rel-card h4{font-size:.82rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.rel-card p,.rel-card li{font-size:.78rem;line-height:1.5;color:var(--text-light);}
+.rel-card ul{padding-left:13px;}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:600;}
+.tag.blue{background:var(--blue-light);color:var(--blue-dark);}
+.tag.red{background:#fdecea;color:var(--red);}
+.tag.green{background:#e6f4ee;color:#1e7a45;}
+.tag.warn{background:#fff3e0;color:#e65100;}
+
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
 </style>
 </head>
 <body>
-<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
 
-<div class="header">
-  <div class="module-num">MODULE 04 · BLOC 2 · 182 heures</div>
-  <h1>SimSoins</h1>
-  <div class="module-info">Mise en oeuvre des soins adaptes - Module specifique AS</div>
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 04 · BLOC 2 · 182h</div>
+    <div>
+      <h1>PraxisSoinsQuotidiens-AS</h1>
+      <p class="subtitle">Mise en œuvre des soins adaptés au quotidien · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('hygiene',this)">🛁 Hygiène</button>
+    <button class="tab-btn" onclick="showTab('bouche',this)">👄 Bouche</button>
+    <button class="tab-btn" onclick="showTab('medicaments',this)">💊 Médicaments</button>
+    <button class="tab-btn" onclick="showTab('stomies',this)">🔄 Stomies</button>
+    <button class="tab-btn" onclick="showTab('escarres',this)">🩹 Escarres</button>
+    <button class="tab-btn" onclick="showTab('postmortem',this)">🕊️ Post-mortem</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== HYGIÈNE ===== -->
+<div id="tab-hygiene" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🛁</div>
+    <div>
+      <h2>Soins d'hygiène — Au cœur du quotidien AS</h2>
+      <p>La toilette n'est pas qu'un soin de propreté. C'est un moment de contact privilégié avec la personne — pour observer, évaluer, communiquer et prévenir. C'est souvent là que l'AS détecte les premiers signes d'alerte.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021 — Soins adaptés à la personne</span>
+
+  <div class="card">
+    <h2>🛏️ Toilette au lit — Ordre et technique</h2>
+    <p style="font-size:.82rem;color:var(--text-light);margin-bottom:10px;">La toilette au lit suit toujours le même ordre pour garantir hygiène et efficacité : du plus propre au plus souillé, du haut vers le bas.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Préparer et informer</strong><p>Rassembler le matériel avant d'entrer. Frapper avant d'entrer. Expliquer chaque geste. Fermer la porte et tirer le rideau — intimité absolue.</p><div class="as-do">✅ SHA avant et après le soin. Gants si besoin.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Visage et cou</strong><p>Eau tiède sans savon pour le visage (sauf si la personne le demande). Yeux : de l'angle interne vers l'externe. Changer de compresse entre les deux yeux.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Membres supérieurs, thorax, seins</strong><p>Savonner, rincer, sécher soigneusement — particulièrement les plis (dessous de bras, plis mammaires). Observer la peau.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><strong>Abdomen et membres inférieurs</strong><p>Découvrir progressivement. Surveiller les plis inguinaux, les espaces entre les orteils (macération, mycose). Observer les chevilles (œdèmes).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">5</div>
+        <div class="step-body"><strong>Retournement — dos et siège</strong><p>Laver le dos, les fesses, les plis fessiers. C'est le moment clé d'inspection du sacrum (escarre stade 1 ?).</p><div class="as-do">✅ Observer sacrum, omoplates, talons à chaque toilette</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num red">6</div>
+        <div class="step-body"><strong>Soins périnéaux — en dernier</strong><p>Change de gants obligatoire. De l'avant vers l'arrière (jamais l'inverse — risque infectieux). Séchage soigneux. Change de protection si nécessaire.</p><div class="as-dont">🚫 Ne jamais laver de l'arrière vers l'avant — risque d'infection urinaire</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">7</div>
+        <div class="step-body"><strong>Finitions — confort et dignité</strong><p>Habiller selon les préférences de la personne. Coiffer, raser si souhaité. Installer confortablement. Transmettre toute observation à l'IDE.</p><div class="as-do">✅ Tracer dans le dossier : soin réalisé + observations</div></div>
+      </div>
+    </div>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> La toilette au lit est l'une des situations les plus à risque pour votre dos. Réglez systématiquement le lit à la hauteur de votre bassin. Pour le retournement, travaillez à deux si possible ou utilisez le drap de glisse. Ne jamais se pencher en avant avec les genoux tendus.</div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🚿 Douche assistée — Points clés</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🌡️ Avant la douche</h4>
+        <ul>
+          <li>Vérifier la température de l'eau : 37-38°C max</li>
+          <li>Préparer tout le matériel avant de déshabiller</li>
+          <li>Vérifier l'absence de contre-indication (plaie, perfusion)</li>
+          <li>Chaise de douche si nécessaire, tapis antidérapant</li>
+          <li>Ne jamais laisser la personne seule sous la douche</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>⚠️ Pendant et après</h4>
+        <ul>
+          <li>Hyper vigilance aux chutes — sol mouillé</li>
+          <li>Rinçage soigneux : savon résiduel = irritation</li>
+          <li>Séchage immédiat et complet — particulièrement les plis</li>
+          <li>Observer la peau lors du séchage</li>
+          <li>Surveiller les signes d'hypotension orthostatique au lever</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> Aider quelqu'un à se doucher dans un espace confiné, humide, avec une personne instable — c'est une des situations les plus accidentogènes pour l'AS. Positionnez-vous toujours du côté le plus stable de la personne, anticipez ses mouvements et ne rattrapez jamais avec le dos courbé.</div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>👁️ La toilette comme moment d'observation</h2>
+    <p style="margin-bottom:10px;">C'est lors de la toilette que l'AS voit le corps entier. C'est le moment idéal pour repérer :</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Peau</h4>
+        <ul>
+          <li>Rougeur persistante (escarre stade 1)</li>
+          <li>Plaie, hématome inexpliqué</li>
+          <li>Œdème (cheville, jambe)</li>
+          <li>Jaunisse (peau jaune = ictère)</li>
+          <li>Mycose, macération dans les plis</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Général</h4>
+        <ul>
+          <li>Douleur à la mobilisation</li>
+          <li>Perte de poids (côtes saillantes, fonte musculaire)</li>
+          <li>Confusion inhabituelle</li>
+          <li>Refus du soin inhabituel</li>
+          <li>Fièvre au toucher</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Toute observation inhabituelle doit être transmise à l'IDE dans la même matinée — ne pas attendre la fin de service.</div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>🛡️ Prevention et surveillance des escarres</h2>
-  <div class="fiche">
-    <h3>Stades de l'escarre</h3>
-    <div class="stade"><span class="stade-badge" style="background:rgba(232,168,48,.2);color:#e8a030">Stade 1</span><span style="font-size:12px">Rougeur persistante NON blanchissante a la pression. Peau integre.</span></div>
-    <div class="stade"><span class="stade-badge" style="background:rgba(232,96,48,.2);color:#e86030">Stade 2</span><span style="font-size:12px">Phlyctene (cloque) ou erosion superficielle. Peau abimee.</span></div>
-    <div class="stade"><span class="stade-badge" style="background:rgba(232,64,48,.2);color:#e84030">Stade 3</span><span style="font-size:12px">Perte de substance jusqu'au muscle. Plaie profonde.</span></div>
-    <div class="stade"><span class="stade-badge" style="background:rgba(160,48,48,.2);color:#a03030">Stade 4</span><span style="font-size:12px">Atteinte osseuse, tendineuse ou articulaire. Stade severe.</span></div>
+<!-- ===== BOUCHE ===== -->
+<div id="tab-bouche" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">👄</div>
+    <div>
+      <h2>Soins de bouche</h2>
+      <p>La bouche est souvent négligée alors qu'elle conditionne le confort, l'alimentation et la prévention des infections. Une bouche sèche ou infectée peut aggraver l'état général d'une personne fragile.</p>
+    </div>
   </div>
-  <div class="fiche">
-    <h3>Prevention - role AS</h3>
-    <ul>
-      <li>Repositionnement toutes les 2 heures maximum</li>
-      <li>Verifier les points d'appui a chaque soin : sacrum, talons, omoplates, coudes</li>
-      <li>Coussins de decharge aux points de pression</li>
-      <li>Matelas anti-escarres selon prescription</li>
-      <li>Hydrater la peau : creme hydratante apres la toilette</li>
-      <li>Surveiller la nutrition et l'hydratation</li>
-    </ul>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>😊 Patient conscient — Brossage quotidien</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Installer la personne</strong><p>Position assise ou semi-assise si possible. Protéger les vêtements avec une serviette. Mettre le haricot ou cuvette à portée.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Brosser méthodiquement</strong><p>Brosse souple à 45°. De la gencive vers la dent (pas de la dent vers la gencive — risque de décoller les gencives). Toutes les faces : externe, interne, occlusale. Langue, palais, joues.</p><div class="as-do">✅ Au moins 2 minutes de brossage — 3 fois par jour idéalement, toujours après le repas</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Rincer et observer</strong><p>Rincer abondamment à l'eau. Observer : saignement des gencives, dépôts blancs (muguet), ulcérations, sécheresse. Tout signe anormal → IDE.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">4</div>
+        <div class="step-body"><strong>Entretien du dentier</strong><p>Retirer le dentier (bas en premier). Brosser sous l'eau froide (jamais chaude — se déforme). Conserver dans un verre d'eau la nuit. Rincer la bouche avant de remettre.</p><div class="as-do">✅ Ne jamais laisser un dentier enveloppé dans une serviette — risque de jeter à la poubelle</div></div>
+      </div>
+    </div>
   </div>
-  <div class="alert">⚠️ Ne JAMAIS masser une zone rouge. Le massage favorise les lesions. Stade 1 = signaler IDE IMMEDIAT + supprimer l'appui.</div>
-  <div class="memo">💡 Echelle de Braden : evalue le risque d'escarre. Score faible = risque eleve. L'AS participe a la surveillance et a la prevention.</div>
+
+  <div class="card red">
+    <h2>⚠️ Patient à risque ou inconscient — Technique sécurisée</h2>
+    <div class="alert-banner">🚨 Position latérale ou tête tournée OBLIGATOIRE — jamais allongé sur le dos face en haut. Risque majeur de fausse route et pneumonie par inhalation.</div>
+    <div class="steps" style="margin-top:12px;">
+      <div class="step">
+        <div class="step-num red">1</div>
+        <div class="step-body"><strong>Positionner en sécurité</strong><p>Décubitus latéral ou tête tournée sur le côté. Avoir l'aspiration à portée si disponible. Prévenir l'IDE avant si premier soin ou situation instable.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Nettoyer avec du matériel adapté</strong><p>Compresse humide ou bâtonnet mousse selon protocole. Jamais de grande quantité de liquide. Nettoyer dents/prothèses, langue, joues, gencives par tamponnement.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body"><strong>Hydrater et observer</strong><p>Appliquer vaseline ou baume sur les lèvres (craquelées chez les personnes alitées). Observer : muguet (dépôts blancs), stomatite (rouge vif douloureux), saignement, sécheresse extrême.</p><div class="as-do">✅ Signaler tout muguet ou stomatite à l'IDE — traitement antifongique nécessaire</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🔍 Ce que l'AS surveille dans la bouche</h2>
+    <div class="tag-row">
+      <span class="tag red">Muguet — dépôts blancs</span>
+      <span class="tag red">Stomatite — rougeur intense</span>
+      <span class="tag red">Saignement des gencives</span>
+      <span class="tag red">Ulcères buccaux</span>
+      <span class="tag warn">Sécheresse extrême (xérostomie)</span>
+      <span class="tag warn">Mauvaise haleine inhabituelle</span>
+      <span class="tag warn">Dentier cassé ou mal ajusté</span>
+      <span class="tag green">Bonne hydratation des muqueuses</span>
+    </div>
+    <p style="font-size:.81rem;color:var(--text-light);margin-top:10px;">La sécheresse buccale (xérostomie) est très fréquente chez la personne âgée et sous traitement. Elle favorise les infections et les difficultés à avaler. Proposer régulièrement de petites gorgées d'eau.</p>
+  </div>
 </div>
 
-<div class="section">
-  <h2>💊 Aide a la prise des medicaments</h2>
-  <div class="fiche">
-    <h3>Role de l'AS dans l'aide medicamenteuse</h3>
-    <ul>
-      <li>L'AS AIDE a la prise - il n'administre pas</li>
-      <li>Les medicaments sont prepares par l'IDE dans le pilulier</li>
-      <li>Verifier que la personne avale bien chaque comprime</li>
-      <li>Ne jamais ecraser sans prescription ecrite du medecin</li>
-      <li>Respecter l'heure de prise prescrite</li>
-      <li>Tracer la prise effectuee dans le dossier</li>
-    </ul>
+<!-- ===== MÉDICAMENTS ===== -->
+<div id="tab-medicaments" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">💊</div>
+    <div>
+      <h2>Aide à la prise des médicaments</h2>
+      <p>L'AS aide — il n'administre pas. Cette distinction est fondamentale et protège à la fois le patient et le professionnel. Tout doute = appel IDE immédiat, sans exception.</p>
+    </div>
   </div>
-  <div class="fiche">
-    <h3>Situations necessitant l'appel IDE immediat</h3>
-    <ul>
-      <li>Refus du patient de prendre les medicaments</li>
-      <li>Doute sur l'identite ou la dose du medicament</li>
-      <li>Patient vomit apres la prise</li>
-      <li>Signe inhabituel apres la prise</li>
-      <li>Comprime casse ou pilulier mal rempli</li>
-    </ul>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021 — Art. R.4311-4 CSP</span>
+
+  <div class="card red">
+    <h2>⚖️ La distinction essentielle — Aide ≠ Administration</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Ce que l'AS PEUT faire</h4>
+        <ul>
+          <li>Présenter le pilulier préparé par l'IDE</li>
+          <li>Aider à porter le verre à la bouche</li>
+          <li>Vérifier que la personne a bien avalé</li>
+          <li>Rester présent pendant la prise</li>
+          <li>Tracer la prise dans le dossier</li>
+          <li>Signaler un refus ou une difficulté à l'IDE</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🚫 Ce que l'AS ne fait JAMAIS</h4>
+        <ul>
+          <li>Préparer un pilulier</li>
+          <li>Distribuer des médicaments non préparés par l'IDE</li>
+          <li>Écraser un comprimé sans prescription écrite</li>
+          <li>Décider d'une prise "si besoin" sans validation IDE</li>
+          <li>Continuer si le patient refuse</li>
+          <li>Administrer par voie injectable ou perfusion</li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="alert">⚠️ L'AS n'administre PAS les medicaments. Aide a la prise ≠ administration. Tout doute = appel IDE. Ne jamais forcer.</div>
+
+  <div class="card orange">
+    <h2>🔢 La règle des 5B — Vérifier avant chaque aide</h2>
+    <div class="cinq-b">
+      <div class="b-card"><div class="b-num">1</div><div class="b-txt">Bon patient</div></div>
+      <div class="b-card"><div class="b-num">2</div><div class="b-txt">Bon médicament</div></div>
+      <div class="b-card"><div class="b-num">3</div><div class="b-txt">Bonne dose</div></div>
+      <div class="b-card"><div class="b-num">4</div><div class="b-txt">Bonne voie</div></div>
+      <div class="b-card"><div class="b-num">5</div><div class="b-txt">Bonne heure</div></div>
+    </div>
+    <p style="font-size:.81rem;color:var(--text-light);margin-top:12px;">Même si c'est l'IDE qui prépare le pilulier, l'AS qui aide à la prise vérifie que le pilulier correspond bien au bon patient avant de le présenter. En cas de doute sur l'un des 5B → appeler l'IDE avant toute aide.</p>
+  </div>
+
+  <div class="card green">
+    <h2>📞 Situations nécessitant l'appel IDE immédiat</h2>
+    <ul>
+      <li><strong>Refus du patient</strong> — ne jamais forcer, jamais cacher dans la nourriture sans prescription</li>
+      <li><strong>Difficultés à avaler</strong> (dysphagie) — risque de fausse route, un écrasement peut être nécessaire sur prescription</li>
+      <li><strong>Vomissement après la prise</strong> — le médicament a-t-il été absorbé ?</li>
+      <li><strong>Doute sur l'identité ou la dose</strong> — pilulier mal étiqueté, comprimé inconnu</li>
+      <li><strong>Signe inhabituel après la prise</strong> — allergie, malaise, chute tensionnelle</li>
+      <li><strong>Comprimé cassé ou pilulier vide/trop rempli</strong></li>
+      <li><strong>Patient absent de sa chambre</strong> au moment de la distribution</li>
+    </ul>
+    <div class="alert-banner">⚠️ Forcer la prise médicamenteuse ou cacher un médicament dans la nourriture sans prescription = maltraitance. Même avec la meilleure intention.</div>
+  </div>
+
+  <div class="card">
+    <h2>💧 Aide à la prise — Gestes pratiques</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Position optimale</h4>
+        <ul>
+          <li>Toujours assis ou semi-assis (≥ 30°)</li>
+          <li>Jamais allongé — risque de fausse route et d'ulcère œsophagien</li>
+          <li>Tête légèrement en avant (pas en extension)</li>
+          <li>Rester assis 30 min après la prise (reflux)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Faciliter la déglutition</h4>
+        <ul>
+          <li>Un comprimé à la fois avec suffisamment d'eau</li>
+          <li>Eau gélifiée si troubles de la déglutition (sur prescription)</li>
+          <li>Vérifier que la bouche est vide entre chaque comprimé</li>
+          <li>Ne jamais donner à avaler tête en arrière</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>👄 Soins de bouche</h2>
-  <div class="fiche">
-    <h3>Patient conscient - brossage</h3>
-    <ul>
-      <li>Materiel : brosse a dents souple, dentifrice, verre d'eau, haricot</li>
-      <li>Brosser de la gencive vers la dent, toutes faces</li>
-      <li>Nettoyer la langue, le palais, les joues</li>
-      <li>Rincer abondamment</li>
-      <li>Nettoyer et ranger le dentier si besoin</li>
-    </ul>
+<!-- ===== STOMIES ===== -->
+<div id="tab-stomies" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🔄</div>
+    <div>
+      <h2>Surveillance et soins des stomies</h2>
+      <p>Une stomie est un abouchement d'un organe creux à la peau. Elle peut être digestive (colostomie, iléostomie) ou urinaire (urostomie). L'AS surveille quotidiennement et change la poche selon les protocoles.</p>
+    </div>
   </div>
-  <div class="fiche">
-    <h3>Patient inconscient ou a risque</h3>
-    <ul>
-      <li>Position laterale ou tete tournee - JAMAIS allonge face en haut</li>
-      <li>Aspirer les secretions si necessaire avant le soin</li>
-      <li>Compresse humide ou baton mousse selon protocole</li>
-      <li>Nettoyer dents, langue, joues, gencives</li>
-      <li>Hydrater les levres : vaseline ou baume</li>
-      <li>Observer : muguet, stomatite, saignement</li>
-    </ul>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021 — Arrêté 26/02/2025 : change délégué sur stomie cicatrisée</span>
+
+  <div class="card">
+    <h2>🔍 Les 3 types de stomies à connaître</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🟤 Colostomie</h4>
+        <p>Ouverture du côlon à la peau. Selles plus ou moins formées selon la localisation. Côlon droit : liquides. Côlon gauche : plus formées. Couleur normale : rose/rouge vif.</p>
+      </div>
+      <div class="cell">
+        <h4>🟡 Iléostomie</h4>
+        <p>Ouverture de l'iléon (fin de l'intestin grêle). Selles liquides et acides — très irritantes pour la peau péristomiale. Surveillance peau encore plus rapprochée.</p>
+      </div>
+      <div class="cell">
+        <h4>🔵 Urostomie</h4>
+        <p>Ouverture des uretères à la peau. Produit de l'urine en continu. Poche spécifique avec valve de vidange. Surveiller la couleur et la quantité des urines.</p>
+      </div>
+      <div class="cell">
+        <h4>📋 Stomie temporaire vs définitive</h4>
+        <p>Temporaire : l'intestin sera reconnecté après cicatrisation. Définitive : pas de reconnexion possible (amputation rectale, cancer). L'accompagnement psychologique est essentiel dans les deux cas.</p>
+      </div>
+    </div>
   </div>
-  <div class="alert">⚠️ Patient inconscient : jamais de liquide en quantite. Position laterale obligatoire. Risque majeur de fausse route.</div>
+
+  <div class="card orange">
+    <h2>👁️ Surveillance quotidienne — Ce que l'AS observe</h2>
+    <h3>La stomie elle-même</h3>
+    <div class="tag-row">
+      <span class="tag green">Rose/rouge vif = normal</span>
+      <span class="tag warn">Pâle = surveiller</span>
+      <span class="tag red">Violacée/bleue = alerte IDE</span>
+      <span class="tag red">Noire = urgence absolue (nécrose)</span>
+    </div>
+    <h3>La peau péristomiale (autour de la stomie)</h3>
+    <div class="tag-row">
+      <span class="tag green">Peau saine = normal</span>
+      <span class="tag warn">Rougeur légère = surveiller, nettoyer</span>
+      <span class="tag red">Irritation/macération = signaler IDE</span>
+      <span class="tag red">Plaie, saignement = signaler IDE</span>
+    </div>
+    <h3>Les selles/urines</h3>
+    <div class="tag-row">
+      <span class="tag warn">Couleur inhabituellement foncée</span>
+      <span class="tag red">Sang rouge vif dans la poche</span>
+      <span class="tag warn">Odeur très différente du quotidien</span>
+      <span class="tag red">Absence totale de selles/urines depuis 24h</span>
+    </div>
+    <div class="alert-banner">🚨 Stomie noire ou bleue = nécrose = urgence absolue. Alerter l'IDE immédiatement sans changer la poche.</div>
+  </div>
+
+  <div class="card green">
+    <h2>🔄 Change de poche — Technique quotidienne</h2>
+    <p style="font-size:.82rem;color:var(--text-light);margin-bottom:10px;">Changer la poche quand elle est remplie aux 2/3 maximum, ou lors de fuites, ou selon le protocole. Ne jamais laisser une poche pleine — risque de décollement et de souillure.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Préparer — matériel et personne</strong><p>Nouvelle poche découpée au bon diamètre (stomie + 2-3 mm), eau tiède, compresses, sac fermé pour l'ancienne poche. Informer et installer la personne confortablement. Préserver l'intimité.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Retirer l'ancienne poche</strong><p>Vider si possible avant retrait (moins d'odeur). Décoller délicatement de haut en bas en soutenant la peau de l'autre main. Éliminer immédiatement dans le sac fermé.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">3</div>
+        <div class="step-body"><strong>Observer et nettoyer</strong><p>Observer la stomie et la peau péristomiale avant de nettoyer. Laver à l'eau tiède et savon doux. Rincer soigneusement. Sécher par tamponnement — jamais frotter.</p><div class="as-dont">🚫 Ne jamais appliquer de crème sans prescription — certaines empêchent l'adhérence de la poche</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">4</div>
+        <div class="step-body"><strong>Poser la nouvelle poche</strong><p>Centrer sur la stomie. Décoller le film protecteur progressivement. Coller sans pli, appuyer 30 secondes avec la main pour activer l'adhésif (la chaleur de la main aide). Vérifier l'étanchéité.</p><div class="as-do">✅ Tracer : heure, aspect stomie, peau péristomiale, résultat</div></div>
+      </div>
+    </div>
+    <div class="info-banner">💡 Pour le changement de poche <strong>délégué par l'IDE</strong> sur stomie cicatrisée (arrêté 2025), voir le module PraxisSoinsAigus-AS pour le détail de la procédure et l'évaluation qualité.</div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>🕊️ Soins post-mortem</h2>
-  <div class="fiche">
-    <h3>Principes et etapes</h3>
+<!-- ===== ESCARRES ===== -->
+<div id="tab-escarres" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🩹</div>
+    <div>
+      <h2>Escarres — Soins de nursing et prévention quotidienne</h2>
+      <p>L'escarre se prévient chaque jour, à chaque soin, à chaque repositionnement. 95 % des escarres sont évitables avec une prévention rigoureuse. Le rôle AS est central.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021 — Voir aussi SimAs-Risques-prevention pour les stades et Braden</span>
+
+  <div class="card">
+    <h2>📊 Rappel des 4 stades</h2>
+    <div class="stades-grid">
+      <div class="stade-card s1"><div class="snum">⬤ Stade 1</div><p><strong>Rougeur persistante</strong> qui ne blanchit pas à la pression. Peau intacte. C'est LE moment d'agir — stade réversible si on supprime l'appui immédiatement.</p></div>
+      <div class="stade-card s2"><div class="snum">⬤ Stade 2</div><p><strong>Phlyctène ou érosion</strong> superficielle. Peau abîmée mais atteinte limitée au derme. Soin de plaie IDE.</p></div>
+      <div class="stade-card s3"><div class="snum">⬤ Stade 3</div><p><strong>Perte de substance</strong> jusqu'aux tissus sous-cutanés. Pas de muscle visible mais plaie profonde. Risque infectieux majeur.</p></div>
+      <div class="stade-card s4"><div class="snum">⬤ Stade 4</div><p><strong>Atteinte osseuse, tendineuse ou articulaire.</strong> Stade sévère. Pronostic vital possible. Prise en charge spécialisée.</p></div>
+    </div>
+    <div class="alert-banner" style="margin-top:12px;">🚨 Stade 1 repéré lors de la toilette = signaler à l'IDE immédiatement + supprimer l'appui + ne jamais masser la zone rouge.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🔄 Repositionnement — Le geste quotidien clé</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>⏱️ Fréquence</h4>
+        <ul>
+          <li>Toutes les <strong>2 heures maximum</strong> pour une personne alitée</li>
+          <li>Toutes les <strong>heures</strong> si risque élevé (Braden ≤ 12)</li>
+          <li>Tracer chaque repositionnement dans le dossier</li>
+          <li>Certains établissements ont une feuille de turning dédiée</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📐 Positions</h4>
+        <ul>
+          <li>Alterner : dos → côté droit → dos → côté gauche</li>
+          <li>Inclinaison latérale : 30° (pas 90° — trop de pression sur la hanche)</li>
+          <li>Lit en position plate ou légèrement incliné (≤ 30°)</li>
+          <li>Au-delà de 30° : cisaillement sacré augmenté</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Zones d'appui à systématiquement décharger</h3>
+    <div class="tag-row">
+      <span class="tag red">Sacrum (décubitus dorsal)</span>
+      <span class="tag red">Talons (toujours en suspension)</span>
+      <span class="tag warn">Ischions (position assise)</span>
+      <span class="tag warn">Trochanters (décubitus latéral)</span>
+      <span class="tag warn">Malléoles</span>
+      <span class="tag warn">Omoplates</span>
+      <span class="tag blue">Occiput (arrière de la tête)</span>
+    </div>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> Les retournements répétés toutes les 2 heures sont parmi les gestes les plus sollicitants pour le dos de l'AS. Utilisez systématiquement le drap de glisse, réglez le lit à la hauteur de votre bassin, et travaillez à deux pour les patients lourds ou peu coopérants.</div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🛡️ Les équipements de prévention</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🛏️ Matelas</h4>
+        <ul>
+          <li><strong>Matelas mousse</strong> : prévention de base</li>
+          <li><strong>Matelas à mémoire de forme</strong> : répartit mieux la pression</li>
+          <li><strong>Matelas à air dynamique</strong> (alternating pressure) : gonfle/dégonfle alternativement — sur prescription</li>
+          <li>Ne pas surélever le drap — réduit l'efficacité du matelas</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🪑 Accessoires</h4>
+        <ul>
+          <li><strong>Coussin gel ou air</strong> pour fauteuil (ischions)</li>
+          <li><strong>Protège-talons</strong> — toujours en suspension, jamais appuyés</li>
+          <li><strong>Coussins de positionnement</strong> entre les genoux en latéral</li>
+          <li><strong>Manchon de coude</strong> si appui prolongé</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧴 Soins de peau — Nursing quotidien</h2>
     <ul>
-      <li>Deces constate par le medecin OBLIGATOIREMENT avant tout soin</li>
-      <li>Respecter les croyances religieuses et culturelles</li>
-      <li>Fermer les yeux et la bouche delicatement</li>
-      <li>Laver et habiller avec dignite</li>
-      <li>Retirer les appareillages sur prescription (sonde, perfusion)</li>
-      <li>Installer dans une position digne : bras le long du corps</li>
-      <li>Identifier le defunt : bracelet d'identification</li>
-      <li>Accompagner la famille avec bienveillance</li>
+      <li>Inspecter <strong>toute la peau</strong> lors de la toilette — dos, plis, zones d'appui</li>
+      <li><strong>Jamais masser</strong> une zone rouge — favorise les lésions (recommandation HAS)</li>
+      <li>Nettoyer doucement avec pH neutre — pas de savon agressif</li>
+      <li>Sécher en <strong>tamponnant</strong> sans frotter — particulièrement les plis</li>
+      <li>Hydrater la peau sèche après la toilette (crème hydratante non grasse)</li>
+      <li>Protéger la peau en cas d'incontinence : barrière protectrice sur prescription</li>
+      <li>Changer les protections dès qu'elles sont souillées — la macération fragilise la peau en quelques heures</li>
     </ul>
   </div>
-  <div class="memo">💡 Dignite + respect des croyances + identification + accompagnement famille = 4 piliers des soins post-mortem.</div>
 </div>
 
-<div class="section">
-  <h2>🔄 Surveillance des stomies</h2>
-  <div class="fiche">
-    <h3>Role AS dans la surveillance</h3>
+<!-- ===== POST-MORTEM ===== -->
+<div id="tab-postmortem" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🕊️</div>
+    <div>
+      <h2>Soins post-mortem</h2>
+      <p>Ces soins s'adressent à une personne qui vient de décéder et à sa famille. Dignité, respect des croyances et accompagnement de l'entourage sont les trois piliers de ces soins.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 04 · Bloc 2 · DEAS 2021 — Loi 2005-370 relative aux droits des malades en fin de vie</span>
+
+  <div class="card red">
+    <h2>⚖️ Avant tout : le constat médical</h2>
+    <div class="alert-banner">🚨 Aucun soin post-mortem ne peut commencer avant que le décès soit constaté officiellement par un médecin. Le certificat de décès est obligatoire. L'AS ne constate jamais le décès — il appelle l'IDE qui appelle le médecin.</div>
+    <h3>Que fait l'AS quand il découvre un patient décédé ?</h3>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step">
+        <div class="step-num red">1</div>
+        <div class="step-body"><strong>Ne pas toucher</strong><p>Ne pas déplacer, ne pas retirer les dispositifs, ne pas appeler la famille. Alerter l'IDE immédiatement.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">2</div>
+        <div class="step-body"><strong>Attendre le médecin</strong><p>L'IDE prévient le médecin. Le médecin constate le décès et établit le certificat. Ce n'est qu'après ce constat que les soins peuvent commencer.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body"><strong>Se préparer aux soins</strong><p>Après le constat médical, l'IDE et l'AS organisent les soins ensemble. Vérifier les volontés religieuses ou culturelles dans le dossier avant de commencer.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🕊️ Les soins post-mortem — Étapes</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Préparer l'environnement</strong><p>Fermer la porte et le rideau. Éteindre les équipements non nécessaires. Préserver la dignité dès le début.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Fermer les yeux et la bouche</strong><p>Yeux : fermer délicatement avec les doigts, maintenir quelques instants. Bouche : un rouleau de coton sous le menton peut aider à maintenir la fermeture.</p><div class="as-do">✅ Gestes doux, respectueux — continuer à parler à la personne avec respect</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Retirer les dispositifs médicaux</strong><p>Sur prescription IDE uniquement : retirer les sondes, perfusions, cathéters. Certains dispositifs restent en place selon la législation (cas de mort violente → ne rien toucher).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><strong>Toilette et habillage</strong><p>Toilette complète avec la même dignité qu'un patient vivant. Habiller selon les vêtements choisis par la famille ou selon les volontés de la personne. Coiffer, raser si habitude.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body"><strong>Installer dans une position digne</strong><p>Bras le long du corps ou légèrement croisés selon les souhaits. Lit à hauteur normale. Lumière douce si possible.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">6</div>
+        <div class="step-body"><strong>Identifier le défunt</strong><p>Bracelet d'identification obligatoire. Vérifier nom, prénom, date de naissance, numéro de chambre — en accord avec le protocole de l'établissement.</p><div class="as-dont">🚫 Une erreur d'identification est une faute grave</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">7</div>
+        <div class="step-body"><strong>Accompagner la famille</strong><p>Proposer à la famille d'entrer si elle le souhaite. Rester disponible sans s'imposer. Répondre aux questions dans la limite de vos compétences. Ne pas mentir, ne pas minimiser.</p><div class="as-do">✅ "Nous avons pris soin de lui/elle jusqu'au bout, avec tout le respect qu'il/elle méritait."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h2>✝️ Respect des croyances religieuses et culturelles</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">Les rites liés à la mort varient considérablement d'une religion et d'une culture à l'autre. L'AS doit se renseigner avant de commencer les soins et respecter scrupuleusement les volontés exprimées.</p>
+    <div class="religion-grid">
+      <div class="rel-card">
+        <h4>✝️ Christianisme</h4>
+        <ul>
+          <li>Possibilité d'appeler un prêtre pour l'onction des malades</li>
+          <li>Crucifix ou chapelet à placer dans les mains selon les souhaits</li>
+          <li>Pas de restrictions particulières sur les soins</li>
+        </ul>
+      </div>
+      <div class="rel-card">
+        <h4>☪️ Islam</h4>
+        <ul>
+          <li>Corps orienté vers La Mecque si possible</li>
+          <li>Toilette rituelle par des proches ou un soignant de même sexe si possible</li>
+          <li>Inhumation rapide souhaitée (dans les 24h)</li>
+          <li>Pas de crémation</li>
+        </ul>
+      </div>
+      <div class="rel-card">
+        <h4>✡️ Judaïsme</h4>
+        <ul>
+          <li>Corps jamais laissé seul (veille)</li>
+          <li>Toilette rituelle par la Hevra Kadisha (communauté)</li>
+          <li>Inhumation rapide souhaitée</li>
+          <li>Pas de crémation traditionnellement</li>
+        </ul>
+      </div>
+      <div class="rel-card">
+        <h4>🌸 Autres / Sans religion</h4>
+        <ul>
+          <li>Respecter les volontés écrites dans le dossier</li>
+          <li>Demander à la famille leurs souhaits</li>
+          <li>En cas de doute : soins neutres et respectueux</li>
+          <li>Ne jamais imposer de rite religieux non souhaité</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ En cas d'absence d'information sur les souhaits religieux : soins neutres, dignes et respectueux. Informer l'IDE qui contactera la famille.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>💙 L'AS face au deuil — Prendre soin de soi</h2>
+    <p>Accompagner la mort fait partie du métier AS, mais ce n'est jamais anodin. Perdre un résident qu'on côtoyait chaque jour peut être éprouvant.</p>
     <ul>
-      <li>Observer l'aspect de la stomie : couleur, relief, odeur</li>
-      <li>Observer la peau peristomiale : rougeur, irritation, maceration</li>
-      <li>Signaler toute anomalie a l'IDE avant le change</li>
-      <li>Changer la poche quand pleine aux 2/3 maximum</li>
-      <li>Nettoyer la peau a l'eau tiede et secher soigneusement</li>
-      <li>Ne jamais appliquer de creme sans prescription</li>
+      <li>Il est normal de ressentir de la tristesse — ce n'est pas un manque de professionnalisme</li>
+      <li>En parler avec l'équipe, le cadre ou le psychologue de l'établissement</li>
+      <li>Ne pas rester seul avec ses émotions</li>
+      <li>Les séances de débriefing d'équipe après un décès difficile existent dans certains établissements — y participer</li>
     </ul>
+    <div class="info-banner">💡 Prendre soin des autres, c'est aussi prendre soin de soi. Un AS épuisé émotionnellement ne peut plus prendre soin correctement.</div>
   </div>
-  <div class="alert">⚠️ Stomie noire ou bleutee = necrose = urgence absolue. Appeler l'IDE immediatement.</div>
 </div>
 
-<div class="section">
-  <h2>🏷️ Mots cles du module</h2>
-  <div style="padding:8px 0">
-    <span class="tag">Escarre</span><span class="tag">Braden</span><span class="tag">Repositionnement</span>
-    <span class="tag">Aide medicamenteuse</span><span class="tag">Pilulier</span><span class="tag">Soin de bouche</span>
-    <span class="tag">Post-mortem</span><span class="tag">Stomie</span><span class="tag">Peristomiale</span>
-    <span class="tag">Protocole</span><span class="tag">Transmission IDE</span>
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Soins du quotidien</h2>
+      <p>10 questions sur l'hygiène, les soins de bouche, les médicaments, les stomies, les escarres et les soins post-mortem.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
   </div>
 </div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
 
 <script>
-document.addEventListener('click', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"Lors de la toilette au lit, dans quel ordre réalisez-vous les soins périnéaux ?",opts:["En premier, avant la toilette du corps, car c'est la zone la plus à risque","En dernier, après tous les autres soins, avec changement de gants","En même temps que les soins du bas du corps","Peu importe l'ordre si on change de gants"],correct:1,expl:"Les soins périnéaux se réalisent toujours en dernier, après tous les autres soins du corps. Changement de gants obligatoire avant. La technique est de l'avant vers l'arrière — jamais l'inverse — pour éviter la contamination de l'urètre par les bactéries rectales."},
+  {q:"Pour réaliser le soin de bouche d'un patient inconscient, quelle est la position obligatoire ?",opts:["Décubitus dorsal (sur le dos) pour avoir accès à la bouche","Position semi-assise à 45°","Décubitus latéral ou tête tournée sur le côté","Position assise au bord du lit"],correct:2,expl:"La position latérale (sur le côté) ou tête tournée est OBLIGATOIRE pour un patient inconscient. En décubitus dorsal, tout liquide introduit dans la bouche risque d'être inhalé dans les poumons (fausse route → pneumonie par inhalation)."},
+  {q:"M. Dupont refuse de prendre ses médicaments du soir. Que faites-vous ?",opts:["Vous les écrasez et les mettez dans sa compote pour qu'il les prenne sans le savoir","Vous insistez gentiment jusqu'à ce qu'il accepte","Vous respectez son refus, vous l'informez l'IDE immédiatement et tracez dans le dossier","Vous attendez la prochaine tournée et réessayez sans prévenir l'IDE"],correct:2,expl:"Le refus de médicament se respecte — tout patient a le droit de refuser un soin. L'AS prévient l'IDE immédiatement qui évaluera la situation et contactera le médecin si nécessaire. Cacher des médicaments dans la nourriture sans prescription constitue une maltraitance."},
+  {q:"Lors du change de poche de stomie de Mme Legrand, vous observez que sa stomie est violacée. Que faites-vous ?",opts:["Vous posez la nouvelle poche et notez l'observation dans le dossier pour l'IDE","Vous stoppez le soin, protégez avec une compresse humide et alertez l'IDE immédiatement","Vous nettoyez plus soigneusement — ça devrait s'améliorer","Vous attendez la prochaine toilette pour voir l'évolution"],correct:1,expl:"Une stomie violacée ou bleue est un signe d'insuffisance vasculaire (risque de nécrose). C'est une urgence. L'AS stoppe immédiatement le soin, couvre délicatement avec une compresse humide et appelle l'IDE. Ne jamais poser une nouvelle poche sur une stomie suspecte sans évaluation médicale."},
+  {q:"Lors de la toilette de M. Bernard, vous observez une rougeur au niveau du sacrum qui ne blanchit pas à la pression. Votre action prioritaire ?",opts:["Masser doucement avec de la crème hydratante pour activer la circulation","Signaler à l'IDE dans la journée lors de la transmission de 16h","Alerter l'IDE immédiatement, supprimer l'appui et ne pas masser","Attendre le lendemain pour voir si ça disparaît"],correct:2,expl:"Une rougeur qui ne blanchit pas = escarre stade 1. C'est le seul stade entièrement réversible si on agit immédiatement. L'AS signale à l'IDE immédiatement, supprime l'appui (repositionnement) et ne masse JAMAIS une zone rouge — le massage aggrave les lésions."},
+  {q:"Pour repositionner une personne alitée à risque élevé d'escarre (Braden ≤ 12), quelle est la fréquence recommandée ?",opts:["Toutes les 4 heures","Toutes les 2 heures maximum — toutes les heures si risque très élevé","Une fois par jour lors de la toilette","Uniquement quand la personne se plaint d'inconfort"],correct:1,expl:"Pour un risque élevé (Braden ≤ 12), le repositionnement doit être effectué toutes les 2 heures maximum, voire toutes les heures. Chaque repositionnement est tracé dans le dossier (feuille de turning). Sans traçabilité, le repositionnement n'existe pas légalement."},
+  {q:"Vous trouvez Mme Aubert décédée dans sa chambre à 6h30 lors de votre tournée. Votre première action ?",opts:["Commencer immédiatement la toilette mortuaire pour la dignité","Appeler la famille pour les prévenir avant toute chose","Alerter l'IDE — aucun soin ne peut commencer avant le constat médical","Retirer les perfusions et sondes pour préparer la chambre"],correct:2,expl:"Aucun soin post-mortem ne peut commencer avant le constat officiel du décès par un médecin. L'AS ne constate jamais le décès. Il alerte l'IDE, ne touche à rien, n'appelle pas la famille (c'est le rôle de l'équipe médicale). C'est une obligation légale."},
+  {q:"Lors de la toilette buccale d'un patient portant un dentier, comment conserve-t-on le dentier la nuit ?",opts:["Enveloppé dans du papier absorbant dans un tiroir","Dans un verre d'eau fraîche, jamais chaude (risque de déformation)","Dans un verre d'eau chaude pour le désinfecter","Remis immédiatement après le nettoyage, même la nuit"],correct:1,expl:"Le dentier se conserve dans un verre d'eau froide ou à température ambiante. L'eau chaude déforme les matériaux. Ne jamais envelopper dans du papier ou une serviette — risque de jeter accidentellement. Des pastilles effervescentes peuvent être ajoutées pour l'hygiène selon le protocole."},
+  {q:"La règle des 5B dans l'aide à la prise médicamenteuse signifie :",opts:["Bon patient, Bon médicament, Bonne dose, Bonne voie, Bonne heure","Bonne hygiène, Bon geste, Bon matériel, Bonne position, Bon résultat","Bonne communication, Bon dossier, Bonne traçabilité, Bon soin, Bonne équipe","Ces 5B n'existent pas — c'est une règle inventée"],correct:0,expl:"La règle des 5B (Bon patient, Bon médicament, Bonne dose, Bonne voie, Bonne heure) est la règle de sécurité de référence pour l'aide à la prise médicamenteuse. Même si l'IDE a préparé le pilulier, l'AS vérifie que le pilulier correspond bien au bon patient avant de le présenter."},
+  {q:"Lors de la toilette au lit, à quel moment réajustez-vous la hauteur du lit ?",opts:["Uniquement au début du soin","Jamais — le lit reste à hauteur du patient","Au début du soin (hauteur de votre bassin) et après, pour remettre le patient confortablement","Seulement si vous avez mal au dos"],correct:2,expl:"Le lit se règle à la hauteur de votre propre bassin (crêtes iliaques) pour la réalisation du soin — c'est un réflexe PRAP fondamental. Après le soin, on remet le lit en position basse pour la sécurité du patient. Cette double manipulation protège à la fois le soignant et le patient."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 04 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.step-body strong,.step-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
 </script>
-<script>window.PRAXIS_APP='SimAs';</script>
-
-<!-- Bouton audio -->
-<button id="btn-audio" onclick="lireOnglet()" style="
-  position:fixed;bottom:20px;right:20px;z-index:1000;
-  background:#40a8e0;border:none;border-radius:50px;
-  color:#080c14;font-size:13px;font-weight:800;
-  padding:11px 18px;cursor:pointer;
-  box-shadow:0 4px 16px rgba(64,168,224,.35);
-  font-family:monospace;letter-spacing:.5px;
-  white-space:nowrap;transition:opacity .2s">🔊 Écouter</button>
-
-<script src="praxis-audio.js"></script>
 <script src="praxiscare-feedback.js"></script>
 </body>
 </html>
