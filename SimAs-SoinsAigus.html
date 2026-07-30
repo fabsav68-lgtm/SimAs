@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisSoinsAigus-AS · Module B · Arrêté 2025</title>
+<style>
+:root {
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+
+/* SCÉNETTES */
+.scenario{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:0;margin-bottom:18px;overflow:hidden;}
+.scenario-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.scenario-header .sc-icon{font-size:1.6rem;flex-shrink:0;}
+.scenario-header h3{font-size:.92rem;font-weight:700;margin-bottom:2px;}
+.scenario-header p{font-size:.77rem;opacity:.85;}
+.scenario-body{padding:16px 18px;}
+.sc-context{background:#f0f7ff;border-radius:8px;padding:12px;margin-bottom:12px;border-left:3px solid var(--blue);}
+.sc-context p{font-size:.82rem;line-height:1.6;color:var(--blue-dark);}
+.sc-steps{display:flex;flex-direction:column;gap:0;}
+.sc-step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.sc-step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.sc-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.sc-num.red{background:var(--red);}
+.sc-num.orange{background:var(--orange);}
+.sc-num.green{background:var(--green);}
+.sc-body{padding:6px 0 16px;flex:1;}
+.sc-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.sc-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.sc-body .as-action{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.sc-body .alerte{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:600;}
+.sc-body .interdit{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+/* ACTES */
+.acte-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:540px){.acte-grid{grid-template-columns:1fr;}}
+.acte-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.acte-card .acte-icon{font-size:1.4rem;margin-bottom:6px;}
+.acte-card h4{font-size:.86rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
+.acte-card p{font-size:.79rem;line-height:1.55;color:var(--text);}
+.acte-card .condition{background:var(--blue-light);border-radius:5px;padding:4px 8px;font-size:.75rem;font-weight:700;color:var(--blue-dark);margin:6px 0;display:inline-block;}
+.acte-card .interdit-tag{background:#fdecea;border-radius:5px;padding:3px 8px;font-size:.73rem;font-weight:700;color:var(--red);margin-top:5px;display:inline-block;}
+
+/* ÉVALUATION QUALITÉ */
+.eval-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:540px){.eval-grid{grid-template-columns:1fr;}}
+.eval-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
+.eval-card .eval-icon{font-size:1.5rem;margin-bottom:6px;}
+.eval-card h4{font-size:.82rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
+.eval-card p{font-size:.77rem;line-height:1.5;color:var(--text-light);}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-pill{display:inline-block;background:var(--blue-light);color:var(--blue-dark);border-radius:20px;padding:3px 11px;font-size:.77rem;font-weight:600;margin:2px;}
+.info-pill.red{background:#fdecea;color:#c0392b;}
+.info-pill.ok{background:#e6f4ee;color:#1e7a45;}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE B · Arrêté 26/02/2025 · Présentiel</div>
+    <div>
+      <h1>PraxisSoinsAigus-AS</h1>
+      <p class="subtitle">Soins en situation aiguë · Évaluation · Réajustement · Collaboration IDE</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('cadre',this)">⚖️ Cadre légal</button>
+    <button class="tab-btn" onclick="showTab('actes',this)">🩺 Actes autorisés</button>
+    <button class="tab-btn" onclick="showTab('scenarios',this)">📋 Scénettes</button>
+    <button class="tab-btn" onclick="showTab('evaluation',this)">✅ Évaluation qualité</button>
+    <button class="tab-btn" onclick="showTab('limites',this)">🚫 Limites</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== CADRE LÉGAL ===== -->
+<div id="tab-cadre" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">⚖️</div>
+    <div>
+      <h2>Le cadre légal — Ce que l'AS peut faire et pourquoi</h2>
+      <p>L'arrêté du 26 février 2025 élargit les actes de l'AS en situation aiguë, toujours sous la responsabilité de l'infirmier. Connaître ce cadre, c'est savoir jusqu'où vous pouvez aller — et où vous devez vous arrêter.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module B · Arrêté 26/02/2025 — Art. R.4311-4 Code de la Santé Publique</span>
+
+  <div class="card">
+    <h2>🏛️ Le principe fondamental : la délégation de l'IDE</h2>
+    <p>L'AS exerce <strong>sous la responsabilité de l'infirmier diplômé d'État (IDE)</strong>. Ce n'est pas une limitation — c'est une protection pour vous et pour le patient.</p>
+    <div class="two-col" style="margin-top:12px;">
+      <div class="cell">
+        <h4>✅ Ce que ça veut dire concrètement</h4>
+        <ul>
+          <li>L'IDE évalue la situation et décide du soin</li>
+          <li>L'AS <strong>met en œuvre</strong> le soin prescrit ou délégué</li>
+          <li>L'AS <strong>évalue</strong> le résultat et le transmet</li>
+          <li>L'IDE reste responsable de la décision clinique</li>
+          <li>L'AS est responsable de la <strong>qualité de l'exécution</strong></li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📋 Ce que dit l'arrêté 2025</h4>
+        <ul>
+          <li>Mettre en œuvre les soins <strong>personnalisés</strong> en situation aiguë</li>
+          <li>En collaboration avec l'IDE et l'équipe pluriprofessionnelle</li>
+          <li>À partir de l'<strong>évaluation de la situation</strong></li>
+          <li><strong>Évaluer la qualité</strong> du soin réalisé</li>
+          <li>Identifier les éléments à <strong>réajuster</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Un soin réalisé par l'AS sans délégation explicite de l'IDE = glissement de tâche = faute professionnelle engageant votre responsabilité personnelle.</div>
+  </div>
+
+  <div class="card green">
+    <h2>🔄 Le processus soin aigu en 4 temps</h2>
+    <div class="sc-steps" style="margin-top:10px;">
+      <div class="sc-step">
+        <div class="sc-num">1</div>
+        <div class="sc-body">
+          <strong>Observation → Alerte</strong>
+          <p>L'AS observe un signe clinique anormal (paramètre, comportement, plainte). Il alerte l'IDE avec les informations précises (méthode SBAR).</p>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num orange">2</div>
+        <div class="sc-body">
+          <strong>Évaluation → Décision IDE</strong>
+          <p>L'IDE évalue la situation, décide du soin adapté et le délègue ou le prescrit. L'AS reçoit l'instruction claire.</p>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num green">3</div>
+        <div class="sc-body">
+          <strong>Réalisation → Évaluation qualité</strong>
+          <p>L'AS réalise le soin dans les règles de bonnes pratiques. Il observe l'effet : le soin a-t-il produit le résultat attendu ? La personne va-t-elle mieux ?</p>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num red">4</div>
+        <div class="sc-body">
+          <strong>Réajustement → Traçabilité</strong>
+          <p>Si le résultat n'est pas celui attendu, l'AS en informe l'IDE immédiatement. Il trace dans le dossier : soin réalisé, heure, résultat observé, transmission effectuée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🤝 Collaboration IDE / AS — Qui fait quoi en situation aiguë</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4 style="color:#1e7a45;">👩‍⚕️ L'IDE</h4>
+        <ul>
+          <li>Évalue l'état clinique global</li>
+          <li>Prescrit ou délègue les soins</li>
+          <li>Reste responsable de la décision</li>
+          <li>Supervise la réalisation</li>
+          <li>Ajuste le plan de soin</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4 style="color:var(--blue-dark);">🧑‍⚕️ L'AS</h4>
+        <ul>
+          <li>Observe et alerte en premier</li>
+          <li>Réalise le soin délégué</li>
+          <li>Évalue la qualité de son soin</li>
+          <li>Signale tout écart par rapport au résultat attendu</li>
+          <li>Trace avec précision</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACTES AUTORISÉS ===== -->
+<div id="tab-actes" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🩺</div>
+    <div>
+      <h2>Les actes autorisés en situation aiguë</h2>
+      <p>Issus de la réingénierie 2021 et précisés par l'arrêté 2025. Tous sous délégation IDE, tous dans le respect des règles de bonnes pratiques.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module B · Arrêté 26/02/2025 — Décret n° 2021-980 du 23 juillet 2021</span>
+
+  <div class="card teal">
+    <h2>🫁 Soins respiratoires</h2>
+    <div class="acte-grid">
+      <div class="acte-card">
+        <div class="acte-icon">👓</div>
+        <h4>Changement de lunettes à oxygène</h4>
+        <div class="condition">Sur délégation IDE · Stomie cicatrisée uniquement</div>
+        <p>Retirer délicatement les anciennes lunettes. Nettoyer les narines. Positionner les nouvelles lunettes en veillant à l'absence de pression sur les oreilles et le nez. Vérifier le débit prescrit.</p>
+        <div class="interdit-tag">⚠️ Ne jamais modifier le débit d'O2 sans ordre IDE</div>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">😷</div>
+        <h4>Pose et changement de masques respiratoires</h4>
+        <div class="condition">Sur délégation IDE · Masque simple ou à haute concentration</div>
+        <p>Choisir la taille adaptée. Positionner le masque sur le nez et la bouche, pincer l'attache nasale. Vérifier l'étanchéité. Surveiller la tolérance cutanée. Rassurer le patient — le masque peut être angoissant.</p>
+        <div class="interdit-tag">⚠️ Débit prescrit uniquement — ne jamais adapter seul</div>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">🌬️</div>
+        <h4>Aspiration trachéale sur orifice cicatrisé</h4>
+        <div class="condition">Sur délégation IDE · Trachéotomie cicatrisée uniquement</div>
+        <p>Acte plus technique, réservé aux AS formés et habilités. Matériel stérile. Technique atraumatique. Durée maximale 10-15 secondes. Observer SpO2 avant/pendant/après. Signaler tout saignement ou détresse.</p>
+        <div class="interdit-tag">⚠️ Trachéotomie fraîche = IDE uniquement</div>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">📊</div>
+        <h4>Surveillance de l'oxygénothérapie</h4>
+        <div class="condition">Rôle propre AS renforcé</div>
+        <p>Surveiller régulièrement : SpO2 selon fréquence prescrite, confort du patient, intégrité cutanée sous le masque/les lunettes, niveau du réservoir d'O2 (alerter avant épuisement).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🚽 Soins d'élimination élargis</h2>
+    <div class="acte-grid">
+      <div class="acte-card">
+        <div class="acte-icon">🩹</div>
+        <h4>Remplacement du dispositif de colostomie sur stomie cicatrisée</h4>
+        <div class="condition">Sur délégation IDE · Stomie cicatrisée uniquement</div>
+        <p>Vider la poche avant de l'enlever. Retirer délicatement en décollant de haut en bas. Nettoyer la peau péristomiale avec eau tiède et savon doux. Sécher en tamponnant. Découper la nouvelle poche au bon diamètre (stomie + 2-3 mm). Coller sans pli.</p>
+        <div class="interdit-tag">⚠️ Stomie fraîche ou complication (saignement, prolapsus) = IDE</div>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">💊</div>
+        <h4>Administration de suppositoires</h4>
+        <div class="condition">Sur prescription médicale · Dans le cadre de l'aide à l'élimination</div>
+        <p>Position latérale gauche de préférence. Introduire doucement avec le doigt ganté lubrifié, côté pointu en premier. Demander à la personne de retenir si possible (5-10 min). Surveiller l'élimination. Tracer dans le dossier.</p>
+        <div class="interdit-tag">⚠️ Contre-indication : rectum pathologique, chirurgie rectale récente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🩺 Soins cliniques et surveillance renforcée</h2>
+    <div class="acte-grid">
+      <div class="acte-card">
+        <div class="acte-icon">🩸</div>
+        <h4>Mesure de la glycémie capillaire</h4>
+        <div class="condition">Sur prescription médicale · Avec glucomètre calibré</div>
+        <p>Lavage des mains du patient. Piqûre au bord latéral du doigt (pas le bout). Première goutte essuyée. Deuxième goutte sur la bandelette. Tracer valeur + heure dans le dossier. Alerter IDE si hors cible.</p>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">📏</div>
+        <h4>Mesure des paramètres vitaux complets</h4>
+        <div class="condition">Rôle propre renforcé · Arrêté 2025</div>
+        <p>TA, pouls, température, SpO2, FR, diurèse, poids — mesurer selon la fréquence prescrite, dans les conditions standardisées, tracer systématiquement avec valeur exacte + heure + conditions.</p>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">🌡️</div>
+        <h4>Surveillance post-soin et réajustement</h4>
+        <div class="condition">Arrêté 2025 — évaluer et réajuster</div>
+        <p>Après chaque soin délégué : observer l'effet (douleur diminuée ? respiration améliorée ? élimination obtenue ?). Comparer à l'objectif visé. Informer l'IDE du résultat. Si objectif non atteint : ne pas réitérer sans avis IDE.</p>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">💉</div>
+        <h4>Surveillance de la perfusion</h4>
+        <div class="condition">Sur délégation IDE — surveillance uniquement</div>
+        <p>Vérifier le débit (pas le modifier), l'état du point de ponction (rougeur, gonflement, douleur = alerter IDE), la perméabilité de la voie, le niveau de la poche. Tracer la surveillance dans le dossier.</p>
+        <div class="interdit-tag">⚠️ Jamais brancher/débrancher une perfusion sans IDE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h2>🏃 Soins de confort en situation aiguë</h2>
+    <div class="acte-grid">
+      <div class="acte-card">
+        <div class="acte-icon">🛏️</div>
+        <h4>Positionnement thérapeutique</h4>
+        <div class="condition">Sur délégation IDE selon pathologie</div>
+        <p>Position semi-assise (insuffisance cardiaque, détresse respiratoire). Décubitus latéral strict (escarre). Position antalgique prescrite. Toujours adapter à l'état clinique du moment — ce qui était bon hier peut être contre-indiqué aujourd'hui.</p>
+      </div>
+      <div class="acte-card">
+        <div class="acte-icon">❄️</div>
+        <h4>Application de chaud/froid sur prescription</h4>
+        <div class="condition">Sur prescription médicale uniquement</div>
+        <p>Froid (poche de glace) : toujours avec interposition d'un linge — jamais en contact direct avec la peau. Chaud (bouillotte) : température modérée, jamais sur peau lésée ou insensible. Durée et fréquence selon prescription. Surveiller la peau.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCÉNETTES ===== -->
+<div id="tab-scenarios" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📋</div>
+    <div>
+      <h2>Scénettes de soins aigus</h2>
+      <p>5 situations concrètes en EHPAD ou service de gériatrie. Pour chaque scénette : le contexte, ce que l'AS fait étape par étape, ce qu'il évalue, et quand il doit s'arrêter et appeler.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module B · Arrêté 26/02/2025 — Soins personnalisés en situation aiguë</span>
+
+  <!-- SCÉNETTE 1 -->
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-icon">😰</div>
+      <div>
+        <h3>Scénette 1 — Mme Aubert, 84 ans, EHPAD, Alzheimer modéré</h3>
+        <p>Hypoglycémie chez une patiente diabétique confuse</p>
+      </div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-context">
+        <p>Il est 10h30. Mme Aubert n'a mangé que la moitié de son petit-déjeuner ce matin. Vous la trouvez dans sa chambre, prostrée dans son fauteuil, elle transpire et tremble légèrement. Elle ne répond pas à votre prénom habituel.</p>
+      </div>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <div class="sc-num">1</div>
+          <div class="sc-body"><strong>Observer et ne pas paniquer</strong><p>Vous restez avec elle. Vous notez : transpiration, tremblements, confusion plus marquée que d'habitude, repas incomplet.</p><div class="as-action">✅ AS : rester calme, ne pas la laisser seule</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num orange">2</div>
+          <div class="sc-body"><strong>Mesurer la glycémie capillaire</strong><p>Vous avez la prescription de surveiller sa glycémie. Résultat : 0,55 g/L.</p><div class="as-action">✅ AS : glycémie mesurée, tracée, heure notée</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num red">3</div>
+          <div class="sc-body"><strong>Alerter l'IDE immédiatement — méthode SBAR</strong><p>"Mme Aubert, chambre 14 — confuse, transpire, tremble depuis ce matin. Elle est diabétique, a peu mangé au petit-déjeuner. Glycémie à 0,55 g/L à 10h32. Je pense à une hypoglycémie — que dois-je faire ?"</p><div class="alerte">🚨 Ne pas donner à manger/boire AVANT l'accord de l'IDE (risque de fausse route si conscience altérée)</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num green">4</div>
+          <div class="sc-body"><strong>Appliquer la délégation IDE</strong><p>L'IDE vous demande de lui donner un jus de fruit (si elle peut avaler) ou attend pour injecter du glucagon. Vous exécutez, surveillez, remesurez la glycémie à l'heure indiquée.</p><div class="as-action">✅ Évaluation qualité : glycémie remontée à 0,85 g/L après 15 min, patiente plus alerte → objectif atteint, tracer</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCÉNETTE 2 -->
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-icon">🫁</div>
+      <div>
+        <h3>Scénette 2 — M. Bernard, 79 ans, BPCO sévère</h3>
+        <p>Essoufflement aggravé — changement de lunettes à oxygène</p>
+      </div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-context">
+        <p>Lors de la toilette de M. Bernard, vous remarquez qu'il est plus essoufflé qu'à l'habitude, sa SpO2 est à 87 % (cible prescrite : ≥ 90 %). Ses lunettes à oxygène semblent déplacées et partiellement bouchées.</p>
+      </div>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <div class="sc-num">1</div>
+          <div class="sc-body"><strong>Vérifier les lunettes immédiatement</strong><p>Les lunettes sont déplacées et une narine est obstruée. Vous repositionnez les lunettes en premier lieu.</p><div class="as-action">✅ AS : repositionnement immédiat des lunettes sans modifier le débit</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num orange">2</div>
+          <div class="sc-body"><strong>Remesurez la SpO2 après repositionnement</strong><p>SpO2 remonte à 89 % en 2 minutes mais reste sous la cible de 90 %.</p><div class="alerte">🚨 Alerter l'IDE avec la valeur + l'heure + le débit actuel en cours</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num red">3</div>
+          <div class="sc-body"><strong>L'IDE délègue le changement des lunettes</strong><p>L'IDE vérifie et vous demande de changer les lunettes (encrassées). Vous réalisez le soin : retrait des anciennes, nettoyage des narines, mise en place des nouvelles lunettes avec le même débit prescrit.</p><div class="interdit">🚫 Jamais modifier le débit d'O2 seul — en BPCO, un excès d'O2 peut être dangereux</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num green">4</div>
+          <div class="sc-body"><strong>Évaluation qualité</strong><p>SpO2 à 91 % 5 minutes après le changement. M. Bernard dit se sentir mieux. Peau péri-nasale vérifiée (pas de rougeur).</p><div class="as-action">✅ Objectif atteint — tracer : heure changement, SpO2 avant/après, résultat clinique</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCÉNETTE 3 -->
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-icon">🩹</div>
+      <div>
+        <h3>Scénette 3 — Mme Colette, 76 ans, colostomie depuis 8 mois</h3>
+        <p>Changement de poche de colostomie sur stomie cicatrisée</p>
+      </div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-context">
+        <p>Mme Colette a une colostomie gauche depuis 8 mois, totalement cicatrisée. L'IDE vous délègue le changement de sa poche lors du soin du matin. C'est la 3e fois que vous réalisez ce soin avec elle.</p>
+      </div>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <div class="sc-num">1</div>
+          <div class="sc-body"><strong>Préparer et informer</strong><p>Expliquer chaque geste à Mme Colette. Préparer le matériel : nouvelle poche découpée au bon diamètre (stomie + 2-3 mm), eau tiède, savon doux, compresses, sac poubelle fermé.</p><div class="as-action">✅ Respect de la dignité : intimité préservée, drap de pudeur</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num orange">2</div>
+          <div class="sc-body"><strong>Retirer l'ancienne poche</strong><p>Vider la poche si besoin avant retrait (limiter les odeurs). Décoller délicatement de haut en bas en soutenant la peau. Éliminer dans le sac fermé.</p></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num">3</div>
+          <div class="sc-body"><strong>Nettoyer et observer la stomie</strong><p>Nettoyer la peau péristomiale à l'eau tiède et au savon doux. Rincer. Sécher par tamponnement (jamais frotter). <strong>Observer : couleur de la stomie (doit être rose/rouge vif), état de la peau autour.</strong></p><div class="alerte">🚨 Alerter IDE si : stomie noire ou blanche, saignement, prolapsus, peau très irritée</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num green">4</div>
+          <div class="sc-body"><strong>Poser la nouvelle poche et évaluer</strong><p>Coller sans pli, centrer sur la stomie. Appuyer doucement 30 secondes. Vérifier l'étanchéité. Évaluation qualité : poche bien collée, pas de fuite, Mme Colette confortable.</p><div class="as-action">✅ Tracer : heure, aspect stomie, couleur selles si observées, résultat</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCÉNETTE 4 -->
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-icon">😣</div>
+      <div>
+        <h3>Scénette 4 — M. Henri, 88 ans, insuffisance cardiaque + constipation</h3>
+        <p>Administration d'un suppositoire sur prescription</p>
+      </div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-context">
+        <p>M. Henri n'a pas eu de selles depuis 5 jours. Le médecin a prescrit un suppositoire à la glycérine. L'IDE vous délègue l'administration.</p>
+      </div>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <div class="sc-num">1</div>
+          <div class="sc-body"><strong>Vérifier la prescription et informer le patient</strong><p>Vérifier : bon médicament, bonne voie, bonne heure, bon patient. Expliquer à M. Henri ce que vous allez faire et pourquoi. Recueillir son accord.</p><div class="as-action">✅ Règle des 5B : Bon patient, Bon médicament, Bonne dose, Bonne voie, Bonne heure</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num orange">2</div>
+          <div class="sc-body"><strong>Installer et administrer</strong><p>Position latérale gauche (facilite le passage dans le côlon). Gants à usage unique. Introduire doucement le suppositoire côté pointu en premier, jusqu'à ce qu'il dépasse le sphincter anal interne.</p><div class="alerte">⚠️ Contre-indications à vérifier avec l'IDE avant : chirurgie rectale récente, diarrhée, rectum pathologique</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num green">3</div>
+          <div class="sc-body"><strong>Surveiller et évaluer</strong><p>Demander à M. Henri de retenir le suppositoire au moins 5-10 minutes. Rester à proximité. Proposer le bassin ou accompagner aux toilettes dès le besoin. Observer : y-a-t-il eu selles ? Quelle quantité ? Quelle consistance ?</p><div class="as-action">✅ Évaluation qualité : selles obtenues en 25 min, M. Henri soulagé → objectif atteint. Tracer.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCÉNETTE 5 -->
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-icon">🆘</div>
+      <div>
+        <h3>Scénette 5 — Mme Rose, 91 ans — L'AS qui doit S'ARRÊTER</h3>
+        <p>Situation où le réajustement nécessite l'IDE — ne pas dépasser ses compétences</p>
+      </div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-context">
+        <p>Vous changez la poche de colostomie de Mme Rose. En retirant l'ancienne poche, vous observez que la stomie est de couleur violacée et qu'il y a un léger saignement au bord. La peau péristomiale est très rouge et irritée.</p>
+      </div>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <div class="sc-num red">1</div>
+          <div class="sc-body"><strong>Stopper le soin</strong><p>Vous n'essayez pas de finir le soin comme d'habitude. Cette situation sort de votre champ d'action habituel — elle nécessite une évaluation IDE.</p><div class="interdit">🚫 Ne pas reposer une poche sans avis IDE sur une stomie qui saigne ou décolorée</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num red">2</div>
+          <div class="sc-body"><strong>Protéger la stomie et alerter</strong><p>Recouvrir délicatement la stomie d'une compresse humide (eau tiède). Appeler l'IDE immédiatement avec les observations : couleur violacée, saignement, peau irritée.</p><div class="alerte">🚨 SBAR : "Mme Rose, chambre 8 — stomie violacée et saignante lors du changement, peau très rouge autour. Je ne pose pas la nouvelle poche — besoin d'une évaluation IDE."</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num orange">3</div>
+          <div class="sc-body"><strong>Rester avec la patiente</strong><p>Rassurer Mme Rose. Lui expliquer simplement qu'on va appeler l'infirmière pour regarder ensemble. Ne pas montrer votre propre inquiétude — votre calme est contagieux.</p><div class="as-action">✅ Savoir s'arrêter et appeler = compétence professionnelle, pas un aveu de faiblesse</div></div>
+        </div>
+        <div class="sc-step">
+          <div class="sc-num green">4</div>
+          <div class="sc-body"><strong>Traçabilité de la situation</strong><p>Noter dans le dossier : heure, observations, alerte effectuée, heure d'arrivée de l'IDE, suite donnée.</p><div class="as-action">✅ Une situation non gérée tracée vaut mieux qu'une erreur non signalée</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ÉVALUATION QUALITÉ ===== -->
+<div id="tab-evaluation" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✅</div>
+    <div>
+      <h2>Évaluer la qualité de son soin — Réajuster</h2>
+      <p>L'arrêté 2025 introduit explicitement cette notion : l'AS ne réalise pas seulement le soin, il évalue si ce soin a atteint son objectif et adapte sa conduite en conséquence.</p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🎯 Les 3 questions à se poser après chaque soin</h2>
+    <div class="eval-grid">
+      <div class="eval-card">
+        <div class="eval-icon">🎯</div>
+        <h4>1. L'objectif est-il atteint ?</h4>
+        <p>La glycémie est-elle remontée ? L'essoufflement s'est-il amélioré ? Le suppositoire a-t-il fonctionné ? Comparer le résultat observé à l'objectif visé par l'IDE.</p>
+      </div>
+      <div class="eval-card">
+        <div class="eval-icon">👁️</div>
+        <h4>2. Y a-t-il des effets indésirables ?</h4>
+        <p>Rougeur, douleur, aggravation, réaction allergique, inconfort nouveau ? Tout écart par rapport à un soin "normal" doit être noté et transmis.</p>
+      </div>
+      <div class="eval-card">
+        <div class="eval-icon">🔄</div>
+        <h4>3. Faut-il réajuster ?</h4>
+        <p>Si l'objectif n'est pas atteint ou si un effet indésirable apparaît → alerter l'IDE pour décision. Jamais réitérer un soin qui a échoué sans accord IDE.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>📝 La grille d'évaluation qualité AS — Arrêté 2025</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">Pour chaque soin délégué, l'AS vérifie mentalement ces critères :</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✅ Conformité technique</h4>
+        <ul>
+          <li>J'ai respecté les règles d'hygiène (SHA, gants)</li>
+          <li>J'ai suivi la technique prescrite sans improvisation</li>
+          <li>J'ai utilisé le bon matériel dans les bonnes conditions</li>
+          <li>J'ai respecté la pudeur et la dignité</li>
+          <li>J'ai informé le patient de chaque geste</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Résultat clinique</h4>
+        <ul>
+          <li>L'objectif du soin est atteint</li>
+          <li>Le patient est plus confortable qu'avant</li>
+          <li>Aucun effet indésirable observé</li>
+          <li>Paramètres post-soin dans les cibles</li>
+          <li>Le patient peut m'indiquer qu'il se sent mieux</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Communication</h4>
+        <ul>
+          <li>J'ai transmis le résultat à l'IDE</li>
+          <li>J'ai signalé tout écart immédiatement</li>
+          <li>Ma transmission était claire et précise (SBAR)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Traçabilité</h4>
+        <ul>
+          <li>Le soin est tracé dans le dossier</li>
+          <li>Date, heure, valeurs avant/après notées</li>
+          <li>Résultat clinique documenté</li>
+          <li>Transmissions effectuées notées</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Le réajustement — 3 niveaux</h2>
+    <div class="sc-steps" style="margin-top:10px;">
+      <div class="sc-step">
+        <div class="sc-num green">A</div>
+        <div class="sc-body">
+          <strong>Réajustement immédiat AS</strong>
+          <p>Vous pouvez adapter vous-même : repositionner un masque qui glisse, aider le patient à mieux tenir son verre lors de la resucration, ajuster la position pour plus de confort. Ce sont des adaptations techniques dans votre champ d'action.</p>
+          <div class="as-action">✅ Dans votre champ d'action — tracer le réajustement</div>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num orange">B</div>
+        <div class="sc-body">
+          <strong>Réajustement après avis IDE</strong>
+          <p>Le soin n'a pas produit l'effet attendu mais la situation n'est pas urgente. Vous informez l'IDE qui décide de la suite : recommencer ? Changer d'approche ? Augmenter la fréquence ?</p>
+          <div class="as-action">✅ Informer l'IDE + attendre sa décision avant de réitérer</div>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num red">C</div>
+        <div class="sc-body">
+          <strong>Alerte urgente — Stop and call</strong>
+          <p>Situation qui s'aggrave, complication, réaction inattendue. Vous arrêtez immédiatement le soin et appelez l'IDE ou les secours.</p>
+          <div class="alerte">🚨 Savoir s'arrêter est une compétence professionnelle clé de l'arrêté 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIMITES ===== -->
+<div id="tab-limites" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🚫</div>
+    <div>
+      <h2>Les limites — Ce que l'AS ne fait jamais</h2>
+      <p>Connaître ses limites, c'est se protéger et protéger le patient. Le glissement de tâche expose l'AS à des poursuites disciplinaires et pénales.</p>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>🚫 Actes strictement réservés à l'IDE — Jamais délégables à l'AS</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">Injections et voies veineuses</h4>
+        <ul>
+          <li>Injection IV, IM, SC</li>
+          <li>Pose ou ablation de cathéter veineux</li>
+          <li>Branchement/débranchement d'une perfusion</li>
+          <li>Modification d'un débit de perfusion</li>
+          <li>Prélèvements sanguins</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">Médicaments oraux</h4>
+        <ul>
+          <li>Préparer un pilulier</li>
+          <li>Distribuer des médicaments oraux</li>
+          <li>Administrer des médicaments hors prescription explicite</li>
+          <li>Décider d'administrer un médicament "si besoin" sans validation IDE</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">Soins de plaies</h4>
+        <ul>
+          <li>Réfection de pansements (hors soins de confort simples)</li>
+          <li>Ablation de sutures</li>
+          <li>Soin d'une stomie fraîche ou compliquée</li>
+          <li>Irrigation de plaie</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">Décisions cliniques</h4>
+        <ul>
+          <li>Modifier un traitement</li>
+          <li>Décider d'un soin de sa propre initiative</li>
+          <li>Réaliser un soin sans délégation préalable</li>
+          <li>Interpréter seul un ECG</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner" style="margin-top:12px;">⚠️ Si un collègue vous demande de faire l'un de ces actes "juste pour cette fois", vous avez le droit et le devoir de refuser. Votre responsabilité personnelle est engagée, pas celle de celui qui vous le demande.</div>
+  </div>
+
+  <div class="card yellow">
+    <h2>⚠️ Le glissement de tâche — Qu'est-ce que c'est ?</h2>
+    <p>Le glissement de tâche, c'est quand un professionnel réalise régulièrement des actes qui ne relèvent pas de sa compétence — souvent par habitude, manque de personnel ou pression de l'équipe.</p>
+    <h3>Exemples concrets</h3>
+    <ul>
+      <li>L'AS qui "distribue les médicaments" parce que l'IDE est occupée</li>
+      <li>L'AS qui "rebranche la perf" parce que l'IDE n'est pas disponible</li>
+      <li>L'AS qui "fait le pansement" parce qu'il le fait depuis des années</li>
+      <li>L'AS qui "augmente l'O2 à 3 L" parce que la patiente est essoufflée</li>
+    </ul>
+    <h3>Les risques</h3>
+    <ul>
+      <li><strong>Pour le patient :</strong> soin mal réalisé, complication, danger</li>
+      <li><strong>Pour l'AS :</strong> sanctions disciplinaires, poursuites pénales, radiation</li>
+      <li><strong>Pour l'établissement :</strong> engagement de la responsabilité institutionnelle</li>
+    </ul>
+    <div class="ok-banner">✅ La bonne réponse face à une pression : "Ce soin ne fait pas partie de mes compétences. Je préviens l'IDE." — et vous le faites.</div>
+  </div>
+
+  <div class="card green">
+    <h2>💡 Que faire quand on ne sait pas ?</h2>
+    <div class="sc-steps" style="margin-top:10px;">
+      <div class="sc-step">
+        <div class="sc-num">1</div>
+        <div class="sc-body"><strong>S'arrêter</strong><p>Un doute = on stoppe. Jamais improviser sur un patient.</p></div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num orange">2</div>
+        <div class="sc-body"><strong>Demander</strong><p>Appeler l'IDE, le cadre ou un collègue plus expérimenté. Poser la question n'est pas un aveu de faiblesse — c'est du professionnalisme.</p></div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num green">3</div>
+        <div class="sc-body"><strong>Ne jamais simuler</strong><p>Prétendre avoir fait un soin qu'on n'a pas fait, ou noter une valeur qu'on n'a pas mesurée = faute grave. La traçabilité engage votre responsabilité.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Soins en situation aiguë</h2>
+      <p>10 questions sur les actes autorisés, les limites, l'évaluation qualité et les situations concrètes.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"Mme Aubert (diabétique) est confuse et tremble. Sa glycémie est à 0,55 g/L. Quelle est votre première action ?",opts:["Lui donner immédiatement un jus de fruit","Appeler l'IDE avec la valeur et les signes cliniques avant de donner quoi que ce soit","Attendre que l'IDE passe dans sa prochaine tournée","Augmenter son repas du midi"],correct:1,expl:"En cas de conscience altérée, on n'administre rien par voie orale sans accord IDE (risque de fausse route). La première action est d'alerter l'IDE avec méthode SBAR : valeur, signes, contexte (repas incomplet ce matin)."},
+  {q:"Vous changez les lunettes à oxygène de M. Bernard (BPCO). La prescription indique 2 L/min. Sa SpO2 reste à 88 % après le changement. Que faites-vous ?",opts:["Augmenter à 3 L/min pour améliorer sa SpO2","Retirer les lunettes et mettre un masque","Informer l'IDE en lui transmettant la SpO2 et l'heure — ne pas modifier le débit seul","Attendre 30 minutes avant d'appeler"],correct:2,expl:"En BPCO, modifier le débit d'O2 sans ordre médical est dangereux (risque de dépression respiratoire). L'AS ne modifie jamais le débit seul. Il transmet la SpO2 à l'IDE qui adaptera la prescription si nécessaire."},
+  {q:"Lors du changement de la poche de colostomie de Mme Rose, vous observez que la stomie est violacée et qu'il y a un léger saignement. Que faites-vous ?",opts:["Vous posez quand même la nouvelle poche en notant l'observation dans le dossier","Vous stoppez le soin, recouvrez d'une compresse humide et alertez l'IDE immédiatement","Vous nettoyez plus vigoureusement pour faire disparaître le saignement","Vous attendez la prochaine toilette pour voir si ça s'améliore"],correct:1,expl:"Une stomie violacée ou saignante sort du champ d'action AS lors du changement de routine. Il faut stopper, protéger (compresse humide) et alerter l'IDE immédiatement. Poser une nouvelle poche sans évaluation médicale risque de masquer une complication grave."},
+  {q:"L'évaluation qualité du soin selon l'arrêté 2025 implique que l'AS :",opts:["Réalise le soin et passe au suivant sans s'attarder","Observe le résultat du soin, évalue si l'objectif est atteint et signale tout écart à l'IDE","Laisse l'IDE évaluer le résultat lors de sa prochaine tournée","Note simplement que le soin a été réalisé dans le dossier"],correct:1,expl:"L'arrêté 2025 introduit explicitement la notion d'évaluation et de réajustement par l'AS. Après chaque soin délégué, l'AS évalue : l'objectif est-il atteint ? Y a-t-il des effets indésirables ? Faut-il réajuster ? Ce résultat est tracé et transmis à l'IDE."},
+  {q:"Une aide-soignante collègue vous demande de 'distribuer les médicaments rapidement' parce qu'elle est débordée. Que faites-vous ?",opts:["Vous le faites — c'est pour aider l'équipe","Vous refusez clairement et expliquez que ce n'est pas dans vos compétences, et proposez d'aider autrement","Vous le faites mais sans le noter dans le dossier","Vous demandez l'accord verbal d'un médecin par téléphone"],correct:1,expl:"La distribution de médicaments est un acte IDE. Le faire expose l'AS à des sanctions disciplinaires et pénales, quelle que soit la raison invoquée. La bonne réponse est de refuser clairement et de proposer une autre aide (prendre en charge d'autres soins pour libérer l'IDE)."},
+  {q:"Lors de la pose d'un suppositoire, la bonne position du patient est :",opts:["Position assise sur les toilettes","Décubitus dorsal (sur le dos)","Décubitus latéral gauche (couché sur le côté gauche)","Position semi-assise à 45°"],correct:2,expl:"Le décubitus latéral gauche facilite l'introduction du suppositoire dans la partie gauche du côlon (côlon descendant et sigmoïde), où il sera le plus efficace. C'est la position de référence pour cet acte."},
+  {q:"Que signifie 'réajuster' un soin selon l'arrêté 2025 ?",opts:["Refaire exactement le même soin si ça n'a pas fonctionné","Adapter sa conduite en fonction du résultat observé — parfois s'arrêter et appeler l'IDE","Déléguer le soin à un collègue plus expérimenté","Noter dans le dossier que le soin sera à refaire"],correct:1,expl:"Réajuster, c'est adapter. Si l'objectif est atteint : tracer et continuer. Si l'objectif n'est pas atteint : ne pas réitérer aveuglément mais informer l'IDE qui adaptera la prescription. Si complication : stop and call. Le réajustement peut aller de l'adaptation mineure à l'arrêt du soin."},
+  {q:"Vous surveillez la perfusion de M. Garnier. Vous observez que la zone de ponction est gonflée et douloureuse. Que faites-vous ?",opts:["Vous accélérez le débit pour que la perfusion finisse plus vite","Vous ralentissez le débit et attendez que ça passe","Vous arrêtez le débit en clampant le tuyau et alertez l'IDE immédiatement","Vous changez la poche de perfusion"],correct:2,expl:"Un gonflement et une douleur au site de ponction signent une extravasation (la perfusion ne coule plus dans la veine mais dans les tissus). L'AS clamp le tuyau (sans déconnecter) et alerte l'IDE immédiatement. Ne pas continuer à perfuser dans un tissu."},
+  {q:"M. René reçoit de l'oxygène par masque. Avant de lui mettre un masque neuf, vous devez vérifier :",opts:["Que le masque est de la bonne couleur","La taille adaptée au visage, le débit prescrit sur le détendeur, l'absence de rougeurs sur le visage","Que M. René n'a pas mangé depuis 2 heures","Que la pièce est bien ventilée"],correct:1,expl:"Avant la pose d'un masque : vérifier la taille (petit/moyen/grand), confirmer le débit prescrit sur le détendeur (ne pas le modifier), et inspecter la peau du visage pour prévenir les lésions de pression. L'AS positionne le masque, pince l'attache nasale et vérifie l'étanchéité."},
+  {q:"La traçabilité dans le dossier patient après un soin délégué doit obligatoirement comporter :",opts:["Juste 'soin fait' avec votre initiale","La date, l'heure précise, la valeur mesurée, le résultat clinique observé et la transmission effectuée","Uniquement les soins qui se sont mal passés","Le nom du médecin qui a prescrit"],correct:1,expl:"L'arrêté 2025 exige la traçabilité avec exactitude. Une entrée dans le dossier doit comporter : date + heure précise, valeur exacte (jamais 'normal'), résultat clinique (la personne a été soulagée, la SpO2 a remonté à X %), et toute transmission effectuée à l'IDE avec l'heure."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les scénettes avant de continuer 💪':pct<0.7?'Bon début, repassez les limites !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module B maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.sc-body strong,.sc-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
