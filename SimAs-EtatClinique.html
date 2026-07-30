@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>SimEtatClinique · Module 03 DEAS</title><meta name="theme-color" content="#080c14">
-<style>:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#e84040;--amber:#e8a030;--green:#40c878;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;}.header{background:linear-gradient(135deg,rgba(232,64,64,.15),rgba(232,64,64,.05));border:1px solid rgba(232,64,64,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}.norme{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:12px;}.norme:last-child{border-bottom:none;}.norme-val{color:var(--green);font-family:monospace;font-weight:700;}.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:10px;}.memo{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}.fiche ul{list-style:none;padding:0;}.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}.fiche ul li:last-child{border-bottom:none;}.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(232,64,64,.1);color:var(--em);border:1px solid rgba(232,64,64,.2);margin:2px;}.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}</style></head>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>SimHygiene · Module 08 DEAS</title><meta name="theme-color" content="#080c14">
+<style>:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#40c878;--amber:#e8a030;--red:#e84040;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;padding-bottom:80px;}.header{background:linear-gradient(135deg,rgba(64,200,120,.15),rgba(64,200,120,.05));border:1px solid rgba(64,200,120,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}.fiche ul{list-style:none;padding:0;}.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}.fiche ul li:last-child{border-bottom:none;}.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}.memo{background:rgba(64,200,120,.06);border:1px solid rgba(64,200,120,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(64,200,120,.1);color:var(--em);border:1px solid rgba(64,200,120,.2);margin:2px;}.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}</style></head>
 <body>
 <button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
-<div class="header"><div class="module-num">MODULE 03 · BLOC 2 · 77 heures</div><h1>SimEtatClinique</h1><div class="module-info">Evaluation de l'etat clinique d'une personne</div></div>
-<div class="section"><h2>📊 Constantes vitales - Normes adulte</h2>
-<div class="fiche"><h3>Tableau des normes</h3>
-<div class="norme"><span>Frequence cardiaque (FC)</span><span class="norme-val">60-100 bpm</span></div>
-<div class="norme"><span>Pression arterielle systolique</span><span class="norme-val">< 140 mmHg</span></div>
-<div class="norme"><span>Pression arterielle diastolique</span><span class="norme-val">< 90 mmHg</span></div>
-<div class="norme"><span>Frequence respiratoire (FR)</span><span class="norme-val">12-20 /min</span></div>
-<div class="norme"><span>Temperature corporelle</span><span class="norme-val">36,5 - 37,5 °C</span></div>
-<div class="norme"><span>Saturation O2 (SpO2)</span><span class="norme-val">> 95 %</span></div>
-<div class="norme"><span>Glycemie capillaire a jeun</span><span class="norme-val">0,7 - 1,10 g/L</span></div>
-<div class="norme"><span>Diurese journaliere</span><span class="norme-val">1 a 1,5 L/jour</span></div></div>
-<div class="alert">⚠️ L'AS mesure et TRANSMET - il ne diagnostique pas. Toute valeur anormale = signalement immediat a l'IDE.</div></div>
-<div class="section"><h2>🌡️ Prise de temperature</h2>
-<div class="fiche"><h3>Voies et techniques</h3>
-<div class="norme"><span>Voie rectale</span><span class="norme-val">+0,5°C par rapport a la reelle</span></div>
-<div class="norme"><span>Voie axillaire</span><span class="norme-val">-0,5°C</span></div>
-<div class="norme"><span>Voie tympanique</span><span class="norme-val">Proche reelle</span></div></div>
-<div class="fiche"><h3>Fievre et hypothermie</h3><ul><li>Fievre : T > 38°C (hyperthermie > 40°C = urgence)</li><li>Hypothermie : T < 36°C (< 35°C = urgence)</li><li>En cas de fievre : signaler, augmenter les boissons, surveiller</li></ul></div></div>
-<div class="section"><h2>💓 Prise du pouls</h2>
-<div class="fiche"><h3>Technique</h3><ul><li>Pouls radial : face interne du poignet, 2 doigts (index + majeur) - JAMAIS le pouce</li><li>Compter 15 secondes et multiplier par 4</li><li>Observer : frequence, regularite, amplitude</li><li>Tachycardie : > 100 bpm - Bradycardie : < 60 bpm</li></ul></div></div>
-<div class="section"><h2>🩺 Evaluation de la douleur</h2>
-<div class="fiche"><h3>Echelles selon la personne</h3><ul><li>EVA (Echelle Visuelle Analogique) : adulte communicant - regle de 0 a 10</li><li>EN (Echelle Numerique) : adulte - "de 0 a 10, quelle est votre douleur ?"</li><li>DOLOPLUS : personne agee non communicante</li><li>FLACC : enfant (Face, Jambes, Activite, Cris, Consolabilite)</li><li>Hetero-evaluation : observer les comportements (grimaces, agitation, position antalgique)</li></ul></div>
-<div class="memo">💡 L'AS observe ET evalue la douleur. Il ne prescrit pas d'antalgiques. Il signale et transmet a l'IDE.</div></div>
-<div class="section"><h2>🏷️ Mots cles</h2><div style="padding:8px 0"><span class="tag">Constantes</span><span class="tag">FC</span><span class="tag">PA</span><span class="tag">Temperature</span><span class="tag">SpO2</span><span class="tag">Douleur</span><span class="tag">EVA</span><span class="tag">DOLOPLUS</span><span class="tag">Tachycardie</span><span class="tag">Transmission</span></div></div>
+<div class="header"><div class="module-num">MODULE 08 · BLOC 4 · 35 heures</div><h1>SimHygiene</h1><div class="module-info">Entretien des locaux et des materiels - Prevention des risques</div></div>
+<div class="section"><h2>🧹 Protocole de nettoyage-desinfection</h2>
+<div class="fiche"><h3>Ordre obligatoire</h3><ul><li>1. NETTOYER : eliminer les salissures avec detergent</li><li>2. RINCER : eliminer le detergent (qui inactive les desinfectants)</li><li>3. DESINFECTER : appliquer le desinfectant et respecter le temps de contact</li><li>4. RINCER si necessaire (selon le produit)</li><li>5. SECHER : l'humidite favorise la proliferation bacterienne</li></ul></div>
+<div class="alert">⚠️ Desinfection sans nettoyage prealable = INEFFICACE. Le detergent inactive les desinfectants. L'ordre est obligatoire.</div>
+<div class="memo">💡 Technique du S : partir d'un angle propre, avancer par bandes paralleles sans revenir en arriere.</div></div>
+<div class="section"><h2>🗑️ Gestion des DASRI</h2>
+<div class="fiche"><h3>Categories de dechets</h3><ul><li>DASRI (jaune) : tout ce qui a ete en contact avec du sang ou des fluides biologiques</li><li>Perforants (conteneur rigide jaune) : aiguilles, bistouris, lames</li><li>Ordures menageres (noir) : dechets sans risque</li><li>Recyclable (bleu) : papier, carton, plastique propre</li></ul></div>
+<div class="fiche"><h3>Regles DASRI</h3><ul><li>Ne jamais recapuchonner une aiguille a la main</li><li>Fermer le conteneur rigide a 3/4 plein maximum</li><li>Ne jamais comprimer un sac DASRI</li><li>Stocker dans local DASRI sous cle</li><li>Collecte par entreprise agreee</li></ul></div>
+<div class="fiche"><h3>AES - Accident d'Exposition au Sang</h3><ul><li>En cas de piqure : ne pas faire saigner, laver abondamment savon + eau, desinfecter avec Dakin ou alcool</li><li>Signaler immediatement au cadre et medecin du travail</li><li>Traitement prophylactique sous 4 heures si VIH+</li><li>Declaration AT obligatoire</li></ul></div>
+<div class="alert">⚠️ AES = urgence medicale. Declaration OBLIGATOIRE dans les 24h. Traitement antiviral si necessaire sous 4 heures.</div></div>
+<div class="section"><h2>🏷️ Mots cles</h2><div style="padding:8px 0"><span class="tag">DASRI</span><span class="tag">AES</span><span class="tag">Detergent</span><span class="tag">Desinfectant</span><span class="tag">Bionettoyage</span><span class="tag">Conteneur rigide</span><span class="tag">AT</span><span class="tag">Protocole</span></div></div>
+
 <script>document.addEventListener('click',function(){window.parent.postMessage({type:'activite'},'*');});</script>
 <script>window.PRAXIS_APP='SimAs';</script>
+
+<!-- Bouton audio -->
+<button id="btn-audio" onclick="lireOnglet()" style="
+  position:fixed;bottom:20px;right:20px;z-index:1000;
+  background:#40a8e0;border:none;border-radius:50px;
+  color:#080c14;font-size:13px;font-weight:800;
+  padding:11px 18px;cursor:pointer;
+  box-shadow:0 4px 16px rgba(64,168,224,.35);
+  font-family:monospace;letter-spacing:.5px;
+  white-space:nowrap;transition:opacity .2s">🔊 Écouter</button>
+
+<script src="praxis-audio.js"></script>
 <script src="praxiscare-feedback.js"></script>
 </body></html>
