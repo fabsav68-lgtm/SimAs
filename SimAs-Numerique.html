@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisNumerique-AS · Numérique en santé</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+/* ANALOGIE PHONE */
+.phone-analogy{display:flex;gap:14px;align-items:flex-start;background:var(--gray-bg);border-radius:9px;padding:14px;margin-bottom:10px;border:1px solid var(--gray-border);}
+.phone-analogy .pa-icon{font-size:1.8rem;flex-shrink:0;}
+.phone-analogy .pa-body h4{font-size:.84rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.phone-analogy .pa-body p{font-size:.79rem;line-height:1.55;color:var(--text-light);}
+.phone-analogy .pa-body .equiv{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:10px;font-size:.73rem;font-weight:700;background:var(--blue-light);color:var(--blue-dark);}
+
+/* OUTILS LOGICIELS */
+.logiciel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:480px){.logiciel-grid{grid-template-columns:1fr;}}
+.logiciel-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.logiciel-card .lg-icon{font-size:1.4rem;margin-bottom:6px;}
+.logiciel-card h4{font-size:.84rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.logiciel-card p{font-size:.77rem;line-height:1.5;color:var(--text-light);}
+.logiciel-card .lg-role{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:10px;font-size:.71rem;font-weight:600;background:#e6f4ee;color:#1e7a45;}
+
+/* DPI ZONES */
+.dpi-screen{background:#0d1a2e;border-radius:10px;padding:16px;margin-top:12px;font-family:monospace;}
+.dpi-zone{border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:10px;margin-bottom:8px;}
+.dpi-zone .dz-label{font-size:.7rem;color:#60a8f8;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.dpi-zone .dz-content{font-size:.78rem;color:#b0c8e8;line-height:1.6;}
+.dpi-zone .dz-as{font-size:.72rem;color:#40c878;margin-top:4px;}
+
+/* RGPD */
+.rgpd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.rgpd-grid{grid-template-columns:1fr;}}
+.rgpd-ok{background:#e6f4ee;border-radius:9px;padding:14px;border:1.5px solid #a5d6b5;}
+.rgpd-non{background:#fdecea;border-radius:9px;padding:14px;border:1.5px solid #ef9a9a;}
+.rgpd-ok h4{font-size:.84rem;font-weight:700;color:#1e7a45;margin-bottom:8px;}
+.rgpd-non h4{font-size:.84rem;font-weight:700;color:var(--red);margin-bottom:8px;}
+.rgpd-ok li,.rgpd-non li{font-size:.79rem;line-height:1.6;}
+.rgpd-ok ul,.rgpd-non ul{padding-left:14px;}
+
+/* OUTILS CONNECTÉS */
+.outil-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:480px){.outil-grid{grid-template-columns:1fr;}}
+.outil-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.outil-card .ou-icon{font-size:1.5rem;margin-bottom:6px;}
+.outil-card h4{font-size:.84rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.outil-card p{font-size:.77rem;line-height:1.5;color:var(--text);}
+.outil-card .ou-as{background:var(--blue-light);border-radius:5px;padding:4px 8px;margin-top:6px;font-size:.74rem;color:var(--blue-dark);font-weight:600;}
+.outil-card .ou-alerte{background:#fdecea;border-radius:5px;padding:4px 8px;margin-top:4px;font-size:.74rem;color:var(--red);font-weight:600;}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-num.red{background:var(--red);}
+.step-num.green{background:var(--green);}
+.step-num.orange{background:var(--orange);}
+.step-body{padding:6px 0 16px;flex:1;}
+.step-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.step-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.step-body .as-do{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.step-body .as-dont{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+/* PANNE */
+.panne-steps{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.panne-step{display:flex;gap:10px;align-items:flex-start;background:var(--gray-bg);border-radius:8px;padding:10px 12px;border:1px solid var(--gray-border);}
+.panne-step .ps-num{font-size:1.2rem;font-weight:900;color:var(--red);flex-shrink:0;min-width:24px;}
+.panne-step p{font-size:.81rem;line-height:1.55;color:var(--text);}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.74rem;font-weight:600;margin:2px;}
+.tag.blue{background:var(--blue-light);color:var(--blue-dark);}
+.tag.red{background:#fdecea;color:var(--red);}
+.tag.green{background:#e6f4ee;color:#1e7a45;}
+.tag.warn{background:#fff3e0;color:#e65100;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">NUMÉRIQUE · Bloc 5 · DEAS 2021</div>
+    <div>
+      <h1>PraxisNumerique-AS</h1>
+      <p class="subtitle">Le numérique en santé — Simple, concret, au quotidien</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('quotidien',this)">📱 Au quotidien</button>
+    <button class="tab-btn" onclick="showTab('dpi',this)">📋 Dossier patient</button>
+    <button class="tab-btn" onclick="showTab('rgpd',this)">🔒 RGPD</button>
+    <button class="tab-btn" onclick="showTab('connecte',this)">📡 Outils connectés</button>
+    <button class="tab-btn" onclick="showTab('risques',this)">⚠️ Risques & pannes</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== AU QUOTIDIEN ===== -->
+<div id="tab-quotidien" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">📱</div>
+    <div>
+      <h2>Le numérique — Vous l'utilisez déjà sans le savoir</h2>
+      <p>Vous avez un smartphone, vous utilisez des applis, vous envoyez des messages, vous regardez des vidéos. Le numérique en santé, c'est exactement la même logique — mais appliquée aux soins. Rien de sorcier.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Bloc 5 · Module 09 · DEAS 2021 — Référentiel socle numérique</span>
+
+  <div class="card">
+    <h2>📱 Ce que vous connaissez déjà — Ce que ça devient en EHPAD</h2>
+    <div class="phone-analogy">
+      <div class="pa-icon">📸</div>
+      <div class="pa-body">
+        <h4>Les photos sur votre téléphone</h4>
+        <p>Vous prenez des photos pour vous souvenir de moments importants.</p>
+        <span class="equiv">→ En EHPAD : des photos de plaies dans le dossier patient pour suivre l'évolution — mais JAMAIS sur votre téléphone personnel</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">💬</div>
+      <div class="pa-body">
+        <h4>Les messages WhatsApp</h4>
+        <p>Vous envoyez des messages à vos amis pour les tenir au courant.</p>
+        <span class="equiv">→ En EHPAD : les transmissions écrites dans le dossier patient pour tenir l'équipe au courant — mais JAMAIS via WhatsApp</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">📅</div>
+      <div class="pa-body">
+        <h4>L'agenda de votre téléphone</h4>
+        <p>Vous notez vos rendez-vous pour ne rien oublier.</p>
+        <span class="equiv">→ En EHPAD : le planning des soins dans le logiciel — qui mange quoi, qui prend quel médicament, qui a besoin d'une aide particulière</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">🔍</div>
+      <div class="pa-body">
+        <h4>La barre de recherche Google</h4>
+        <p>Vous cherchez une information dont vous avez besoin immédiatement.</p>
+        <span class="equiv">→ En EHPAD : la recherche dans le dossier patient pour retrouver les antécédents, les allergies, les médicaments d'un résident</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">🔔</div>
+      <div class="pa-body">
+        <h4>Les notifications</h4>
+        <p>Votre téléphone vous prévient quand quelque chose d'important arrive.</p>
+        <span class="equiv">→ En EHPAD : les alertes du système qui préviennent l'équipe qu'un paramètre est anormal ou qu'un résident a appuyé sur sa sonnette</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🖥️ Les logiciels que vous allez rencontrer en stage</h2>
+    <div class="logiciel-grid">
+      <div class="logiciel-card">
+        <div class="lg-icon">📋</div>
+        <h4>NetSoins</h4>
+        <p>Logiciel de dossier patient très répandu en EHPAD. Vous y trouverez : le plan de soins, les transmissions, les paramètres vitaux, les prescriptions.</p>
+        <span class="lg-role">Très courant en EHPAD</span>
+      </div>
+      <div class="logiciel-card">
+        <div class="lg-icon">🏥</div>
+        <h4>Osiris / Titan</h4>
+        <p>Logiciels utilisés dans les services hospitaliers. Mêmes fonctions que NetSoins mais interface différente — chaque établissement a son outil.</p>
+        <span class="lg-role">Hôpital et clinique</span>
+      </div>
+      <div class="logiciel-card">
+        <div class="lg-icon">💊</div>
+        <h4>Logiciel de prescription</h4>
+        <p>L'IDE prépare les médicaments via un logiciel relié aux prescriptions du médecin. L'AS y voit l'heure de prise et les médicaments du jour pour chaque résident.</p>
+        <span class="lg-role">Aide à la prise médicamenteuse</span>
+      </div>
+      <div class="logiciel-card">
+        <div class="lg-icon">📊</div>
+        <h4>Tablette ou liseuse de soins</h4>
+        <p>Dans certains EHPAD, l'AS tourne avec une tablette. Il coche les soins réalisés directement au lit du patient — plus de feuilles papier à remplir.</p>
+        <span class="lg-role">Établissements modernes</span>
+      </div>
+    </div>
+    <div class="info-banner">💡 Chaque établissement a son propre logiciel. Ne paniquez pas si vous ne le connaissez pas — les bases sont toujours les mêmes : chercher un patient, lire les soins prévus, noter ce que vous avez fait. Demandez toujours une formation avant de commencer.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🔐 Les identifiants — Votre clé d'entrée numérique</h2>
+    <p>Comme votre compte Instagram a un identifiant et un mot de passe, votre accès au dossier patient aussi. C'est <strong>personnel et intransmissible</strong>.</p>
+    <div class="two-col" style="margin-top:12px;">
+      <div class="cell">
+        <h4 style="color:#1e7a45;">✅ Ce que vous faites</h4>
+        <ul>
+          <li>Vous connectez avec VOS identifiants uniquement</li>
+          <li>Vous vous déconnectez après chaque utilisation</li>
+          <li>Vous changez votre mot de passe si on vous le demande</li>
+          <li>Vous signalez si quelqu'un utilise votre compte</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4 style="color:var(--red);">🚫 Ce que vous ne faites jamais</h4>
+        <ul>
+          <li>Partager votre mot de passe avec un collègue</li>
+          <li>Rester connecté en quittant le poste</li>
+          <li>Utiliser le compte d'un collègue absent</li>
+          <li>Écrire votre mot de passe sur un post-it</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Utiliser le compte de quelqu'un d'autre = vous êtes responsable de tout ce qui est noté sous ce compte. C'est une faute grave — même si c'est "juste pour noter une petite chose".</div>
+  </div>
+</div>
+
+<!-- ===== DOSSIER PATIENT ===== -->
+<div id="tab-dpi" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📋</div>
+    <div>
+      <h2>Le dossier patient informatisé (DPI)</h2>
+      <p>C'est le "profil complet" du résident — comme un profil Facebook mais médical, confidentiel et partagé avec toute l'équipe soignante. Ce que vous y notez est lu par l'IDE, le médecin, la kiné… Soyez précis et factuels.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021 — Traçabilité obligatoire</span>
+
+  <div class="card">
+    <h2>🖥️ Ce que contient un DPI — Les zones clés</h2>
+    <div class="dpi-screen">
+      <div class="dpi-zone">
+        <div class="dz-label">📁 Informations administratives</div>
+        <div class="dz-content">Nom, prénom, date de naissance, numéro de chambre, médecin traitant, contacts famille, directives anticipées.</div>
+        <div class="dz-as">👉 AS : consulte pour identifier le bon patient — vérifie AVANT chaque soin</div>
+      </div>
+      <div class="dpi-zone">
+        <div class="dz-label">🩺 Données médicales</div>
+        <div class="dz-content">Antécédents, allergies, pathologies chroniques, traitements en cours, prescriptions IDE.</div>
+        <div class="dz-as">👉 AS : consulte les allergies + prescriptions avant d'aider à la prise médicamenteuse</div>
+      </div>
+      <div class="dpi-zone">
+        <div class="dz-label">📏 Paramètres et constantes</div>
+        <div class="dz-content">TA, pouls, température, SpO2, poids, glycémie, diurèse — avec date et heure de mesure.</div>
+        <div class="dz-as">👉 AS : SAISIT les valeurs mesurées avec date + heure exactes — jamais "environ" ou "normal"</div>
+      </div>
+      <div class="dpi-zone">
+        <div class="dz-label">📝 Transmissions / Observations</div>
+        <div class="dz-content">Ce que l'équipe note sur l'état du patient : observations, changements, comportements inhabituels.</div>
+        <div class="dz-as">👉 AS : ÉCRIT ses observations selon la méthode DAR — Donnée, Action, Résultat</div>
+      </div>
+      <div class="dpi-zone">
+        <div class="dz-label">✅ Plan de soins</div>
+        <div class="dz-content">Les soins programmés pour chaque résident : qui fait quoi, à quelle heure, avec quels matériels.</div>
+        <div class="dz-as">👉 AS : consulte le plan au début de sa tournée + coche les soins réalisés</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>✍️ Bien rédiger ses transmissions numériques — La méthode DAR</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">Une transmission dans le DPI, c'est comme un message à vos collègues qui prendront le relais. Elle doit être <strong>claire, factuelle, datée</strong>.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>D — Donnée (ce que j'ai observé)</h4>
+        <p style="margin-top:6px;font-size:.79rem;">"Mme Dupont a refusé son repas du midi. A mangé environ 3 cuillères de purée."</p>
+      </div>
+      <div class="cell">
+        <h4>A — Action (ce que j'ai fait)</h4>
+        <p style="margin-top:6px;font-size:.79rem;">"Lui ai proposé une collation sucrée à 13h30. Elle a bu un yaourt."</p>
+      </div>
+      <div class="cell">
+        <h4>R — Résultat (l'effet observé)</h4>
+        <p style="margin-top:6px;font-size:.79rem;">"Dit se sentir mieux mais toujours pas d'appétit. Transmis à l'IDE à 14h."</p>
+      </div>
+      <div class="cell">
+        <h4>🚫 Ce qu'on n'écrit PAS</h4>
+        <ul>
+          <li>"RAS" (rien à signaler) — trop vague</li>
+          <li>"Elle a mal" — sans préciser où, quand, intensité</li>
+          <li>"Semble fatiguée" — sans observation précise</li>
+          <li>Des jugements : "elle est de mauvaise humeur"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ Règle d'or : si vous n'avez pas noté quelque chose dans le DPI, ça n'existe pas légalement. Une observation orale qui n'est pas tracée disparaît avec la fin de votre service.</div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ La traçabilité numérique — Ce que l'arrêté 2025 impose</h2>
+    <ul>
+      <li>Chaque paramètre mesuré noté avec la <strong>valeur exacte</strong> (pas "normal" — le chiffre)</li>
+      <li>La <strong>date et l'heure précises</strong> — pas "ce matin"</li>
+      <li>Les <strong>conditions de mesure</strong> si pertinentes : "TA bras gauche, position assise"</li>
+      <li>Toute <strong>transmission effectuée à l'IDE</strong> : heure + nom de l'IDE prévenu</li>
+      <li>Les <strong>soins réalisés cochés</strong> dans le plan de soins</li>
+      <li>Votre <strong>signature électronique</strong> (identifiant) sur chaque saisie</li>
+    </ul>
+    <div class="alert-banner">⚠️ Saisir une valeur que vous n'avez pas mesurée, ou modifier une donnée après coup pour "arranger" le dossier = falsification de document médical. C'est une faute pénale.</div>
+  </div>
+
+  <div class="card teal">
+    <h2>💡 Astuces pratiques pour utiliser le DPI sans stress</h2>
+    <ul>
+      <li><strong>Avant votre tournée :</strong> ouvrir le DPI, lire les transmissions de la nuit/matin, noter les points d'attention sur votre feuille de route personnelle</li>
+      <li><strong>Pendant les soins :</strong> noter mentalement ou sur un papier brouillon — saisir dans le DPI dès que vous repassez au poste</li>
+      <li><strong>Ne jamais saisir de mémoire</strong> en fin de service — les valeurs s'oublient, se confondent</li>
+      <li><strong>En cas de doute</strong> sur où noter quelque chose : demander à l'IDE ou au cadre plutôt que de ne rien noter</li>
+      <li><strong>Tablette au lit du patient :</strong> saisir immédiatement après le soin — c'est fait, c'est tracé</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== RGPD ===== -->
+<div id="tab-rgpd" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🔒</div>
+    <div>
+      <h2>RGPD — La vie privée des patients, c'est sacré</h2>
+      <p>RGPD = Règlement Général sur la Protection des Données. En clair : les informations sur un patient ne concernent que lui et les soignants qui s'en occupent. Elles ne se partagent pas, ne se photographient pas, ne se discutent pas.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 RGPD 2018 · Loi Informatique et Libertés · Secret professionnel</span>
+
+  <div class="card">
+    <h2>📱 Ce que vous faites avec votre téléphone personnel — Ce que ça donne en EHPAD</h2>
+    <div class="phone-analogy">
+      <div class="pa-icon">📸</div>
+      <div class="pa-body">
+        <h4>Photographier avec votre téléphone perso</h4>
+        <p>En stage ou en poste, vous ne pouvez <strong>jamais</strong> prendre de photo d'un résident, d'une plaie, d'un document médical avec votre téléphone personnel.</p>
+        <span class="equiv" style="background:#fdecea;color:var(--red);">🚫 Interdit — données de santé = données ultra-sensibles</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">💬</div>
+      <div class="pa-body">
+        <h4>WhatsApp, Messenger, SMS avec collègues</h4>
+        <p>Parler d'un résident (même sans le nommer) sur WhatsApp, même en groupe fermé de soignants, est interdit. Les serveurs sont aux États-Unis — hors RGPD.</p>
+        <span class="equiv" style="background:#fdecea;color:var(--red);">🚫 Interdit — même "juste pour informer l'équipe"</span>
+      </div>
+    </div>
+    <div class="phone-analogy">
+      <div class="pa-icon">🌐</div>
+      <div class="pa-body">
+        <h4>Chercher des infos sur un résident en dehors du DPI</h4>
+        <p>Googler le nom d'un résident, chercher son adresse ou ses informations personnelles en dehors de l'outil institutionnel est interdit.</p>
+        <span class="equiv" style="background:#fdecea;color:var(--red);">🚫 Interdit — accès limité au "besoin de savoir"</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>⚖️ Ce que vous avez le droit de faire — Ce qui est interdit</h2>
+    <div class="rgpd-grid">
+      <div class="rgpd-ok">
+        <h4>✅ Autorisé</h4>
+        <ul>
+          <li>Consulter le DPI du résident dont vous vous occupez</li>
+          <li>Noter les observations dans le DPI avec vos identifiants</li>
+          <li>Parler d'un résident à l'IDE ou au médecin dans le cadre des soins</li>
+          <li>Discuter en équipe en salle de soins (porte fermée)</li>
+          <li>Transmettre les informations à l'équipe qui prend le relais</li>
+        </ul>
+      </div>
+      <div class="rgpd-non">
+        <h4>🚫 Interdit</h4>
+        <ul>
+          <li>Consulter le dossier d'un résident dont vous ne vous occupez pas</li>
+          <li>Parler d'un résident dans le couloir, l'ascenseur, la cafétéria</li>
+          <li>Raconter des situations de soins à votre famille ou amis</li>
+          <li>Photographier avec votre téléphone personnel</li>
+          <li>Partager sur les réseaux sociaux (même anonymisé)</li>
+          <li>Accéder au dossier d'un proche ou d'une connaissance</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Violation du secret professionnel = sanctions disciplinaires + pénales. La loi punit jusqu'à 1 an d'emprisonnement et 15 000 € d'amende. Même avec la meilleure intention.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🏠 À domicile ou en dehors du travail</h2>
+    <ul>
+      <li>Ne jamais ramener de documents papier contenant des noms de patients à la maison</li>
+      <li>Ne jamais consulter le DPI depuis votre ordinateur ou téléphone personnel sauf si l'établissement vous a fourni un accès sécurisé officiel</li>
+      <li>Ne jamais raconter une situation (même anonymisée) sur les réseaux sociaux — "l'histoire de la mamie de ce soir" reste identifiable</li>
+      <li>Si vous avez accidentellement pris une photo ou envoyé une information : le signaler immédiatement au cadre — mieux vaut l'avouer que d'aggraver la situation</li>
+    </ul>
+    <div class="info-banner">💡 Le secret professionnel ne s'arrête pas à la fin de votre service. Il dure toute votre carrière — et au-delà. Même après avoir quitté un établissement, vous ne pouvez pas parler des résidents que vous avez soignés.</div>
+  </div>
+
+  <div class="card green">
+    <h2>👤 Les droits du patient sur ses données</h2>
+    <p style="margin-bottom:10px;">Le résident a des droits sur ses propres données de santé. L'AS doit les connaître pour y répondre correctement.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce que le patient peut demander</h4>
+        <ul>
+          <li>Accéder à son propre dossier médical</li>
+          <li>Demander la correction d'une erreur</li>
+          <li>Savoir qui a consulté son dossier</li>
+          <li>S'opposer à certains usages de ses données</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Ce que l'AS répond</h4>
+        <ul>
+          <li>"Je transmets votre demande à l'infirmière ou au médecin"</li>
+          <li>L'AS ne donne jamais accès au dossier sans accord IDE/médecin</li>
+          <li>L'AS ne montre jamais le dossier à la famille sans autorisation du patient</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== OUTILS CONNECTÉS ===== -->
+<div id="tab-connecte" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📡</div>
+    <div>
+      <h2>Les outils connectés — La technologie au service du soin</h2>
+      <p>Comme votre montre connectée qui compte vos pas, les appareils médicaux connectés mesurent les paramètres vitaux et transmettent les résultats directement dans le dossier patient — sans ressaisie, sans erreur de retranscription.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Référentiel socle numérique · Arrêté 26/02/2025</span>
+
+  <div class="outil-grid">
+
+    <div class="outil-card">
+      <div class="ou-icon">🍬</div>
+      <h4>Glucomètre connecté</h4>
+      <p>Mesure la glycémie capillaire. Les modèles connectés transmettent le résultat automatiquement dans le DPI via Bluetooth ou wifi — plus de retranscription manuelle.</p>
+      <div class="ou-as">✅ AS : allumer, piqûre au doigt, bandelette, lire le résultat affiché ET vérifier qu'il s'est bien transmis dans le DPI</div>
+      <div class="ou-alerte">⚠️ Si la transmission échoue : noter manuellement avec l'heure exacte</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">🫧</div>
+      <h4>Oxymètre connecté</h4>
+      <p>Mesure la saturation O2 (SpO2) et le pouls. Certains modèles transmettent en continu — une alarme se déclenche si la SpO2 descend sous le seuil prescrit.</p>
+      <div class="ou-as">✅ AS : vérifier que le doigt est bien positionné (ongles vernis = résultat faussé), lire la valeur stable (attendre 30 secondes)</div>
+      <div class="ou-alerte">⚠️ Mains froides ou mauvaise circulation = valeur faussée — réchauffer les mains et remesurez</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">⚖️</div>
+      <h4>Balance connectée</h4>
+      <p>Pèse le résident et envoie le poids directement dans le DPI. Évite les erreurs de retranscription et permet un suivi graphique automatique du poids.</p>
+      <div class="ou-as">✅ AS : même heure, mêmes vêtements, même balance à chaque pesée — sinon les données ne sont pas comparables</div>
+      <div class="ou-alerte">⚠️ Toujours vérifier que la balance est à zéro avant de peser</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">🩺</div>
+      <h4>Tensiomètre automatique</h4>
+      <p>Mesure la tension artérielle automatiquement. Certains modèles sont connectés et transmettent les résultats. Position correcte du brassard = résultat fiable.</p>
+      <div class="ou-as">✅ AS : brassard sur bras nu, au niveau du cœur, patient assis au repos depuis 5 min, ne pas parler pendant la mesure</div>
+      <div class="ou-alerte">⚠️ Bras avec perfusion ou lymphœdème = mesurer de l'autre côté</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">🛏️</div>
+      <h4>Tapis de détection de chute</h4>
+      <p>Placé au sol du lit, il déclenche une alarme si la personne se lève ou chute. L'alerte arrive sur la tablette ou le téléphone de l'AS en charge.</p>
+      <div class="ou-as">✅ AS : vérifier que le tapis est correctement positionné et actif en début de service — tapis retourné ou déplacé = inefficace</div>
+      <div class="ou-alerte">⚠️ Désactiver l'alarme avant d'aider le résident à se lever — pas pendant</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">⌚</div>
+      <h4>Bracelet de détection (chute/localisation)</h4>
+      <p>Porté au poignet, il détecte les chutes et peut localiser la personne dans l'établissement. Très utilisé pour les résidents déambulants.</p>
+      <div class="ou-as">✅ AS : vérifier que le bracelet est bien porté et non retiré (certains résidents désorientés l'enlèvent), signaler si batterie faible</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">🔔</div>
+      <h4>Système d'appel infirmier connecté</h4>
+      <p>Le résident appuie sur une sonnette — l'alerte arrive sur la tablette ou le téléphone de l'AS le plus proche. Permet une réponse plus rapide.</p>
+      <div class="ou-as">✅ AS : répondre à chaque appel, même si vous pensez que c'est une fausse alarme — toujours vérifier. Tracer les appels sans réponse si le système le permet.</div>
+    </div>
+
+    <div class="outil-card">
+      <div class="ou-icon">🌡️</div>
+      <h4>Thermomètre infrarouge / tympanique</h4>
+      <p>Mesure la température en quelques secondes sans contact (infrarouge frontal) ou dans le conduit auditif (tympanique). Pratique pour les résidents agités.</p>
+      <div class="ou-as">✅ AS : voie tympanique = pencher la tête, tirer l'oreille vers le haut et l'arrière, mesurer 3 fois et retenir la valeur médiane</div>
+      <div class="ou-alerte">⚠️ Infrarouge frontal = moins fiable en cas de transpiration ou de fièvre très élevée</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:4px;">
+    <h2>📊 Règle d'or pour tous les outils connectés</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Avant la mesure</h4>
+        <ul>
+          <li>Vérifier que l'appareil est chargé (batterie)</li>
+          <li>Vérifier qu'il est bien paramétré pour le bon patient</li>
+          <li>Vérifier la date de calibration si applicable (glucomètre)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Après la mesure</h4>
+        <ul>
+          <li>Vérifier que la valeur s'est bien transmise dans le DPI</li>
+          <li>Si transmission échouée : noter manuellement avec heure exacte</li>
+          <li>Signaler tout dysfonctionnement au cadre ou à l'IDE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-banner">💡 Un outil connecté qui ne fonctionne pas correctement est plus dangereux qu'un outil manuel bien utilisé. Si vous avez un doute sur la valeur affichée — remesurez manuellement.</div>
+  </div>
+</div>
+
+<!-- ===== RISQUES & PANNES ===== -->
+<div id="tab-risques" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">⚠️</div>
+    <div>
+      <h2>Risques numériques et pannes — Que faire ?</h2>
+      <p>Le numérique tombe en panne. Les systèmes bugent. Les connexions coupent. Ce n'est jamais une excuse pour ne pas tracer ou ne pas alerter — c'est une raison d'avoir un plan B.</p>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>💻 Le DPI est en panne — Protocole de secours</h2>
+    <div class="panne-steps">
+      <div class="panne-step">
+        <div class="ps-num">1</div>
+        <p><strong>Prévenir l'IDE et le cadre immédiatement.</strong> Ne pas attendre "que ça revienne tout seul" — signaler dès que vous constatez le problème.</p>
+      </div>
+      <div class="panne-step">
+        <div class="ps-num">2</div>
+        <p><strong>Basculer sur le support papier.</strong> Chaque établissement a un protocole "mode dégradé" avec des feuilles papier de secours. Demandez-les au cadre dès votre premier jour de stage.</p>
+      </div>
+      <div class="panne-step">
+        <div class="ps-num">3</div>
+        <p><strong>Continuer à tracer.</strong> Notez toutes les observations, paramètres et soins sur papier avec date et heure — exactement comme dans le DPI. Rien ne s'oublie, rien ne "se rattrapera plus tard".</p>
+      </div>
+      <div class="panne-step">
+        <div class="ps-num">4</div>
+        <p><strong>Saisir dans le DPI dès le retour du système.</strong> Avec l'heure réelle de la mesure (pas l'heure de saisie) — le logiciel permet généralement de renseigner l'heure effective.</p>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ "Le système était en panne" n'est jamais une raison valable pour ne pas avoir tracé. Le support papier existe précisément pour ça.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🎣 Le phishing — On essaie de vous piéger</h2>
+    <p style="margin-bottom:10px;">Comme les arnaques par SMS qui vous disent "vous avez gagné un iPhone", il existe des tentatives d'arnaques numériques dans le monde professionnel.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🚨 Signaux d'alerte</h4>
+        <ul>
+          <li>Email vous demandant votre mot de passe DPI</li>
+          <li>Message "urgent" vous demandant de cliquer sur un lien</li>
+          <li>Appel téléphonique demandant vos identifiants "pour maintenance"</li>
+          <li>Email avec une faute d'orthographe dans l'adresse de l'expéditeur</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Ce que vous faites</h4>
+        <ul>
+          <li>Ne jamais communiquer votre mot de passe — à personne, jamais</li>
+          <li>Ne pas cliquer sur les liens suspects</li>
+          <li>Signaler immédiatement au cadre ou au service informatique</li>
+          <li>En cas de doute : ne rien faire et en parler à votre hiérarchie</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-banner">💡 L'informatique d'un établissement de santé ne vous demandera JAMAIS votre mot de passe par email ou téléphone. Si quelqu'un le fait, c'est une tentative d'arnaque.</div>
+  </div>
+
+  <div class="card purple">
+    <h2>📵 Votre téléphone personnel en service</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✅ Usage acceptable</h4>
+        <ul>
+          <li>Consulter l'heure discrètement</li>
+          <li>En pause dans l'espace dédié</li>
+          <li>Appel d'urgence personnel si nécessaire</li>
+          <li>Utiliser une appli de formation autorisée par l'établissement</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🚫 Usage interdit en service</h4>
+        <ul>
+          <li>Réseaux sociaux pendant les soins</li>
+          <li>Photographier quoi que ce soit dans l'établissement</li>
+          <li>Passer des appels personnels en présence des résidents</li>
+          <li>Envoyer des messages pendant un soin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Un téléphone qui sonne ou vibre pendant un soin intime est une atteinte à la dignité du résident. Et un AS qui regarde son téléphone pendant un soin ne surveille pas le patient — risque de chute, fausse route, incident.</div>
+  </div>
+
+  <div class="card green">
+    <h2>🆘 Les erreurs de saisie — Que faire ?</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Ne jamais effacer ou modifier une saisie incorrecte</strong><p>Dans un dossier médical informatisé, chaque modification est tracée (qui a changé quoi, à quelle heure). Effacer une erreur peut créer une suspicion de falsification.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">2</div>
+        <div class="step-body"><strong>Ajouter une note corrective</strong><p>"Erreur de saisie sur la tension du 12/03 à 8h30 — valeur correcte : 135/85 mmHg. Saisie corrigée le 12/03 à 9h15 par [votre nom]."</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body"><strong>Prévenir l'IDE</strong><p>Toute correction de donnée médicale doit être validée par l'IDE qui en prend connaissance et peut co-signer si nécessaire.</p><div class="as-do">✅ Transparence totale — mieux vaut signaler une erreur que la cacher</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Le numérique en santé</h2>
+      <p>10 questions sur le DPI, le RGPD, les outils connectés et les bonnes pratiques numériques.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"Votre collègue vous demande son mot de passe DPI qu'elle a oublié — elle en a besoin de toute urgence. Que faites-vous ?",opts:["Vous lui donnez le vôtre provisoirement pour qu'elle puisse travailler","Vous refusez — chaque soignant doit utiliser ses propres identifiants et contacter l'informatique","Vous lui montrez votre écran pour qu'elle voie ce qu'elle cherche","Vous notez les informations sur un papier pour elle"],correct:1,expl:"Les identifiants sont personnels et intransmissibles. Utiliser le compte d'un autre soignant, même avec sa permission, vous rend responsable de tout ce qui est fait sous ce compte. La solution est de contacter le service informatique pour réinitialiser le mot de passe — même en urgence."},
+  {q:"Lors de la toilette de M. Durand, vous observez une plaie inhabituellement grande au dos. La méthode DAR correcte dans le DPI est :",opts:["'Plaie dans le dos' — court et efficace","'Observation : plaie d'environ 4 cm, rouge vive, au niveau de l'omoplate gauche (D). Signalé à l'IDE Mme Martin à 9h15 (A). IDE venue évaluer à 9h20, prise en charge prévue (R).'","'Plaie suspecte — possible maltraitance'","'RAS sauf plaie dos'"],correct:1,expl:"La méthode DAR exige une donnée factuelle précise (localisation, taille, aspect), l'action réalisée (qui a été prévenu, à quelle heure), et le résultat (suite donnée). 'RAS' ou 'plaie dos' sont des transmissions incomplètes qui ne permettent pas d'assurer la continuité des soins."},
+  {q:"Votre glucomètre connecté affiche 0,62 g/L pour Mme Aubert mais la transmission vers le DPI a échoué. Que faites-vous ?",opts:["Vous refaites la mesure jusqu'à ce que la transmission fonctionne","Vous notez manuellement la valeur avec l'heure exacte dans le DPI et signalez le dysfonctionnement à l'IDE","Vous attendez que le système se reconnecte pour saisir la valeur","Vous arrondissez à 0,60 pour faciliter la saisie manuelle"],correct:1,expl:"La valeur exacte (0,62 g/L) doit être tracée avec l'heure précise de la mesure, même manuellement. Ne jamais arrondir, ne jamais attendre. Signaler le dysfonctionnement technique à l'IDE ou au cadre. La traçabilité ne s'arrête pas parce que l'outil connecté ne fonctionne pas."},
+  {q:"La famille de Mme Bernard vous demande de leur montrer son dossier médical pour 'voir comment elle va'. Que répondez-vous ?",opts:["Vous leur montrez les dernières transmissions — c'est leur mère","Vous refusez et les dirigez vers le médecin ou l'IDE qui pourront répondre à leurs questions","Vous leur donnez accès à votre session pour qu'ils lisent eux-mêmes","Vous leur lisez les dernières notes à voix haute dans le couloir"],correct:1,expl:"L'accès au dossier médical d'un patient est réservé aux professionnels de santé qui le prennent en charge et au patient lui-même. La famille n'y a pas droit sans l'accord explicite du patient (sauf cas particuliers). L'AS redirige vers l'IDE ou le médecin — jamais il ne montre le dossier ou le lit à voix haute, surtout dans un espace commun."},
+  {q:"Le DPI est en panne depuis 30 minutes en plein milieu de votre tournée. Quelle est la bonne conduite ?",opts:["Vous attendez que le système revienne et faites les soins sans tracer","Vous continuez les soins, notez tout sur papier avec date et heure, prévenez l'IDE, et saisissez dans le DPI dès le retour du système","Vous arrêtez votre tournée jusqu'au rétablissement du système","Vous notez tout de mémoire et saisissez en fin de service"],correct:1,expl:"Une panne ne dispense pas de la traçabilité. Le mode dégradé (papier) existe précisément pour ça. On continue les soins, on note sur papier avec heure exacte, on prévient l'IDE et le cadre, et on ressaisit dans le DPI dès qu'il revient — avec l'heure réelle de la mesure, pas l'heure de saisie."},
+  {q:"Vous utilisez un oxymètre de pouls sur M. Petit et la SpO2 affiche 88 %. Ses ongles sont vernis. Que faites-vous ?",opts:["Vous alertez immédiatement l'IDE avec la valeur de 88 %","Vous retirez le vernis à ongles avec un dissolvant avant de remesurez","Vous essayez sur un autre doigt sans vernis ou sur l'oreille, remesurez et comparez avant d'alerter","Vous attendez 5 minutes et remesurez sur le même doigt"],correct:2,expl:"Le vernis à ongles (surtout foncé) peut fausser la lecture de l'oxymètre. La bonne pratique est d'utiliser un doigt sans vernis ou le lobe de l'oreille. Si la valeur reste basse après une mesure fiable, alerter l'IDE. On ne signale pas une valeur potentiellement faussée sans avoir vérifié les conditions de mesure."},
+  {q:"Un email de 'la DSI de l'établissement' vous demande votre mot de passe DPI pour une 'mise à jour urgente de sécurité'. Que faites-vous ?",opts:["Vous répondez avec votre mot de passe — c'est la DSI, ils en ont besoin","Vous ignorez l'email sans le signaler","Vous ne répondez pas et signalez immédiatement cet email au cadre ou à la DSI par téléphone direct","Vous changez votre mot de passe et l'envoyez dans l'email pour être prudent"],correct:2,expl:"Aucun service informatique légitime ne demande jamais un mot de passe par email. C'est un phishing — une tentative d'arnaque. La bonne conduite est de ne pas répondre et de signaler immédiatement par un autre canal (téléphone direct à la DSI, ou au cadre). Ne jamais cliquer sur les liens dans ce type d'email."},
+  {q:"Vous avez pris une photo d'une plaie de Mme Legrand avec votre téléphone personnel pour 'mieux la décrire à l'IDE'. Est-ce autorisé ?",opts:["Oui — c'est pour améliorer la prise en charge, pas pour partager","Oui — si vous l'effacez après avoir montré à l'IDE","Non — jamais de photo de patient avec un téléphone personnel, même à des fins soignantes","Oui — à condition de ne pas mettre le visage"],correct:2,expl:"Photographier un patient ou une partie de son corps avec son téléphone personnel est interdit — quelle que soit l'intention. Les données de santé (y compris les images de plaies) sont des données ultra-sensibles soumises au RGPD. Si une photo est nécessaire pour le dossier, l'établissement a du matériel dédié avec des protocoles spécifiques."},
+  {q:"Vous notez par erreur une tension à 135/85 mmHg pour Mme Aubert alors que c'était pour M. Bernard. Que faites-vous ?",opts:["Vous effacez la saisie et la refaites correctement","Vous laissez comme ça pour ne pas compliquer le dossier","Vous ajoutez une note corrective expliquant l'erreur avec l'heure et la valeur correcte, et prévenez l'IDE","Vous demandez à un collègue de corriger à votre place"],correct:2,expl:"On n'efface jamais une saisie dans un DPI — chaque modification est tracée et une suppression peut ressembler à une falsification. La bonne pratique est d'ajouter une note corrective transparente (qui, quoi, quand, correction) et de prévenir l'IDE. La transparence protège le soignant et le patient."},
+  {q:"Dans la méthode DAR, la lettre 'A' correspond à :",opts:["Anomalie — ce qui ne va pas chez le patient","Action — ce que vous avez fait suite à l'observation","Alerte — qui vous avez prévenu","Analyse — votre interprétation de la situation"],correct:1,expl:"DAR = Donnée (ce que j'ai observé), Action (ce que j'ai fait), Résultat (l'effet de mon action). La lettre A correspond à l'action réalisée par le soignant : 'j'ai signalé à l'IDE', 'j'ai proposé une collation', 'j'ai repositionné', etc. C'est la traçabilité de votre réponse professionnelle à ce que vous avez observé."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module numérique maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.pa-body h4,.pa-body p,.dz-label,.dz-content,.dz-as')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
