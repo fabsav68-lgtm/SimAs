@@ -1,1 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisFormation-AS · Module 07 · Bloc 3</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
 
+/* PARCOURS */
+.parcours-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.parcours-grid{grid-template-columns:1fr;}}
+.parcours-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);text-align:center;}
+.parcours-card .pc-icon{font-size:1.6rem;margin-bottom:8px;}
+.parcours-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.parcours-card p{font-size:.76rem;color:var(--text-light);line-height:1.4;}
+.parcours-card .pc-duree{display:inline-block;margin-top:6px;padding:2px 9px;border-radius:10px;font-size:.72rem;font-weight:700;background:var(--blue-light);color:var(--blue-dark);}
+
+/* TUTORAT */
+.tutorat-steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.tutorat-step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.tutorat-step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.tutorat-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.tutorat-num.green{background:var(--green);}
+.tutorat-num.orange{background:var(--orange);}
+.tutorat-body{padding:6px 0 16px;flex:1;}
+.tutorat-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.tutorat-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.tutorat-body .tip{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+
+/* PORTFOLIO */
+.portfolio-sections{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.portfolio-sections{grid-template-columns:1fr;}}
+.portfolio-section{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.portfolio-section .ps-num{font-size:1.4rem;font-weight:900;color:var(--blue);margin-bottom:6px;}
+.portfolio-section h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.portfolio-section p{font-size:.77rem;color:var(--text-light);line-height:1.5;}
+
+/* ENTRETIEN */
+.entretien-box{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px;border-left:4px solid var(--purple);}
+.entretien-box h3{font-size:.87rem;font-weight:700;color:#5a3a8a;margin-bottom:10px;}
+.entretien-box .eq{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
+.entretien-box .eq-label{font-size:.72rem;font-weight:700;color:var(--text-light);min-width:70px;flex-shrink:0;padding-top:3px;}
+.entretien-box .eq-text{font-size:.81rem;color:var(--text);line-height:1.55;background:var(--gray-bg);border-radius:6px;padding:6px 10px;flex:1;}
+.entretien-box .eq-tip{font-size:.77rem;color:#5a3a8a;background:#f0ebff;border-radius:5px;padding:4px 8px;margin-top:4px;font-weight:600;}
+
+/* DPC */
+.dpc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.dpc-grid{grid-template-columns:1fr;}}
+.dpc-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.dpc-card .dc-icon{font-size:1.3rem;margin-bottom:6px;}
+.dpc-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.dpc-card p{font-size:.77rem;color:var(--text-light);line-height:1.5;}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 07 · BLOC 3 · 21h</div>
+    <div>
+      <h1>PraxisFormation-AS</h1>
+      <p class="subtitle">Formation · Tutorat · Portfolio · Développement professionnel · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('parcours',this)">🎓 Parcours DEAS</button>
+    <button class="tab-btn" onclick="showTab('tutorat',this)">🤝 Tutorat</button>
+    <button class="tab-btn" onclick="showTab('portfolio',this)">📁 Portfolio</button>
+    <button class="tab-btn" onclick="showTab('entretiens',this)">💼 Entretiens</button>
+    <button class="tab-btn" onclick="showTab('dpc',this)">📚 Après le diplôme</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== PARCOURS DEAS ===== -->
+<div id="tab-parcours" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🎓</div>
+    <div>
+      <h2>Le parcours DEAS — Comprendre sa formation</h2>
+      <p>Le Diplôme d'État d'Aide-Soignant se prépare en IFAS (Institut de Formation d'Aides-Soignants). C'est une formation en alternance — théorie et stages se complètent. Comprendre sa structure aide à mieux s'y préparer.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 07 · Bloc 3 · DEAS 2021 — Arrêté du 10 juin 2021</span>
+
+  <div class="card">
+    <h2>📊 La structure de la formation</h2>
+    <div style="display:flex;justify-content:center;margin:14px 0;">
+      <svg width="320" height="120" viewBox="0 0 320 120">
+        <rect width="320" height="120" fill="#f5f7fa" rx="10"/>
+        <!-- barre totale -->
+        <rect x="20" y="45" width="280" height="30" rx="6" fill="#dde3ec"/>
+        <!-- théorie 50% -->
+        <rect x="20" y="45" width="140" height="30" rx="6" fill="#1a6fb5"/>
+        <!-- stages 50% -->
+        <rect x="160" y="45" width="140" height="30" rx="0" fill="#2a9d5c"/>
+        <rect x="296" y="45" width="4" height="30" rx="0 6 6 0" fill="#2a9d5c"/>
+        <!-- labels -->
+        <text x="90" y="65" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">770h Théorie</text>
+        <text x="230" y="65" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">770h Stages</text>
+        <text x="160" y="25" text-anchor="middle" font-size="11" fill="#1e2a3a" font-weight="700">1 540 heures au total</text>
+        <text x="90" y="90" text-anchor="middle" font-size="9" fill="#5a6a7e">10 modules · 22 semaines</text>
+        <text x="230" y="90" text-anchor="middle" font-size="9" fill="#5a6a7e">4 stages · 22 semaines</text>
+        <text x="160" y="108" text-anchor="middle" font-size="9" fill="#5a6a7e">Arrêté du 10 juin 2021</text>
+      </svg>
+    </div>
+
+    <div class="two-col">
+      <div class="cell">
+        <h4>📚 Les 10 modules théoriques</h4>
+        <ul>
+          <li>M01 — Vie quotidienne et sociale (147h)</li>
+          <li>M02 — Prévention des risques (21h)</li>
+          <li>M03 — État clinique (77h)</li>
+          <li>M04 — Soins adaptés (182h)</li>
+          <li>M05 — Relation et communication (35h)</li>
+          <li>M06 — Communication (70h)</li>
+          <li>M07 — Formation professionnelle (21h)</li>
+          <li>M08 — Hygiène des locaux (35h)</li>
+          <li>M09 — Informatique et soins (35h)</li>
+          <li>M10 — Travail en équipe (35h)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🏥 Les 4 stages obligatoires</h4>
+        <ul>
+          <li><strong>Stage 1</strong> — EHPAD ou soins longue durée</li>
+          <li><strong>Stage 2</strong> — Médecine ou chirurgie</li>
+          <li><strong>Stage 3</strong> — Psychiatrie ou handicap</li>
+          <li><strong>Stage 4</strong> — Libre choix selon projet professionnel</li>
+        </ul>
+        <p style="font-size:.77rem;color:var(--text-light);margin-top:8px;">Chaque stage dure 5 à 6 semaines. Un tuteur AS ou IDE vous est attribué.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🏆 La certification — Comment on obtient le DEAS</h2>
+    <div class="parcours-grid">
+      <div class="parcours-card">
+        <div class="pc-icon">📝</div>
+        <h4>5 blocs de compétences</h4>
+        <p>La certification est organisée en 5 blocs. Chaque bloc regroupe 2 à 3 compétences. On peut obtenir les blocs séparément.</p>
+        <span class="pc-duree">Capitalisation possible</span>
+      </div>
+      <div class="parcours-card">
+        <div class="pc-icon">🎯</div>
+        <h4>Évaluation continue</h4>
+        <p>En cours de formation (écrits, mises en situation) ET en stage (validation par le tuteur et le formateur).</p>
+        <span class="pc-duree">Pas d'examen final unique</span>
+      </div>
+      <div class="parcours-card">
+        <div class="pc-icon">🎓</div>
+        <h4>Jury de certification</h4>
+        <p>Valide l'ensemble du parcours. Si un bloc n'est pas validé, on peut le repasser sans recommencer toute la formation.</p>
+        <span class="pc-duree">Par blocs capitalisables</span>
+      </div>
+    </div>
+    <div class="info-banner">💡 Le DEAS est enregistré au Répertoire National des Certifications Professionnelles (RNCP). Il ouvre la voie à la VAE (Validation des Acquis de l'Expérience) et à des passerelles vers d'autres diplômes du secteur santé.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🔀 Les passerelles — Après le DEAS</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📈 Évolutions possibles</h4>
+        <ul>
+          <li>Préparation au concours IDE (infirmier) — passerelle AS → IFSI</li>
+          <li>Diplôme d'État d'Auxiliaire de Puériculture (DEAP)</li>
+          <li>Diplôme d'État d'Accompagnant Éducatif et Social (DEAES)</li>
+          <li>Bac Pro ASSP (Accompagnement, Soins et Services à la Personne)</li>
+          <li>VAE pour valoriser l'expérience professionnelle</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🏥 Secteurs d'emploi</h4>
+        <ul>
+          <li>EHPAD et résidences seniors</li>
+          <li>Hôpitaux (médecine, chirurgie, gériatrie)</li>
+          <li>Cliniques privées</li>
+          <li>Services de soins à domicile (SSIAD)</li>
+          <li>Structures pour personnes handicapées</li>
+          <li>Établissements psychiatriques</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TUTORAT ===== -->
+<div id="tab-tutorat" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🤝</div>
+    <div>
+      <h2>Le tutorat en stage — Apprendre avec un professionnel</h2>
+      <p>En stage, vous n'êtes pas seul. Un tuteur vous est attribué — AS ou IDE expérimenté. Il vous accompagne, vous évalue et vous aide à progresser. La relation tuteur/étudiant est au cœur de votre apprentissage.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 07 · Bloc 3 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>👥 Qui est le tuteur — Quel est son rôle</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🧑‍⚕️ Le tuteur de stage</h4>
+        <ul>
+          <li>AS ou IDE expérimenté, volontaire</li>
+          <li>Formé à la fonction tutorale (souvent)</li>
+          <li>Référent privilégié pendant le stage</li>
+          <li>Évalue les compétences sur le terrain</li>
+          <li>Fait le lien entre l'IFAS et l'établissement</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📋 Ce qu'il évalue</h4>
+        <ul>
+          <li>La qualité des soins réalisés</li>
+          <li>Le comportement professionnel</li>
+          <li>La capacité à travailler en équipe</li>
+          <li>L'initiative et la curiosité professionnelle</li>
+          <li>La progression au fil du stage</li>
+          <li>La traçabilité et les transmissions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>📅 Les étapes du stage — Ce qui se passe</h2>
+    <div class="tutorat-steps">
+      <div class="tutorat-step">
+        <div class="tutorat-num">1</div>
+        <div class="tutorat-body">
+          <strong>Accueil — Jour 1</strong>
+          <p>Présentation à l'équipe, visite des locaux, présentation du fonctionnement du service. Rencontre avec le tuteur. Lecture du livret d'accueil.</p>
+          <div class="tip">✅ Arriver à l'heure, en tenue professionnelle, avec votre carnet de liaison et votre portfolio</div>
+        </div>
+      </div>
+      <div class="tutorat-step">
+        <div class="tutorat-num orange">2</div>
+        <div class="tutorat-body">
+          <strong>Entretien d'accueil — Semaine 1</strong>
+          <p>Avec le tuteur : présenter vos objectifs de stage, vos acquis et vos points à travailler. C'est une rencontre professionnelle, pas un interrogatoire.</p>
+          <div class="tip">✅ Préparer 2-3 objectifs personnels concrets avant le stage</div>
+        </div>
+      </div>
+      <div class="tutorat-step">
+        <div class="tutorat-num">3</div>
+        <div class="tutorat-body">
+          <strong>Suivi en cours de stage</strong>
+          <p>Observations régulières par le tuteur. Feedback après les soins. Possibilité de demander une rencontre à mi-parcours si difficultés.</p>
+          <div class="tip">✅ Oser demander du feedback — les tuteurs apprécient l'étudiant qui cherche à progresser</div>
+        </div>
+      </div>
+      <div class="tutorat-step">
+        <div class="tutorat-num green">4</div>
+        <div class="tutorat-body">
+          <strong>Entretien de fin de stage — Bilan</strong>
+          <p>Évaluation des compétences avec le tuteur et/ou le formateur IFAS. Discussion de la progression. Signature du bilan de stage dans le portfolio.</p>
+          <div class="tip">✅ Préparer votre auto-évaluation avant cet entretien — "Qu'est-ce que j'ai appris ? Qu'est-ce que je dois encore travailler ?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>💡 Être un bon étudiant en stage — Ce que les tuteurs apprécient</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✅ Les attitudes qui font la différence</h4>
+        <ul>
+          <li>Être ponctuel et prévenir en cas de retard</li>
+          <li>Prendre des initiatives adaptées à son niveau</li>
+          <li>Poser des questions sans attendre d'être perdu</li>
+          <li>Accepter les retours sans se braquer</li>
+          <li>S'intéresser aux résidents au-delà des soins techniques</li>
+          <li>Rester discret sur la vie privée des résidents</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🚫 Ce qui pose problème</h4>
+        <ul>
+          <li>Téléphone pendant les soins</li>
+          <li>Attitudes désinvoltes ou irrespectueuses</li>
+          <li>Ne pas signaler ses erreurs</li>
+          <li>Critiquer l'équipe devant les résidents</li>
+          <li>Dépasser ses compétences sans supervision</li>
+          <li>Ne pas respecter la confidentialité</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Une erreur non signalée en stage est plus grave qu'une erreur signalée. Le tuteur valorise la transparence et l'honnêteté — pas la perfection.</div>
+  </div>
+</div>
+
+<!-- ===== PORTFOLIO ===== -->
+<div id="tab-portfolio" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📁</div>
+    <div>
+      <h2>Le portfolio — Votre carnet de bord professionnel</h2>
+      <p>Le portfolio n'est pas un simple classeur de notes. C'est la trace de votre parcours, de vos apprentissages, de vos progrès. Il accompagne toute la formation et est présenté lors de la certification.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 07 · Bloc 3 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>📋 Le contenu du portfolio DEAS</h2>
+    <div class="portfolio-sections">
+      <div class="portfolio-section">
+        <div class="ps-num">1</div>
+        <h4>Présentation personnelle</h4>
+        <p>Votre parcours avant la formation, vos motivations, votre projet professionnel. Court, sincère, personnel.</p>
+      </div>
+      <div class="portfolio-section">
+        <div class="ps-num">2</div>
+        <h4>Fiches de suivi par compétence</h4>
+        <p>Pour chacune des 11 compétences du DEAS : vos observations, situations vécues, auto-évaluation, évaluation du tuteur.</p>
+      </div>
+      <div class="portfolio-section">
+        <div class="ps-num">3</div>
+        <h4>Bilan de stage</h4>
+        <p>Pour chaque stage : ce que vous avez appris, difficultés rencontrées, objectifs atteints. Signé par le tuteur et le formateur.</p>
+      </div>
+      <div class="portfolio-section">
+        <div class="ps-num">4</div>
+        <h4>Situations significatives</h4>
+        <p>2 à 3 situations cliniques marquantes que vous analysez : ce qui s'est passé, comment vous avez réagi, ce que vous en avez appris.</p>
+      </div>
+      <div class="portfolio-section">
+        <div class="ps-num">5</div>
+        <h4>Auto-évaluation globale</h4>
+        <p>Votre regard sur votre propre progression : points forts, axes d'amélioration, compétences à renforcer.</p>
+      </div>
+      <div class="portfolio-section">
+        <div class="ps-num">6</div>
+        <h4>Projet professionnel</h4>
+        <p>Où souhaitez-vous travailler après le diplôme ? Quelles spécialités vous attirent ? Quelles formations complémentaires envisagez-vous ?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>✍️ Rédiger une situation significative — La méthode</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">Une situation significative n'est pas un résumé de journée — c'est une analyse réflexive d'un moment qui vous a appris quelque chose.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Structure recommandée</h4>
+        <ol style="padding-left:18px;font-size:.79rem;line-height:1.8;">
+          <li><strong>Description factuelle</strong> — Qui, quoi, quand, où (sans jugement)</li>
+          <li><strong>Mes sentiments</strong> — Ce que j'ai ressenti sur le moment</li>
+          <li><strong>Ce que j'ai fait</strong> — Mes actions concrètes</li>
+          <li><strong>Ce que j'en retire</strong> — Apprentissage, questionnement</li>
+          <li><strong>Ce que je ferais différemment</strong> — Perspective de progression</li>
+        </ol>
+      </div>
+      <div class="cell">
+        <h4>Exemples de situations à choisir</h4>
+        <ul>
+          <li>Premier soin difficile techniquement</li>
+          <li>Moment de relation avec un résident difficile</li>
+          <li>Situation d'urgence ou d'alerte</li>
+          <li>Décès d'un résident que vous soigniez</li>
+          <li>Conflit ou incompréhension dans l'équipe</li>
+          <li>Refus de soin — comment vous l'avez géré</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ Une "mauvaise" situation bien analysée vaut plus qu'une "bonne" situation mal décrite. Les formateurs cherchent votre capacité à réfléchir — pas votre perfection.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>⚠️ Les erreurs fréquentes avec le portfolio</h2>
+    <ul>
+      <li>Le remplir d'un coup en fin de stage — trop tard pour se souvenir des détails</li>
+      <li>Copier-coller des cours — le portfolio doit être votre parole, pas celle des manuels</li>
+      <li>Écrire ce qu'on pense que les formateurs veulent lire — l'authenticité est valorisée</li>
+      <li>Omettre les difficultés — les formateurs veulent voir votre honnêteté</li>
+      <li>Ne pas le mettre à jour régulièrement — c'est un document vivant</li>
+    </ul>
+    <div class="info-banner">💡 Conseil pratique : noter chaque soir en 5 minutes les situations marquantes de la journée. Une phrase suffit. Au moment de rédiger, les souvenirs sont encore frais.</div>
+  </div>
+</div>
+
+<!-- ===== ENTRETIENS ===== -->
+<div id="tab-entretiens" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">💼</div>
+    <div>
+      <h2>Les entretiens professionnels — Se préparer</h2>
+      <p>Entretiens de stage, entretiens de jury, entretiens d'embauche — tous suivent une logique similaire. Se préparer, c'est savoir parler de soi professionnellement sans se vendre ni se dévaluer.</p>
+    </div>
+  </div>
+
+  <div class="entretien-box">
+    <h3>💼 Entretien d'accueil en stage — Questions fréquentes</h3>
+    <div class="eq">
+      <span class="eq-label">Question</span>
+      <div>
+        <div class="eq-text">"Pourquoi avez-vous choisi cette formation ?"</div>
+        <div class="eq-tip">✅ Réponse : parlez de votre motivation réelle (expérience personnelle, vocation, reconversion). Évitez "parce que c'est une belle profession" — trop vague.</div>
+      </div>
+    </div>
+    <div class="eq">
+      <span class="eq-label">Question</span>
+      <div>
+        <div class="eq-text">"Quels sont vos objectifs pour ce stage ?"</div>
+        <div class="eq-tip">✅ Réponse : 2-3 objectifs concrets et personnels ("Je souhaite progresser sur la communication avec les personnes atteintes de démence", "Je veux améliorer ma technique de toilette au lit").</div>
+      </div>
+    </div>
+    <div class="eq">
+      <span class="eq-label">Question</span>
+      <div>
+        <div class="eq-text">"Qu'est-ce qui vous a le plus surpris dans cette formation jusqu'ici ?"</div>
+        <div class="eq-tip">✅ Réponse : soyez authentique. Une vraie surprise vaut mieux qu'une réponse parfaite. Montrez que vous réfléchissez à votre parcours.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entretien-box">
+    <h3>🎓 Entretien de fin de stage — Se préparer</h3>
+    <div class="eq">
+      <span class="eq-label">À préparer</span>
+      <div>
+        <div class="eq-text">Votre auto-évaluation : compétences acquises, compétences en progression, difficultés rencontrées.</div>
+        <div class="eq-tip">✅ Soyez honnête sur vos points faibles — un étudiant qui reconnaît ses limites est plus mature qu'un étudiant qui prétend tout maîtriser.</div>
+      </div>
+    </div>
+    <div class="eq">
+      <span class="eq-label">À préparer</span>
+      <div>
+        <div class="eq-text">Une ou deux situations significatives vécues durant le stage que vous pouvez analyser.</div>
+        <div class="eq-tip">✅ Utilisez la structure : description → sentiments → actions → apprentissage → ce que je ferais différemment.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entretien-box">
+    <h3>💼 Entretien d'embauche — Les bases</h3>
+    <div class="eq">
+      <span class="eq-label">Avant</span>
+      <div>
+        <div class="eq-text">Se renseigner sur l'établissement (type de public, valeurs, projets). Préparer ses questions sur le poste.</div>
+        <div class="eq-tip">✅ "J'ai vu que votre établissement a un projet Alzheimer — c'est quelque chose qui m'intéresse particulièrement."</div>
+      </div>
+    </div>
+    <div class="eq">
+      <span class="eq-label">Pendant</span>
+      <div>
+        <div class="eq-text">"Parlez-moi de vous" — Structurer sa réponse : formation, expériences de stage, motivations pour ce poste.</div>
+        <div class="eq-tip">✅ 2-3 minutes maximum. Factuel, chronologique, orienté vers ce poste spécifique.</div>
+      </div>
+    </div>
+    <div class="eq">
+      <span class="eq-label">Question piège</span>
+      <div>
+        <div class="eq-text">"Quels sont vos défauts ?"</div>
+        <div class="eq-tip">✅ Choisir un défaut réel mais en cours de travail : "Je suis perfectionniste, ce qui me prenait plus de temps qu'il n'en faut — j'apprends à prioriser." Jamais "je n'ai pas de défauts."</div>
+      </div>
+    </div>
+    <div class="ok-banner">✅ La tenue professionnelle, la ponctualité et la préparation sont les premiers messages que vous envoyez avant même d'avoir dit un mot.</div>
+  </div>
+</div>
+
+<!-- ===== APRÈS LE DIPLÔME ===== -->
+<div id="tab-dpc" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📚</div>
+    <div>
+      <h2>Après le diplôme — Se former tout au long de sa vie</h2>
+      <p>Le DEAS n'est pas une fin — c'est un début. Les connaissances évoluent, les pratiques changent, les textes réglementaires se mettent à jour. La formation continue est à la fois un droit et une obligation professionnelle.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 07 · Bloc 3 · DEAS 2021 — Arrêté 26/02/2025</span>
+
+  <div class="card">
+    <h2>📋 Le DPC — Développement Professionnel Continu</h2>
+    <p style="margin-bottom:10px;">Le DPC est une obligation légale pour tous les professionnels de santé. Il comprend des actions de formation, d'évaluation des pratiques et de gestion des risques.</p>
+    <div class="dpc-grid">
+      <div class="dpc-card">
+        <div class="dc-icon">📅</div>
+        <h4>Fréquence obligatoire</h4>
+        <p>Minimum une action de DPC tous les 3 ans. Certains établissements proposent des formations internes plus fréquentes.</p>
+      </div>
+      <div class="dpc-card">
+        <div class="dc-icon">🏥</div>
+        <h4>Organisé par qui</h4>
+        <p>L'employeur (plan de formation annuel), les organismes de formation agréés, ou via l'ANDPC (Agence Nationale du DPC).</p>
+      </div>
+      <div class="dpc-card">
+        <div class="dc-icon">💰</div>
+        <h4>Financement</h4>
+        <p>Pris en charge par l'employeur ou via le CPF (Compte Personnel de Formation). Certaines formations sont entièrement gratuites.</p>
+      </div>
+      <div class="dpc-card">
+        <div class="dc-icon">📜</div>
+        <h4>Traçabilité</h4>
+        <p>Conserver toutes les attestations de formation. Elles peuvent être demandées lors de contrôles ou d'entretiens professionnels.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🆕 L'arrêté du 26 février 2025 — Formation d'actualisation</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">L'arrêté 2025 crée une formation d'actualisation obligatoire pour les AS diplômés avant 2021. Elle comprend 3 modules :</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Module A — Paramètres vitaux</h4>
+        <p>Mesure des paramètres, identification des anomalies, traçabilité numérique. Voir SimAs-Parametres.</p>
+      </div>
+      <div class="cell">
+        <h4>Module B — Soins en situation aiguë</h4>
+        <p>Actes élargis sous délégation IDE, évaluation et réajustement. Voir SimAs-SoinsAigus.</p>
+      </div>
+      <div class="cell">
+        <h4>Module C — Situations à risque</h4>
+        <p>Fragilités, maltraitance, prévention, collaboration pluriprofessionnelle. Voir SimAs-RepererAlerter.</p>
+      </div>
+      <div class="cell">
+        <h4>Pour les AS diplômés après 2021</h4>
+        <p>Ces compétences sont déjà intégrées dans le référentiel DEAS 2021 — pas de formation d'actualisation requise.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🚀 Se développer professionnellement — Les pistes</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📚 Formations courtes</h4>
+        <ul>
+          <li>Gestion de l'agressivité</li>
+          <li>Soins palliatifs et fin de vie</li>
+          <li>Manutention et PRAP</li>
+          <li>Prévention des chutes</li>
+          <li>Bientraitance et bienveillance</li>
+          <li>Initiation aux soins de plaies</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🎓 Formations diplômantes</h4>
+        <ul>
+          <li>Préparation concours IDE (passerelle AS)</li>
+          <li>DEAES (Accompagnant Éducatif et Social)</li>
+          <li>Bac Pro ASSP en VAE</li>
+          <li>BTS Services et Prestations des Secteurs Sanitaire et Social</li>
+          <li>Formation de tuteur de stage</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-banner">💡 Le CPF (Compte Personnel de Formation) accumule des heures de formation tout au long de la carrière. Vérifier votre solde sur moncompteformation.gouv.fr.</div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Formation et développement professionnel</h2>
+      <p>10 questions sur le parcours DEAS, le tutorat, le portfolio et la formation continue.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div>
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"La formation DEAS comprend au total :",opts:["770 heures de théorie uniquement","1 540 heures au total — 770h de théorie et 770h de stages","1 000 heures de cours et 540 heures de stages","2 ans de formation à plein temps"],correct:1,expl:"Le DEAS se prépare en 1 540 heures réparties équitablement : 770h de formation théorique (10 modules sur 22 semaines) et 770h de stages pratiques (4 stages sur 22 semaines). C'est une formation en alternance qui intègre théorie et pratique de façon complémentaire."},
+  {q:"La certification DEAS est organisée en :",opts:["Un examen final unique en fin d'année","5 blocs de compétences capitalisables — on peut obtenir les blocs séparément","10 épreuves correspondant aux 10 modules","Un mémoire de fin de formation"],correct:1,expl:"Le DEAS est organisé en 5 blocs de compétences capitalisables. Si un bloc n'est pas validé, l'étudiant peut le repasser sans recommencer toute la formation. Cette organisation par blocs permet une certification progressive et flexible."},
+  {q:"Lors de votre entretien d'accueil en stage, le tuteur vous demande vos objectifs. Quelle est la meilleure réponse ?",opts:["'Je veux tout apprendre' — montrer de la motivation générale","'Je n'ai pas d'objectifs précis, je m'adapte à ce qu'on me propose'","'Je souhaite progresser sur la communication avec les personnes atteintes de démence et améliorer ma technique de toilette au lit'","'Mon objectif est d'obtenir une bonne note pour valider mon stage'"],correct:2,expl:"Les bons objectifs de stage sont concrets, personnels et liés aux compétences DEAS. Un objectif générique ('tout apprendre') ou une absence d'objectif montre un manque de préparation. Un objectif orienté vers la note montre une mauvaise compréhension du tutorat — l'objectif est la progression, pas la performance."},
+  {q:"Vous commettez une erreur lors d'un soin en stage. Que faites-vous ?",opts:["Vous ne dites rien — ça s'est bien terminé","Vous signalez l'erreur au tuteur immédiatement et transparence totale","Vous attendez de voir si ça a des conséquences avant de signaler","Vous en parlez à un collègue mais pas au tuteur"],correct:1,expl:"Une erreur signalée immédiatement et honnêtement est valorisée par les tuteurs et les formateurs. Elle montre la maturité professionnelle et le sens des responsabilités. Une erreur cachée qui se découvre plus tard est beaucoup plus grave. La transparence protège le patient et le stagiaire."},
+  {q:"Le portfolio de formation DEAS est :",opts:["Un classeur de photocopies de cours","Un document personnel retraçant votre parcours, vos apprentissages et votre progression, présenté lors de la certification","Un carnet de notes imposé par l'IFAS","Le relevé de vos notes obtenues en cours"],correct:1,expl:"Le portfolio est un document vivant et personnel — pas un classeur de cours. Il contient votre présentation, les fiches de suivi par compétence, les bilans de stage, les situations significatives analysées et votre auto-évaluation. Il est présenté lors des entretiens de certification."},
+  {q:"Une situation significative dans le portfolio, c'est :",opts:["Un résumé de votre meilleure journée de stage","Une analyse réflexive d'un moment qui vous a appris quelque chose — incluant vos sentiments, vos actions et ce que vous en retirez","La liste de tous les soins réalisés pendant le stage","Un texte copié d'un manuel sur la compétence travaillée"],correct:1,expl:"Une situation significative est une analyse réflexive, pas un compte-rendu factuel. Elle décrit la situation, vos sentiments du moment, vos actions, votre apprentissage et ce que vous feriez différemment. Les formateurs cherchent votre capacité à réfléchir sur votre pratique — une 'mauvaise' situation bien analysée vaut mieux qu'une 'bonne' mal décrite."},
+  {q:"Le DPC (Développement Professionnel Continu) est pour les AS :",opts:["Facultatif — seulement pour ceux qui veulent évoluer","Une obligation légale — minimum une action tous les 3 ans","Obligatoire seulement pour les AS en hôpital","Réservé aux AS ayant plus de 5 ans d'ancienneté"],correct:1,expl:"Le DPC est une obligation légale pour tous les professionnels de santé, y compris les AS. Minimum une action de DPC tous les 3 ans, financée par l'employeur ou via le CPF. Les attestations de formation doivent être conservées car elles peuvent être demandées lors de contrôles."},
+  {q:"L'arrêté du 26 février 2025 crée une formation d'actualisation pour :",opts:["Tous les AS sans exception","Les AS diplômés avant 2021 uniquement — les AS diplômés après 2021 ont déjà ces compétences dans leur référentiel","Les AS travaillant en EHPAD uniquement","Les AS souhaitant évoluer vers le grade d'IDE"],correct:1,expl:"La formation d'actualisation de l'arrêté 2025 (3 modules : paramètres vitaux, soins aigus, situations à risque) est destinée aux AS diplômés AVANT 2021. Ces compétences sont déjà intégrées dans le référentiel DEAS rénové de 2021 — les AS formés après cette date n'ont pas besoin de cette actualisation."},
+  {q:"Lors d'un entretien d'embauche, on vous demande 'Quels sont vos défauts ?' La meilleure réponse est :",opts:["'Je n'ai pas de défauts.'","'Je suis perfectionniste, ce qui me prenait plus de temps qu'il ne le faudrait — j'apprends à mieux prioriser.'","'Je suis parfois trop passionné par mon travail.'","Ne rien dire et sourire poliment"],correct:1,expl:"La question sur les défauts teste votre honnêteté et votre conscience professionnelle. La bonne stratégie : un défaut réel mais en cours de travail, montrant que vous vous connaissez et que vous progressez. 'Je n'ai pas de défauts' est éliminatoire. 'Je suis trop passionné' est un cliché transparent."},
+  {q:"Le 4e stage du DEAS est :",opts:["Obligatoirement en EHPAD","Obligatoirement en service de médecine","Au libre choix de l'étudiant selon son projet professionnel","Obligatoirement en psychiatrie"],correct:2,expl:"Les 3 premiers stages sont imposés (EHPAD, médecine/chirurgie, psychiatrie/handicap). Le 4e stage est au libre choix de l'étudiant selon son projet professionnel — c'est l'occasion de découvrir un secteur qui vous attire particulièrement ou d'approfondir un domaine déjà rencontré."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 07 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.eq-text,.eq-tip,.tutorat-body strong,.tutorat-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
