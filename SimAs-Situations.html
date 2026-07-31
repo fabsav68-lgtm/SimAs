@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisSituations-AS · Analyse de situations</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+
+.methode-box{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:20px;border-left:4px solid var(--green);}
+.methode-box h2{font-size:.9rem;font-weight:700;color:#1e7a45;margin-bottom:10px;}
+.methode-steps{display:flex;gap:8px;flex-wrap:wrap;}
+.methode-step{background:#e6f4ee;border-radius:8px;padding:8px 12px;font-size:.77rem;color:#1e7a45;font-weight:600;flex:1;min-width:120px;text-align:center;}
+.methode-step span{display:block;font-size:1rem;margin-bottom:3px;}
+
+/* SITUATION CARD */
+.situation{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:24px;overflow:hidden;}
+.situation-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.situation-header .sh-left h3{font-size:.95rem;font-weight:700;margin-bottom:4px;}
+.situation-header .sh-left p{font-size:.77rem;color:rgba(255,255,255,.85);}
+.situation-header .sh-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:4px 10px;font-size:.72rem;font-weight:700;white-space:nowrap;}
+.situation-body{padding:16px 20px;}
+
+.vignette{background:var(--gray-bg);border-radius:9px;padding:14px 16px;margin-bottom:14px;border-left:4px solid var(--blue);font-size:.83rem;line-height:1.75;color:var(--text);}
+.vignette strong{color:var(--blue-dark);}
+
+.questions{margin-bottom:14px;}
+.question-item{margin-bottom:12px;}
+.question-item .q-num{font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.question-item .q-text{font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.5;}
+.question-item textarea{width:100%;min-height:70px;padding:10px 12px;border:1.5px solid var(--gray-border);border-radius:8px;font-size:.82rem;font-family:inherit;color:var(--text);resize:vertical;background:#fff;transition:border-color .15s;}
+.question-item textarea:focus{outline:none;border-color:var(--blue);}
+.question-item textarea::placeholder{color:#aab5c5;}
+
+.reveal-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.84rem;font-weight:700;cursor:pointer;transition:background .18s;display:flex;align-items:center;gap:8px;}
+.reveal-btn:hover{background:var(--blue-dark);}
+.reveal-btn.revealed{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+
+.correction{display:none;margin-top:14px;border-radius:9px;overflow:hidden;border:1.5px solid var(--green);}
+.correction-header{background:var(--green);color:#fff;padding:10px 16px;font-size:.82rem;font-weight:700;}
+.correction-body{background:#e6f4ee;padding:14px 16px;}
+.correction-q{margin-bottom:12px;}
+.correction-q:last-child{margin-bottom:0;}
+.correction-q .cq-num{font-size:.72rem;font-weight:700;color:#1e7a45;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.correction-q .cq-text{font-size:.81rem;line-height:1.65;color:#1a3a1a;}
+.correction-q .cq-plus{background:#fff;border-radius:6px;padding:8px 12px;margin-top:6px;font-size:.78rem;color:var(--blue-dark);border-left:3px solid var(--blue);line-height:1.55;}
+
+.progress-bar{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.progress-dot{width:12px;height:12px;border-radius:50%;background:var(--gray-border);transition:background .3s;}
+.progress-dot.done{background:var(--green);}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">CERTIFICATION DEAS · SITUATIONS SIGNIFICATIVES</div>
+    <div>
+      <h1>PraxisSituations-AS</h1>
+      <p class="subtitle">Analysez des situations réelles · Préparez votre jury de certification</p>
+    </div>
+  </div>
+</header>
+
+<div class="content">
+
+  <div class="intro-banner">
+    <div class="icon">📝</div>
+    <div>
+      <h2>Pourquoi s'entraîner à l'analyse de situation ?</h2>
+      <p>Le jury de certification du DEAS vous demande d'analyser une situation vécue en stage. Ce n'est pas un récit — c'est une réflexion professionnelle. Ces 6 situations vous entraînent à ce format avant d'y être confronté. Rédigez vraiment votre réponse avant de révéler la correction.</p>
+    </div>
+  </div>
+
+  <div class="methode-box">
+    <h2>🗂️ La méthode en 5 étapes — à appliquer à chaque situation</h2>
+    <div class="methode-steps">
+      <div class="methode-step"><span>1️⃣</span>Description factuelle</div>
+      <div class="methode-step"><span>2️⃣</span>Mes sentiments</div>
+      <div class="methode-step"><span>3️⃣</span>Ce que j'ai fait</div>
+      <div class="methode-step"><span>4️⃣</span>Ce que j'en retire</div>
+      <div class="methode-step"><span>5️⃣</span>Ce que je ferais différemment</div>
+    </div>
+  </div>
+
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-dot" id="dot-0"></div>
+    <div class="progress-dot" id="dot-1"></div>
+    <div class="progress-dot" id="dot-2"></div>
+    <div class="progress-dot" id="dot-3"></div>
+    <div class="progress-dot" id="dot-4"></div>
+    <div class="progress-dot" id="dot-5"></div>
+    <span style="font-size:.75rem;color:var(--text-light);align-self:center;margin-left:6px;" id="progress-label">0 / 6 situations révélées</span>
+  </div>
+
+  <!-- ===== SITUATION 1 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#124f85,#1a6fb5);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 1 — Refus de toilette</h3>
+        <p>Bloc 1 · Compétence 1 · Autonomie et bientraitance</p>
+      </div>
+      <div class="sh-badge">M01 — VieQuotidienne</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Vous êtes en stage en EHPAD, 3e semaine. Il est 8h30. Vous entrez dans la chambre de <strong>Mme Lefebvre, 87 ans</strong>, pour sa toilette quotidienne. Elle vous dit fermement : <em>"Non, pas aujourd'hui. Je ne veux pas."</em> Elle se retourne dans son lit et ne répond plus à vos questions.<br><br>
+        Mme Lefebvre est habituellement coopérante. Son projet de vie indique qu'elle est pudique et apprécie une toilette tardive le matin. Vous avez 11 autres résidents à prendre en charge et le cadre attend votre traçabilité à 10h.
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Description</div>
+          <div class="q-text">Décrivez factuellement ce qui se passe. Quels éléments du contexte sont importants à noter ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Analyse</div>
+          <div class="q-text">Quelles pourraient être les raisons de ce refus ? Quelles sont vos obligations professionnelles face à ce refus ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Actions et apprentissage</div>
+          <div class="q-text">Que faites-vous concrètement ? Que retenez-vous de cette situation pour votre pratique future ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(0,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-0">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Description factuelle</div>
+            <div class="cq-text">Mme Lefebvre, 87 ans, refuse verbalement sa toilette à 8h30, se retourne et ne répond plus. Contexte : habituellement coopérante, projet de vie signale pudeur et préférence pour une toilette tardive. Pression de temps réelle : 11 autres résidents, traçabilité à 10h.</div>
+            <div class="cq-plus">💡 Points clés à mentionner : le caractère inhabituel du refus (signal d'alerte), l'heure (trop tôt par rapport aux habitudes), la pression externe (charge de travail).</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Analyse du refus</div>
+            <div class="cq-text">Raisons possibles : heure inadaptée (son projet de vie dit toilette tardive), douleur, mauvaise nuit, tristesse, début de pathologie. Le refus d'un soin est un droit fondamental (loi 2002-2). On ne peut pas contraindre une personne à accepter un soin. Mais un refus inhabituel est aussi un signe d'alerte à investiguer et à transmettre.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Actions et apprentissage</div>
+            <div class="cq-text">✅ Respecter le refus immédiatement. Lui proposer un retour plus tard dans la matinée. Sortir sans brusquerie. Revenir vers 10h avec une approche douce. Transmettre à l'IDE : refus inhabituel + heure + comportement observé. Tracer dans le dossier.<br><br>🎓 Apprentissage : respecter le rythme de la personne plutôt que l'organisation du service. Le projet de vie existe précisément pour ça — le consulter avant d'entrer, pas après le refus. Ce que je ferais différemment : vérifier l'heure préférentielle avant d'entrer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SITUATION 2 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#8a1010,#c0392b);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 2 — Chute découverte</h3>
+        <p>Bloc 1 · Compétence 2 · Urgence et signalement</p>
+      </div>
+      <div class="sh-badge">M02 — Prévention</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Il est 7h15. Vous entrez dans la chambre de <strong>M. Rousseau, 81 ans</strong>, pour le lever. Vous le trouvez allongé par terre entre son lit et la fenêtre. Il est conscient, vous regarde et dit : <em>"Je suis tombé cette nuit, je n'ai pas osé appeler."</em> Il se plaint d'une douleur à la hanche droite et ne peut pas se relever seul. Sa jambe droite semble en rotation externe.<br><br>
+        Vous êtes seul dans le couloir à ce moment. C'est votre 2e semaine de stage.
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Urgence immédiate</div>
+          <div class="q-text">Quels sont les signes d'alerte présents ? Quelle est votre toute première action ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Conduite à tenir</div>
+          <div class="q-text">Décrivez dans l'ordre vos actions dans les 10 premières minutes. Pourquoi ne faut-il pas relever M. Rousseau seul ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Réflexion professionnelle</div>
+          <div class="q-text">Qu'est-ce que cette situation vous a appris ? Comment aurait-on pu prévenir cette chute ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(1,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-1">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Signes d'alerte et première action</div>
+            <div class="cq-text">Signes d'alerte : douleur hanche, jambe en rotation externe (signe classique de fracture du col du fémur), impossibilité de se relever, chute non signalée = nuit passée au sol. Première action : appeler à l'aide immédiatement — NE PAS tenter de relever seul.</div>
+            <div class="cq-plus">💡 La jambe en rotation externe + douleur de hanche après chute = fracture du col du fémur jusqu'à preuve du contraire. C'est une urgence chirurgicale.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Conduite à tenir</div>
+            <div class="cq-text">1. Appeler l'IDE et le cadre immédiatement (crier si nécessaire). 2. Rester avec M. Rousseau — le rassurer, lui parler. 3. Ne pas le déplacer (risque d'aggraver une fracture). 4. Le couvrir si froid. 5. L'IDE évalue, appelle le médecin, décide du transfert. 6. Tracer dans le dossier : heure de découverte, état, signes observés, heure de signalement IDE.<br><br>On ne relève JAMAIS seul une personne tombée — risque de fracture méconnue, risque TMS pour le soignant, erreur médicale si fracture déplacée.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Apprentissage et prévention</div>
+            <div class="cq-text">🎓 Apprentissage : la chute nocturne non signalée montre que M. Rousseau n'a pas osé appeler — sonnette trop loin ? Peur de déranger ? Ce ressenti doit être discuté en équipe. Prévention : vérifier que la sonnette est accessible chaque soir, lit en position basse, tapis anti-chute au sol si prescrit, évaluation Morse à réviser.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SITUATION 3 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#0a5060,#0097a7);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 3 — Paramètres anormaux</h3>
+        <p>Bloc 2 · Compétence 3 · État clinique et transmission</p>
+      </div>
+      <div class="sh-badge">M03 — ÉtatClinique</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Vous prenez les constantes de <strong>Mme Garcia, 79 ans</strong>, diabétique, en début de tournée. La glycémie capillaire affiche <strong>0,48 g/L</strong>. Mme Garcia est assise dans son fauteuil. Elle dit se sentir un peu fatiguée mais ne se plaint de rien de particulier. Elle n'a pas encore pris son petit-déjeuner.<br><br>
+        L'IDE de service est en train de faire une injection dans une autre chambre. Vous avez le résultat en main. Vous savez que le seuil d'alerte est 0,60 g/L.
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Analyse du résultat</div>
+          <div class="q-text">Que signifie cette valeur ? Quels signes cliniques observez-vous ou recherchez-vous ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Urgence et transmission</div>
+          <div class="q-text">Comment alertez-vous l'IDE ? Que lui transmettez-vous exactement ? Pouvez-vous agir avant d'avoir son accord ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Traçabilité</div>
+          <div class="q-text">Que notez-vous dans le dossier ? À quelle heure ? Comment rédigez-vous la transmission ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(2,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-2">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Analyse du résultat</div>
+            <div class="cq-text">0,48 g/L = hypoglycémie sévère (seuil d'alerte < 0,60 g/L). Signes à rechercher : sueurs, tremblements, pâleur, confusion, malaise. Mme Garcia dit se sentir fatiguée — peut être lié. Elle n'a pas pris son petit-déjeuner — facteur aggravant.</div>
+            <div class="cq-plus">💡 Une glycémie basse sans symptômes marqués n'est pas rassurante — elle peut évoluer rapidement vers la perte de connaissance.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Urgence et transmission</div>
+            <div class="cq-text">Aller immédiatement interrompre l'IDE — frapper, entrer, dire clairement : "Mme Garcia a une glycémie à 0,48 g/L, elle est assise dans son fauteuil, elle dit être fatiguée." L'IDE décide de la conduite à tenir (sucre, jus de fruit, resucrage IV selon protocole).<br><br>L'AS NE DONNE PAS de sucre sans ordre médical ou IDE — risque de fausse route si conscience altérée, et c'est hors de son champ sans délégation.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Traçabilité DAR</div>
+            <div class="cq-text">D — Glycémie capillaire : 0,48 g/L à 7h45. Mme Garcia consciente, fatiguée, pas de petit-déjeuner.<br>A — Signalé immédiatement à l'IDE Mme Martin à 7h46.<br>R — IDE venue évaluer. Protocole hypoglycémie initié. Surveillance rapprochée prévue.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SITUATION 4 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#1e7a45,#2a9d5c);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 4 — Erreur médicamenteuse</h3>
+        <p>Bloc 2 · Compétence 4 · Soins et responsabilité professionnelle</p>
+      </div>
+      <div class="sh-badge">M04 — SoinsQuotidiens</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Vous aidez <strong>M. Dupont, 84 ans</strong>, à prendre ses médicaments du matin. Après qu'il les ait avalés, vous réalisez en regardant la feuille de traitement que vous lui avez donné le pilulier de <strong>M. Durand</strong> — le résident de la chambre voisine — dont le nom ressemble au sien.<br><br>
+        Les deux résidents ont des traitements différents. M. Dupont vient de prendre les médicaments de M. Durand. Il n'a pas l'air de se sentir mal. Votre tuteur n'est pas dans le couloir à cet instant.
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Réaction immédiate</div>
+          <div class="q-text">Que faites-vous dans les 30 secondes qui suivent ? Avez-vous le droit de ne rien dire ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Analyse de l'erreur</div>
+          <div class="q-text">Comment cette erreur a-t-elle pu se produire ? Quels sont les facteurs qui y ont contribué ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Apprentissage</div>
+          <div class="q-text">Que retenez-vous pour éviter que cela se reproduise ? Que pensez-vous de votre réaction ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(3,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-3">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Réaction immédiate</div>
+            <div class="cq-text">Trouver l'IDE IMMÉDIATEMENT — pas dans 5 minutes, maintenant. Dire clairement ce qui s'est passé : "J'ai donné le pilulier de M. Durand à M. Dupont par erreur. Il vient de les prendre." L'IDE évalue le risque, contacte le médecin, surveille M. Dupont.<br><br>Non, on n'a pas le droit de ne rien dire — c'est une obligation déontologique et légale. Cacher une erreur médicamenteuse peut mettre la vie du résident en danger. La transparence protège le patient ET le soignant.</div>
+            <div class="cq-plus">💡 Une erreur avouée immédiatement = une faute professionnelle qui peut être gérée. Une erreur cachée = une faute grave avec mise en danger d'autrui.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Analyse des causes</div>
+            <div class="cq-text">Facteurs contributifs : noms similaires (Dupont/Durand), piluliers non identifiés clairement, vérification de l'identité non faite avant administration, peut-être précipitation ou distraction. La règle des 5B (Bon patient, Bon médicament, Bonne dose, Bonne voie, Bon moment) n'a pas été appliquée — le premier B (bon patient) a été sauté.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Apprentissage</div>
+            <div class="cq-text">🎓 Vérifier TOUJOURS l'identité du résident (bracelet, chambre, photo dans le dossier) avant de donner quoi que ce soit. Jamais de mémoire. La règle des 5B est non négociable, même sous pression de temps. Ce que je ferais différemment : m'arrêter une seconde avant de tendre le pilulier, relire le nom à voix haute.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SITUATION 5 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#5a1a8a,#7b52ab);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 5 — Confidence inquiétante</h3>
+        <p>Bloc 1 · Compétences 1 & 2 · Écoute et signalement</p>
+      </div>
+      <div class="sh-badge">M01/M06 — Communication</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Pendant la toilette de <strong>Mme Bernard, 83 ans</strong>, vous observez deux hématomes, l'un sur l'avant-bras droit et l'autre sur l'épaule gauche. Quand vous lui posez la question doucement, elle hésite, puis vous confie à voix basse : <em>"C'est ma belle-fille. Elle s'énerve parfois quand elle vient. Mais ne dites rien, elle est tout ce que j'ai. Si vous dites quelque chose, elle ne reviendra plus."</em><br><br>
+        Mme Bernard vous regarde avec anxiété. Elle vous a dit ça en vous faisant promettre de vous taire.
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Ce que vous avez entendu</div>
+          <div class="q-text">Quels signaux d'alerte identifiez-vous ? Pourquoi cette situation est-elle complexe ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Ce que vous faites</div>
+          <div class="q-text">Pouvez-vous promettre de vous taire ? Que répondez-vous à Mme Bernard ? Que faites-vous ensuite ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Réflexion éthique</div>
+          <div class="q-text">Comment concilier le respect de la volonté de Mme Bernard et votre obligation de signalement ? Qu'est-ce que cette situation vous a appris ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(4,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-4">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Signaux d'alerte</div>
+            <div class="cq-text">Hématomes à différents stades (bras + épaule = plusieurs épisodes ?), aveu de violences par la belle-fille, demande de secret, isolement affectif ("elle est tout ce que j'ai"), peur des conséquences (belle-fille ne reviendra plus). Situation de maltraitance physique présumée avec emprise relationnelle.</div>
+            <div class="cq-plus">💡 La complexité : la victime protège son agresseur par peur de l'isolement. C'est très fréquent dans les situations de maltraitance.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Ce que vous faites</div>
+            <div class="cq-text">Vous NE promettez PAS de vous taire — jamais. Réponse à Mme Bernard : "Je vous entends, et je comprends votre peur. Mais ce que vous me montrez m'inquiète pour vous. Je dois en parler à l'infirmière — pas pour punir votre belle-fille, mais pour vous protéger. Je serai là pour vous."<br><br>Ensuite : alerter l'IDE et le cadre immédiatement. Noter factuellement dans le dossier (localisation, aspect, couleur des hématomes, heure). Ne pas contacter la belle-fille. Ne pas investiguer seul.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Réflexion éthique</div>
+            <div class="cq-text">🎓 La volonté de Mme Bernard de se taire est compréhensible mais ne l'emporte pas sur sa sécurité. Promettre le secret dans une situation de danger serait une faute professionnelle — et un abandon. Signaler, c'est protéger, pas trahir. Ce que j'ai appris : la maltraitance se cache souvent derrière une loyauté paradoxale de la victime envers l'agresseur.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SITUATION 6 ===== -->
+  <div class="situation">
+    <div class="situation-header" style="background:linear-gradient(135deg,#7a4a00,#e07b2a);color:#fff;">
+      <div class="sh-left">
+        <h3>Situation 6 — Épuisement en stage</h3>
+        <p>Bloc 3 · Compétence 7 · Développement professionnel</p>
+      </div>
+      <div class="sh-badge">M07 — Formation</div>
+    </div>
+    <div class="situation-body">
+      <div class="vignette">
+        <strong>Contexte :</strong> Vous êtes en 4e semaine de votre 3e stage, en service de psychiatrie. C'est votre stage le plus difficile. Ce matin, un patient a été très violent verbalement envers vous. La semaine dernière, un résident est décédé juste après la toilette que vous lui aviez faite. Vous rentrez le soir épuisé et vous n'arrivez plus à vous détacher de ce que vous vivez. Vous avez pleuré plusieurs fois dans les vestiaires.<br><br>
+        Votre tuteur ne vous a pas encore demandé comment vous alliez. Vous avez peur de paraître "trop sensible" ou "pas fait pour ce métier".
+      </div>
+
+      <div class="questions">
+        <div class="question-item">
+          <div class="q-num">Question 1 — Ce que vous ressentez</div>
+          <div class="q-text">Décrivez votre état. Ces réactions sont-elles normales ? Sont-elles un signe de faiblesse ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 2 — Ce que vous faites</div>
+          <div class="q-text">À qui en parlez-vous ? Comment abordez-vous la conversation avec votre tuteur ? Avez-vous attendu trop longtemps ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+        <div class="question-item">
+          <div class="q-num">Question 3 — Apprentissage professionnel</div>
+          <div class="q-text">Qu'est-ce que cette situation vous apprend sur vous-même et sur le métier ? Qu'est-ce que la distance professionnelle ?</div>
+          <textarea placeholder="Rédigez votre réponse ici..."></textarea>
+        </div>
+      </div>
+      <button class="reveal-btn" onclick="revealCorrection(5,this)">💡 Voir la correction</button>
+      <div class="correction" id="corr-5">
+        <div class="correction-header">✅ Éléments d'une bonne analyse</div>
+        <div class="correction-body">
+          <div class="correction-q">
+            <div class="cq-num">Normalité des réactions</div>
+            <div class="cq-text">Ces réactions sont normales et humaines — pas un signe de faiblesse. Un professionnel de santé qui ne ressent rien face à la violence ou au décès serait inquiétant. L'accumulation (violence + deuil en une semaine) explique l'épuisement. Ce qui serait problématique, c'est de ne rien ressentir OU de tout garder pour soi.</div>
+            <div class="cq-plus">💡 Ressentir ne signifie pas ne pas être "fait pour ce métier" — cela signifie qu'on est humain. La compétence, c'est d'apprendre à gérer ces émotions, pas de ne pas en avoir.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Ce qu'on fait</div>
+            <div class="cq-text">Parler au tuteur dès que possible — ne pas attendre d'être en crise. Formule possible : "Je voudrais vous parler de comment je me sens en ce moment. Ces deux semaines ont été intenses pour moi et j'ai besoin d'en parler avec vous." Si le tuteur n'est pas disponible : le cadre, le formateur IFAS, un collègue de confiance. Non, il n'est pas trop tard — mieux vaut tard que jamais.</div>
+          </div>
+          <div class="correction-q">
+            <div class="cq-num">Distance professionnelle et apprentissage</div>
+            <div class="cq-text">🎓 La distance professionnelle, c'est être capable de s'impliquer sans se fondre dans la situation. Ni trop proche (fusion, burn-out), ni trop loin (indifférence, maltraitance). Ça s'apprend, ça se travaille — et les stages difficiles y contribuent plus que les stages faciles. Ce que j'ai appris : mes limites sont une information professionnelle, pas une honte. Les nommer est un acte de maturité.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+var revealed=0;
+function revealCorrection(idx,btn){
+  const corr=document.getElementById('corr-'+idx);
+  const isOpen=corr.style.display==='block';
+  corr.style.display=isOpen?'none':'block';
+  btn.textContent=isOpen?'💡 Voir la correction':'🙈 Masquer la correction';
+  btn.classList.toggle('revealed',!isOpen);
+  if(!isOpen){
+    document.getElementById('dot-'+idx).classList.add('done');
+    revealed=document.querySelectorAll('.progress-dot.done').length;
+    document.getElementById('progress-label').textContent=revealed+' / 6 situations révélées';
+    window.parent&&window.parent.postMessage({type:'activite'},'*');
+  }else{
+    document.getElementById('dot-'+idx).classList.remove('done');
+    revealed=document.querySelectorAll('.progress-dot.done').length;
+    document.getElementById('progress-label').textContent=revealed+' / 6 situations révélées';
+  }
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getPageText(){return[...document.querySelectorAll('.vignette,.q-text')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getPageText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+</script>
+<script src="praxiscare-feedback.js"></script>
+</body>
+</html>
