@@ -1,33 +1,811 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>SimHygiene · Module 08 DEAS</title><meta name="theme-color" content="#080c14">
-<style>:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#40c878;--amber:#e8a030;--red:#e84040;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;padding-bottom:80px;}.header{background:linear-gradient(135deg,rgba(64,200,120,.15),rgba(64,200,120,.05));border:1px solid rgba(64,200,120,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}.fiche ul{list-style:none;padding:0;}.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}.fiche ul li:last-child{border-bottom:none;}.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}.memo{background:rgba(64,200,120,.06);border:1px solid rgba(64,200,120,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(64,200,120,.1);color:var(--em);border:1px solid rgba(64,200,120,.2);margin:2px;}.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}</style></head>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisEtatClinique-AS · Module 03 · Bloc 2</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+.lien-module{background:linear-gradient(135deg,#f0fff4,#e0f7ea);border:1px solid #a5d6b5;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+.lien-module .lm-icon{font-size:1.3rem;flex-shrink:0;}
+.lien-module .lm-text{font-size:.82rem;color:#1e7a45;line-height:1.5;}
+
+/* PARAMÈTRES VITAUX */
+.param-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:480px){.param-grid{grid-template-columns:1fr;}}
+.param-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.param-card .p-icon{font-size:1.4rem;margin-bottom:6px;}
+.param-card h4{font-size:.84rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.param-card .p-normal{background:var(--blue-light);border-radius:5px;padding:3px 8px;font-size:.77rem;font-weight:700;color:var(--blue-dark);margin:5px 0;display:inline-block;}
+.param-card p{font-size:.78rem;line-height:1.55;color:var(--text);}
+.param-card .p-alert{background:#fdecea;border-radius:5px;padding:4px 8px;font-size:.75rem;color:var(--red);font-weight:600;margin-top:6px;}
+
+/* GLASGOW */
+.glasgow-table{width:100%;border-collapse:collapse;font-size:.79rem;margin-top:10px;}
+.glasgow-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+.glasgow-table td{padding:7px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;}
+.glasgow-table tr:nth-child(even) td{background:var(--blue-light);}
+.glasgow-score{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.glasgow-score div{padding:4px 12px;border-radius:20px;font-size:.77rem;font-weight:600;}
+
+/* DOULEUR */
+.echelle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:480px){.echelle-grid{grid-template-columns:1fr;}}
+.echelle-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.echelle-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
+.echelle-card p{font-size:.78rem;line-height:1.5;color:var(--text-light);}
+.echelle-card .e-indic{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);}
+
+/* EVA SLIDER */
+.eva-container{margin:12px 0;}
+.eva-bar{position:relative;height:24px;border-radius:12px;background:linear-gradient(to right,#40c878,#f0e050,#e07b2a,#c0392b);margin-bottom:6px;}
+.eva-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-light);}
+.eva-value{text-align:center;font-size:1.4rem;font-weight:900;color:var(--blue-dark);margin:6px 0;}
+input[type=range]{width:100%;accent-color:var(--blue-dark);}
+
+/* URGENCES */
+.urgence-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+.urgence-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.urgence-icon{font-size:1.8rem;flex-shrink:0;}
+.urgence-body h4{font-size:.84rem;font-weight:700;color:var(--red);margin-bottom:4px;}
+.urgence-body p{font-size:.78rem;line-height:1.55;color:var(--text);}
+.urgence-body .cat{background:#fdecea;border-radius:5px;padding:5px 9px;margin-top:6px;font-size:.76rem;color:var(--red);font-weight:600;line-height:1.5;}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.74rem;font-weight:600;margin:2px;}
+.tag.blue{background:var(--blue-light);color:var(--blue-dark);}
+.tag.red{background:#fdecea;color:var(--red);}
+.tag.green{background:#e6f4ee;color:#1e7a45;}
+.tag.warn{background:#fff3e0;color:#e65100;}
+</style>
+</head>
 <body>
-<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
-<div class="header"><div class="module-num">MODULE 08 · BLOC 4 · 35 heures</div><h1>SimHygiene</h1><div class="module-info">Entretien des locaux et des materiels - Prevention des risques</div></div>
-<div class="section"><h2>🧹 Protocole de nettoyage-desinfection</h2>
-<div class="fiche"><h3>Ordre obligatoire</h3><ul><li>1. NETTOYER : eliminer les salissures avec detergent</li><li>2. RINCER : eliminer le detergent (qui inactive les desinfectants)</li><li>3. DESINFECTER : appliquer le desinfectant et respecter le temps de contact</li><li>4. RINCER si necessaire (selon le produit)</li><li>5. SECHER : l'humidite favorise la proliferation bacterienne</li></ul></div>
-<div class="alert">⚠️ Desinfection sans nettoyage prealable = INEFFICACE. Le detergent inactive les desinfectants. L'ordre est obligatoire.</div>
-<div class="memo">💡 Technique du S : partir d'un angle propre, avancer par bandes paralleles sans revenir en arriere.</div></div>
-<div class="section"><h2>🗑️ Gestion des DASRI</h2>
-<div class="fiche"><h3>Categories de dechets</h3><ul><li>DASRI (jaune) : tout ce qui a ete en contact avec du sang ou des fluides biologiques</li><li>Perforants (conteneur rigide jaune) : aiguilles, bistouris, lames</li><li>Ordures menageres (noir) : dechets sans risque</li><li>Recyclable (bleu) : papier, carton, plastique propre</li></ul></div>
-<div class="fiche"><h3>Regles DASRI</h3><ul><li>Ne jamais recapuchonner une aiguille a la main</li><li>Fermer le conteneur rigide a 3/4 plein maximum</li><li>Ne jamais comprimer un sac DASRI</li><li>Stocker dans local DASRI sous cle</li><li>Collecte par entreprise agreee</li></ul></div>
-<div class="fiche"><h3>AES - Accident d'Exposition au Sang</h3><ul><li>En cas de piqure : ne pas faire saigner, laver abondamment savon + eau, desinfecter avec Dakin ou alcool</li><li>Signaler immediatement au cadre et medecin du travail</li><li>Traitement prophylactique sous 4 heures si VIH+</li><li>Declaration AT obligatoire</li></ul></div>
-<div class="alert">⚠️ AES = urgence medicale. Declaration OBLIGATOIRE dans les 24h. Traitement antiviral si necessaire sous 4 heures.</div></div>
-<div class="section"><h2>🏷️ Mots cles</h2><div style="padding:8px 0"><span class="tag">DASRI</span><span class="tag">AES</span><span class="tag">Detergent</span><span class="tag">Desinfectant</span><span class="tag">Bionettoyage</span><span class="tag">Conteneur rigide</span><span class="tag">AT</span><span class="tag">Protocole</span></div></div>
 
-<script>document.addEventListener('click',function(){window.parent.postMessage({type:'activite'},'*');});</script>
-<script>window.PRAXIS_APP='SimAs';</script>
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 03 · BLOC 2 · 77h</div>
+    <div>
+      <h1>PraxisEtatClinique-AS</h1>
+      <p class="subtitle">Évaluation de l'état clinique · Surveiller, observer, transmettre · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('params',this)">🌡️ Paramètres</button>
+    <button class="tab-btn" onclick="showTab('conscience',this)">🧠 Conscience</button>
+    <button class="tab-btn" onclick="showTab('douleur',this)">😣 Douleur</button>
+    <button class="tab-btn" onclick="showTab('hydration',this)">💧 Hydratation</button>
+    <button class="tab-btn" onclick="showTab('urgences',this)">🚨 Urgences</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
 
-<!-- Bouton audio -->
-<button id="btn-audio" onclick="lireOnglet()" style="
-  position:fixed;bottom:20px;right:20px;z-index:1000;
-  background:#40a8e0;border:none;border-radius:50px;
-  color:#080c14;font-size:13px;font-weight:800;
-  padding:11px 18px;cursor:pointer;
-  box-shadow:0 4px 16px rgba(64,168,224,.35);
-  font-family:monospace;letter-spacing:.5px;
-  white-space:nowrap;transition:opacity .2s">🔊 Écouter</button>
+<div class="content">
 
-<script src="praxis-audio.js"></script>
+<!-- ===== PARAMÈTRES ===== -->
+<div id="tab-params" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🌡️</div>
+    <div>
+      <h2>Les paramètres vitaux — Surveiller et transmettre</h2>
+      <p>Les paramètres vitaux sont les "signaux" que le corps envoie. L'AS les mesure, les note précisément et alerte l'IDE dès qu'une valeur sort des normes. Une mesure non tracée n'existe pas.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 03 · Bloc 2 · DEAS 2021 — Arrêté 26/02/2025</span>
+
+  <div class="param-grid">
+    <div class="param-card">
+      <div class="p-icon">🫀</div>
+      <h4>Tension artérielle (TA)</h4>
+      <div class="p-normal">Normale : 90-140 / 60-90 mmHg</div>
+      <p>Mesurer sur bras nu, patient assis au repos depuis 5 min. Noter les deux chiffres. Toujours le même bras si possible.</p>
+      <div class="p-alert">🚨 &lt; 90/60 (hypotension) ou &gt; 160/100 → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">💓</div>
+      <h4>Pouls (fréquence cardiaque)</h4>
+      <div class="p-normal">Normale : 60–100 bpm</div>
+      <p>Compter 1 minute complète. Noter le rythme : régulier ou irrégulier. Artère radiale (poignet) ou carotide (cou).</p>
+      <div class="p-alert">🚨 &lt; 50 ou &gt; 120 bpm, ou irrégulier → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">🌡️</div>
+      <h4>Température</h4>
+      <div class="p-normal">Normale : 36,1–37,5 °C</div>
+      <p>Voie axillaire (aisselle) : ajouter 0,5°C. Voie tympanique : rapide mais moins précise. Toujours noter la voie utilisée.</p>
+      <div class="p-alert">🚨 &gt; 38°C (fièvre) ou &lt; 36°C (hypothermie) → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">🫧</div>
+      <h4>Saturation O2 (SpO2)</h4>
+      <div class="p-normal">Normale : ≥ 95 %</div>
+      <p>Oxymètre au doigt. Attendre 30 secondes valeur stable. Vernis à ongles = valeur faussée. Mains froides → réchauffer.</p>
+      <div class="p-alert">🚨 &lt; 95 % (ou sous cible prescrite) → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">🍬</div>
+      <h4>Glycémie capillaire</h4>
+      <div class="p-normal">Normale à jeun : 0,70–1,10 g/L</div>
+      <p>Piqûre bord latéral du doigt. Première goutte essuyée. Deuxième goutte sur bandelette. Sur prescription médicale.</p>
+      <div class="p-alert">🚨 &lt; 0,60 g/L ou &gt; 2,50 g/L → IDE urgent</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">💨</div>
+      <h4>Fréquence respiratoire (FR)</h4>
+      <div class="p-normal">Normale : 12–20 mouvements/min</div>
+      <p>Observer le thorax sans prévenir le patient (il modifie sa respiration). Compter 1 minute complète.</p>
+      <div class="p-alert">🚨 &lt; 12 ou &gt; 25 mouvements/min → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">💧</div>
+      <h4>Diurèse (urines)</h4>
+      <div class="p-normal">Normale : 1 000–1 500 mL/24h</div>
+      <p>Mesurer avec bocal gradué. Observer couleur, odeur, aspect. Sur prescription ou surveillance systématique.</p>
+      <div class="p-alert">🚨 &lt; 500 mL/24h, sang, odeur forte → IDE</div>
+    </div>
+    <div class="param-card">
+      <div class="p-icon">⚖️</div>
+      <h4>Poids</h4>
+      <div class="p-normal">Surveiller l'évolution</div>
+      <p>Même heure, mêmes vêtements, même balance. C'est l'évolution qui compte, pas le chiffre seul.</p>
+      <div class="p-alert">🚨 Perte &gt; 5 % en 1 mois ou +2 kg en 48h → IDE</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:4px;">
+    <h2>📝 Règles de traçabilité — Obligatoires</h2>
+    <ul>
+      <li>Valeur <strong>exacte</strong> — jamais "normal" ou "bon"</li>
+      <li><strong>Date et heure</strong> précises de la mesure</li>
+      <li>Conditions de mesure si pertinentes (bras utilisé, voie température…)</li>
+      <li>Toute transmission à l'IDE notée avec l'heure</li>
+    </ul>
+    <div class="alert-banner">⚠️ Une mesure non tracée dans le dossier n'a pas d'existence légale. Si le DPI est en panne — noter sur papier avec l'heure exacte.</div>
+    <div class="lien-module">
+      <div class="lm-icon">🔗</div>
+      <div class="lm-text"><strong>Module SimAs-Parametres :</strong> L'anatomie, les pathologies EHPAD et les outils connectés (glucomètre connecté, oxymètre Bluetooth, balance connectée) sont détaillés dans PraxisParamètres-AS.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONSCIENCE ===== -->
+<div id="tab-conscience" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🧠</div>
+    <div>
+      <h2>État de conscience — Évaluer et alerter</h2>
+      <p>Une modification de la conscience peut être le premier signe d'une urgence vitale. L'AS qui connaît son patient au quotidien est le mieux placé pour détecter un changement même subtil.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 03 · Bloc 2 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🎚️ Les niveaux de conscience — Du simple au grave</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Conscience normale</h4>
+        <ul>
+          <li>Orienté dans le temps (date, jour)</li>
+          <li>Orienté dans l'espace (lieu, chambre)</li>
+          <li>Reconnaît les soignants habituels</li>
+          <li>Répond correctement aux questions simples</li>
+          <li>Suit les consignes sans difficulté</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--yellow);">
+        <h4 style="color:#b07800;">⚠️ Confusion</h4>
+        <ul>
+          <li>Désorientation temporelle ou spatiale</li>
+          <li>Ne reconnaît pas les soignants habituels</li>
+          <li>Propos incohérents ou répétitifs</li>
+          <li>Agitation inhabituelle</li>
+          <li>Souvent signe d'infection, déshydratation, médicament</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--orange);">
+        <h4 style="color:#b55f10;">🟠 Obnubilation</h4>
+        <ul>
+          <li>Somnolence excessive</li>
+          <li>Répond aux questions mais lentement</li>
+          <li>Difficultés à maintenir l'attention</li>
+          <li>Yeux mi-clos au repos</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🔴 Coma / inconscience</h4>
+        <ul>
+          <li>Ne répond pas à la voix</li>
+          <li>Ne répond pas à la douleur (ou réponse anormale)</li>
+          <li>Yeux fermés, immobilité</li>
+          <li>→ Urgence absolue, appeler le 15</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">🚨 Toute modification de la conscience par rapport à l'état habituel = signaler à l'IDE immédiatement, même si ça "semble peu". Une confusion soudaine chez une personne lucide habituelle est une urgence.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>📊 Échelle de Glasgow simplifiée — Ce que l'AS observe</h2>
+    <p style="font-size:.82rem;color:#6a3a00;margin-bottom:10px;">L'IDE évalue le Glasgow complet. L'AS observe et transmet les 3 critères de base.</p>
+    <table class="glasgow-table">
+      <tr><th>Ce qu'on évalue</th><th>Réponse normale</th><th>Signe d'alerte</th></tr>
+      <tr><td><strong>Ouverture des yeux</strong></td><td>Spontanée, ou à la voix</td><td>Seulement à la douleur, ou absente</td></tr>
+      <tr><td><strong>Réponse verbale</strong></td><td>Orientée, cohérente</td><td>Confuse, incompréhensible, absente</td></tr>
+      <tr><td><strong>Réponse motrice</strong></td><td>Obéit aux ordres</td><td>Anormale (flexion/extension), absente</td></tr>
+    </table>
+    <div class="glasgow-score">
+      <div style="background:#e6f4ee;color:#1e7a45;">Score 15 = Conscience normale</div>
+      <div style="background:#fff3e0;color:#e65100;">Score 9–14 = Altération</div>
+      <div style="background:#fdecea;color:#c0392b;">Score ≤ 8 = Coma — urgence</div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🔍 Signes neurologiques à signaler à l'IDE</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Signes d'alerte urgents</h4>
+        <ul>
+          <li>Perte de connaissance brutale</li>
+          <li>Convulsions (mouvements incontrôlés)</li>
+          <li>Paralysie soudaine d'un membre ou du visage</li>
+          <li>Trouble brutal de la parole (AVC)</li>
+          <li>Maux de tête intenses et soudains</li>
+          <li>Pupilles inégales (anisocorie)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Signes à surveiller</h4>
+        <ul>
+          <li>Confusion nouvelle chez une personne habituellement lucide</li>
+          <li>Somnolence excessive en dehors des horaires habituels</li>
+          <li>Agitation inhabituelle (peut masquer une douleur)</li>
+          <li>Comportement inhabituel sans raison apparente</li>
+          <li>Tremblements nouveaux</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ Mémo FAST pour suspecter un AVC : Face (visage asymétrique), Arm (bras qui tombe), Speech (discours perturbé), Time (appeler le 15 immédiatement).</div>
+  </div>
+</div>
+
+<!-- ===== DOULEUR ===== -->
+<div id="tab-douleur" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">😣</div>
+    <div>
+      <h2>Évaluation de la douleur</h2>
+      <p>La douleur est le 5e signe vital. Elle est subjective — seule la personne sait vraiment ce qu'elle ressent. L'AS observe les signes comportementaux et utilise les échelles adaptées pour aider l'IDE à évaluer et à agir.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 03 · Bloc 2 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>📏 Les échelles d'évaluation de la douleur</h2>
+    <div class="echelle-grid">
+      <div class="echelle-card">
+        <h4>📊 EN — Échelle Numérique</h4>
+        <p>"Sur 10, quelle note donnez-vous à votre douleur ?" Simple, rapide, pour les personnes communicantes.</p>
+        <span class="e-indic">0 = pas de douleur · 10 = douleur maximale imaginable</span>
+      </div>
+      <div class="echelle-card">
+        <h4>📏 EVA — Échelle Visuelle Analogique</h4>
+        <p>Réglette avec curseur que la personne déplace elle-même. Plus précise que l'EN mais nécessite une bonne compréhension.</p>
+        <span class="e-indic">Réglette physique · 0 à 10 cm</span>
+      </div>
+      <div class="echelle-card">
+        <h4>😊 Échelle des visages</h4>
+        <p>6 visages de souriant à pleurant. Pour les personnes qui ont du mal à exprimer un chiffre (enfants, personnes âgées).</p>
+        <span class="e-indic">Personnes âgées · difficultés de communication</span>
+      </div>
+      <div class="echelle-card">
+        <h4>🔍 DOLOPLUS-2</h4>
+        <p>Pour les personnes qui ne peuvent pas communiquer verbalement (démence sévère). Observe 10 critères comportementaux.</p>
+        <span class="e-indic">Démence · troubles cognitifs sévères</span>
+      </div>
+      <div class="echelle-card">
+        <h4>⚡ ALGOPLUS</h4>
+        <p>5 items observables en moins d'une minute. Adapté aux situations aiguës chez la personne âgée communicante ou non.</p>
+        <span class="e-indic">Douleur aiguë · urgence · EHPAD</span>
+      </div>
+      <div class="echelle-card">
+        <h4>👶 FLACC</h4>
+        <p>Pour les enfants et les personnes ne pouvant pas communiquer : Face, Legs, Activity, Cry, Consolability.</p>
+        <span class="e-indic">Enfant · personne non communicante</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>🎚️ Simulateur EVA — Comprendre l'échelle</h2>
+    <p style="font-size:.82rem;color:#6a3a00;margin-bottom:10px;">Déplacez le curseur pour voir ce que représente chaque niveau de douleur et les actions correspondantes.</p>
+    <div class="eva-container">
+      <div class="eva-bar"></div>
+      <input type="range" min="0" max="10" value="0" id="eva-slider" oninput="updateEva()">
+      <div class="eva-value" id="eva-num">0 / 10</div>
+    </div>
+    <div id="eva-info" style="background:var(--gray-bg);border-radius:8px;padding:12px;font-size:.82rem;line-height:1.6;border:1px solid var(--gray-border);">
+      Déplacez le curseur pour explorer les niveaux de douleur.
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>👁️ Signes comportementaux de douleur — Ce que l'AS observe</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Chez la personne âgée, démente ou non communicante, la douleur s'exprime rarement en mots :</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Signes du visage</h4>
+        <ul>
+          <li>Grimaces lors des soins ou mobilisations</li>
+          <li>Froncement des sourcils</li>
+          <li>Plissement du front</li>
+          <li>Crispation des mâchoires</li>
+          <li>Gémissements, pleurs</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Signes corporels</h4>
+        <ul>
+          <li>Position antalgique (évite de bouger un membre)</li>
+          <li>Agitation inhabituelle</li>
+          <li>Refus de mobilisation inhabituel</li>
+          <li>Protection d'une zone du corps</li>
+          <li>Rigidité musculaire au toucher</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Une agitation soudaine chez une personne habituellement calme peut être une douleur non exprimée. Ne jamais conclure à un "trouble du comportement" sans avoir éliminé la douleur.</div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Rôle AS dans l'évaluation de la douleur</h2>
+    <ul>
+      <li>Observer et noter les signes comportementaux à chaque soin</li>
+      <li>Utiliser l'échelle adaptée à la personne (EN si communicante, DOLOPLUS si démence)</li>
+      <li>Transmettre la valeur ET les signes observés à l'IDE</li>
+      <li>Adapter le rythme et la douceur des soins si douleur suspectée</li>
+      <li>Réévaluer après traitement antalgique prescrit par le médecin</li>
+      <li>Ne jamais minimiser une plainte douloureuse ("c'est normal à son âge")</li>
+    </ul>
+    <div class="info-banner">💡 L'AS ne prescrit pas d'antalgique — mais il est le premier à détecter la douleur et à déclencher la chaîne de prise en charge. Sans son observation, le médecin ne peut pas agir.</div>
+  </div>
+</div>
+
+<!-- ===== HYDRATATION ===== -->
+<div id="tab-hydration" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">💧</div>
+    <div>
+      <h2>Hydratation et nutrition — Surveiller l'équilibre</h2>
+      <p>La déshydratation et la dénutrition sont des risques majeurs chez la personne âgée — silencieux, progressifs, et potentiellement mortels. L'AS les détecte avant tout le monde.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 03 · Bloc 2 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>💧 Signes cliniques de déshydratation</h2>
+
+    <!-- SVG corps déshydraté -->
+    <div style="display:flex;justify-content:center;margin:14px 0;">
+      <svg width="300" height="160" viewBox="0 0 300 160">
+        <rect width="300" height="160" fill="#f5f7fa" rx="10"/>
+        <!-- corps simplifié -->
+        <ellipse cx="80" cy="35" rx="22" ry="22" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="58" y="56" width="44" height="60" rx="8" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="40" y="60" width="18" height="40" rx="6" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <rect x="102" y="60" width="18" height="40" rx="6" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <rect x="62" y="116" width="16" height="36" rx="5" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <rect x="82" y="116" width="16" height="36" rx="5" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <!-- signes -->
+        <text x="120" y="28" font-size="9" fill="#c0392b" font-weight="700">Bouche sèche</text>
+        <line x1="103" y1="30" x2="80" y2="35" stroke="#c0392b" stroke-width="1.5"/>
+        <text x="125" y="50" font-size="9" fill="#e65100" font-weight="700">Yeux enfoncés</text>
+        <line x1="123" y1="48" x2="80" y2="32" stroke="#e65100" stroke-width="1.5"/>
+        <text x="125" y="75" font-size="9" fill="#c0392b" font-weight="700">Pli cutané</text>
+        <line x1="123" y1="73" x2="103" y2="75" stroke="#c0392b" stroke-width="1.5"/>
+        <text x="125" y="95" font-size="9" fill="#e65100" font-weight="700">Urines foncées</text>
+        <line x1="123" y1="93" x2="82" y2="116" stroke="#e65100" stroke-width="1.5"/>
+        <text x="125" y="115" font-size="9" fill="#c0392b" font-weight="700">Hypotension</text>
+        <line x1="123" y1="113" x2="80" y2="85" stroke="#c0392b" stroke-width="1.5"/>
+        <text x="125" y="135" font-size="9" fill="#b07800" font-weight="700">Confusion</text>
+        <line x1="123" y1="133" x2="80" y2="50" stroke="#b07800" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <div class="two-col">
+      <div class="cell">
+        <h4>🔍 Signes à surveiller</h4>
+        <ul>
+          <li>Muqueuses buccales sèches</li>
+          <li>Pli cutané persistant (peau qui reste pincée)</li>
+          <li>Urines très foncées, quantité réduite</li>
+          <li>Confusion ou somnolence inhabituelle</li>
+          <li>Yeux creux, cernés</li>
+          <li>Tension basse, pouls rapide</li>
+          <li>Perte de poids rapide</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Actions AS</h4>
+        <ul>
+          <li>Proposer à boire toutes les heures sans attendre la demande</li>
+          <li>Varier les boissons (eau, jus, tisane, soupe)</li>
+          <li>Eau gélifiée si troubles de déglutition (sur prescription)</li>
+          <li>Surveiller et mesurer la diurèse si prescrit</li>
+          <li>Signaler à l'IDE si signes de déshydratation</li>
+          <li>Peser selon prescription</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">🚨 La confusion soudaine est souvent le premier signe de déshydratation chez la personne âgée — avant même la sensation de soif. Signaler à l'IDE immédiatement.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🍽️ Signes cliniques de dénutrition</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Signes physiques observables</h4>
+        <ul>
+          <li>Perte de poids visible (vêtements qui "tombent")</li>
+          <li>Fonte musculaire (bras fins, cuisses amaigries)</li>
+          <li>Côtes, omoplates saillantes à la toilette</li>
+          <li>Peau fragile, plaies qui cicatrisent mal</li>
+          <li>Cheveux ternes, cassants</li>
+          <li>Asthénie (fatigue importante)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Signes comportementaux</h4>
+        <ul>
+          <li>Refus alimentaires répétés</li>
+          <li>Mange seulement la moitié ou moins</li>
+          <li>Perd intérêt pour les repas</li>
+          <li>Se fatigue rapidement pendant le repas</li>
+          <li>Difficultés de mastication (dentier mal ajusté ?)</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Critères HAS de dénutrition à connaître</h3>
+    <ul>
+      <li>Perte de poids &gt; 5 % en 1 mois</li>
+      <li>Perte de poids &gt; 10 % en 6 mois</li>
+      <li>IMC &lt; 21 chez la personne de plus de 70 ans</li>
+    </ul>
+    <div class="info-banner">💡 L'AS pèse selon prescription, quantifie les repas (noté en % ou en portions) et signale. C'est l'IDE et la diététicienne qui agissent — mais sans les données de l'AS, elles ne peuvent pas détecter le problème.</div>
+  </div>
+
+  <div class="card teal">
+    <h2>📊 Bilan entrées/sorties — Quand l'AS participe</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Sur prescription, l'AS mesure et note toutes les entrées (boissons, perfusion) et toutes les sorties (urines, vomissements, selles liquides) sur 24h.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📥 Entrées à mesurer</h4>
+        <ul>
+          <li>Boissons : eau, jus, soupe — noter en mL</li>
+          <li>Eau contenue dans les aliments (estimée)</li>
+          <li>Perfusion : noter le débit et la durée</li>
+          <li>Eau gélifiée : noter la quantité</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📤 Sorties à mesurer</h4>
+        <ul>
+          <li>Urines : bocal gradué ou protection pesée</li>
+          <li>Vomissements : estimer en mL</li>
+          <li>Selles liquides : noter la quantité estimée</li>
+          <li>Transpiration excessive : noter sans mesure</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ Un bilan entrées/sorties bien tenu permet au médecin d'adapter la perfusion, de détecter une insuffisance rénale ou une rétention d'eau. C'est une responsabilité sérieuse.</div>
+  </div>
+</div>
+
+<!-- ===== URGENCES ===== -->
+<div id="tab-urgences" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🚨</div>
+    <div>
+      <h2>Situations d'urgence — CAT AS avant l'IDE</h2>
+      <p>L'AS n'est pas médecin et ne diagnostique pas. Mais il peut être le premier sur place. Ces quelques minutes comptent. Connaître les signes d'alerte et les gestes immédiats peut sauver une vie.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 03 · Bloc 2 · DEAS 2021</span>
+
+  <div class="urgence-grid">
+
+    <div class="urgence-card">
+      <div class="urgence-icon">😵</div>
+      <div class="urgence-body">
+        <h4>Perte de connaissance</h4>
+        <p>La personne ne répond pas à la voix, ne réagit pas. Peut être un malaise vagal, un AVC, une hypoglycémie, un arrêt cardiaque.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler à l'aide et le 15 (ou l'IDE). Allonger sur le dos. Vérifier si elle respire. Si pas de respiration → RCP (si formé). NE PAS laisser seule.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">⚡</div>
+      <div class="urgence-body">
+        <h4>Convulsions</h4>
+        <p>Mouvements incontrôlés du corps, yeux révulsés, perte de connaissance. Épilepsie, AVC, hypoglycémie sévère, fièvre élevée.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler l'IDE. Ne pas contenir les mouvements. Protéger la tête (mettre quelque chose de mou dessous). Libérer l'espace autour. Ne rien mettre dans la bouche. Chronométrer la durée.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🫁</div>
+      <div class="urgence-body">
+        <h4>Détresse respiratoire</h4>
+        <p>Essoufflement intense au repos, lèvres bleues (cyanose), tirage (les muscles du cou et entre les côtes se creusent), SpO2 effondrée.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler l'IDE immédiatement. Installer en position semi-assise (facilite la respiration). Ne pas donner à boire. Rester présent et rassurer. Ne pas modifier l'O2 sans ordre.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🍬</div>
+      <div class="urgence-body">
+        <h4>Hypoglycémie sévère</h4>
+        <p>Sueurs froides, tremblements, confusion, pâleur, glycémie &lt; 0,60 g/L. Chez le diabétique — peut évoluer vers la perte de connaissance.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Mesurer la glycémie si possible. Appeler l'IDE avant de donner quoi que ce soit (risque de fausse route si conscience altérée). Si conscient et ordre IDE : jus de fruit ou sucre.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🧠</div>
+      <div class="urgence-body">
+        <h4>AVC — Accident Vasculaire Cérébral</h4>
+        <p>Apparition brutale : paralysie d'un côté du visage ou du corps, trouble de la parole, trouble de la vision, maux de tête intenses.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> FAST (Face-Arm-Speech-Time). Appeler le 15 ET l'IDE immédiatement. Ne pas donner à manger ou à boire. Ne pas laisser seul. Noter l'heure de début des signes (crucial pour le traitement).
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🫀</div>
+      <div class="urgence-body">
+        <h4>Arrêt cardiaque</h4>
+        <p>Personne inconsciente, ne respire pas (ou gasps), pas de pouls. Urgence absolue — chaque minute sans RCP = 10 % de survie en moins.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler le 15 immédiatement. Commencer la RCP : 30 compressions thoraciques + 2 insufflations (si formé). Utiliser le DEA si disponible. Ne pas s'arrêter jusqu'à l'arrivée des secours.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🌡️</div>
+      <div class="urgence-body">
+        <h4>Hyperthermie sévère / Coup de chaleur</h4>
+        <p>Température &gt; 40°C, peau rouge et sèche, confusion, absence de transpiration. Urgence vitale — surtout en été chez la personne âgée.</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler l'IDE et le 15. Mettre au frais, déshabiller, ventiler. Appliquer des linges humides froids sur les plis (cou, aisselles, aines). Proposer à boire si conscient.
+        </div>
+      </div>
+    </div>
+
+    <div class="urgence-card">
+      <div class="urgence-icon">🩸</div>
+      <div class="urgence-body">
+        <h4>Hémorragie importante</h4>
+        <p>Saignement abondant et persistant, intérieur (méléna, hémoptysie) ou extérieur (plaie, chute).</p>
+        <div class="cat">
+          <strong>CAT AS :</strong> Appeler l'IDE immédiatement. Compression directe sur la plaie si saignement extérieur (gants obligatoires). Allonger la personne. Ne pas retirer un objet planté. Rassurer.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card green" style="margin-top:4px;">
+    <h2>📞 La chaîne de survie — Ce que l'AS doit connaître</h2>
+    <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:12px 0;">
+      <div style="background:var(--blue);color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:.78rem;font-weight:700;min-width:100px;">1. Reconnaître<br><span style="font-weight:400;opacity:.85">les signes</span></div>
+      <div style="color:var(--blue);font-size:1.4rem;">→</div>
+      <div style="background:var(--blue);color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:.78rem;font-weight:700;min-width:100px;">2. Alerter<br><span style="font-weight:400;opacity:.85">IDE + 15</span></div>
+      <div style="color:var(--blue);font-size:1.4rem;">→</div>
+      <div style="background:var(--blue);color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:.78rem;font-weight:700;min-width:100px;">3. Gestes<br><span style="font-weight:400;opacity:.85">immédiats</span></div>
+      <div style="color:var(--blue);font-size:1.4rem;">→</div>
+      <div style="background:var(--green);color:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:.78rem;font-weight:700;min-width:100px;">4. Secours<br><span style="font-weight:400;opacity:.85">arrivent</span></div>
+    </div>
+    <div class="alert-banner">⚠️ En situation d'urgence, l'AS ne reste jamais seul avec un patient en détresse. Il appelle TOUJOURS à l'aide — même en criant si nécessaire — avant de réaliser les gestes de premiers secours.</div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — État clinique et surveillance</h2>
+      <p>10 questions sur les paramètres vitaux, la conscience, la douleur, l'hydratation et les urgences.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div>
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+// EVA
+function updateEva(){
+  const v=parseInt(document.getElementById('eva-slider').value);
+  document.getElementById('eva-num').textContent=v+' / 10';
+  const infos=[
+    {t:'Pas de douleur',c:'#1e7a45',bg:'#e6f4ee',a:'Pas d\'action nécessaire. Observer et noter.'},
+    {t:'Douleur très légère',c:'#2a7a2a',bg:'#e6f4ee',a:'Surveiller l\'évolution. Signaler si augmentation.'},
+    {t:'Douleur légère',c:'#5a7a20',bg:'#f0f7e0',a:'Signaler à l\'IDE. Adapter le rythme du soin.'},
+    {t:'Douleur modérée',c:'#8a7a00',bg:'#fff8e0',a:'Signaler à l\'IDE. Réévaluer après le soin.'},
+    {t:'Douleur modérée à sévère',c:'#b07800',bg:'#fff3e0',a:'Alerter l\'IDE. Interrompre le soin si nécessaire.'},
+    {t:'Douleur sévère',c:'#c06000',bg:'#fff0d0',a:'Alerter l\'IDE immédiatement. Soin à reporter.'},
+    {t:'Douleur sévère',c:'#c04000',bg:'#fde8d0',a:'Alerter l\'IDE immédiatement. Antalgique nécessaire.'},
+    {t:'Douleur très sévère',c:'#c02020',bg:'#fdecea',a:'Urgence douleur. IDE immédiatement.'},
+    {t:'Douleur très sévère',c:'#b01010',bg:'#fdecea',a:'Urgence douleur. IDE immédiatement. Stopper tout soin.'},
+    {t:'Douleur insupportable',c:'#900000',bg:'#fdecea',a:'Urgence absolue. IDE + médecin immédiatement.'},
+    {t:'Pire douleur imaginable',c:'#700000',bg:'#fdecea',a:'Urgence vitale. IDE + médecin + 15 si nécessaire.'}
+  ];
+  const i=infos[v];
+  document.getElementById('eva-info').style.background=i.bg;
+  document.getElementById('eva-info').style.borderColor=i.c;
+  document.getElementById('eva-info').innerHTML=`<strong style="color:${i.c}">${v}/10 — ${i.t}</strong><br><span style="color:var(--text)">${i.a}</span>`;
+  document.getElementById('eva-num').style.color=i.c;
+}
+
+const questions=[
+  {q:"Vous mesurez la tension artérielle de Mme Dupont à 85/55 mmHg. Elle dit se sentir étourdie. Que faites-vous ?",opts:["Vous notez la valeur et continuez votre tournée","Vous lui dites de se reposer et revenez dans une heure","Vous alertez l'IDE immédiatement avec la valeur, l'heure et les signes cliniques","Vous lui proposez un verre d'eau et remesurez dans 10 minutes"],correct:2,expl:"85/55 mmHg = hypotension (inférieure à 90/60 mmHg) avec signes cliniques (étourdissements). C'est une alerte urgente à transmettre à l'IDE immédiatement avec la valeur exacte, l'heure de mesure et les symptômes associés."},
+  {q:"M. Bernard (habituellement lucide) est confus ce matin — il ne reconnaît pas l'AS et dit des choses incohérentes. Que faites-vous ?",opts:["C'est normal à son âge, vous continuez les soins","Vous signalez à l'IDE car c'est un changement inhabituel pouvant signaler une urgence","Vous attendez la visite médicale du lendemain","Vous en parlez à la famille lors de leur prochaine visite"],correct:1,expl:"Une confusion nouvelle chez une personne habituellement lucide est un signe d'alerte urgent — elle peut indiquer une infection urinaire, une déshydratation, un AVC, une hypoglycémie ou un effet médicamenteux. Signaler à l'IDE immédiatement, jamais attendre."},
+  {q:"Lors du soin de Mme R. (Alzheimer), vous observez qu'elle grimace et protège son bras droit à chaque mobilisation. Quelle est la bonne interprétation ?",opts:["Elle fait un caprice — c'est fréquent avec Alzheimer","C'est un signe comportemental possible de douleur — à signaler à l'IDE avec description précise","Elle est fatiguée — laisser reposer et reprendre plus tard","La démence fait qu'on ne peut pas évaluer la douleur"],correct:1,expl:"Les grimaces et la protection d'une zone corporelle sont des signes comportementaux de douleur — particulièrement importants chez les personnes qui ne peuvent pas verbaliser leur douleur. L'AS observe, décrit précisément (zone, type de geste, contexte) et signale à l'IDE qui utilisera une échelle adaptée (DOLOPLUS ou ALGOPLUS)."},
+  {q:"Quelle échelle d'évaluation de la douleur est adaptée à une personne atteinte de démence sévère ne pouvant pas communiquer ?",opts:["EN (Échelle Numérique) — rapide et efficace","EVA (Échelle Visuelle Analogique) — plus précise","DOLOPLUS-2 ou ALGOPLUS — basées sur l'observation comportementale","Aucune échelle n'est fiable chez les personnes démentes"],correct:2,expl:"L'EN et l'EVA nécessitent que la personne puisse comprendre et exprimer un chiffre — impossible en cas de démence sévère. DOLOPLUS-2 et ALGOPLUS sont des échelles observationnelles : l'AS observe les comportements (grimaces, agitation, protection) sans que la personne ait besoin de répondre."},
+  {q:"Vous observez que M. Martin n'a quasi rien bu depuis ce matin, ses urines sont brun foncé et il est inhabituelement somnolent. Vous suspectez :",opts:["Une simple fatigue due à sa pathologie","Une déshydratation — à signaler à l'IDE dans la journée","Une déshydratation potentiellement sévère — à signaler à l'IDE immédiatement","Un problème rénal qui attend la visite médicale"],correct:2,expl:"Urines brun foncé + somnolence inhabituelle + apports hydriques insuffisants = déshydratation sévère possible. Chez la personne âgée, la confusion et la somnolence peuvent précéder le choc hypovolémique. Signalement immédiat à l'IDE — pas dans la journée."},
+  {q:"Un bilan entrées/sorties est prescrit pour Mme G. À 14h, vous notez qu'elle a bu 450 mL et produit 180 mL d'urines depuis 8h. Que faites-vous ?",opts:["C'est équilibré, rien à signaler","Vous notez précisément dans le dossier et signalez à l'IDE ces valeurs lors de la transmission","Vous lui donnez une perfusion pour compenser","Vous attendez 20h pour faire le bilan complet avant de signaler"],correct:1,expl:"Le bilan entrées/sorties se note à chaque mesure avec l'heure précise — pas seulement en fin de journée. Ces données permettent à l'IDE et au médecin de détecter un déséquilibre précocement. La diurèse de 180 mL en 6h est à la limite basse — à signaler lors de la transmission."},
+  {q:"Vous trouvez Mme Aubert inconsciente dans sa chambre, elle ne répond pas à votre voix ni à votre toucher. Quelle est votre première action ?",opts:["Lui faire la toilette rapidement puis prévenir l'IDE","Appeler à l'aide et alerter l'IDE et le 15 immédiatement","Prendre ses constantes avant d'alerter","Attendre 5 minutes pour voir si elle reprend conscience"],correct:1,expl:"Une personne inconsciente est une urgence vitale. La première action est d'appeler à l'aide et d'alerter l'IDE et le 15 — simultanément si possible. On ne perd pas de temps à prendre des constantes ou à attendre. Si elle ne respire pas, on commence la RCP en attendant les secours."},
+  {q:"Vous suspectez un AVC chez M. Bernard qui présente une asymétrie du visage et ne peut plus lever le bras droit. Quelle information est CRUCIALE à noter immédiatement ?",opts:["Sa tension artérielle du matin","L'heure exacte d'apparition des premiers signes","Son dernier repas","Son traitement anticoagulant"],correct:1,expl:"L'heure de début des signes d'AVC est cruciale pour le traitement : la thrombolyse (traitement dissolvant le caillot) ne peut être administrée que dans les 4h30 suivant le début des symptômes. L'AS qui note l'heure exacte contribue directement à sauver la vie et à limiter les séquelles."},
+  {q:"La fréquence respiratoire normale d'un adulte est de :",opts:["6 à 12 mouvements par minute","12 à 20 mouvements par minute","20 à 30 mouvements par minute","Peu importe tant que la personne ne se plaint pas"],correct:1,expl:"La fréquence respiratoire normale est de 12 à 20 mouvements par minute. En dessous de 12 (bradypnée) ou au-dessus de 25 (tachypnée), alerter l'IDE. La mesure se fait discrètement sans prévenir le patient — qui modifie automatiquement sa respiration s'il sait qu'on le surveille."},
+  {q:"Lors d'une crise convulsive, quelle action est INTERDITE ?",opts:["Chronométrer la durée de la crise","Protéger la tête avec quelque chose de mou","Mettre un objet entre les dents pour éviter qu'il se morde","Libérer l'espace autour de la personne"],correct:2,expl:"Il ne faut JAMAIS mettre quoi que ce soit dans la bouche d'une personne en crise convulsive — risque de fracture dentaire, de luxation de mâchoire et de fausse route. Contrairement aux idées reçues, une personne en crise ne peut pas avaler sa langue. Les bonne actions : chronométrer, protéger la tête, libérer l'espace, appeler l'IDE."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 03 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
 <script src="praxiscare-feedback.js"></script>
-</body></html>
+</body>
+</html>
