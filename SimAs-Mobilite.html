@@ -55,11 +55,8 @@ h2.violet{color:#b8a0e8}
 .jamais h3{color:#e88a8a}
 .jamais li::before{color:#e88a8a;content:'✕';font-size:10px;top:3px}
 .reset{display:block;margin:10px auto 30px;background:none;border:1px solid rgba(255,255,255,.12);color:#5a7080;padding:8px 18px;border-radius:8px;font-size:12px;cursor:pointer}
-#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:#e8a840;color:#fff;border:none;box-shadow:0 4px 14px rgba(232,168,64,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;}
-#audio-btn.playing{background:#e84040;}
 </style>
 </head>
-  
 <body>
 
 <header>
@@ -331,8 +328,14 @@ h2.violet{color:#b8a0e8}
   <button class="btn-retour" onclick="retour()">‹ SimAs</button>
 </div>
 
+<style>
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:#e8a840;color:#fff;border:none;box-shadow:0 4px 14px rgba(232,168,64,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:#c07020;transform:scale(1.08);}
+#audio-btn.playing{background:#e84040;}
+</style>
 <script>
-function go(id,tab){stopAudio();
+function go(id,tab){
+  stopAudio();
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   document.getElementById(id).classList.add('active');
@@ -370,14 +373,13 @@ document.addEventListener('click',function(){
   if(window.parent!==window){window.parent.postMessage({type:'activite'},'*');}
 });
 window.PRAXIS_APP='SimAs';
-</script>
-  <button id="audio-btn" onclick="toggleAudio()" title="Lecture audio">🔊</button>
-<script>
+
 let speaking=false;const synth=window.speechSynthesis;
-function getTabText(){const a=document.querySelector('.panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,p,.intro,.aide b,.aide span,.etape h3,.etape p,.prap,.cantou-bloc h3,.cantou-bloc li')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
-function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;document.getElementById('audio-btn').classList.remove('playing');document.getElementById('audio-btn').textContent='🔊';};synth.speak(utt);speaking=true;document.getElementById('audio-btn').classList.add('playing');document.getElementById('audio-btn').textContent='⏹';}
+function getTabText(){const a=document.querySelector('.panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,p,.intro,.aide b,.aide span,.etape h3,.etape p,.prap,.cantou-bloc h3,.cantou-bloc li,.profil b,.profil')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};const trySpeak=()=>{const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'))||voices[0];if(fr)utt.voice=fr;synth.cancel();setTimeout(()=>{synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';},100);};if(synth.getVoices().length>0){trySpeak();}else{synth.onvoiceschanged=trySpeak;}}
 function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');if(b){b.classList.remove('playing');b.textContent='🔊';}}
 if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
 </script>
+<button id="audio-btn" onclick="toggleAudio()" title="Lecture audio">🔊</button>
 </body>
 </html>
