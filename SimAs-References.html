@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisRéférences-AS · Bibliographie</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.content{max-width:860px;margin:0 auto;padding:20px 16px 80px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:24px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+
+.section-title{font-size:.75rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin:24px 0 12px;padding-left:4px;border-left:3px solid var(--blue);padding-left:10px;}
+
+.ref-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;display:grid;grid-template-columns:80px 1fr;gap:18px;align-items:start;border-left:4px solid var(--blue);}
+@media(max-width:480px){.ref-card{grid-template-columns:1fr;}}
+.ref-card.orange{border-left-color:var(--orange);}
+.ref-card.green{border-left-color:var(--green);}
+.ref-card.purple{border-left-color:var(--purple);}
+.ref-card.teal{border-left-color:var(--teal);}
+
+.ref-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--blue-light);background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;}
+.ref-avatar.orange{border-color:#fde8c5;background:#fde8c5;}
+.ref-avatar.green{border-color:#e6f4ee;background:#e6f4ee;}
+.ref-avatar.purple{border-color:#f0ebff;background:#f0ebff;}
+.ref-avatar.teal{border-color:#e0f7fa;background:#e0f7fa;}
+
+.ref-body h3{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:3px;}
+.ref-card.orange .ref-body h3{color:#b55f10;}
+.ref-card.green .ref-body h3{color:#1e7a45;}
+.ref-card.purple .ref-body h3{color:#5a3a8a;}
+.ref-card.teal .ref-body h3{color:#006978;}
+
+.ref-meta{font-size:.75rem;color:var(--text-light);margin-bottom:10px;}
+.ref-meta span{display:inline-block;margin-right:12px;}
+
+.ref-apport{font-size:.83rem;line-height:1.65;color:var(--text);margin-bottom:10px;}
+
+.ref-modules{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.ref-module{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.72rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);}
+.ref-card.orange .ref-module{background:#fde8c5;color:#b55f10;}
+.ref-card.green .ref-module{background:#e6f4ee;color:#1e7a45;}
+.ref-card.purple .ref-module{background:#f0ebff;color:#5a3a8a;}
+.ref-card.teal .ref-module{background:#e0f7fa;color:#006978;}
+
+.ref-citation{background:var(--gray-bg);border-radius:7px;padding:10px 14px;margin-bottom:10px;font-size:.8rem;font-style:italic;color:var(--text);border-left:3px solid var(--blue);line-height:1.6;}
+.ref-card.orange .ref-citation{border-left-color:var(--orange);}
+.ref-card.green .ref-citation{border-left-color:var(--green);}
+.ref-card.purple .ref-citation{border-left-color:var(--purple);}
+.ref-card.teal .ref-citation{border-left-color:var(--teal);}
+
+.ref-link{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;background:var(--blue);color:#fff;font-size:.78rem;font-weight:700;text-decoration:none;transition:background .18s;}
+.ref-link:hover{background:var(--blue-dark);}
+.ref-card.orange .ref-link{background:var(--orange);}
+.ref-card.orange .ref-link:hover{background:#b55f10;}
+.ref-card.green .ref-link{background:var(--green);}
+.ref-card.green .ref-link:hover{background:#1e7a45;}
+.ref-card.purple .ref-link{background:var(--purple);}
+.ref-card.purple .ref-link:hover{background:#5a3a8a;}
+.ref-card.teal .ref-link{background:var(--teal);}
+.ref-card.teal .ref-link:hover{background:#006978;}
+
+.ref-oeuvre{font-size:.77rem;color:var(--text-light);margin-bottom:8px;}
+.ref-oeuvre strong{color:var(--text);font-style:normal;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">RÉFÉRENCES · BIBLIOGRAPHIE · SimAs</div>
+    <div>
+      <h1>PraxisRéférences-AS</h1>
+      <p class="subtitle">Les auteurs et théories qui fondent les soins d'aide-soignant</p>
+    </div>
+  </div>
+</header>
+
+<div class="content">
+
+  <div class="intro-banner">
+    <div class="icon">📚</div>
+    <div>
+      <h2>Pourquoi cette page ?</h2>
+      <p>Les soins d'aide-soignant ne sont pas que des gestes techniques — ils reposent sur des théories, des recherches et des modèles construits par des penseurs qui ont transformé la façon dont on comprend la personne humaine, la santé et la relation de soin. Cette page présente les auteurs cités dans SimAs et leurs apports essentiels.</p>
+    </div>
+  </div>
+
+  <!-- COMMUNICATION & RELATION -->
+  <div class="section-title">💬 Communication et relation de soin</div>
+
+  <div class="ref-card">
+    <div class="ref-avatar">🧠</div>
+    <div class="ref-body">
+      <h3>Carl Rogers</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américain</span>
+        <span>📅 1902 – 1987</span>
+        <span>🎓 Psychologue humaniste</span>
+      </div>
+      <p class="ref-apport">Carl Rogers est le fondateur de l'<strong>approche centrée sur la personne</strong> et du concept d'<strong>écoute active</strong>. Il défend l'idée que chaque individu possède en lui les ressources nécessaires à son développement, à condition d'être accueilli avec empathie, congruence et considération positive inconditionnelle. En soins, ses principes fondent la relation soignant-soigné : écouter vraiment, sans juger, sans projeter.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> Le développement de la personne (1961) · La relation d'aide et la psychothérapie (1942)</div>
+      <div class="ref-citation">"Ce qui est le plus personnel est aussi le plus universel."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M06 — Communication</span>
+        <span class="ref-module">Écoute active</span>
+        <span class="ref-module">Relation d'aide</span>
+      </div>
+      <a class="ref-link" href="https://fr.wikipedia.org/wiki/Carl_Rogers" target="_blank">🔗 Wikipedia</a>
+    </div>
+  </div>
+
+  <div class="ref-card orange">
+    <div class="ref-avatar orange">📊</div>
+    <div class="ref-body">
+      <h3>Albert Mehrabian</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américain (origine iranienne)</span>
+        <span>📅 1939 –</span>
+        <span>🎓 Psychologue, professeur UCLA</span>
+      </div>
+      <p class="ref-apport">Albert Mehrabian est connu pour ses recherches sur la <strong>communication non verbale</strong>. Ses études sur la communication émotionnelle ont établi la règle dite des <strong>7-38-55 %</strong> : dans la transmission d'émotions, 7 % passent par les mots, 38 % par le ton de la voix, et 55 % par le langage du corps. Ce modèle est fondamental pour comprendre pourquoi "comment on dit les choses" prime souvent sur "ce qu'on dit".</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> Silent Messages (1971) · Nonverbal Communication (1972)</div>
+      <div class="ref-citation">"La communication non verbale révèle ce que les mots tentent de dissimuler."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M06 — Communication</span>
+        <span class="ref-module">Règle des 93 %</span>
+        <span class="ref-module">Communication non verbale</span>
+      </div>
+      <a class="ref-link" href="https://fr.wikipedia.org/wiki/Albert_Mehrabian" target="_blank">🔗 Wikipedia</a>
+    </div>
+  </div>
+
+  <!-- BESOINS & AUTONOMIE -->
+  <div class="section-title">🌱 Besoins fondamentaux et autonomie</div>
+
+  <div class="ref-card green">
+    <div class="ref-avatar green">🔺</div>
+    <div class="ref-body">
+      <h3>Abraham Maslow</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américain</span>
+        <span>📅 1908 – 1970</span>
+        <span>🎓 Psychologue humaniste</span>
+      </div>
+      <p class="ref-apport">Abraham Maslow est l'auteur de la célèbre <strong>pyramide des besoins</strong>, publiée en 1943. Il hiérarchise les besoins humains en 5 niveaux : physiologiques, de sécurité, d'appartenance, d'estime, et d'accomplissement. En soins, ce modèle guide l'AS dans la priorisation : un résident qui a froid (besoin physiologique) ne peut pas se sentir en sécurité ou travailler son lien social. Les besoins de base doivent être satisfaits avant les besoins supérieurs.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> A Theory of Human Motivation (1943) · Motivation and Personality (1954)</div>
+      <div class="ref-citation">"Un musicien doit faire de la musique, un artiste doit peindre, un poète doit écrire s'il veut être en paix avec lui-même."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M01 — Vie quotidienne</span>
+        <span class="ref-module">M06 — Communication</span>
+        <span class="ref-module">Pyramide des besoins</span>
+      </div>
+      <a class="ref-link" href="https://fr.wikipedia.org/wiki/Abraham_Maslow" target="_blank">🔗 Wikipedia</a>
+    </div>
+  </div>
+
+  <div class="ref-card">
+    <div class="ref-avatar">🏥</div>
+    <div class="ref-body">
+      <h3>Virginia Henderson</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américaine</span>
+        <span>📅 1897 – 1996</span>
+        <span>🎓 Infirmière théoricienne</span>
+      </div>
+      <p class="ref-apport">Virginia Henderson a défini le rôle propre de l'infirmière et, par extension, de l'aide-soignant. Elle établit <strong>14 besoins fondamentaux</strong> de la personne (respirer, boire et manger, éliminer, se mouvoir, dormir, se vêtir, maintenir sa température, être propre, éviter les dangers, communiquer, pratiquer sa religion, s'occuper, se récréer, apprendre). Son modèle fonde encore aujourd'hui la structure des plans de soins et la démarche de soins infirmiers.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> The Nature of Nursing (1966) · Principes fondamentaux des soins infirmiers (1969)</div>
+      <div class="ref-citation">"Le rôle de l'infirmière est d'aider l'individu malade ou en santé à maintenir ou recouvrer la santé grâce à l'accomplissement de tâches dont il s'acquitterait seul s'il en avait la force, la volonté ou les connaissances."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M01 — Vie quotidienne</span>
+        <span class="ref-module">M04 — Soins quotidiens</span>
+        <span class="ref-module">14 besoins fondamentaux</span>
+      </div>
+      <a class="ref-link" href="https://fr.wikipedia.org/wiki/Virginia_Henderson" target="_blank">🔗 Wikipedia</a>
+    </div>
+  </div>
+
+  <!-- DOULEUR -->
+  <div class="section-title">😣 Douleur et évaluation</div>
+
+  <div class="ref-card orange">
+    <div class="ref-avatar orange">💊</div>
+    <div class="ref-body">
+      <h3>Margo McCaffery</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américaine</span>
+        <span>📅 1938 – 2014</span>
+        <span>🎓 Infirmière, experte en gestion de la douleur</span>
+      </div>
+      <p class="ref-apport">Margo McCaffery a révolutionné la prise en charge de la douleur en soins infirmiers avec sa définition désormais universelle : <strong>"La douleur est ce que le patient dit qu'elle est, et elle existe quand il dit qu'elle existe."</strong> Cette approche centrée sur l'expérience subjective du patient a transformé la façon dont les soignants évaluent et traitent la douleur — en faisant de la parole du patient la référence, et non l'interprétation du soignant.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> Nursing Practice Theories Related to Cognition, Bodily Pain, and Man-Environment Interactions (1968) · Pain: Clinical Manual (1999)</div>
+      <div class="ref-citation">"La douleur est ce que le patient dit qu'elle est, et elle existe quand il dit qu'elle existe."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M03 — État clinique</span>
+        <span class="ref-module">Évaluation de la douleur</span>
+        <span class="ref-module">Échelles EVA/EN</span>
+      </div>
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Margo_McCaffery" target="_blank">🔗 Wikipedia (EN)</a>
+    </div>
+  </div>
+
+  <!-- DEUIL & FIN DE VIE -->
+  <div class="section-title">🕊️ Deuil et fin de vie</div>
+
+  <div class="ref-card purple">
+    <div class="ref-avatar purple">🕊️</div>
+    <div class="ref-body">
+      <h3>Elisabeth Kübler-Ross</h3>
+      <div class="ref-meta">
+        <span>🇨🇭 Suisse-Américaine</span>
+        <span>📅 1926 – 2004</span>
+        <span>🎓 Psychiatre, pionnière des soins palliatifs</span>
+      </div>
+      <p class="ref-apport">Elisabeth Kübler-Ross est l'auteure du modèle des <strong>5 stades du deuil</strong> (ou stades de la mort) : déni, colère, marchandage, dépression, acceptation. Développé à partir d'entretiens avec des patients en fin de vie, ce modèle aide les soignants à comprendre les réactions émotionnelles des personnes confrontées à une perte (diagnostic grave, mort imminente, deuil d'un proche). Les stades ne sont pas linéaires — une personne peut passer de l'un à l'autre dans n'importe quel ordre.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> On Death and Dying (1969) — traduit en français : Les derniers instants de la vie</div>
+      <div class="ref-citation">"Les mourants sont nos meilleurs professeurs sur la vie, l'amour et les autres valeurs essentielles."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M01 — Vie quotidienne</span>
+        <span class="ref-module">M06 — Communication</span>
+        <span class="ref-module">5 stades du deuil</span>
+        <span class="ref-module">Fin de vie</span>
+      </div>
+      <a class="ref-link" href="https://fr.wikipedia.org/wiki/Elisabeth_K%C3%BCbler-Ross" target="_blank">🔗 Wikipedia</a>
+    </div>
+  </div>
+
+  <!-- PRÉVENTION DES RISQUES -->
+  <div class="section-title">⚠️ Prévention des risques</div>
+
+  <div class="ref-card teal">
+    <div class="ref-avatar teal">🚶</div>
+    <div class="ref-body">
+      <h3>Janice Morse</h3>
+      <div class="ref-meta">
+        <span>🇨🇦 Canadienne</span>
+        <span>📅 1945 –</span>
+        <span>🎓 Infirmière chercheuse, professeure</span>
+      </div>
+      <p class="ref-apport">Janice Morse est la conceptrice de la <strong>grille de Morse</strong> (Morse Fall Scale), outil standardisé d'évaluation du risque de chute chez les patients hospitalisés. Publiée en 1989, cette échelle évalue 6 critères : antécédents de chute, diagnostic secondaire, aide à la marche, perfusion IV, démarche, état mental. Un score élevé déclenche des mesures préventives spécifiques. C'est l'une des grilles d'évaluation les plus utilisées dans le monde en milieu hospitalier et en EHPAD.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> Morse Fall Scale (1989) · Preventing Patient Falls (1997)</div>
+      <div class="ref-citation">"La prévention des chutes commence par leur anticipation systématique."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M02 — Prévention des risques</span>
+        <span class="ref-module">Module C 2025</span>
+        <span class="ref-module">Grille de Morse</span>
+      </div>
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Janice_Morse" target="_blank">🔗 Wikipedia (EN)</a>
+    </div>
+  </div>
+
+  <div class="ref-card green">
+    <div class="ref-avatar green">🩹</div>
+    <div class="ref-body">
+      <h3>Barbara Braden</h3>
+      <div class="ref-meta">
+        <span>🇺🇸 Américaine</span>
+        <span>📅 1947 –</span>
+        <span>🎓 Infirmière chercheuse, professeure</span>
+      </div>
+      <p class="ref-apport">Barbara Braden est la co-conceptrice (avec Nancy Bergstrom) de la <strong>grille de Braden</strong>, outil d'évaluation du risque d'escarre. Publiée en 1987, elle évalue 6 dimensions : perception sensorielle, humidité, activité, mobilité, nutrition, friction et cisaillement. Un score faible indique un risque élevé d'escarre et déclenche un protocole de prévention (repositionnements, matelas anti-escarres, surveillance cutanée). C'est la grille la plus validée scientifiquement pour la prévention des escarres.</p>
+      <div class="ref-oeuvre"><strong>Œuvre clé :</strong> The Braden Scale for Predicting Pressure Sore Risk (1987, avec Nancy Bergstrom)</div>
+      <div class="ref-citation">"La meilleure escarre est celle qu'on n'a jamais laissé apparaître."</div>
+      <div class="ref-modules">
+        <span class="ref-module">M02 — Prévention des risques</span>
+        <span class="ref-module">M04 — Soins quotidiens</span>
+        <span class="ref-module">Grille de Braden</span>
+      </div>
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Barbara_Braden" target="_blank">🔗 Wikipedia (EN)</a>
+    </div>
+  </div>
+
+  <!-- TEXTES RÉGLEMENTAIRES -->
+  <div class="section-title">📜 Textes réglementaires de référence</div>
+
+  <div class="ref-card">
+    <div class="ref-avatar">📋</div>
+    <div class="ref-body">
+      <h3>Textes officiels SimAs</h3>
+      <div class="ref-meta"><span>🇫🇷 République Française</span></div>
+      <p class="ref-apport">Les contenus de SimAs sont fondés sur les textes réglementaires suivants :</p>
+      <ul style="font-size:.81rem;line-height:1.9;padding-left:18px;margin-top:8px;">
+        <li><strong>Arrêté du 10 juin 2021</strong> — Référentiel de formation DEAS rénové (10 modules, 1540h, 5 blocs de compétences)</li>
+        <li><strong>Arrêté du 9 juin 2023</strong> — Modification du référentiel DEAS 2021</li>
+        <li><strong>Arrêté du 26 février 2025</strong> — Formation d'actualisation AS (Modules A, B, C) — élargissement des compétences</li>
+        <li><strong>Décret n°2004-802 du 29 juillet 2004</strong> — Actes professionnels et exercice de la profession infirmière (délégation AS)</li>
+        <li><strong>Loi 2002-2 du 2 janvier 2002</strong> — Droits des usagers des établissements sociaux et médico-sociaux</li>
+        <li><strong>RGPD — Règlement (UE) 2016/679</strong> — Protection des données personnelles de santé</li>
+        <li><strong>Article 226-13 du Code pénal</strong> — Secret professionnel</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
