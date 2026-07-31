@@ -1,33 +1,725 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>SimHygiene · Module 08 DEAS</title><meta name="theme-color" content="#080c14">
-<style>:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#40c878;--amber:#e8a030;--red:#e84040;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;padding-bottom:80px;}.header{background:linear-gradient(135deg,rgba(64,200,120,.15),rgba(64,200,120,.05));border:1px solid rgba(64,200,120,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}.fiche ul{list-style:none;padding:0;}.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}.fiche ul li:last-child{border-bottom:none;}.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}.memo{background:rgba(64,200,120,.06);border:1px solid rgba(64,200,120,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(64,200,120,.1);color:var(--em);border:1px solid rgba(64,200,120,.2);margin:2px;}.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}</style></head>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisHygiene-AS · Module 08 · Bloc 4</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-num.green{background:var(--green);}
+.step-num.orange{background:var(--orange);}
+.step-num.red{background:var(--red);}
+.step-body{padding:6px 0 16px;flex:1;}
+.step-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.step-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.step-body .as-do{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.step-body .as-dont{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+/* DÉCHETS */
+.dechet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:480px){.dechet-grid{grid-template-columns:1fr;}}
+.dechet-card{background:#fff;border-radius:9px;border:2px solid;padding:14px;box-shadow:var(--shadow);}
+.dechet-card h4{font-size:.84rem;font-weight:700;margin-bottom:6px;}
+.dechet-card p{font-size:.78rem;line-height:1.5;color:var(--text-light);}
+.dechet-card .d-ex{font-size:.75rem;font-style:italic;margin-top:5px;}
+
+/* EPI */
+.epi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+@media(max-width:480px){.epi-grid{grid-template-columns:1fr 1fr;}}
+.epi-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
+.epi-card .epi-icon{font-size:1.6rem;margin-bottom:6px;}
+.epi-card h4{font-size:.79rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.epi-card p{font-size:.72rem;color:var(--text-light);line-height:1.4;}
+.epi-card .epi-quand{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);}
+
+/* BMR */
+.bmr-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:10px;}
+.bmr-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+.bmr-table td{padding:7px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;line-height:1.5;}
+.bmr-table tr:nth-child(even) td{background:var(--blue-light);}
+
+/* AES */
+.aes-steps{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.aes-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;border:1px solid var(--gray-border);background:#fff;}
+.aes-step .as-num{font-size:1.2rem;font-weight:900;color:var(--red);flex-shrink:0;min-width:28px;}
+.aes-step p{font-size:.81rem;line-height:1.55;color:var(--text);}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+</style>
+</head>
 <body>
-<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
-<div class="header"><div class="module-num">MODULE 08 · BLOC 4 · 35 heures</div><h1>SimHygiene</h1><div class="module-info">Entretien des locaux et des materiels - Prevention des risques</div></div>
-<div class="section"><h2>🧹 Protocole de nettoyage-desinfection</h2>
-<div class="fiche"><h3>Ordre obligatoire</h3><ul><li>1. NETTOYER : eliminer les salissures avec detergent</li><li>2. RINCER : eliminer le detergent (qui inactive les desinfectants)</li><li>3. DESINFECTER : appliquer le desinfectant et respecter le temps de contact</li><li>4. RINCER si necessaire (selon le produit)</li><li>5. SECHER : l'humidite favorise la proliferation bacterienne</li></ul></div>
-<div class="alert">⚠️ Desinfection sans nettoyage prealable = INEFFICACE. Le detergent inactive les desinfectants. L'ordre est obligatoire.</div>
-<div class="memo">💡 Technique du S : partir d'un angle propre, avancer par bandes paralleles sans revenir en arriere.</div></div>
-<div class="section"><h2>🗑️ Gestion des DASRI</h2>
-<div class="fiche"><h3>Categories de dechets</h3><ul><li>DASRI (jaune) : tout ce qui a ete en contact avec du sang ou des fluides biologiques</li><li>Perforants (conteneur rigide jaune) : aiguilles, bistouris, lames</li><li>Ordures menageres (noir) : dechets sans risque</li><li>Recyclable (bleu) : papier, carton, plastique propre</li></ul></div>
-<div class="fiche"><h3>Regles DASRI</h3><ul><li>Ne jamais recapuchonner une aiguille a la main</li><li>Fermer le conteneur rigide a 3/4 plein maximum</li><li>Ne jamais comprimer un sac DASRI</li><li>Stocker dans local DASRI sous cle</li><li>Collecte par entreprise agreee</li></ul></div>
-<div class="fiche"><h3>AES - Accident d'Exposition au Sang</h3><ul><li>En cas de piqure : ne pas faire saigner, laver abondamment savon + eau, desinfecter avec Dakin ou alcool</li><li>Signaler immediatement au cadre et medecin du travail</li><li>Traitement prophylactique sous 4 heures si VIH+</li><li>Declaration AT obligatoire</li></ul></div>
-<div class="alert">⚠️ AES = urgence medicale. Declaration OBLIGATOIRE dans les 24h. Traitement antiviral si necessaire sous 4 heures.</div></div>
-<div class="section"><h2>🏷️ Mots cles</h2><div style="padding:8px 0"><span class="tag">DASRI</span><span class="tag">AES</span><span class="tag">Detergent</span><span class="tag">Desinfectant</span><span class="tag">Bionettoyage</span><span class="tag">Conteneur rigide</span><span class="tag">AT</span><span class="tag">Protocole</span></div></div>
 
-<script>document.addEventListener('click',function(){window.parent.postMessage({type:'activite'},'*');});</script>
-<script>window.PRAXIS_APP='SimAs';</script>
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 08 · BLOC 4 · 35h</div>
+    <div>
+      <h1>PraxisHygiene-AS</h1>
+      <p class="subtitle">Entretien des locaux, prévention des infections, DASRI · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('bionettoyage',this)">🧹 Bionettoyage</button>
+    <button class="tab-btn" onclick="showTab('mains',this)">🙌 Hygiène mains</button>
+    <button class="tab-btn" onclick="showTab('epi',this)">🧤 EPI</button>
+    <button class="tab-btn" onclick="showTab('dasri',this)">🗑️ DASRI</button>
+    <button class="tab-btn" onclick="showTab('bmr',this)">🦠 BMR & isolement</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
 
-<!-- Bouton audio -->
-<button id="btn-audio" onclick="lireOnglet()" style="
-  position:fixed;bottom:20px;right:20px;z-index:1000;
-  background:#40a8e0;border:none;border-radius:50px;
-  color:#080c14;font-size:13px;font-weight:800;
-  padding:11px 18px;cursor:pointer;
-  box-shadow:0 4px 16px rgba(64,168,224,.35);
-  font-family:monospace;letter-spacing:.5px;
-  white-space:nowrap;transition:opacity .2s">🔊 Écouter</button>
+<div class="content">
 
-<script src="praxis-audio.js"></script>
+<!-- ===== BIONETTOYAGE ===== -->
+<div id="tab-bionettoyage" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🧹</div>
+    <div>
+      <h2>Le bionettoyage — Nettoyer et désinfecter dans le bon ordre</h2>
+      <p>Le bionettoyage, c'est plus qu'un simple nettoyage. C'est une procédure rigoureuse qui détruit les micro-organismes pour protéger les résidents, les visiteurs et les soignants. L'ordre des étapes est obligatoire.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 08 · Bloc 4 · DEAS 2021</span>
+
+  <div class="card red">
+    <h2>⚠️ La règle absolue — Pourquoi l'ordre est obligatoire</h2>
+    <p style="margin-bottom:10px;">C'est comme se laver les mains : si tu appliques de l'alcool sur des mains sales, ça ne marche pas. Les microbes sont protégés par les salissures.</p>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🚫 Ce qui ne marche PAS</h4>
+        <p>Désinfecter directement sans nettoyer = les salissures protègent les bactéries. Le désinfectant est inactivé par la matière organique.</p>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Ce qui marche</h4>
+        <p>Nettoyer d'abord pour éliminer les salissures, puis désinfecter pour tuer les microbes restants sur une surface propre.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Les 5 étapes du bionettoyage</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>NETTOYER — Éliminer les salissures</strong>
+          <p>Avec un détergent (produit qui décrasse). Enlever toutes les souillures visibles. Sans cette étape, rien ne fonctionne.</p>
+          <div class="as-do">✅ Technique du S : partir d'un coin propre, avancer en bandes parallèles sans revenir en arrière.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>RINCER — Éliminer le détergent</strong>
+          <p>Le détergent résiduel inactive les désinfectants. Il faut le rincer complètement avant l'étape suivante.</p>
+          <div class="as-dont">🚫 Sauter cette étape = la désinfection sera inefficace</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">3</div>
+        <div class="step-body">
+          <strong>DÉSINFECTER — Tuer les microbes</strong>
+          <p>Appliquer le désinfectant et respecter le <strong>temps de contact</strong> indiqué sur le produit (souvent 5 à 15 minutes). Ne pas essuyer avant la fin du temps de contact.</p>
+          <div class="as-do">✅ Lire l'étiquette du produit — chaque désinfectant a son temps de contact obligatoire</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>RINCER si nécessaire</strong>
+          <p>Selon le produit utilisé et la surface. Certains désinfectants ne nécessitent pas de rinçage (lire l'étiquette).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num green">5</div>
+        <div class="step-body">
+          <strong>SÉCHER — Indispensable</strong>
+          <p>L'humidité favorise la prolifération bactérienne. Une surface humide redevient rapidement contaminée.</p>
+          <div class="as-do">✅ Une surface sèche = une surface protégée</div>
+        </div>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Désinfection sans nettoyage préalable = INEFFICACE. L'ordre est obligatoire et non négociable.</div>
+  </div>
+
+  <div class="card green">
+    <h2>🛏️ Entretien de la chambre — Ordre et zones</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📍 Ordre de nettoyage</h4>
+        <ul>
+          <li>Du <strong>plus propre au plus sale</strong></li>
+          <li>Du <strong>haut vers le bas</strong> (poussière tombe)</li>
+          <li>De <strong>l'intérieur vers l'extérieur</strong> de la chambre</li>
+          <li>Toilettes en <strong>dernier</strong> — zone la plus contaminée</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🔄 Fréquence d'entretien</h4>
+        <ul>
+          <li>Entretien quotidien : sol, surfaces de contact, sanitaires</li>
+          <li>Entretien hebdomadaire : mobilier, dessus des armoires</li>
+          <li>Entretien terminal : sortie du résident (chambre entière)</li>
+          <li>Entretien spécifique : après isolement (protocole renforcé)</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Matériels à entretenir quotidiennement</h3>
+    <ul>
+      <li>Barrières du lit, télécommande, sonnette — très touchés par les mains</li>
+      <li>Table de nuit, table de repas</li>
+      <li>Poignées de porte, interrupteurs</li>
+      <li>Bassin, urinal, chaise percée — après chaque usage</li>
+      <li>Fauteuil roulant si utilisé</li>
+    </ul>
+  </div>
+
+  <div class="card orange">
+    <h2>🧴 Détergent vs Désinfectant — Ne pas confondre</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🧼 Détergent</h4>
+        <p>Nettoie et décrasse — enlève les salissures. Ne tue pas les microbes. Exemples : produit ménager, savon liquide, produit multi-surfaces.</p>
+      </div>
+      <div class="cell">
+        <h4>🧪 Désinfectant</h4>
+        <p>Tue les microbes — ne nettoie pas. Exemples : Dakin, alcool, Javel (dilué), ammonium quaternaire.</p>
+      </div>
+      <div class="cell">
+        <h4>🔵 Détergent-désinfectant</h4>
+        <p>Produit combiné qui nettoie ET désinfecte en une étape. Gain de temps mais moins efficace qu'en deux étapes séparées.</p>
+      </div>
+      <div class="cell">
+        <h4>⚠️ Erreurs fréquentes</h4>
+        <ul>
+          <li>Mélanger Javel et produit acide = gaz toxique</li>
+          <li>Dilution incorrecte = produit inefficace</li>
+          <li>Produit périmé = efficacité réduite</li>
+          <li>Mauvais produit pour la surface = détérioration</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Ne jamais mélanger les produits d'entretien entre eux sans vérifier la compatibilité. Javel + acide = dégagement de chlore gazeux dangereux.</div>
+  </div>
+</div>
+
+<!-- ===== HYGIÈNE DES MAINS ===== -->
+<div id="tab-mains" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🙌</div>
+    <div>
+      <h2>Hygiène des mains — Le geste le plus important</h2>
+      <p>80 % des infections nosocomiales se transmettent par les mains. Le lavage des mains est le geste de prévention le plus simple, le plus efficace et le moins respecté. Chaque AS le fait des dizaines de fois par jour.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 08 · Bloc 4 · DEAS 2021 — Recommandations OMS</span>
+
+  <div class="card">
+    <h2>⏱️ Les 5 moments de l'OMS</h2>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;">
+      <div style="background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--blue-dark);">1</div>
+        <div style="font-size:.71rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;">Avant de toucher le patient</div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--blue-dark);">2</div>
+        <div style="font-size:.71rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;">Avant un geste aseptique</div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--blue-dark);">3</div>
+        <div style="font-size:.71rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;">Après risque d'exposition aux liquides bio</div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--blue-dark);">4</div>
+        <div style="font-size:.71rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;">Après avoir touché le patient</div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #b3d0f0;">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--blue-dark);">5</div>
+        <div style="font-size:.71rem;color:var(--blue-dark);margin-top:4px;line-height:1.35;">Après avoir touché l'environnement du patient</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>💧 SHA vs Lavage au savon — Quand utiliser quoi</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ SHA — Solution Hydro-Alcoolique</h4>
+        <ul>
+          <li>Utilisation <strong>préférentielle</strong> dans les soins</li>
+          <li>30 secondes de friction jusqu'à séchage complet</li>
+          <li>Toutes les surfaces des mains : paumes, dos, espaces inter-digitaux, pouces, ongles</li>
+          <li>Ne pas rincer</li>
+          <li>Plus efficace que le savon sur la plupart des bactéries</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🚿 Lavage au savon OBLIGATOIRE si</h4>
+        <ul>
+          <li>Mains <strong>visiblement souillées</strong></li>
+          <li><strong>Clostridium difficile</strong> (SHA inefficace sur les spores)</li>
+          <li><strong>Norovirus</strong> (SHA inefficace)</li>
+          <li>Sortie des toilettes</li>
+          <li>Avant et après le repas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ SHA inefficace sur C. difficile et Norovirus — lavage au savon obligatoire dans ces cas. Appliquer de la SHA sur des mains souillées = inefficace.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>💅 Les règles des mains soignantes</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🚫 Interdit en service</h4>
+        <ul>
+          <li>Ongles longs (nid à microbes sous les ongles)</li>
+          <li>Ongles vernis ou semi-permanents</li>
+          <li>Faux ongles (impossible à désinfecter)</li>
+          <li>Bagues, bracelets, montre (les microbes se cachent dessous)</li>
+          <li>Crèmes grasses avant le soin (inactivent la SHA)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ À maintenir</h4>
+        <ul>
+          <li>Ongles courts, propres, non vernis</li>
+          <li>Pas de bijoux aux mains et aux poignets</li>
+          <li>Hydratation des mains après le service (prévenir les crevasses)</li>
+          <li>Signaler toute plaie sur les mains à l'encadrement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EPI ===== -->
+<div id="tab-epi" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🧤</div>
+    <div>
+      <h2>Les EPI — Équipements de Protection Individuelle</h2>
+      <p>Les EPI protègent à la fois le soignant et le patient. Chaque équipement a ses indications précises — en mettre trop est du gaspillage, en mettre pas assez est dangereux.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 08 · Bloc 4 · DEAS 2021 — Précautions standard</span>
+
+  <div class="epi-grid">
+    <div class="epi-card">
+      <div class="epi-icon">🧤</div>
+      <h4>Gants à usage unique</h4>
+      <p>Non stériles pour soins courants. Stériles pour soins invasifs.</p>
+      <span class="epi-quand">Tout contact avec sang, liquides biologiques, muqueuses, peau lésée</span>
+    </div>
+    <div class="epi-card">
+      <div class="epi-icon">🥼</div>
+      <h4>Tablier / surblouse</h4>
+      <p>Protège la tenue soignante des projections.</p>
+      <span class="epi-quand">Soins avec risque de projection, isolement contact</span>
+    </div>
+    <div class="epi-card">
+      <div class="epi-icon">😷</div>
+      <h4>Masque chirurgical</h4>
+      <p>Protège contre les gouttelettes. Porté par le soignant ou le patient.</p>
+      <span class="epi-quand">Soins ORL, toux, isolement gouttelettes</span>
+    </div>
+    <div class="epi-card">
+      <div class="epi-icon">😮</div>
+      <h4>Masque FFP2</h4>
+      <p>Protection renforcée contre les aérosols. Plus filtrant que le chirurgical.</p>
+      <span class="epi-quand">Tuberculose, isolement air, aérosols infectieux</span>
+    </div>
+    <div class="epi-card">
+      <div class="epi-icon">🥽</div>
+      <h4>Lunettes / visière</h4>
+      <p>Protège les yeux des projections de liquides biologiques.</p>
+      <span class="epi-quand">Risque de projection (soin bucco-dentaire, aspiration, vomissement)</span>
+    </div>
+    <div class="epi-card">
+      <div class="epi-icon">👢</div>
+      <h4>Surbottes / protège-chaussures</h4>
+      <p>Protège les chaussures des contaminations au sol.</p>
+      <span class="epi-quand">Certains isolements — selon protocole établissement</span>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>📋 Ordre d'habillage et de déshabillage</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🔼 Ordre d'habillage</h4>
+        <ol style="padding-left:18px;margin-top:6px;font-size:.79rem;line-height:1.7;">
+          <li>SHA</li>
+          <li>Surblouse / tablier</li>
+          <li>Masque</li>
+          <li>Lunettes si nécessaire</li>
+          <li>Gants (en dernier)</li>
+        </ol>
+      </div>
+      <div class="cell">
+        <h4>🔽 Ordre de déshabillage (zone contaminée → propre)</h4>
+        <ol style="padding-left:18px;margin-top:6px;font-size:.79rem;line-height:1.7;">
+          <li>Gants (en premier — les plus contaminés)</li>
+          <li>SHA</li>
+          <li>Lunettes</li>
+          <li>Surblouse / tablier</li>
+          <li>Masque (en dernier — tenir par les élastiques)</li>
+          <li>SHA</li>
+        </ol>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Les gants s'enlèvent EN PREMIER lors du déshabillage — ce sont les plus contaminés. Ne jamais toucher son visage avec les gants, même "propres". Changer de gants entre deux patients.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🧤 Les gants — Erreurs fréquentes</h2>
+    <ul>
+      <li><strong>Les gants ne remplacent pas le lavage des mains</strong> — SHA avant ET après les gants</li>
+      <li>Un gant percé = protection nulle → changer immédiatement</li>
+      <li>Ne jamais réutiliser des gants à usage unique</li>
+      <li>Ne pas mettre de gants pour tout — le sur-usage crée une fausse sécurité et abîme les mains</li>
+      <li>Vérifier l'absence d'allergie au latex (proposer des gants nitrile si allergie)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DASRI ===== -->
+<div id="tab-dasri" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🗑️</div>
+    <div>
+      <h2>DASRI et AES — Gestion des déchets et accidents</h2>
+      <p>Les DASRI (Déchets d'Activités de Soins à Risques Infectieux) sont dangereux s'ils sont mal triés. Un AES (Accident d'Exposition au Sang) est une urgence médicale. Les deux nécessitent des procédures précises.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 08 · Bloc 4 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🗑️ Le tri des déchets — Quel déchet dans quelle poubelle</h2>
+    <div class="dechet-grid">
+      <div class="dechet-card" style="border-color:#f0c040;">
+        <h4 style="color:#b07800;">🟡 Sac jaune — DASRI</h4>
+        <p>Tout ce qui a été en contact avec du sang ou des liquides biologiques.</p>
+        <div class="d-ex">Compresses souillées, gants contaminés, protections souillées, tubulures usagées, poches de perfusion vides</div>
+      </div>
+      <div class="dechet-card" style="border-color:#f08040;">
+        <h4 style="color:#c05010;">🟠 Conteneur rigide jaune — Perforants</h4>
+        <p>Tout objet piquant ou tranchant ayant été en contact avec du patient.</p>
+        <div class="d-ex">Aiguilles, bistouris, lames, lancettes de glycémie, cathéters</div>
+      </div>
+      <div class="dechet-card" style="border-color:#606060;">
+        <h4 style="color:#303030;">⚫ Sac noir — Ordures ménagères</h4>
+        <p>Déchets sans risque infectieux.</p>
+        <div class="d-ex">Emballages propres, papier non souillé, restes alimentaires, gants non contaminés</div>
+      </div>
+      <div class="dechet-card" style="border-color:#4080f0;">
+        <h4 style="color:#2050c0;">🔵 Sac bleu — Recyclable</h4>
+        <p>Papier, carton, plastique propre (sans contact avec le patient).</p>
+        <div class="d-ex">Boîtes de médicaments vides, journaux, emballages cartonnés propres</div>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Un objet piquant ou tranchant NE VA JAMAIS dans un sac souple — risque de blessure pour le personnel de collecte. Conteneur rigide OBLIGATOIRE.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>📋 Règles de gestion des DASRI</h2>
+    <ul>
+      <li>Ne <strong>jamais recapuchonner</strong> une aiguille à la main — technique à une main si nécessaire</li>
+      <li>Fermer le conteneur rigide dès qu'il est rempli aux <strong>3/4</strong> — jamais forcer</li>
+      <li>Ne <strong>jamais comprimer</strong> un sac DASRI</li>
+      <li>Stocker dans le <strong>local DASRI fermé à clé</strong></li>
+      <li>Collecte par une <strong>entreprise agréée</strong> — traçabilité obligatoire</li>
+      <li>Sac DASRI fermé dès qu'il est aux 3/4 plein</li>
+      <li>Ne jamais transporter un sac DASRI ouvert dans les couloirs</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h2>🩸 AES — Accident d'Exposition au Sang</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">Un AES survient lors d'une piqûre, coupure, projection de sang ou de liquide biologique sur une muqueuse (yeux, bouche) ou une plaie. C'est une urgence médicale.</p>
+
+    <div class="aes-steps">
+      <div class="aes-step">
+        <div class="as-num">1</div>
+        <p><strong>Ne pas faire saigner</strong> — contrairement aux idées reçues, faire saigner n'élimine pas les virus. Cela peut aggraver la plaie.</p>
+      </div>
+      <div class="aes-step">
+        <div class="as-num">2</div>
+        <p><strong>Laver abondamment</strong> à l'eau et au savon pendant 5 minutes. Pour les yeux : rincer au sérum physiologique ou à l'eau pendant 5 minutes.</p>
+      </div>
+      <div class="aes-step">
+        <div class="as-num">3</div>
+        <p><strong>Désinfecter</strong> avec Dakin ou alcool à 70° pendant 5 minutes minimum. Pour les muqueuses : pas d'alcool — rincer abondamment à l'eau.</p>
+      </div>
+      <div class="aes-step">
+        <div class="as-num">4</div>
+        <p><strong>Signaler immédiatement</strong> au cadre et à l'IDE. Se rendre aux urgences ou chez le médecin du travail dans les 4 heures.</p>
+      </div>
+      <div class="aes-step">
+        <div class="as-num">5</div>
+        <p><strong>Traitement prophylactique antiviral</strong> si risque VIH — doit être initié dans les 4 heures pour être efficace. Le médecin évalue le risque.</p>
+      </div>
+      <div class="aes-step">
+        <div class="as-num">6</div>
+        <p><strong>Déclaration d'Accident du Travail obligatoire</strong> dans les 24 heures. Conserve les droits à la prise en charge si infection ultérieure.</p>
+      </div>
+    </div>
+    <div class="alert-banner">🚨 AES = urgence médicale. Les 4 premières heures sont décisives pour le traitement préventif VIH. Ne jamais attendre "pour voir".</div>
+  </div>
+</div>
+
+<!-- ===== BMR & ISOLEMENT ===== -->
+<div id="tab-bmr" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🦠</div>
+    <div>
+      <h2>BMR, BHRe et isolement</h2>
+      <p>Certaines bactéries résistent aux antibiotiques — on les appelle BMR (Bactéries Multi-Résistantes) ou BHRe (Bactéries Hautement Résistantes émergentes). Elles nécessitent des précautions particulières pour éviter leur propagation.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 08 · Bloc 4 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🦠 Les BMR — Ce que l'AS doit savoir</h2>
+    <table class="bmr-table">
+      <tr><th>Nom</th><th>En clair</th><th>Transmission</th><th>Risque</th></tr>
+      <tr><td><strong>SARM</strong></td><td>Staphylocoque doré résistant à la méticilline</td><td>Contact (mains, surfaces)</td><td>Infections cutanées, pulmonaires, osseuses</td></tr>
+      <tr><td><strong>EBLSE</strong></td><td>Entérobactéries productrices de bêtalactamase</td><td>Contact (mains, selles)</td><td>Infections urinaires, digestives</td></tr>
+      <tr><td><strong>ERV</strong></td><td>Entérocoque résistant aux glycopeptides</td><td>Contact (mains, surfaces)</td><td>Infections urinaires, bactériémies</td></tr>
+      <tr><td><strong>C. difficile</strong></td><td>Clostridium difficile</td><td>Voie féco-orale, spores résistantes</td><td>Diarrhées sévères, colite</td></tr>
+    </table>
+    <div class="info-banner">💡 La présence d'une BMR n'est pas une maladie en soi — c'est un portage. La personne peut très bien ne pas être malade mais transmettre la bactérie à d'autres plus fragiles.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🚪 Les types d'isolement — Ce que ça change pour l'AS</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✋ Isolement contact</h4>
+        <ul>
+          <li>Pour : BMR, gale, C. difficile</li>
+          <li>Chambre individuelle obligatoire</li>
+          <li>Gants + surblouse à chaque entrée</li>
+          <li>Matériel dédié (thermomètre, tensiomètre)</li>
+          <li>Lavage au savon obligatoire (C. difficile)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>💨 Isolement gouttelettes</h4>
+        <ul>
+          <li>Pour : grippe, méningite, Covid</li>
+          <li>Chambre individuelle ou cohorting</li>
+          <li>Masque chirurgical à l'entrée</li>
+          <li>Masque pour le patient si déplacement</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🌬️ Isolement air</h4>
+        <ul>
+          <li>Pour : tuberculose, varicelle, rougeole</li>
+          <li>Chambre à pression négative si possible</li>
+          <li>Masque FFP2 obligatoire</li>
+          <li>Porte fermée en permanence</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🛡️ Isolement protecteur</h4>
+        <ul>
+          <li>Pour : patients immunodéprimés</li>
+          <li>Protège le patient des microbes extérieurs</li>
+          <li>Masque chirurgical ET gants pour soignant</li>
+          <li>Pas de fleurs, pas de fruits frais</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Les précautions d'isolement s'appliquent à TOUS les soignants sans exception — même pour "entrer juste 2 secondes". La bactérie ne sait pas que c'était rapide.</div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Les précautions STANDARD — Pour tous les patients, toujours</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Les précautions standard s'appliquent à TOUS les patients, même sans BMR connue. On ne sait jamais qui est porteur.</p>
+    <ul>
+      <li>Hygiène des mains selon les 5 moments OMS</li>
+      <li>Port de gants si contact avec sang ou liquide biologique</li>
+      <li>Port de masque si risque de projection</li>
+      <li>Élimination des déchets dans les contenants adaptés</li>
+      <li>Nettoyage et désinfection du matériel entre chaque patient</li>
+      <li>Ne jamais recapuchonner une aiguille à la main</li>
+    </ul>
+    <div class="ok-banner">✅ Précautions standard = le minimum pour TOUS. Précautions complémentaires = en plus, pour les cas particuliers (BMR, isolement).</div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Hygiène et prévention des infections</h2>
+      <p>10 questions sur le bionettoyage, l'hygiène des mains, les EPI, les DASRI et les BMR.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div>
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"Vous devez désinfecter la table de nuit de M. Dupont. Dans quel ordre procédez-vous ?",opts:["Désinfecter directement — c'est plus rapide","Nettoyer avec détergent → rincer → désinfecter → sécher","Désinfecter → nettoyer → sécher","Nettoyer → désinfecter sans rincer entre les deux"],correct:1,expl:"L'ordre est obligatoire : nettoyer (détergent), rincer (le détergent inactiverait le désinfectant), désinfecter (respecter le temps de contact), sécher (l'humidité favorise la repousse bactérienne). Désinfecter sans nettoyer = inefficace car les salissures protègent les microbes."},
+  {q:"Vous venez de changer la protection souillée de Mme Aubert. Selon les 5 moments OMS, quelle est votre prochaine action ?",opts:["Passer au résident suivant directement","Friction SHA après avoir retiré les gants","Mettre de nouveaux gants pour le prochain soin","Remplir le dossier de soins"],correct:1,expl:"Les 5 moments OMS : après tout contact avec le patient et son environnement → SHA obligatoire. La séquence correcte est : retirer les gants EN PREMIER (les plus contaminés), puis friction SHA avant de passer au patient suivant ou de toucher quoi que ce soit."},
+  {q:"Dans quel cas le lavage au savon est-il OBLIGATOIRE plutôt que la SHA ?",opts:["Toujours — le savon est plus efficace","Jamais — la SHA suffit toujours","En cas de Clostridium difficile, de Norovirus, ou si les mains sont visiblement souillées","Seulement si on a le temps"],correct:2,expl:"La SHA est inefficace sur les spores de C. difficile et le Norovirus. Dans ces cas, et si les mains sont visiblement souillées ou en sortant des toilettes, le lavage au savon est obligatoire. Pour tout le reste, la SHA est préférentielle car plus efficace et moins agressante pour la peau."},
+  {q:"Après un soin, vous trouvez une aiguille traînant sur le chariot. Que faites-vous ?",opts:["La ramasser à la main et la jeter dans la poubelle noire","La recapuchonner puis la mettre dans le conteneur rigide","La saisir avec une pince ou une compresse et la déposer directement dans le conteneur rigide jaune","La laisser — ce n'est pas votre rôle"],correct:2,expl:"Les aiguilles vont TOUJOURS dans le conteneur rigide jaune — jamais dans un sac souple. On ne recapuchonne jamais à la main (risque de piqûre). On saisit l'aiguille avec une protection (pince, compresse) et on la dépose directement dans le conteneur sans la recapuchonner."},
+  {q:"Vous vous piquez accidentellement avec une aiguille souillée. Votre première action est :",opts:["Faire saigner la plaie abondamment","Ne pas faire saigner — laver à l'eau et au savon 5 minutes, désinfecter, et signaler immédiatement","Mettre un pansement et finir votre service avant de signaler","Attendre de voir si une infection se développe"],correct:1,expl:"Contrairement aux idées reçues, faire saigner n'élimine pas les virus. La procédure AES : ne pas faire saigner, laver eau + savon 5 min, désinfecter (Dakin ou alcool 70°), signaler immédiatement au cadre, se rendre aux urgences ou médecin du travail dans les 4 heures (traitement préventif VIH si nécessaire)."},
+  {q:"M. Bernard est en isolement contact pour SARM. Vous entrez dans sa chambre pour lui apporter son repas. Que devez-vous porter ?",opts:["Rien — c'est juste pour apporter le repas","Juste des gants — le masque n'est pas nécessaire","Gants ET surblouse obligatoirement — même pour une courte durée","Gants, surblouse et masque FFP2"],correct:2,expl:"L'isolement contact exige gants + surblouse pour TOUTE entrée dans la chambre, quelle que soit la durée ou le motif. Le SARM se transmet par contact — même apporter un plateau peut suffire à contaminer les mains et la tenue si non protégé."},
+  {q:"Quelle est la différence entre un détergent et un désinfectant ?",opts:["Ce sont deux mots pour la même chose","Le détergent nettoie mais ne tue pas les microbes. Le désinfectant tue les microbes mais ne nettoie pas","Le détergent est plus puissant que le désinfectant","Le désinfectant peut s'utiliser sans détergent si on appuie fort"],correct:1,expl:"Le détergent nettoie (élimine les salissures) mais ne désinfecte pas. Le désinfectant tue les microbes mais ne nettoie pas. C'est pourquoi les deux étapes sont nécessaires dans cet ordre : nettoyer d'abord pour que le désinfectant puisse agir sur une surface propre."},
+  {q:"Dans quel ordre doit-on retirer ses EPI après un soin en isolement contact ?",opts:["Masque en premier car il gêne la respiration","Gants en premier — ce sont les plus contaminés — puis SHA, surblouse, masque, SHA","Surblouse, gants, masque, SHA","N'importe quel ordre si on fait une SHA à la fin"],correct:1,expl:"L'ordre de déshabillage va du plus contaminé au moins contaminé : gants (plus contaminés) → SHA → lunettes → surblouse/tablier → masque (tenir par les élastiques, ne jamais toucher la face avant) → SHA. Cet ordre évite de contaminer le visage et les zones propres avec les gants ou la surblouse souillés."},
+  {q:"Le conteneur rigide pour perforants doit être fermé quand :",opts:["Il est complètement plein","Il est rempli aux 3/4 maximum","À la fin de chaque service, quelle que soit son état de remplissage","Quand l'IDE le demande"],correct:1,expl:"Le conteneur rigide se ferme aux 3/4 plein — jamais complètement plein. Un conteneur trop rempli devient impossible à fermer correctement et dangereux à manipuler. Il ne faut jamais forcer ou comprimer le contenu pour en mettre plus."},
+  {q:"Mme L. est hospitalisée pour tuberculose pulmonaire. Quel masque devez-vous porter pour entrer dans sa chambre ?",opts:["Aucun masque — la tuberculose ne se transmet pas par l'air","Masque chirurgical classique","Masque FFP2 obligatoirement","Masque FFP2 seulement si elle tousse"],correct:2,expl:"La tuberculose pulmonaire est une infection aéroportée — elle se transmet via de très fines particules en suspension dans l'air (aérosols). Le masque chirurgical ne filtre pas les aérosols. Le masque FFP2 est obligatoire pour toute personne entrant dans la chambre, que la patiente tousse ou non."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 08 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.step-body strong,.step-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
 <script src="praxiscare-feedback.js"></script>
-</body></html>
+</body>
+</html>
+
