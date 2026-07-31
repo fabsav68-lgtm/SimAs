@@ -1,20 +1,670 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>SimInfos · Module 09 DEAS</title><meta name="theme-color" content="#080c14">
-<style>:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#e8a840;--red:#e84040;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;}.header{background:linear-gradient(135deg,rgba(232,168,64,.15),rgba(232,168,64,.05));border:1px solid rgba(232,168,64,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}.section h2{font-size:14px;color:var(--em);margin-bottom:12px;}.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}.fiche h3{font-size:13px;color:var(--em);margin-bottom:8px;}.fiche ul{list-style:none;padding:0;}.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}.fiche ul li:last-child{border-bottom:none;}.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}.memo{background:rgba(232,168,64,.06);border:1px solid rgba(232,168,64,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(232,168,64,.1);color:var(--em);border:1px solid rgba(232,168,64,.2);margin:2px;}.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}</style></head>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisInformations-AS · Module 09 · Bloc 5</title>
+<style>
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+/* DOSSIER */
+.dossier-zones{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.dossier-zones{grid-template-columns:1fr;}}
+.dossier-zone{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.dossier-zone .dz-icon{font-size:1.3rem;margin-bottom:6px;}
+.dossier-zone h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.dossier-zone p{font-size:.77rem;line-height:1.5;color:var(--text-light);}
+.dossier-zone .dz-as{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:10px;font-size:.71rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark);}
+
+/* DAR */
+.dar-example{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px;}
+.dar-example .de-header{padding:10px 16px;font-size:.82rem;font-weight:700;}
+.dar-row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:10px 16px;border-top:1px solid var(--gray-border);align-items:start;}
+.dar-letter{font-size:1.4rem;font-weight:900;min-width:32px;text-align:center;}
+.dar-content h4{font-size:.8rem;font-weight:700;margin-bottom:3px;}
+.dar-content p{font-size:.78rem;color:var(--text-light);line-height:1.55;}
+.dar-content .dc-ex{background:var(--gray-bg);border-radius:5px;padding:5px 10px;margin-top:4px;font-size:.77rem;color:var(--text);font-style:italic;}
+
+/* TRANSMISSIONS ORALES */
+.sbar-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.sbar-grid{grid-template-columns:1fr;}}
+.sbar-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.sbar-card .sc-letter{font-size:1.6rem;font-weight:900;color:var(--blue);margin-bottom:4px;}
+.sbar-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.sbar-card p{font-size:.77rem;color:var(--text-light);line-height:1.5;}
+.sbar-card .sc-ex{font-size:.75rem;color:var(--blue-dark);background:var(--blue-light);border-radius:5px;padding:5px 8px;margin-top:6px;font-style:italic;}
+
+/* SECRET */
+.secret-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.secret-grid{grid-template-columns:1fr;}}
+.secret-ok{background:#e6f4ee;border-radius:9px;padding:14px;border:1.5px solid #a5d6b5;}
+.secret-non{background:#fdecea;border-radius:9px;padding:14px;border:1.5px solid #ef9a9a;}
+.secret-ok h4{font-size:.83rem;font-weight:700;color:#1e7a45;margin-bottom:8px;}
+.secret-non h4{font-size:.83rem;font-weight:700;color:var(--red);margin-bottom:8px;}
+.secret-ok li,.secret-non li{font-size:.79rem;line-height:1.6;margin-bottom:3px;}
+.secret-ok ul,.secret-non ul{padding-left:14px;}
+
+/* TRAÇABILITÉ */
+.trace-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:10px;}
+.trace-table th{background:var(--blue);color:#fff;padding:8px 10px;text-align:left;font-weight:700;}
+.trace-table td{padding:7px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;line-height:1.5;}
+.trace-table tr:nth-child(even) td{background:var(--blue-light);}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+</style>
+</head>
 <body>
-<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
-<div class="header"><div class="module-num">MODULE 09 · BLOC 5 · 35 heures</div><h1>SimInfos</h1><div class="module-info">Traitement des informations liees aux activites de soins</div></div>
-<div class="section"><h2>📋 Le dossier de soins</h2>
-<div class="fiche"><h3>Contenu du dossier patient</h3><ul><li>Informations administratives : identite, droits, tutelle</li><li>Antecedents medicaux et chirurgicaux</li><li>Prescriptions medicales et infirmieres</li><li>Transmissions des soins : observations, actes realises</li><li>Resultats d'examens</li><li>Projet de soins et projet de vie</li></ul></div>
-<div class="fiche"><h3>Regles de tracabilite</h3><ul><li>Toujours dater et signer ses transmissions</li><li>Ecrire en temps reel ou immediatement apres le soin</li><li>Observations objectives uniquement : ce que vous avez vu, mesure, entendu</li><li>Pas d'interpretations ni de jugements de valeur</li><li>Utiliser le vocabulaire professionnel</li><li>Ne jamais effacer - rayer avec une seule ligne si erreur</li></ul></div></div>
-<div class="section"><h2>🔒 Secret professionnel</h2>
-<div class="fiche"><h3>Principes</h3><ul><li>Toute information sur le patient est confidentielle</li><li>Ne jamais parler d'un patient dans un lieu public (ascenseur, couloir, cafeteria)</li><li>Ne pas divulguer d'informations a la famille sans accord du patient</li><li>Le secret est partage au sein de l'equipe soignante uniquement</li><li>Violation du secret professionnel = sanction penale</li></ul></div>
-<div class="alert">⚠️ Parler d'un patient dans un lieu public = violation du secret professionnel = faute professionnelle.</div></div>
-<div class="section"><h2>💻 Outils numeriques</h2>
-<div class="fiche"><h3>DPI - Dossier Patient Informatise</h3><ul><li>Identifiant et mot de passe personnels = responsabilite individuelle</li><li>Ne jamais preter ses identifiants</li><li>Se deconnecter apres chaque utilisation</li><li>Les acces sont traces et audites</li></ul></div>
-<div class="memo">💡 RGPD : les donnees de sante sont des donnees sensibles a protection renforcee. Toute violation = signalement obligatoire.</div></div>
-<div class="section"><h2>🏷️ Mots cles</h2><div style="padding:8px 0"><span class="tag">Dossier de soins</span><span class="tag">Tracabilite</span><span class="tag">Secret professionnel</span><span class="tag">DPI</span><span class="tag">RGPD</span><span class="tag">Transmission</span><span class="tag">Observation objective</span></div></div>
-<script>document.addEventListener('click',function(){window.parent.postMessage({type:'activite'},'*');});</script>
-<script>window.PRAXIS_APP='SimAs';</script>
+
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 09 · BLOC 5 · 35h</div>
+    <div>
+      <h1>PraxisInformations-AS</h1>
+      <p class="subtitle">Dossier de soins · Transmissions · Secret professionnel · Traçabilité · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('dossier',this)">📋 Dossier de soins</button>
+    <button class="tab-btn" onclick="showTab('ecrit',this)">✍️ Transmissions écrites</button>
+    <button class="tab-btn" onclick="showTab('oral',this)">🗣️ Transmissions orales</button>
+    <button class="tab-btn" onclick="showTab('secret',this)">🔒 Secret professionnel</button>
+    <button class="tab-btn" onclick="showTab('trace',this)">📊 Traçabilité</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== DOSSIER DE SOINS ===== -->
+<div id="tab-dossier" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">📋</div>
+    <div>
+      <h2>Le dossier de soins — La mémoire du patient</h2>
+      <p>Le dossier de soins, c'est la trace écrite de tout ce qui concerne le patient — son état, ses soins, son évolution. Sans lui, chaque soignant repart de zéro à chaque prise de poste. L'AS y contribue à chaque soin.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🗂️ Ce que contient le dossier patient — Les grandes zones</h2>
+    <div class="dossier-zones">
+      <div class="dossier-zone">
+        <div class="dz-icon">🪪</div>
+        <h4>Informations administratives</h4>
+        <p>Identité, date de naissance, numéro de sécurité sociale, médecin traitant, contacts famille, droits (tutelle, curatelle), directives anticipées.</p>
+        <span class="dz-as">AS : consulte pour identifier le bon patient</span>
+      </div>
+      <div class="dossier-zone">
+        <div class="dz-icon">🩺</div>
+        <h4>Dossier médical</h4>
+        <p>Antécédents, pathologies, allergies, prescriptions médicales, résultats d'examens, compte-rendu opératoire. Rédigé par le médecin.</p>
+        <span class="dz-as">AS : consulte les allergies avant les soins</span>
+      </div>
+      <div class="dossier-zone">
+        <div class="dz-icon">💊</div>
+        <h4>Prescriptions infirmières</h4>
+        <p>Plan de soins IDE, prescriptions de paramètres, traitements délégués, protocoles spécifiques.</p>
+        <span class="dz-as">AS : consulte le plan de soins chaque matin</span>
+      </div>
+      <div class="dossier-zone">
+        <div class="dz-icon">📝</div>
+        <h4>Transmissions AS</h4>
+        <p>Observations lors des soins, paramètres mesurés, comportements notables, refus, incidents. C'est la zone de contribution principale de l'AS.</p>
+        <span class="dz-as">AS : rédige à chaque observation significative</span>
+      </div>
+      <div class="dossier-zone">
+        <div class="dz-icon">🎯</div>
+        <h4>Projet de vie / Projet de soins</h4>
+        <p>Habitudes de vie, préférences, objectifs de rééducation, souhaits de fin de vie. Construit avec la personne.</p>
+        <span class="dz-as">AS : consulte avant chaque soin personnalisé</span>
+      </div>
+      <div class="dossier-zone">
+        <div class="dz-icon">📊</div>
+        <h4>Feuilles de surveillance</h4>
+        <p>Paramètres vitaux, bilan entrées/sorties, grilles d'évaluation (Morse, Braden, douleur), courbe de poids.</p>
+        <span class="dz-as">AS : saisit les valeurs mesurées</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>⚖️ Le cadre juridique du dossier patient</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📜 Textes de référence</h4>
+        <ul>
+          <li>Loi 2002-2 — droits des usagers, accès au dossier</li>
+          <li>Code de la santé publique — articles L1111-7 et suivants</li>
+          <li>RGPD — protection des données personnelles de santé</li>
+          <li>Arrêté du 10 juin 2021 (DEAS) — rôle AS dans la traçabilité</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>👤 Qui peut accéder au dossier</h4>
+        <ul>
+          <li>Le patient lui-même (accès direct sur demande)</li>
+          <li>Les professionnels de santé qui le prennent en charge</li>
+          <li>La famille uniquement avec accord explicite du patient</li>
+          <li>En cas de décès : ayants droit sous conditions</li>
+          <li>Pas les collègues qui ne sont pas en charge du patient</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-banner">💡 Le dossier patient est conservé 20 ans minimum après le dernier séjour (80 ans pour les mineurs). Il appartient à l'établissement mais le patient y a accès à tout moment.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>📋 Dossier médical vs Dossier de soins — La différence</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🩺 Dossier médical</h4>
+        <ul>
+          <li>Rédigé par le médecin et l'IDE</li>
+          <li>Diagnostics, prescriptions, examens</li>
+          <li>Décisions thérapeutiques</li>
+          <li>Actes techniques</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📝 Dossier de soins AS</h4>
+        <ul>
+          <li>Rédigé par l'AS</li>
+          <li>Observations quotidiennes des soins</li>
+          <li>Paramètres mesurés</li>
+          <li>Comportements, refus, incidents</li>
+          <li>Traçabilité des soins réalisés</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ L'AS ne rédige pas dans le dossier médical. Il contribue au dossier de soins — ses observations sont complémentaires et indispensables à la vision globale du patient.</div>
+  </div>
+</div>
+
+<!-- ===== TRANSMISSIONS ÉCRITES ===== -->
+<div id="tab-ecrit" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✍️</div>
+    <div>
+      <h2>Les transmissions écrites — Ce qu'on écrit et comment</h2>
+      <p>Une transmission écrite, c'est un message à vos collègues qui prendront le relais. Elle doit être lisible, factuelle, datée et utile. Une mauvaise transmission peut conduire à des erreurs de soins.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>📊 La méthode DAR — La transmission ciblée</h2>
+    <div class="dar-example">
+      <div class="de-header" style="background:var(--blue);color:#fff;">💡 DAR — Donnée · Action · Résultat</div>
+      <div class="dar-row">
+        <div class="dar-letter" style="color:var(--blue);">D</div>
+        <div class="dar-content">
+          <h4>Donnée — Ce que j'ai observé</h4>
+          <p>Fait objectif, précis, daté. Pas d'interprétation. Ce que j'ai vu, mesuré, entendu.</p>
+          <div class="dc-ex">"Mme Aubert a refusé son repas du midi — a mangé environ 3 cuillères de purée sur 200g proposées."</div>
+        </div>
+      </div>
+      <div class="dar-row">
+        <div class="dar-letter" style="color:var(--green);">A</div>
+        <div class="dar-content">
+          <h4>Action — Ce que j'ai fait</h4>
+          <p>Ma réponse concrète à l'observation. Ce que j'ai réalisé, proposé, signalé.</p>
+          <div class="dc-ex">"Proposé une collation à 14h (yaourt). Signalé à l'IDE Mme Martin à 12h45."</div>
+        </div>
+      </div>
+      <div class="dar-row">
+        <div class="dar-letter" style="color:var(--orange);">R</div>
+        <div class="dar-content">
+          <h4>Résultat — L'effet observé</h4>
+          <p>Ce qui s'est passé après mon action. L'évolution de la situation.</p>
+          <div class="dc-ex">"A mangé le yaourt en totalité. Dit avoir mal au ventre depuis ce matin. IDE informée — évaluation prévue à 15h."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>⚠️ Ce qu'on n'écrit PAS — Les erreurs classiques</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🚫 Formulations interdites</h4>
+        <ul>
+          <li>"RAS" ou "Rien à signaler" — trop vague, juridiquement inutile</li>
+          <li>"Elle va bien" — non mesurable, subjectif</li>
+          <li>"Elle est de mauvaise humeur" — jugement de valeur</li>
+          <li>"Comme d'habitude" — rien ne prouve l'acte réalisé</li>
+          <li>"Je pense que c'est une infection" — diagnostic hors rôle AS</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Formulations correctes</h4>
+        <ul>
+          <li>"Toilette réalisée à 8h30 — peau intègre sauf rougeur sacrum 2cm"</li>
+          <li>"Refuse de se lever depuis 7h — dit avoir mal à la hanche droite"</li>
+          <li>"Urines foncées, odeur forte — signalé IDE à 9h"</li>
+          <li>"Poids : 62,3 kg (vs 63,1 kg lundi) — perte de 800g en 4 jours"</li>
+          <li>"Pleure pendant la toilette — dit que sa fille ne vient plus la voir"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ En cas d'erreur dans une transmission écrite : ne jamais effacer ou utiliser du blanc correcteur. Rayer d'un trait, écrire "erreur", dater, signer. La suppression d'une donnée médicale est une faute grave.</div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Les règles d'or de la transmission écrite</h2>
+    <ul>
+      <li><strong>Factuel</strong> — ce que j'ai vu, mesuré, entendu — pas ce que je pense</li>
+      <li><strong>Daté et signé</strong> — date, heure précise, nom lisible</li>
+      <li><strong>Immédiat</strong> — noter au plus vite, jamais de mémoire en fin de service</li>
+      <li><strong>Objectif</strong> — pas de jugement, pas de sentiment, pas de diagnostic</li>
+      <li><strong>Utile</strong> — informations que mes collègues ont besoin de savoir</li>
+      <li><strong>Complet</strong> — toute transmission commencée doit être terminée (DAR complet)</li>
+      <li><strong>Lisible</strong> — écriture claire ou saisie numérique sans abréviations non reconnues</li>
+    </ul>
+    <div class="info-banner">💡 Si vous n'avez pas le temps de rédiger une transmission complète immédiatement : noter au moins la Donnée avec l'heure. Compléter Action et Résultat dès que possible — mais pas en fin de service de mémoire.</div>
+  </div>
+</div>
+
+<!-- ===== TRANSMISSIONS ORALES ===== -->
+<div id="tab-oral" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🗣️</div>
+    <div>
+      <h2>Les transmissions orales — Ce qu'on dit et comment</h2>
+      <p>La relève, le staff, la réunion pluripro — l'AS transmet oralement plusieurs fois par jour. Une bonne transmission orale est structurée, concise et factuelle. Elle ne remplace jamais la transmission écrite.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>💬 La méthode SBAR — Structurer sa transmission orale</h2>
+    <div class="sbar-grid">
+      <div class="sbar-card">
+        <div class="sc-letter">S</div>
+        <h4>Situation — Qui et quoi</h4>
+        <p>Identifier le patient et le problème en une phrase.</p>
+        <div class="sc-ex">"Mme Dupont, chambre 12 — je vous appelle car elle n'a pas mangé depuis ce matin et pleure."</div>
+      </div>
+      <div class="sbar-card">
+        <div class="sc-letter">B</div>
+        <h4>Background — Le contexte</h4>
+        <p>Les informations utiles pour comprendre la situation.</p>
+        <div class="sc-ex">"Elle a perdu son mari il y a 3 semaines. Sous antidépresseurs depuis 15 jours. Poids en baisse depuis lundi."</div>
+      </div>
+      <div class="sbar-card">
+        <div class="sc-letter">A</div>
+        <h4>Assessment — Mon observation</h4>
+        <p>Ce que j'ai observé concrètement.</p>
+        <div class="sc-ex">"Elle a mangé 3 cuillères au déjeuner, pleure lors de la toilette, dit ne plus avoir goût à rien."</div>
+      </div>
+      <div class="sbar-card">
+        <div class="sc-letter">R</div>
+        <h4>Recommandation — Ce que je suggère</h4>
+        <p>Ce que je propose comme suite à donner.</p>
+        <div class="sc-ex">"Je pense qu'elle aurait besoin d'être vue par le psychologue. Serait-il possible de la programmer ?"</div>
+      </div>
+    </div>
+    <div class="ok-banner">✅ SBAR n'est pas réservé aux IDE — l'AS l'utilise pour structurer toute transmission à un supérieur ou en réunion. Une transmission non structurée = informations perdues ou mal comprises.</div>
+  </div>
+
+  <div class="card teal">
+    <h2>🔄 La relève — Ce qui se passe et le rôle de l'AS</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📋 Pendant la relève</h4>
+        <ul>
+          <li>L'AS écoute les informations transmises sur ses résidents</li>
+          <li>Il pose des questions si quelque chose n'est pas clair</li>
+          <li>Il apporte ses propres observations si elles sont pertinentes</li>
+          <li>Il note les informations importantes pour sa tournée</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>⚠️ Les erreurs à éviter</h4>
+        <ul>
+          <li>Arriver en retard à la relève</li>
+          <li>Ne pas écouter — rester sur son téléphone</li>
+          <li>Commencer les soins sans avoir pris connaissance des transmissions</li>
+          <li>Ne pas signaler une information importante par oubli ou timidité</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h2>👥 La réunion pluriprofessionnelle — Rôle AS</h2>
+    <p style="margin-bottom:10px;">L'AS participe aux réunions de synthèse ou de staff. Sa voix est indispensable — personne d'autre ne voit les résidents aussi souvent et dans des moments aussi intimes.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>✅ Ce que l'AS apporte</h4>
+        <ul>
+          <li>Observations quotidiennes des soins</li>
+          <li>Évolution du comportement ou de l'humeur</li>
+          <li>Refus ou difficultés rencontrés</li>
+          <li>Changements récents (appétit, mobilité, sommeil)</li>
+          <li>Informations recueillies lors des soins intimes</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>💬 Comment s'exprimer</h4>
+        <ul>
+          <li>"J'ai observé que depuis lundi…"</li>
+          <li>"Ce matin lors de la toilette…"</li>
+          <li>"Elle m'a dit pendant le soin que…"</li>
+          <li>Jamais : "Je pense qu'elle a…" (diagnostic)</li>
+          <li>Toujours : faits datés, observés, objectifs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECRET PROFESSIONNEL ===== -->
+<div id="tab-secret" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🔒</div>
+    <div>
+      <h2>Le secret professionnel — Une obligation légale absolue</h2>
+      <p>Le secret professionnel protège la vie privée des patients. Pour l'AS, c'est une obligation légale — pas une simple recommandation. Il s'applique partout, tout le temps, y compris après la fin du contrat.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021 — Article 226-13 du Code pénal</span>
+
+  <div class="card red">
+    <h2>⚖️ Le cadre légal</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>📜 Article 226-13 du Code pénal</h4>
+        <p style="font-size:.79rem;line-height:1.6;">"La révélation d'une information à caractère secret par une personne qui en est dépositaire soit par état ou par profession, soit en raison d'une fonction ou d'une mission temporaire, est punie d'un an d'emprisonnement et de 15 000 euros d'amende."</p>
+      </div>
+      <div class="cell">
+        <h4>⚠️ Ce que ça signifie pour l'AS</h4>
+        <ul>
+          <li>Tout ce que vous voyez, entendez ou lisez dans le cadre du soin est confidentiel</li>
+          <li>Même après avoir quitté l'établissement</li>
+          <li>Même si la personne est décédée</li>
+          <li>Même si vous pensez que "ce n'est pas grave"</li>
+          <li>Sanction : jusqu'à 1 an de prison + 15 000 € d'amende</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔓 Le secret partagé — Ce qui est autorisé</h2>
+    <p style="margin-bottom:10px;">Le secret n'est pas absolu — il est partagé au sein de l'équipe soignante qui prend en charge le patient.</p>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Partage autorisé</h4>
+        <ul>
+          <li>Avec l'IDE qui coordonne les soins</li>
+          <li>Avec le médecin traitant</li>
+          <li>Avec les autres membres de l'équipe soignante en charge du patient</li>
+          <li>Lors des transmissions et réunions de soins</li>
+          <li>Dans le dossier patient (accès réglementé)</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">🚫 Partage interdit</h4>
+        <ul>
+          <li>À la famille sans accord explicite du patient</li>
+          <li>À des collègues qui ne sont pas en charge du patient</li>
+          <li>Dans les lieux publics (couloir, ascenseur, cafétéria)</li>
+          <li>Sur les réseaux sociaux (même anonymisé)</li>
+          <li>Par SMS, WhatsApp, email personnel</li>
+          <li>À votre entourage personnel (famille, amis)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>👨‍👩‍👧 La famille — Questions fréquentes</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>"Comment va mon père ?"</h4>
+        <p style="margin-top:6px;font-size:.79rem;">Si le patient a donné son accord pour que l'équipe informe sa famille : vous pouvez donner des informations générales sur son état. Sinon : "Je vous invite à en parler directement avec votre père ou avec l'infirmière de service."</p>
+      </div>
+      <div class="cell">
+        <h4>"Montrez-moi son dossier"</h4>
+        <p style="margin-top:6px;font-size:.79rem;">Jamais directement. La demande d'accès au dossier doit être faite par écrit à la direction de l'établissement. L'AS n'a pas le droit d'ouvrir le dossier pour un tiers, même la famille.</p>
+      </div>
+      <div class="cell">
+        <h4>"Il nous a dit que..."</h4>
+        <p style="margin-top:6px;font-size:.79rem;">Ce que la famille dit avoir entendu du patient ne vous autorise pas à confirmer ou infirmer. Restez neutre : "Je vous invite à aborder ça avec le médecin ou l'infirmière."</p>
+      </div>
+      <div class="cell">
+        <h4>En cas de décès</h4>
+        <p style="margin-top:6px;font-size:.79rem;">Les ayants droit peuvent accéder au dossier sous certaines conditions (connaître les causes du décès, faire valoir leurs droits). La demande se fait à la direction — pas à l'AS directement.</p>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ En cas de doute sur ce qu'on peut dire ou non à la famille — ne rien dire et orienter vers l'IDE ou le cadre. Mieux vaut paraître peu communicant que violer le secret.</div>
+  </div>
+</div>
+
+<!-- ===== TRAÇABILITÉ ===== -->
+<div id="tab-trace" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">📊</div>
+    <div>
+      <h2>La traçabilité — Ce qu'on trace, quand et comment</h2>
+      <p>Tracer, c'est laisser une preuve écrite de ce qu'on a fait. En soin, ce qui n'est pas tracé n'existe pas légalement. La traçabilité protège le patient — et le soignant.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 09 · Bloc 5 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>📋 Ce que l'AS trace — Par type d'acte</h2>
+    <table class="trace-table">
+      <tr><th>Ce qui est réalisé</th><th>Ce qu'on note</th><th>Quand</th></tr>
+      <tr><td>Toilette</td><td>Heure, état cutané observé, incidents, refus éventuels</td><td>Immédiatement après</td></tr>
+      <tr><td>Paramètre vital</td><td>Valeur exacte, heure, conditions de mesure, transmission IDE si anomalie</td><td>Dès la mesure</td></tr>
+      <tr><td>Aide au repas</td><td>Pourcentage consommé, texture proposée, incidents (fausse route), refus</td><td>Après le repas</td></tr>
+      <tr><td>Change / protection</td><td>Heure, aspect de la peau, observations particulières</td><td>Après le change</td></tr>
+      <tr><td>Observation comportementale</td><td>Ce qui a été vu, dit, entendu — avec heure et contexte</td><td>Dès que possible</td></tr>
+      <tr><td>Chute ou incident</td><td>Heure de découverte, état du patient, signes observés, IDE prévenu à quelle heure</td><td>Immédiatement</td></tr>
+      <tr><td>Transmission à l'IDE</td><td>Heure de la transmission, nom de l'IDE, information transmise</td><td>Dès la transmission</td></tr>
+    </table>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Traçabilité numérique vs papier — Les règles communes</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>💻 Support numérique (DPI)</h4>
+        <ul>
+          <li>Connexion avec ses propres identifiants</li>
+          <li>Signature électronique automatique</li>
+          <li>Toute modification est tracée (qui, quand)</li>
+          <li>En cas d'erreur : note corrective, jamais suppression</li>
+          <li>Se déconnecter après chaque saisie</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>📄 Support papier (mode dégradé)</h4>
+        <ul>
+          <li>Écrire en noir ou bleu — jamais au crayon</li>
+          <li>Nom lisible ou tampon + signature</li>
+          <li>Date et heure obligatoires</li>
+          <li>Erreur : un trait, "erreur", date, initiales</li>
+          <li>Jamais de blanc correcteur</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Falsifier une observation dans le dossier (modifier une valeur, supprimer un incident) est une faute pénale — falsification de document médical. Même si l'erreur initiale est mineure, la falsification est toujours plus grave que l'erreur elle-même.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>⏱️ La règle du "en temps réel"</h2>
+    <p style="margin-bottom:10px;">L'idéal est de tracer immédiatement après l'acte. En pratique, voici l'ordre de priorité :</p>
+    <ol style="padding-left:18px;font-size:.83rem;line-height:1.9;">
+      <li><strong>Immédiatement</strong> : tout incident, chute, paramètre anormal, transmission urgente à l'IDE</li>
+      <li><strong>Dans l'heure</strong> : soins réalisés, observations comportementales significatives</li>
+      <li><strong>Avant la fin du service</strong> : bilans de repas, observations mineures</li>
+      <li><strong>Jamais</strong> : en retard de plusieurs heures de mémoire — risque d'erreur et valeur juridique réduite</li>
+    </ol>
+    <div class="info-banner">💡 Si vous n'avez vraiment pas pu tracer en temps réel, notez au minimum sur papier (heure, observation) et saisissez dès que possible avec l'heure réelle de l'acte — pas l'heure de saisie.</div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Dossier de soins et transmissions</h2>
+      <p>10 questions sur le dossier patient, les transmissions DAR et SBAR, le secret professionnel et la traçabilité.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div>
+<button id="audio-btn" title="Lecture audio">🔊</button>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"La transmission 'RAS — Mme Dupont va bien' est-elle acceptable dans le dossier de soins ?",opts:["Oui — simple et rapide","Oui si rien de particulier ne s'est passé","Non — trop vague, non factuelle, sans valeur juridique","Non seulement si la personne est malade"],correct:2,expl:"'RAS' et 'va bien' sont des formulations interdites dans un dossier de soins. Elles ne prouvent pas que les soins ont été réalisés, ne donnent aucune information utile à l'équipe suivante et n'ont pas de valeur juridique. La transmission correcte décrit factuellement ce qui a été observé et réalisé."},
+  {q:"Dans la méthode DAR, la lettre 'A' correspond à :",opts:["Anomalie — ce qui ne va pas","Action — ce que j'ai fait suite à l'observation","Alerte — qui j'ai prévenu","Analyse — mon interprétation"],correct:1,expl:"DAR = Donnée (ce que j'ai observé), Action (ce que j'ai fait), Résultat (l'effet de mon action). La lettre A correspond à l'action réalisée par le soignant — signaler à l'IDE, proposer une alternative, adapter le soin."},
+  {q:"La fille d'un résident vous demande comment va son père. Quelle est la bonne réponse ?",opts:["Vous lui donnez toutes les informations médicales — c'est sa famille","Vous lui dites que son père va bien pour la rassurer","Vous l'invitez à s'adresser à l'infirmière ou à son père directement","Vous lui montrez le dossier de soins"],correct:2,expl:"La famille n'a pas automatiquement accès aux informations médicales — uniquement si le patient a donné son accord explicite. L'AS oriente vers l'IDE ou le cadre, sans donner d'information ni mentir. Montrer le dossier est une violation du secret professionnel."},
+  {q:"Vous faites une erreur dans une transmission écrite papier. Que faites-vous ?",opts:["Vous utilisez du blanc correcteur pour effacer","Vous rayez complètement et recommencez","Vous tracez un seul trait sur l'erreur, écrivez 'erreur', datez et paraphez","Vous déchirez la feuille et en prenez une nouvelle"],correct:2,expl:"L'utilisation de blanc correcteur ou la suppression d'une donnée médicale est une falsification de document médical — faute grave. La procédure correcte : un seul trait sur l'erreur (le texte doit rester lisible), le mot 'erreur', la date et les initiales. En numérique, une note corrective est ajoutée sans supprimer la saisie initiale."},
+  {q:"Le secret professionnel pour l'AS s'applique :",opts:["Uniquement pendant les heures de service","Uniquement dans l'établissement","Toujours — y compris après la fin du contrat et même après le décès du patient","Seulement pour les informations médicales graves"],correct:2,expl:"Le secret professionnel est permanent et absolu. Il s'applique dans tous les lieux (y compris hors de l'établissement), à tout moment (y compris après la fin du contrat), et pour toutes les informations (y compris après le décès du patient). La violation est punie d'un an de prison et 15 000 € d'amende."},
+  {q:"Dans la méthode SBAR, la lettre 'S' correspond à :",opts:["Soins — les actes réalisés","Situation — qui est le patient et quel est le problème","Signalement — qui j'ai prévenu","Surveillance — ce que j'ai observé"],correct:1,expl:"SBAR = Situation (qui et le problème), Background (contexte), Assessment (observation), Recommandation (ce que je suggère). Le S permet d'identifier immédiatement de qui on parle et pourquoi on transmet — indispensable en début de toute communication orale urgente."},
+  {q:"Vous observez qu'une résidente pleure pendant la toilette sans explication. Comment le notez-vous dans le dossier ?",opts:["'Elle est triste' — simple et clair","'Elle pleure pendant la toilette du 12/03 à 8h15 — dit que sa fille ne vient plus la voir. Signalé à l'IDE.'","'RAS sauf humeur' — pour noter qu'il y a quelque chose","'Comportement émotionnel anormal lors du soin'"],correct:1,expl:"La bonne transmission est factuelle (pleure), datée (12/03 à 8h15), contextuelle (pendant la toilette), cite les mots de la personne entre guillemets et mentionne la transmission à l'IDE. 'Elle est triste' est une interprétation — pas une observation. 'Comportement émotionnel anormal' est du jargon sans valeur pratique."},
+  {q:"Qui peut accéder au dossier de soins d'un patient ?",opts:["Tout le personnel de l'établissement","Uniquement le médecin et l'IDE","Les professionnels de santé qui prennent en charge ce patient, et le patient lui-même sur demande","La famille directe sans restriction"],correct:2,expl:"L'accès au dossier patient est strictement limité aux professionnels qui prennent en charge ce patient spécifique (pas tous les soignants de l'établissement) et au patient lui-même qui peut en faire la demande à tout moment. La famille n'y a pas accès sans accord du patient."},
+  {q:"Vous n'avez pas eu le temps de tracer les soins du matin pendant votre service très chargé. En fin de service, vous tracez tout de mémoire. Cette pratique est :",opts:["Acceptable — l'essentiel est que ce soit tracé","Recommandée pour ne pas perturber les soins","Risquée — les souvenirs peuvent être inexacts et la valeur juridique est réduite. Mieux vaut noter rapidement sur papier pendant le service","Interdite — si ce n'est pas tracé en temps réel, c'est inexistant"],correct:2,expl:"Tracer de mémoire plusieurs heures après expose à des erreurs (confusion entre résidents, oubli de valeurs précises) et à une valeur juridique réduite. La bonne pratique est de noter sur un support papier pendant le service (heure + observation) et de saisir dans le DPI dès que possible avec l'heure réelle de l'acte."},
+  {q:"Discuter de l'état d'un résident avec votre collègue dans l'ascenseur est :",opts:["Acceptable si vous parlez à voix basse","Acceptable entre soignants de la même équipe","Une violation du secret professionnel — lieu public","Acceptable si vous ne citez pas le nom du résident"],correct:2,expl:"L'ascenseur est un lieu public où d'autres personnes peuvent entendre. Parler d'un patient dans un lieu public est une violation du secret professionnel — même sans citer le nom (la description peut suffire à identifier la personne). Les transmissions se font en salle de soins, bureau fermé, ou par écrit dans le dossier."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 09 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.dc-ex,.sc-ex')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
+</script>
 <script src="praxiscare-feedback.js"></script>
-</body></html>
+</body>
+</html>
