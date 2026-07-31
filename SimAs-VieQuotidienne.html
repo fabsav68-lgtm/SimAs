@@ -1,209 +1,1029 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>SimVieQuotidienne · Module 01 DEAS</title>
-<meta name="theme-color" content="#080c14">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PraxisVieQuotidienne-AS · Module 01 · Bloc 1</title>
 <style>
-:root{--bg:#080c14;--card:rgba(255,255,255,.04);--bdr:rgba(255,255,255,.08);--txt:#e0e8f8;--txt2:#3a5070;--em:#60a8f8;--amber:#e8a030;--red:#e84040;--green:#40c878;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:16px;padding-bottom:80px;}
-.header{background:linear-gradient(135deg,rgba(96,168,248,.15),rgba(96,168,248,.05));border:1px solid rgba(96,168,248,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
-.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:var(--txt2);margin-bottom:6px;}
-h1{font-family:Georgia,serif;font-size:24px;color:var(--em);margin-bottom:4px;}
-.module-info{font-size:12px;color:var(--txt2);font-family:monospace;}
-.section{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-bottom:16px;}
-.section h2{font-size:14px;color:var(--em);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.competence{padding:10px 12px;border-bottom:1px solid var(--bdr);font-size:13px;display:flex;gap:10px;align-items:flex-start;}
-.competence:last-child{border-bottom:none;}
-.comp-num{background:rgba(96,168,248,.15);color:var(--em);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
-.fiche{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}
-.fiche h3{font-size:13px;color:var(--amber);margin-bottom:8px;}
-.fiche p{font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:6px;}
-.fiche ul{list-style:none;padding:0;}
-.fiche ul li{font-size:12px;color:var(--txt);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}
-.fiche ul li:last-child{border-bottom:none;}
-.fiche ul li::before{content:"→";color:var(--em);flex-shrink:0;}
-.alert{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:10px;}
-.memo{background:rgba(96,168,248,.06);border:1px solid rgba(96,168,248,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--em);margin-top:8px;}
-.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-family:monospace;background:rgba(96,168,248,.1);color:var(--em);border:1px solid rgba(96,168,248,.2);margin:2px;}
-.retour-btn{position:fixed;top:12px;left:12px;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;color:var(--txt2);font-size:12px;cursor:pointer;z-index:100;}
+:root{
+  --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
+  --orange:#e07b2a;--green:#2a9d5c;--red:#c0392b;--yellow:#f0a500;
+  --purple:#7b52ab;--teal:#0097a7;--pink:#c0396b;
+  --gray-bg:#f5f7fa;--gray-border:#dde3ec;
+  --text:#1e2a3a;--text-light:#5a6a7e;--white:#fff;
+  --radius:10px;--shadow:0 2px 10px rgba(26,111,181,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
+
+header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
+header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
+header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
+.tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
+.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+
+.content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card.orange{border-left-color:var(--orange);}
+.card.green{border-left-color:var(--green);}
+.card.red{border-left-color:var(--red);}
+.card.yellow{border-left-color:var(--yellow);}
+.card.purple{border-left-color:var(--purple);}
+.card.teal{border-left-color:var(--teal);}
+.card.pink{border-left-color:var(--pink);}
+.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.orange h2{color:#b55f10;}
+.card.green h2{color:#1e7a45;}
+.card.red h2{color:var(--red);}
+.card.yellow h2{color:#b07800;}
+.card.purple h2{color:#5a3a8a;}
+.card.teal h2{color:#006978;}
+.card.pink h2{color:#8a1040;}
+.card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
+.card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
+.card ul,.card ol{padding-left:18px;margin-top:5px;}
+.card li{margin-bottom:4px;}
+
+.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner .icon{font-size:2rem;flex-shrink:0;}
+.intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+
+.prap-box{background:linear-gradient(135deg,#f0f7ff,#e2eef9);border:1px solid #b3d0f0;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+.prap-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.prap-text{font-size:.82rem;color:var(--blue-dark);line-height:1.5;}
+
+.lien-module{background:linear-gradient(135deg,#f0fff4,#e0f7ea);border:1px solid #a5d6b5;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;}
+.lien-module .lm-icon{font-size:1.3rem;flex-shrink:0;}
+.lien-module .lm-text{font-size:.82rem;color:#1e7a45;line-height:1.5;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+.cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
+.cell h4{font-size:.82rem;font-weight:700;margin-bottom:6px;}
+.cell p,.cell li{font-size:.79rem;line-height:1.55;}
+.cell ul{padding-left:14px;}
+
+.steps{display:flex;flex-direction:column;gap:0;margin-top:12px;}
+.step{display:flex;gap:12px;align-items:flex-start;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 4px);background:var(--blue-light);}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
+.step-num.green{background:var(--green);}
+.step-num.orange{background:var(--orange);}
+.step-num.red{background:var(--red);}
+.step-body{padding:6px 0 16px;flex:1;}
+.step-body strong{font-size:.85rem;color:var(--text);display:block;margin-bottom:3px;}
+.step-body p{font-size:.8rem;color:var(--text-light);line-height:1.55;}
+.step-body .as-do{background:#e6f4ee;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:#1e7a45;font-weight:600;}
+.step-body .as-dont{background:#fdecea;border-radius:5px;padding:5px 10px;margin-top:5px;font-size:.78rem;color:var(--red);font-weight:700;}
+
+.alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
+.ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
+.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
+
+/* DROITS */
+.droit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+@media(max-width:480px){.droit-grid{grid-template-columns:1fr;}}
+.droit-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.droit-card .d-icon{font-size:1.3rem;margin-bottom:6px;}
+.droit-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:5px;}
+.droit-card p{font-size:.78rem;line-height:1.5;color:var(--text-light);}
+
+/* GIR */
+.gir-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px;}
+.gir-card{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px 14px;box-shadow:var(--shadow);}
+.gir-num{font-size:1.6rem;font-weight:900;min-width:44px;text-align:center;border-radius:8px;padding:4px;}
+.gir-body h4{font-size:.83rem;font-weight:700;margin-bottom:3px;}
+.gir-body p{font-size:.77rem;color:var(--text-light);line-height:1.45;}
+
+/* TEXTURE */
+.texture-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;}
+@media(max-width:480px){.texture-grid{grid-template-columns:1fr 1fr;}}
+.texture-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px 8px;text-align:center;box-shadow:var(--shadow);}
+.texture-card .t-icon{font-size:1.5rem;margin-bottom:6px;}
+.texture-card h4{font-size:.78rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.texture-card p{font-size:.71rem;color:var(--text-light);line-height:1.4;}
+
+/* URINES / SELLES SVG */
+.obs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+@media(max-width:480px){.obs-grid{grid-template-columns:1fr;}}
+.obs-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.obs-card h4{font-size:.83rem;font-weight:700;color:var(--blue-dark);margin-bottom:10px;}
+.obs-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--gray-border);font-size:.78rem;}
+.obs-row:last-child{border-bottom:none;}
+.obs-color{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1);}
+.obs-row span{color:var(--text);line-height:1.4;}
+.obs-row .obs-alert{color:var(--red);font-weight:700;}
+.obs-row .obs-ok{color:#1e7a45;font-weight:600;}
+
+/* ACTIVITÉS */
+.activite-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.activite-grid{grid-template-columns:1fr 1fr;}}
+.act-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
+.act-card .act-icon{font-size:1.4rem;margin-bottom:6px;}
+.act-card h4{font-size:.78rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
+.act-card p{font-size:.71rem;color:var(--text-light);line-height:1.4;}
+
+/* SOMMEIL SVG */
+.sommeil-scene{display:flex;justify-content:center;margin:14px 0;}
+
+/* QUIZ */
+.quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
+.quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
+.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
+.quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
+.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:var(--blue-dark);}
+.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
+.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
+.quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
+
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn.playing{background:var(--orange);}
+.divider{height:1px;background:var(--gray-border);margin:14px 0;}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.74rem;font-weight:600;margin:2px;}
+.tag.blue{background:var(--blue-light);color:var(--blue-dark);}
+.tag.red{background:#fdecea;color:var(--red);}
+.tag.green{background:#e6f4ee;color:#1e7a45;}
+.tag.warn{background:#fff3e0;color:#e65100;}
 </style>
 </head>
 <body>
-<button class="retour-btn" onclick="window.parent.postMessage({type:'retour'},'*')">← Retour</button>
 
-<div class="header">
-  <div class="module-num">MODULE 01 · BLOC 1 · 147 heures</div>
-  <h1>SimVieQuotidienne</h1>
-  <div class="module-info">Accompagnement dans les activites de la vie quotidienne et sociale</div>
+<header>
+  <div class="header-top">
+    <div class="module-badge">MODULE 01 · BLOC 1 · 147h</div>
+    <div>
+      <h1>PraxisVieQuotidienne-AS</h1>
+      <p class="subtitle">Accompagnement dans les activités de la vie quotidienne et sociale · DEAS 2021</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('personne',this)">🧍 La personne</button>
+    <button class="tab-btn" onclick="showTab('toilette',this)">🚿 Toilette</button>
+    <button class="tab-btn" onclick="showTab('alimentation',this)">🍽️ Alimentation</button>
+    <button class="tab-btn" onclick="showTab('elimination',this)">🚽 Élimination</button>
+    <button class="tab-btn" onclick="showTab('social',this)">💙 Vie sociale</button>
+    <button class="tab-btn" onclick="showTab('confort',this)">😴 Confort</button>
+    <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- ===== LA PERSONNE ===== -->
+<div id="tab-personne" class="tab-panel active">
+  <div class="intro-banner">
+    <div class="icon">🧍</div>
+    <div>
+      <h2>La personne au centre — Le fondement du métier AS</h2>
+      <p>Avant les soins, avant les techniques, il y a une personne. Avec son histoire, ses habitudes, ses préférences, ses droits. L'AS est là pour accompagner — jamais pour décider à la place.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021 — Loi 2002-2 relative aux droits des usagers</span>
+
+  <div class="card">
+    <h2>⚖️ Les droits fondamentaux de la personne accompagnée</h2>
+    <div class="droit-grid">
+      <div class="droit-card">
+        <div class="d-icon">🗣️</div>
+        <h4>Droit à l'information</h4>
+        <p>Toute personne a le droit d'être informée sur son état de santé, les soins prévus et les alternatives. L'AS informe dans la limite de ses compétences.</p>
+      </div>
+      <div class="droit-card">
+        <div class="d-icon">✋</div>
+        <h4>Droit au consentement</h4>
+        <p>Aucun soin ne peut être réalisé sans le consentement libre et éclairé de la personne. Un refus se respecte — et se transmet à l'IDE.</p>
+      </div>
+      <div class="droit-card">
+        <div class="d-icon">🔒</div>
+        <h4>Droit à la confidentialité</h4>
+        <p>Tout ce que vous voyez, entendez ou lisez dans le cadre du soin reste confidentiel. Le secret professionnel s'applique même après votre service.</p>
+      </div>
+      <div class="droit-card">
+        <div class="d-icon">👤</div>
+        <h4>Droit à la dignité</h4>
+        <p>Chaque personne mérite respect et considération, quelle que soit son état, sa dépendance, ses difficultés relationnelles ou son comportement.</p>
+      </div>
+      <div class="droit-card">
+        <div class="d-icon">🏠</div>
+        <h4>Droit à la vie privée</h4>
+        <p>La chambre est l'espace privé de la personne. Frapper, attendre la réponse, ne jamais entrer sans permission — même pour un soin rapide.</p>
+      </div>
+      <div class="droit-card">
+        <div class="d-icon">🎯</div>
+        <h4>Droit au projet de vie</h4>
+        <p>En EHPAD, chaque résident a un projet de vie individualisé. L'AS le connaît et l'intègre dans chaque accompagnement — habitudes, goûts, rituels.</p>
+      </div>
+    </div>
+    <div class="info-banner">💡 Loi 2002-2 du 2 janvier 2002 rénovant l'action sociale et médico-sociale — elle définit les droits des usagers et impose le projet individualisé dans tous les établissements.</div>
+  </div>
+
+  <div class="card green">
+    <h2>🌟 Le projet de vie — Ce que c'est concrètement</h2>
+    <p style="margin-bottom:10px;">Le projet de vie, c'est le document qui dit qui est la personne au-delà de sa pathologie. L'AS le consulte dès son arrivée dans un service.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce qu'on y trouve</h4>
+        <ul>
+          <li>Ses habitudes de vie : heure de lever, alimentation, rituels</li>
+          <li>Ses loisirs et activités préférées</li>
+          <li>Son histoire de vie — profession, famille, valeurs</li>
+          <li>Ses préférences religieuses ou culturelles</li>
+          <li>Ses relations importantes (famille, amis)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Comment l'AS l'utilise</h4>
+        <ul>
+          <li>Proposer le café avant le thé si c'est son habitude</li>
+          <li>Respecter l'heure de lever habituelle</li>
+          <li>Connaître ses préférences vestimentaires</li>
+          <li>Adapter la communication (tutoiement refusé, surnom accepté…)</li>
+          <li>Signaler si la personne s'éloigne de ses habitudes (signe d'alerte)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok-banner">✅ Un changement d'habitude inexpliqué (refuse son café du matin, ne regarde plus la télé) est souvent le premier signe d'un problème de santé. L'AS qui connaît le projet de vie le détecte avant tout le monde.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>🤲 Le principe d'autonomie — Faire AVEC, jamais À LA PLACE</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">❌ Ce qui détruit l'autonomie</h4>
+        <ul>
+          <li>Faire la toilette entière sans laisser faire</li>
+          <li>Couper les aliments sans demander</li>
+          <li>Répondre à la place de la personne</li>
+          <li>Aller trop vite pour "gagner du temps"</li>
+          <li>Décider de la tenue vestimentaire</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Ce qui préserve l'autonomie</h4>
+        <ul>
+          <li>"Vous voulez commencer par quoi ?"</li>
+          <li>Laisser le temps — même si c'est long</li>
+          <li>Guider la main plutôt que faire</li>
+          <li>Féliciter ce qui est fait seul</li>
+          <li>Adapter les outils (couverts ergonomiques, tapis antidérapant)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Chaque geste fait À LA PLACE de la personne est une compétence perdue. Une personne qui pouvait se laver le visage seule le mois dernier et ne le peut plus ce mois-ci — c'est une régression à signaler, pas à accepter.</div>
+  </div>
+
+  <div class="card">
+    <h2>📊 La grille AGGIR et les GIR — Comprendre le niveau de dépendance</h2>
+    <p style="font-size:.82rem;color:var(--text-light);margin-bottom:10px;">La grille AGGIR (Autonomie Gérontologie Groupes Iso-Ressources) évalue le niveau de dépendance. Elle détermine le GIR (Groupe Iso-Ressources) de 1 à 6 — utilisé pour calculer l'APA (Allocation Personnalisée d'Autonomie).</p>
+    <div class="gir-grid">
+      <div class="gir-card">
+        <div class="gir-num" style="background:#fdecea;color:#c0392b;">1</div>
+        <div class="gir-body"><h4>GIR 1 — Dépendance totale</h4><p>Personne alitée, troubles mentaux graves, fonctions vitales altérées. Besoin permanent d'une présence soignante.</p></div>
+      </div>
+      <div class="gir-card">
+        <div class="gir-num" style="background:#fff3e0;color:#e65100;">2</div>
+        <div class="gir-body"><h4>GIR 2 — Dépendance sévère</h4><p>Personne alitée ou en fauteuil, fonctions mentales peu ou pas altérées, aide indispensable pour les actes quotidiens.</p></div>
+      </div>
+      <div class="gir-card">
+        <div class="gir-num" style="background:#fff8e1;color:#b07800;">3</div>
+        <div class="gir-body"><h4>GIR 3 — Dépendance partielle</h4><p>Conserve son autonomie mentale, se déplace, mais nécessite une aide pluriquotidienne pour l'hygiène et les repas.</p></div>
+      </div>
+      <div class="gir-card">
+        <div class="gir-num" style="background:#e8f4e8;color:#2a7a2a;">4</div>
+        <div class="gir-body"><h4>GIR 4 — Dépendance modérée</h4><p>Se lève, se déplace, s'habille seul mais a besoin d'aide pour le bain ou la douche, la cuisine et le ménage.</p></div>
+      </div>
+      <div class="gir-card">
+        <div class="gir-num" style="background:#e8f2fb;color:#1a6fb5;">5</div>
+        <div class="gir-body"><h4>GIR 5 — Dépendance légère</h4><p>Assure seul les actes essentiels mais a besoin d'aide ponctuelle pour le bain, la préparation des repas.</p></div>
+      </div>
+      <div class="gir-card">
+        <div class="gir-num" style="background:#f3e5f5;color:#7b52ab;">6</div>
+        <div class="gir-body"><h4>GIR 6 — Autonomie</h4><p>Assure seul tous les actes de la vie quotidienne. N'est pas éligible à l'APA.</p></div>
+      </div>
+    </div>
+    <div class="info-banner">💡 L'AS adapte son niveau d'aide au GIR de la personne — mais aussi à son état du moment. Un GIR 4 peut avoir besoin de plus d'aide un jour de fatigue. L'adaptation est permanente.</div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>🎯 Competences du module</h2>
-  <div class="competence"><span class="comp-num">1</span><span>Accompagner les personnes dans les actes essentiels de la vie quotidienne en personnalisant l'accompagnement</span></div>
-  <div class="competence"><span class="comp-num">2</span><span>Identifier les situations a risque lors de l'accompagnement et mettre en oeuvre les actions de prevention</span></div>
-  <div class="competence"><span class="comp-num">3</span><span>Mettre en oeuvre les activites d'accompagnement a la vie sociale</span></div>
-  <div class="competence"><span class="comp-num">4</span><span>Adapter la communication avec la personne, les aidants et les autres professionnels</span></div>
-  <div class="competence"><span class="comp-num">5</span><span>Aider et accompagner les aidants dans leur role</span></div>
+<!-- ===== TOILETTE ===== -->
+<div id="tab-toilette" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🚿</div>
+    <div>
+      <h2>Aide à la toilette — Technique et bientraitance</h2>
+      <p>La toilette est bien plus qu'un soin de propreté. C'est un moment de contact, d'observation, de communication. C'est souvent là que l'AS détecte les premiers signes d'alerte.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🛏️ Toilette au lit — Ordre et principes</h2>
+
+    <!-- SVG scénette toilette -->
+    <div style="display:flex;justify-content:center;margin:14px 0;">
+      <svg width="320" height="160" viewBox="0 0 320 160">
+        <!-- lit -->
+        <rect x="30" y="80" width="260" height="50" rx="8" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="30" y="80" width="260" height="12" rx="4" fill="#a0b8d0"/>
+        <!-- matelas -->
+        <rect x="40" y="90" width="240" height="36" rx="6" fill="#e8f2fb" stroke="#b3d0f0" stroke-width="1"/>
+        <!-- oreiller -->
+        <ellipse cx="80" cy="98" rx="30" ry="14" fill="#fff" stroke="#b3d0f0" stroke-width="1"/>
+        <!-- personne allongée -->
+        <ellipse cx="80" cy="95" rx="16" ry="14" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1.5"/>
+        <rect x="95" y="92" width="120" height="16" rx="8" fill="#dce8f5" stroke="#7aa8d0" stroke-width="1"/>
+        <!-- drap -->
+        <rect x="95" y="100" width="120" height="14" rx="4" fill="#b3d0f0" opacity=".6"/>
+        <!-- AS debout -->
+        <ellipse cx="240" cy="55" rx="14" ry="14" fill="#fde8c5" stroke="#c8a060" stroke-width="1.5"/>
+        <rect x="228" y="68" width="24" height="36" rx="6" fill="#2d87d0"/>
+        <!-- bras AS -->
+        <line x1="228" y1="75" x2="210" y2="95" stroke="#2d87d0" stroke-width="5" stroke-linecap="round"/>
+        <!-- gant -->
+        <ellipse cx="207" cy="97" rx="7" ry="5" fill="#40c878" opacity=".8"/>
+        <!-- flèche ordre -->
+        <path d="M 100 130 L 200 130" stroke="#1a6fb5" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr)"/>
+        <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1a6fb5"/></marker></defs>
+        <text x="150" y="148" text-anchor="middle" font-size="10" fill="#5a6a7e">Du haut vers le bas · Du propre au sale</text>
+      </svg>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Préparer et informer avant d'entrer</strong><p>Frapper, attendre la réponse, se présenter, expliquer ce qu'on va faire. Préparer TOUT le matériel avant de commencer — ne jamais laisser la personne seule à mi-soin.</p><div class="as-do">✅ SHA avant et après. Fermer la porte, tirer le rideau.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Visage</strong><p>Eau tiède sans savon (sauf demande). Yeux : compresse humide de l'angle interne vers l'externe. Changer de compresse entre les deux yeux — jamais le même côté.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Cou, thorax, membres supérieurs</strong><p>Savonner, rincer, sécher soigneusement — particulièrement les plis (aisselles, plis mammaires). Observer la peau à chaque passage.</p><div class="as-do">✅ Laisser la personne se savonner si elle peut — guider sans faire</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><strong>Abdomen, membres inférieurs</strong><p>Observer les chevilles (œdèmes), les espaces entre les orteils (mycose, macération), la plante des pieds (diabétique++).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">5</div>
+        <div class="step-body"><strong>Retournement — Dos et sacrum</strong><p>Moment clé d'inspection : sacrum, omoplates, talons. Toute rougeur persistante = signaler à l'IDE immédiatement.</p><div class="as-do">✅ Ne jamais masser une zone rouge</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num red">6</div>
+        <div class="step-body"><strong>Soins périnéaux — EN DERNIER</strong><p>Changer de gants obligatoirement. De l'avant vers l'arrière chez la femme — jamais l'inverse (contamination urinaire). Séchage soigneux.</p><div class="as-dont">🚫 Jamais de l'arrière vers l'avant chez la femme</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num green">7</div>
+        <div class="step-body"><strong>Finitions et transmission</strong><p>Habiller selon les préférences. Coiffer, raser si l'habitude. Installer confortablement. Tracer les observations dans le dossier.</p></div>
+      </div>
+    </div>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> Réglez toujours le lit à la hauteur de votre bassin avant de commencer. Pour le retournement, utilisez le drap de glisse et travaillez à deux si besoin. Ne jamais se pencher avec les genoux tendus.</div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🚿 Douche assistée — Les points clés</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🌡️ Sécurité avant tout</h4>
+        <ul>
+          <li>Eau à 37-38°C maximum — vérifier au poignet</li>
+          <li>Tapis antidérapant obligatoire</li>
+          <li>Chaise de douche si instabilité debout</li>
+          <li>Ne jamais laisser seul sous la douche</li>
+          <li>Surveiller les signes d'hypotension au lever</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>✅ Après la douche</h4>
+        <ul>
+          <li>Séchage immédiat et complet — surtout les plis</li>
+          <li>Observer toute la peau pendant le séchage</li>
+          <li>Hydrater si peau sèche (crème non grasse)</li>
+          <li>Aide au coiffage, maquillage si souhait</li>
+          <li>Transmettre toute observation à l'IDE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lien-module">
+      <div class="lm-icon">🔗</div>
+      <div class="lm-text"><strong>Module PraxisMobilité :</strong> Les techniques de transfert fauteuil/douche, l'utilisation du siège de douche et les aides techniques de bain sont détaillées dans PraxisMobilité (SimAs-Mobilite.html).</div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>👁️ Ce qu'on observe pendant la toilette</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Peau et corps</h4>
+        <ul>
+          <li>Rougeur persistante (escarre stade 1)</li>
+          <li>Hématomes inexpliqués (maltraitance ?)</li>
+          <li>Œdèmes aux chevilles ou jambes</li>
+          <li>Mycose dans les plis ou entre les orteils</li>
+          <li>Plaie, coupure, brûlure non signalée</li>
+          <li>Amaigrissement visible (côtes saillantes)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Comportement et état général</h4>
+        <ul>
+          <li>Douleur à la mobilisation (grimaces)</li>
+          <li>Confusion inhabituelle</li>
+          <li>Refus inhabituel du soin</li>
+          <li>Tristesse, pleurs pendant la toilette</li>
+          <li>Fièvre au toucher</li>
+          <li>Changement de comportement vs. veille</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Toute observation inhabituelle se transmet à l'IDE dans la même matinée — jamais "je le dirai ce soir" ou "ça attend la relève".</div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>🚿 Aide a la toilette</h2>
-  <div class="fiche">
-    <h3>Principes fondamentaux</h3>
+<!-- ===== ALIMENTATION ===== -->
+<div id="tab-alimentation" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🍽️</div>
+    <div>
+      <h2>Aide à l'alimentation</h2>
+      <p>Manger est un acte de plaisir autant que de nutrition. L'AS veille à l'installation, surveille la déglutition et respecte les textures prescrites. La fausse route est une urgence.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021</span>
+
+  <div class="card red">
+    <h2>⚠️ La position — Règle absolue</h2>
+
+    <!-- SVG position repas -->
+    <div style="display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin:14px 0;">
+      <div style="text-align:center;">
+        <svg width="100" height="140" viewBox="0 0 100 140">
+          <rect x="30" y="60" width="40" height="60" rx="8" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+          <ellipse cx="50" cy="48" rx="16" ry="16" fill="#fde8c5" stroke="#c8a060" stroke-width="1.5"/>
+          <rect x="38" y="62" width="24" height="30" rx="4" fill="#dce8f5"/>
+          <!-- jambes 90° -->
+          <rect x="35" y="92" width="12" height="30" rx="4" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1"/>
+          <rect x="53" y="92" width="12" height="30" rx="4" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1"/>
+          <!-- angle -->
+          <path d="M 47 92 L 47 75 L 60 75" stroke="#2a9d5c" stroke-width="2" fill="none" stroke-dasharray="3"/>
+          <text x="50" y="15" text-anchor="middle" font-size="10" fill="#1e7a45" font-weight="700">✅ 90°</text>
+          <text x="50" y="28" text-anchor="middle" font-size="9" fill="#5a6a7e">Position correcte</text>
+          <circle cx="75" cy="60" r="10" fill="#e6f4ee" stroke="#2a9d5c" stroke-width="2"/>
+          <text x="75" y="64" text-anchor="middle" font-size="14">✓</text>
+        </svg>
+      </div>
+      <div style="text-align:center;">
+        <svg width="100" height="140" viewBox="0 0 100 140">
+          <!-- personne allongée -->
+          <ellipse cx="50" cy="55" rx="16" ry="14" fill="#fde8c5" stroke="#c8a060" stroke-width="1.5"/>
+          <rect x="20" y="62" width="60" height="16" rx="8" fill="#c5daf0" stroke="#7aa8d0" stroke-width="1.5"/>
+          <text x="50" y="15" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="700">🚫 Allongé</text>
+          <text x="50" y="28" text-anchor="middle" font-size="9" fill="#5a6a7e">Fausse route !</text>
+          <circle cx="75" cy="60" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+          <text x="75" y="65" text-anchor="middle" font-size="14" fill="#c0392b">✗</text>
+          <!-- flèche danger -->
+          <path d="M 50 78 L 50 100 L 35 115" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr2)"/>
+          <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/></marker></defs>
+          <text x="50" y="130" text-anchor="middle" font-size="9" fill="#c0392b">Inhalation</text>
+        </svg>
+      </div>
+    </div>
+
     <ul>
-      <li>Frapper, se presenter, expliquer le soin et obtenir le consentement</li>
-      <li>Respecter la pudeur : fermer la porte, couvrir ce qui n'est pas lave</li>
-      <li>Du propre au sale, du haut vers le bas</li>
-      <li>Laisser faire ce que la personne peut faire seule - stimuler l'autonomie</li>
-      <li>Observer l'etat cutane : rougeurs, plaies, escarres</li>
-      <li>Transmettre les observations a l'IDE</li>
+      <li><strong>Position assise à 90° obligatoire</strong> — jamais allongée</li>
+      <li>Tête légèrement fléchie en avant — jamais en hyperextension (tête en arrière)</li>
+      <li>Pieds posés à plat sur le sol ou sur le repose-pieds</li>
+      <li>Table à la bonne hauteur — les coudes reposent sur la table</li>
+      <li>Rester en position assise <strong>30 minutes après le repas</strong> (reflux)</li>
     </ul>
   </div>
-  <div class="fiche">
-    <h3>Ordre de la toilette</h3>
-    <ul>
-      <li>Visage, yeux (exterieur vers interieur), oreilles, nez</li>
-      <li>Cou, thorax, membres superieurs</li>
-      <li>Abdomen, membres inferieurs</li>
-      <li>Dos (en lateralisant)</li>
-      <li>Parties genitales en dernier (zone la plus contaminee)</li>
-    </ul>
+
+  <div class="card">
+    <h2>🥣 Les textures alimentaires — Nomenclature officielle</h2>
+    <div class="texture-grid">
+      <div class="texture-card">
+        <div class="t-icon">🥩</div>
+        <h4>Normal</h4>
+        <p>Alimentation standard sans modification. Tous aliments autorisés.</p>
+      </div>
+      <div class="texture-card">
+        <div class="t-icon">🔪</div>
+        <h4>Haché</h4>
+        <p>Viandes hachées, légumes coupés en petits morceaux. Mastication facilitée.</p>
+      </div>
+      <div class="texture-card">
+        <div class="t-icon">🥣</div>
+        <h4>Mixé</h4>
+        <p>Consistance homogène et lisse. Pas de morceaux. Pour troubles de mastication.</p>
+      </div>
+      <div class="texture-card">
+        <div class="t-icon">💧</div>
+        <h4>Liquides épaissis</h4>
+        <p>Eau gélifiée, jus épaissis. Pour troubles de déglutition (dysphagie). Sur prescription.</p>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Ne jamais modifier la texture d'un repas sans prescription. Un mixé donné à quelqu'un qui a droit au normal = atteinte à la dignité. Un normal donné à quelqu'un qui doit être mixé = risque de fausse route.</div>
   </div>
-  <div class="alert">⚠️ La toilette genitale se fait toujours EN DERNIER avec un gant propre. Chez la femme : de l'avant vers l'arriere (uretral vers anal).</div>
-  <div class="memo">💡 Principe d'autonomie : ne jamais faire A LA PLACE ce que la personne peut faire AVEC.</div>
+
+  <div class="card orange">
+    <h2>🚨 La fausse route — Reconnaître et agir</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">La fausse route, c'est quand un aliment ou un liquide "prend le mauvais chemin" et va dans les poumons plutôt que dans l'estomac. C'est une urgence.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🔍 Signes à reconnaître</h4>
+        <ul>
+          <li>Toux pendant ou après l'ingestion</li>
+          <li>Voix gargouillante après la déglutition</li>
+          <li>Regard inquiet, yeux qui louchent</li>
+          <li>Rougeur du visage, difficultés à respirer</li>
+          <li>Chez la personne démente : agitation soudaine pendant le repas</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🆘 CAT immédiate</h4>
+        <ul>
+          <li><strong>Arrêter immédiatement</strong> le repas</li>
+          <li>Pencher légèrement la tête en avant</li>
+          <li>Taper dans le dos si toux inefficace</li>
+          <li>Appeler l'IDE immédiatement</li>
+          <li><strong>Ne jamais donner à boire</strong> pour "faire passer"</li>
+          <li>Tracer l'incident dans le dossier</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">🚨 Les fausses routes répétées peuvent causer une pneumonie par inhalation — deuxième cause de décès en EHPAD. Tout épisode de toux pendant le repas se signale à l'IDE même si la personne "va mieux".</div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Aide au repas — Le bon accompagnement</h2>
+    <ul>
+      <li>S'asseoir au niveau de la personne — jamais debout en train de "verser" la nourriture</li>
+      <li>Proposer un aliment à la fois, en petites quantités</li>
+      <li>Laisser le temps de mâcher et d'avaler entre chaque bouchée</li>
+      <li>Ne pas parler pendant la déglutition (distraction = risque de fausse route)</li>
+      <li>Respecter les goûts : proposer ce qu'elle aime en premier</li>
+      <li>Quantifier ce qui est mangé et noter dans le dossier</li>
+      <li>Signaler tout refus alimentaire de plus d'un repas à l'IDE</li>
+    </ul>
+    <div class="prap-box">
+      <div class="prap-icon">🔗</div>
+      <div class="prap-text"><strong>Lien PRAP :</strong> S'asseoir à côté de la personne pendant l'aide au repas protège votre dos. Une aide au repas debout penché = dos sollicité inutilement pendant parfois 30 à 45 minutes.</div>
+    </div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>🍽️ Aide a l'alimentation</h2>
-  <div class="fiche">
-    <h3>Installation indispensable</h3>
-    <ul>
-      <li>Position assise a 90 degres OBLIGATOIRE - jamais allonge</li>
-      <li>Tete legerement flechie en avant (pas en hyperextension)</li>
-      <li>Table a hauteur adaptee</li>
-      <li>Environnement calme, sans distraction</li>
-    </ul>
+<!-- ===== ÉLIMINATION ===== -->
+<div id="tab-elimination" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🚽</div>
+    <div>
+      <h2>Aide à l'élimination — Observer et signaler</h2>
+      <p>L'élimination est un acte intime qui touche à la dignité. L'AS observe sans juger, surveille les caractéristiques des urines et des selles, et signale toute anomalie. C'est souvent là que se cachent les infections et les saignements.</p>
+    </div>
   </div>
-  <div class="fiche">
-    <h3>Textures adaptees (selon prescription)</h3>
-    <ul>
-      <li>Normal : pas de modification</li>
-      <li>Hache : viandes hachees, legumes coupes</li>
-      <li>Mixe : consistance homogene, lisse</li>
-      <li>Liquides epaissis : necessaire si troubles de deglutition</li>
-    </ul>
-  </div>
-  <div class="fiche">
-    <h3>Surveillance pendant le repas</h3>
-    <ul>
-      <li>Signe de fausse route : toux pendant/apres ingestion</li>
-      <li>Voix gargouillante apres deglutition</li>
-      <li>Regard inquiet, difficulte a avaler</li>
-      <li>Si fausse route : arreter, position laterale, appeler IDE</li>
-    </ul>
-  </div>
-  <div class="alert">⚠️ Fausse route = urgence. Toux persistante apres ingestion = arreter et appeler l'IDE immediatement. Ne jamais donner a boire pour "faire passer".</div>
-</div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021</span>
 
-<div class="section">
-  <h2>🚽 Aide a l'elimination</h2>
-  <div class="fiche">
-    <h3>Urines - surveillance</h3>
-    <ul>
-      <li>Quantite : normale 1 a 1,5 L/jour</li>
-      <li>Couleur : jaune pale a ambre (foncee = deshydratation)</li>
-      <li>Odeur : legere (forte = infection possible)</li>
-      <li>Aspect : clair (trouble = infection, hematurie)</li>
-      <li>Transmettre toute anomalie a l'IDE</li>
-    </ul>
-  </div>
-  <div class="fiche">
-    <h3>Selles - surveillance</h3>
-    <ul>
-      <li>Frequence normale : 3/jour a 3/semaine</li>
-      <li>Consistance : ni trop dure, ni liquide</li>
-      <li>Couleur : brun (noire = saignement haut, rouge = saignement bas)</li>
-      <li>Signaler : constipation > 3 jours, diarrhee, sang</li>
-    </ul>
-  </div>
-  <div class="memo">💡 Protections : changer des que souilee. Maceration = risque d'escarre et d'infection. Observer la peau a chaque change.</div>
-</div>
+  <div class="obs-grid">
+    <div class="obs-card">
+      <h4>💧 Surveillance des urines</h4>
+      <div class="obs-row"><div class="obs-color" style="background:#fff9c4;"></div><span><span class="obs-ok">Jaune pâle</span> — bonne hydratation, normal</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#f9d71c;"></div><span>Jaune — normal</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#e6a817;"></div><span><span class="obs-alert">Ambre foncé</span> — déshydratation → proposer à boire + signaler</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#a0522d;"></div><span><span class="obs-alert">Brun très foncé</span> — déshydratation sévère ou médicament → signaler IDE</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#ffcccc;"></div><span><span class="obs-alert">Rosé / rouge</span> — sang (hématurie) → signaler IDE urgent</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#e8e8e8;border:1px dashed #aaa;"></div><span><span class="obs-alert">Trouble / nuageux</span> — infection urinaire possible → signaler IDE</span></div>
+      <p style="font-size:.76rem;color:var(--text-light);margin-top:8px;">Quantité normale : 1 à 1,5 L/jour. Signaler si &lt; 500 mL/24h.</p>
+    </div>
 
-<div class="section">
-  <h2>😴 Aide au sommeil et au repos</h2>
-  <div class="fiche">
-    <h3>Favoriser le sommeil</h3>
-    <ul>
-      <li>Respecter les rituels du coucher de la personne</li>
-      <li>Chambre calme, obscure, temperature adaptee (18-20 degres)</li>
-      <li>Limiter les soins la nuit au strict necessaire</li>
-      <li>Proposer une boisson chaude si habitude</li>
-      <li>Signaler les troubles du sommeil a l'IDE</li>
-    </ul>
+    <div class="obs-card">
+      <h4>🟤 Surveillance des selles</h4>
+      <div class="obs-row"><div class="obs-color" style="background:#8B4513;"></div><span><span class="obs-ok">Brun</span> — normal</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#228B22;"></div><span>Vert — transit rapide ou légumes verts → surveiller</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#f5f5dc;"></div><span><span class="obs-alert">Beige / décolorées</span> — problème hépatique → signaler IDE</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#1a1a1a;"></div><span><span class="obs-alert">Noires (méléna)</span> — saignement digestif haut → urgence</span></div>
+      <div class="obs-row"><div class="obs-color" style="background:#cc0000;"></div><span><span class="obs-alert">Rouge vif (rectorragie)</span> — saignement digestif bas → urgence</span></div>
+      <p style="font-size:.76rem;color:var(--text-light);margin-top:8px;">Fréquence normale : 3/jour à 3/semaine. Signaler toute constipation &gt; 3 jours.</p>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h2>🤝 Accompagnement a la vie sociale</h2>
-  <div class="fiche">
-    <h3>Maintien du lien social</h3>
-    <ul>
-      <li>Encourager les visites de la famille et des amis</li>
-      <li>Proposer des activites adaptees aux capacites</li>
-      <li>Faciliter l'acces aux activites collectives en EHPAD</li>
-      <li>Respecter les choix et les envies de la personne</li>
-      <li>Eviter l'isolement : parler pendant les soins</li>
-    </ul>
+  <div class="card orange">
+    <h2>⚠️ Situations à signaler à l'IDE</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Urines</h4>
+        <ul>
+          <li>Diurèse &lt; 500 mL/24h (oligurie)</li>
+          <li>Absence totale d'urines (anurie)</li>
+          <li>Sang visible (hématurie)</li>
+          <li>Urines très foncées + signes de déshydratation</li>
+          <li>Odeur forte + troubles cognitifs nouveaux (infection urinaire)</li>
+          <li>Brûlures signalées par la personne</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Selles</h4>
+        <ul>
+          <li>Constipation &gt; 3 jours</li>
+          <li>Selles noires (méléna) = urgence</li>
+          <li>Sang rouge vif = urgence</li>
+          <li>Diarrhée persistante (&gt; 2 jours)</li>
+          <li>Douleurs abdominales associées</li>
+          <li>Ballonnement important inhabituel</li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="fiche">
-    <h3>Accompagnement des aidants</h3>
+
+  <div class="card">
+    <h2>🛡️ Gestion des protections — Dignité et prévention</h2>
     <ul>
-      <li>Reconnaitre leur role et leur investissement</li>
-      <li>Les inclure dans les soins si ils le souhaitent</li>
-      <li>Les informer sur les ressources disponibles</li>
-      <li>Alerter l'equipe si l'aidant semble epuise</li>
+      <li>Changer la protection <strong>dès qu'elle est souillée</strong> — ne jamais attendre la tournée suivante</li>
+      <li>La macération (peau en contact avec urine/selles) fragilise en quelques heures et favorise les escarres</li>
+      <li>Observer la peau à chaque change : rougeur, irritation, lésion</li>
+      <li>Nettoyer à l'eau tiède avec un savon doux — sécher par tamponnement</li>
+      <li>Produit barrière (crème protectrice) sur prescription si peau irritée</li>
+      <li>Proposer les toilettes régulièrement pour maintenir la continence</li>
     </ul>
+    <div class="alert-banner">⚠️ Parler d'une protection souillée devant d'autres résidents ou dans le couloir = atteinte à la dignité. Toujours en chambre, porte fermée, voix basse.</div>
+    <div class="info-banner">💡 Globe vésical = rétention d'urine (la personne ne peut pas uriner malgré l'envie). Signes : douleur hypogastrique, agitation, ventre gonflé. Signaler IDE en urgence — sondage vésical nécessaire.</div>
   </div>
 </div>
 
-<div class="section">
-  <h2>🏷️ Mots cles du module</h2>
-  <div style="padding:8px 0">
-    <span class="tag">Autonomie</span>
-    <span class="tag">Pudeur</span>
-    <span class="tag">Dignite</span>
-    <span class="tag">Bientraitance</span>
-    <span class="tag">Projet de vie</span>
-    <span class="tag">Stimulation</span>
-    <span class="tag">Observation</span>
-    <span class="tag">Transmission</span>
-    <span class="tag">Fausse route</span>
-    <span class="tag">Texture adaptee</span>
-    <span class="tag">Diurese</span>
-    <span class="tag">Lien social</span>
+<!-- ===== VIE SOCIALE ===== -->
+<div id="tab-social" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">💙</div>
+    <div>
+      <h2>Vie sociale, activités et accompagnement des aidants</h2>
+      <p>L'être humain a besoin de lien social autant que de soins physiques. L'AS est souvent le professionnel le plus présent — il est le premier à détecter l'isolement et le premier à pouvoir y remédier.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021 — Compétences 3, 4 et 5</span>
+
+  <div class="card">
+    <h2>🤝 Maintien du lien social — Ce que l'AS peut faire</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Pendant les soins</h4>
+        <ul>
+          <li>Parler pendant la toilette — ne pas travailler en silence</li>
+          <li>S'intéresser à son histoire, ses souvenirs</li>
+          <li>L'appeler par son nom, pas "mamie" ou "papi"</li>
+          <li>Demander ses préférences, ses envies du jour</li>
+          <li>Partager un moment de légèreté si la personne le permet</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Dans l'établissement</h4>
+        <ul>
+          <li>Encourager les repas en salle commune (pas toujours en chambre)</li>
+          <li>Signaler l'isolement progressif à l'IDE</li>
+          <li>Faciliter l'accès aux activités collectives</li>
+          <li>Orienter vers l'animateur ou le psychologue</li>
+          <li>Informer la famille des activités disponibles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h2>🎨 Les activités adaptées — Pourquoi c'est important</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">L'activité n'est pas du "temps libre" — c'est un soin à part entière. Elle stimule les fonctions cognitives, maintient les liens sociaux et prévient la dépression.</p>
+    <div class="activite-grid">
+      <div class="act-card">
+        <div class="act-icon">🎵</div>
+        <h4>Musique</h4>
+        <p>Stimule la mémoire émotionnelle, calme les personnes agitées (Alzheimer).</p>
+      </div>
+      <div class="act-card">
+        <div class="act-icon">🌱</div>
+        <h4>Jardinage</h4>
+        <p>Lien avec la nature, activité physique douce, fierté du résultat.</p>
+      </div>
+      <div class="act-card">
+        <div class="act-icon">🎨</div>
+        <h4>Peinture / dessin</h4>
+        <p>Expression créative, motricité fine, valorisation de la personne.</p>
+      </div>
+      <div class="act-card">
+        <div class="act-icon">📚</div>
+        <h4>Lecture</h4>
+        <p>Stimulation cognitive, lien avec l'histoire personnelle, plaisir.</p>
+      </div>
+      <div class="act-card">
+        <div class="act-icon">🎲</div>
+        <h4>Jeux de société</h4>
+        <p>Lien social, stimulation cognitive, plaisir partagé en groupe.</p>
+      </div>
+      <div class="act-card">
+        <div class="act-icon">🚶</div>
+        <h4>Marche adaptée</h4>
+        <p>Maintien moteur, découverte de l'environnement, bien-être physique.</p>
+      </div>
+    </div>
+    <div class="info-banner">💡 L'AS observe si la personne participe aux activités proposées. Un retrait soudain des activités habituelles est un signe d'alerte (dépression, douleur, isolement) à transmettre à l'équipe.</div>
+  </div>
+
+  <div class="card purple">
+    <h2>👨‍👩‍👧 Accompagnement des aidants — Un rôle essentiel de l'AS</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Les aidants (famille, proches) jouent un rôle fondamental mais souvent invisible. L'AS les voit lors des visites — il est bien placé pour détecter leur épuisement.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce que l'AS fait avec les aidants</h4>
+        <ul>
+          <li>Les accueillir avec bienveillance lors des visites</li>
+          <li>Les inclure dans les soins s'ils le souhaitent</li>
+          <li>Reconnaître et valoriser leur engagement</li>
+          <li>Répondre à leurs questions dans la limite des compétences</li>
+          <li>Transmettre les informations de l'équipe si délégué</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Signaux d'épuisement à repérer</h4>
+        <ul>
+          <li>Aidant qui pleure lors des visites</li>
+          <li>Exprime ne plus en pouvoir</li>
+          <li>Visites de plus en plus courtes ou rares</li>
+          <li>Irritabilité vis-à-vis du résident</li>
+          <li>Néglige sa propre santé (perd du poids, ne dort plus)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Un aidant épuisé peut basculer vers la maltraitance involontaire. Le signaler à l'IDE ou à l'assistante sociale n'est pas trahir la famille — c'est protéger tout le monde.</div>
+    <h3>Les dispositifs de répit à connaître</h3>
+    <ul>
+      <li><strong>Accueil de jour</strong> — la personne vient à l'EHPAD la journée, rentre le soir</li>
+      <li><strong>Hébergement temporaire</strong> — séjour de quelques semaines pour soulager l'aidant</li>
+      <li><strong>Plateformes de répit</strong> — coordination d'aides à domicile renforcées</li>
+      <li><strong>Associations d'aidants</strong> — groupes de parole, soutien entre pairs</li>
+    </ul>
+  </div>
+
+  <div class="card green">
+    <h2>💬 Communication adaptée — Selon le profil de la personne</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>👴 Personne âgée valide</h4>
+        <ul>
+          <li>Parler normalement, sans infantiliser</li>
+          <li>Vérifier que la prothèse auditive est en place</li>
+          <li>Parler face à face (lecture labiale si malentendant)</li>
+          <li>Ne pas crier — articuler</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🧠 Personne avec démence</h4>
+        <ul>
+          <li>Phrases courtes, simples, une idée à la fois</li>
+          <li>Ne jamais corriger devant les autres</li>
+          <li>Entrer dans son "monde" avec douceur</li>
+          <li>La communication non verbale prime (sourire, toucher, regard)</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>⚡ Personne avec aphasie (AVC)</h4>
+        <ul>
+          <li>Laisser du temps — ne jamais finir les phrases</li>
+          <li>Questions fermées (oui/non)</li>
+          <li>Utiliser les pictogrammes si disponibles</li>
+          <li>S'adresser à la personne, pas à sa famille</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>😔 Personne en fin de vie</h4>
+        <ul>
+          <li>Présence et silence — pas besoin de parler</li>
+          <li>Tenir la main si accepté</li>
+          <li>Continuer à parler même si la personne semble inconsciente</li>
+          <li>Respecter les silences</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- ===== CONFORT & SOMMEIL ===== -->
+<div id="tab-confort" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">😴</div>
+    <div>
+      <h2>Confort et sommeil</h2>
+      <p>Le sommeil est un besoin fondamental. Une mauvaise nuit fragilise tout — l'humeur, les défenses immunitaires, l'équilibre cognitif. L'AS contribue activement à la qualité du repos.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 01 · Bloc 1 · DEAS 2021</span>
+
+  <div class="card">
+    <h2>🌙 Favoriser le sommeil — Les conditions</h2>
+
+    <div style="display:flex;justify-content:center;margin:14px 0;">
+      <svg width="300" height="130" viewBox="0 0 300 130">
+        <!-- chambre -->
+        <rect x="10" y="10" width="280" height="110" rx="10" fill="#1a2a4a" stroke="#2d4a7a" stroke-width="1.5"/>
+        <!-- lit -->
+        <rect x="30" y="55" width="160" height="50" rx="6" fill="#2d4a7a"/>
+        <rect x="30" y="55" width="160" height="14" rx="4" fill="#1e3560"/>
+        <rect x="40" y="67" width="140" height="34" rx="5" fill="#3a5a8a"/>
+        <!-- oreiller -->
+        <ellipse cx="70" cy="74" rx="22" ry="12" fill="#4a7aaa" opacity=".8"/>
+        <!-- personne endormie -->
+        <ellipse cx="70" cy="71" rx="12" ry="11" fill="#fde8c5" stroke="#c8a060" stroke-width="1"/>
+        <path d="M 80 72 Q 120 65 150 75" stroke="#4a7aaa" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <!-- étoiles -->
+        <text x="200" y="40" font-size="16" fill="#f0e050">✦</text>
+        <text x="230" y="55" font-size="12" fill="#f0e050">✦</text>
+        <text x="215" y="25" font-size="10" fill="#f0e050">✦</text>
+        <!-- lune -->
+        <text x="248" y="38" font-size="22" fill="#f0d080">🌙</text>
+        <!-- thermomètre -->
+        <text x="20" y="30" font-size="10" fill="#60a8f8">18-20°C</text>
+        <!-- Z sommeil -->
+        <text x="120" y="40" font-size="14" fill="#60a8f8" opacity=".6" font-weight="700">z</text>
+        <text x="134" y="30" font-size="18" fill="#60a8f8" opacity=".5" font-weight="700">z</text>
+        <text x="152" y="18" font-size="22" fill="#60a8f8" opacity=".4" font-weight="700">z</text>
+      </svg>
+    </div>
+
+    <div class="two-col">
+      <div class="cell">
+        <h4>🌃 Conditions environnementales</h4>
+        <ul>
+          <li>Chambre calme, obscure (volets fermés, lumière éteinte)</li>
+          <li>Température : 18 à 20°C</li>
+          <li>Éviter les bruits de couloir après 21h</li>
+          <li>Limiter les soins nocturnes au strict nécessaire</li>
+          <li>Frapper doucement avant d'entrer même la nuit</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>🛏️ Rituels du coucher</h4>
+        <ul>
+          <li>Respecter les habitudes de la personne (heure, lecture, tisane…)</li>
+          <li>Installation confortable — demander la position préférée</li>
+          <li>Sonnette à portée de main</li>
+          <li>Verre d'eau ou boisson chaude si habitude</li>
+          <li>Vérifier que la protection est propre</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-banner">💡 Les troubles du sommeil chez la personne âgée sont fréquents mais jamais banaux. Insomnie, cauchemars, somnolence diurne excessive → signaler à l'IDE. Ce peut être le signe d'une dépression, d'une douleur non exprimée ou d'un effet indésirable médicamenteux.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>😣 La douleur non exprimée — L'AS doit la chercher</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">La personne âgée, surtout si elle a des troubles cognitifs, exprime rarement sa douleur en mots. L'AS apprend à lire les signes.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Signes comportementaux</h4>
+        <ul>
+          <li>Grimaces lors des soins ou des mobilisations</li>
+          <li>Gémissements, plaintes</li>
+          <li>Position antalgique (évite de bouger un membre)</li>
+          <li>Refus de soins inhabituels</li>
+          <li>Agitation nocturne inexpliquée</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Ce que fait l'AS</h4>
+        <ul>
+          <li>Adapter le rythme des soins — ne pas forcer</li>
+          <li>Signaler à l'IDE avec description précise des signes</li>
+          <li>Connaître les grilles : DOLOPLUS (déments), ALGOPLUS</li>
+          <li>Tracer les observations dans le dossier</li>
+          <li>Réévaluer après traitement antalgique</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🛋️ Installation et confort — Les petits gestes qui changent tout</h2>
+    <ul>
+      <li>Vérifier que la personne est bien installée <strong>après chaque soin</strong></li>
+      <li>Oreiller positionné correctement — pas en hyperflexion du cou</li>
+      <li>Coussins de positionnement si nécessaire (côte, épaule, hanche)</li>
+      <li>Barrières de lit en position correcte selon prescription</li>
+      <li>Lunettes et appareil auditif rangés à portée (même emplacement chaque jour)</li>
+      <li>Télécommande, livre, téléphone à portée</li>
+      <li>Sonnette d'appel testée et accessible</li>
+    </ul>
+    <div class="ok-banner">✅ "Est-ce que vous êtes bien installé ?" — poser cette question à chaque fois qu'on quitte la chambre. Simple, rapide, et ça change tout pour la personne.</div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="tab-quiz" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Quiz — Vie quotidienne et sociale</h2>
+      <p>10 questions couvrant la personne, la toilette, l'alimentation, l'élimination, la vie sociale et le confort.</p>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <button class="btn" onclick="submitQuiz()">Valider mes réponses</button>
+    <button class="btn secondary" onclick="resetQuiz()">Recommencer</button>
+  </div>
+  <div class="quiz-score-box" id="quiz-score-box">
+    <div class="qs-num" id="qs-num"></div>
+    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-msg" id="qs-msg"></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+<button id="audio-btn" title="Lecture audio">🔊</button>
 
 <script>
-document.addEventListener('click', function(){ window.parent.postMessage({type:'activite'}, '*'); });
+function showTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+window.PRAXIS_APP='SimAs';
+window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
+document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
+
+const questions=[
+  {q:"Mme Aubert, 86 ans, refuse ce matin que vous lui fassiez sa toilette. Elle dit qu'elle veut rester au lit. Que faites-vous ?",opts:["Vous insistez — la toilette est obligatoire pour l'hygiène","Vous respectez son refus, lui proposez un débarbouillage minimum, transmettez à l'IDE et notez dans le dossier","Vous revenez dans 10 minutes sans la prévenir","Vous appelez la famille pour qu'ils la convainquent"],correct:1,expl:"Toute personne a le droit de refuser un soin — c'est la loi. L'AS respecte ce refus, propose une alternative minimaliste si acceptée, transmet à l'IDE et trace dans le dossier. Le refus d'un soin est une information clinique importante (douleur ? dépression ? raison particulière ?)."},
+  {q:"Lors de la toilette de M. Bernard, vous réalisez ses soins périnéaux. Dans quel ordre procédez-vous ?",opts:["En premier, c'est la zone la plus à risque","En dernier, avec changement de gants, de l'avant vers l'arrière chez la femme","En même temps que la toilette du bas du corps, pour gagner du temps","N'importe quand, l'ordre n'a pas d'importance si on change de gants"],correct:1,expl:"Les soins périnéaux se font TOUJOURS en dernier, après tous les autres soins du corps, avec changement de gants obligatoire. Chez la femme, la technique est de l'avant vers l'arrière pour éviter la contamination de l'urètre par les bactéries rectales — risque d'infection urinaire."},
+  {q:"Pendant le repas de Mme Dupont, elle tousse brusquement après avoir avalé un morceau de viande et sa voix devient gargouillante. Que faites-vous ?",opts:["Vous lui donnez un grand verre d'eau pour faire passer le morceau","Vous arrêtez immédiatement le repas, la penchez légèrement en avant et appelez l'IDE","Vous continuez le repas en surveillant — la toux devrait passer","Vous lui donnez le reste du repas en texture mixée"],correct:1,expl:"Toux + voix gargouillante pendant le repas = fausse route. Arrêter immédiatement le repas, incliner légèrement la tête en avant, appeler l'IDE. JAMAIS donner à boire pour 'faire passer' — le liquide peut aggraver l'inhalation. Tracer l'incident dans le dossier même si la personne se remet."},
+  {q:"En changeant la protection de M. Martin, vous observez des urines très foncées, presque brunes, avec une forte odeur. Que faites-vous ?",opts:["Vous notez dans le dossier et attendez la transmission de 16h","Vous lui proposez de boire et signalez à l'IDE dans la journée si ça ne s'améliore pas","Vous signalez à l'IDE dans la matinée avec description précise — couleur, odeur, quantité estimée","Vous changez la protection et ne dites rien car il a peu bu ce matin"],correct:2,expl:"Urines brun foncé + forte odeur = déshydratation sévère et/ou infection urinaire possible. C'est à signaler à l'IDE dans la matinée avec les informations précises. Ne pas attendre — une infection urinaire chez une personne âgée peut dégénérer rapidement en confusion aiguë ou sepsis."},
+  {q:"Qu'est-ce que le GIR 1 dans la grille AGGIR ?",opts:["La personne la plus autonome","La personne qui a une dépendance légère nécessitant une aide ponctuelle","La personne totalement dépendante avec des fonctions vitales altérées, nécessitant une présence soignante permanente","La personne qui peut se déplacer mais a besoin d'aide pour la toilette"],correct:2,expl:"GIR 1 = dépendance totale. La personne est alitée, a des troubles mentaux graves, des fonctions vitales altérées. Elle nécessite une présence soignante permanente. C'est le niveau de dépendance le plus élevé — à l'opposé du GIR 6 (personne autonome)."},
+  {q:"Vous accompagnez Mme Legrand (Alzheimer) lors d'une activité en salle commune. Elle commence à dire que sa mère va venir la chercher (sa mère est décédée depuis 30 ans). Que faites-vous ?",opts:["Vous lui dites clairement que sa mère est décédée pour la ramener à la réalité","Vous entrez doucement dans son monde : 'Ah oui, elle arrive bientôt ?' et restez présente","Vous l'ignorez et continuez l'activité","Vous appelez l'IDE car c'est une hallucination"],correct:1,expl:"Chez une personne atteinte d'Alzheimer, corriger brutalement ses 'erreurs de réalité' provoque de l'angoisse sans bénéfice thérapeutique. La validation (entrer doucement dans son monde avec bienveillance) est l'approche recommandée. Ce n'est pas mentir — c'est accompagner."},
+  {q:"Le projet de vie d'un résident en EHPAD, c'est :",opts:["Le plan de soins médical établi par le médecin","Un document qui dit qui est la personne au-delà de sa pathologie : habitudes, goûts, histoire de vie, préférences","La liste des médicaments et des soins quotidiens","Le contrat de séjour signé à l'entrée"],correct:1,expl:"Le projet de vie est un document centré sur la PERSONNE et non sur la pathologie. Il contient ses habitudes de vie, ses goûts, son histoire, ses valeurs. L'AS le consulte pour personnaliser l'accompagnement. Tout changement d'habitudes est un signe d'alerte à transmettre à l'équipe."},
+  {q:"M. Petit, aidant de sa femme, vous dit en larmes lors d'une visite : 'Je n'en peux plus, je suis épuisé.' Quelle est votre réaction ?",opts:["Vous lui dites de tenir bon, sa femme a besoin de lui","Vous l'écoutez avec bienveillance, le valorisez dans son rôle et signalez à l'IDE ou à l'assistante sociale pour une orientation vers des dispositifs de répit","Vous lui dites que vous ne pouvez pas l'aider, c'est le rôle du médecin","Vous en parlez aux autres résidents pour sensibiliser"],correct:1,expl:"L'épuisement de l'aidant est une situation à risque — pour lui et pour la personne aidée. L'AS écoute sans juger, valorise le rôle de l'aidant et signale à l'IDE ou à l'assistante sociale. Des dispositifs de répit existent (accueil de jour, hébergement temporaire, plateformes de répit) — orienter vers eux est un acte professionnel."},
+  {q:"Lors de la toilette de M. Durant, vous observez une rougeur persistante au sacrum qui ne blanchit pas à la pression. Quelle est votre action prioritaire ?",opts:["Masser doucement avec de la crème pour activer la circulation","Signaler immédiatement à l'IDE, supprimer l'appui, ne jamais masser la zone rouge","Attendre la fin de la tournée pour en parler à l'IDE","Appliquer un pansement occlusif en attendant l'IDE"],correct:1,expl:"Rougeur qui ne blanchit pas = escarre stade 1 — le seul stade totalement réversible si on agit immédiatement. L'AS signale à l'IDE immédiatement (pas en fin de tournée), supprime l'appui (repositionnement), et ne masse JAMAIS — le massage aggrave les lésions vasculaires."},
+  {q:"Quelle position est obligatoire pour l'aide aux repas ?",opts:["Décubitus dorsal à 30° — évite la fatigue","Position semi-assise à 45°","Position assise à 90° avec tête légèrement fléchie en avant","N'importe quelle position si la personne est à l'aise"],correct:2,expl:"La position assise à 90° est obligatoire pour prévenir les fausses routes. La tête légèrement fléchie en avant (pas en hyperextension) favorise le mécanisme de déglutition. La position allongée ou même semi-assise à 30-45° augmente le risque d'inhalation et de reflux gastro-œsophagien."}
+];
+
+function buildQuiz(){
+  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      ${q.opts.map((o,j)=>`<label class="quiz-opt" id="opt-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}
+      <div class="quiz-correction" id="corr-${i}">💡 ${q.expl}</div>
+    </div>`).join('');
+}
+
+function submitQuiz(){
+  let score=0;
+  questions.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    for(let j=0;j<q.opts.length;j++)document.getElementById(`opt-${i}-${j}`).classList.remove('correct','wrong');
+    if(sel){const c=parseInt(sel.value);if(c===q.correct){document.getElementById(`opt-${i}-${c}`).classList.add('correct');score++;}else{document.getElementById(`opt-${i}-${c}`).classList.add('wrong');document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}}
+    else{document.getElementById(`opt-${i}-${q.correct}`).classList.add('correct');}
+    document.getElementById(`corr-${i}`).style.display='block';
+  });
+  const box=document.getElementById('quiz-score-box');
+  box.style.display='block';
+  document.getElementById('qs-num').textContent=score+'/10';
+  const pct=score/10;
+  document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 01 maîtrisé ✅';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
+function resetQuiz(){
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.quiz-correction').forEach(c=>c.style.display='none');
+  document.getElementById('quiz-score-box').style.display='none';
+}
+
+let speaking=false;const synth=window.speechSynthesis;
+document.getElementById('audio-btn').addEventListener('click',toggleAudio);
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.step-body strong,.step-body p,.gir-body h4,.gir-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
+buildQuiz();
 </script>
-<script>window.PRAXIS_APP='SimAs';</script>
-
-<!-- Bouton audio -->
-<button id="btn-audio" onclick="lireOnglet()" style="
-  position:fixed;bottom:20px;right:20px;z-index:1000;
-  background:#40a8e0;border:none;border-radius:50px;
-  color:#080c14;font-size:13px;font-weight:800;
-  padding:11px 18px;cursor:pointer;
-  box-shadow:0 4px 16px rgba(64,168,224,.35);
-  font-family:monospace;letter-spacing:.5px;
-  white-space:nowrap;transition:opacity .2s">🔊 Écouter</button>
-
-<script src="praxis-audio.js"></script>
 <script src="praxiscare-feedback.js"></script>
 </body>
 </html>
