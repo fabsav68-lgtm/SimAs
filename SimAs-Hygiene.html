@@ -715,7 +715,7 @@ function resetQuiz(){
 let speaking=false;const synth=window.speechSynthesis;
 document.getElementById('audio-btn').addEventListener('click',toggleAudio);
 function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.step-body strong,.step-body p')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
-function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};const trySpeak=()=>{const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'))||voices[0];if(fr)utt.voice=fr;synth.cancel();setTimeout(()=>{synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';},100);};if(synth.getVoices().length>0){trySpeak();}else{synth.onvoiceschanged=trySpeak;}}
 function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
 if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
 buildQuiz();
@@ -723,4 +723,3 @@ buildQuiz();
 <script src="praxiscare-feedback.js"></script>
 </body>
 </html>
-
