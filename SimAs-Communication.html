@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PraxisCommunication-AS · Module 06 · Bloc 3</title>
+<title>SimCommunication-AS · Module 06 · Bloc 3</title>
 <style>
 :root{
   --blue:#1a6fb5;--blue-light:#e8f2fb;--blue-mid:#2d87d0;--blue-dark:#124f85;
@@ -15,7 +15,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-bg);color:var(--text);min-height:100vh;}
-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue) 60%,var(--blue-mid));color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(18,79,133,.25);}
+header{background:linear-gradient(135deg,#5a3a8a,#7b52ab 60%,#9b72cb);color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(90,58,138,.25);}
 .header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
 .module-badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;}
 header h1{font-size:1.05rem;font-weight:700;line-height:1.2;}
@@ -24,35 +24,33 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
 .tabs::-webkit-scrollbar{display:none;}
 .tab-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:7px 7px 0 0;padding:7px 12px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;}
 .tab-btn:hover{background:rgba(255,255,255,.22);color:#fff;}
-.tab-btn.active{background:#fff;color:var(--blue-dark);border-bottom-color:#fff;}
+.tab-btn.active{background:#fff;color:#5a3a8a;border-bottom-color:#fff;}
 .content{max-width:860px;margin:0 auto;padding:20px 16px 100px;}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
-.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--blue);}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border-left:4px solid var(--purple);}
+.card.blue{border-left-color:var(--blue);}
 .card.orange{border-left-color:var(--orange);}
 .card.green{border-left-color:var(--green);}
 .card.red{border-left-color:var(--red);}
-.card.yellow{border-left-color:var(--yellow);}
-.card.purple{border-left-color:var(--purple);}
-.card.teal{border-left-color:var(--teal);}
 .card.pink{border-left-color:var(--pink);}
-.card h2{font-size:.98rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;}
+.card.teal{border-left-color:var(--teal);}
+.card h2{font-size:.98rem;font-weight:700;color:#5a3a8a;margin-bottom:12px;}
+.card.blue h2{color:var(--blue-dark);}
 .card.orange h2{color:#b55f10;}
 .card.green h2{color:#1e7a45;}
 .card.red h2{color:var(--red);}
-.card.yellow h2{color:#b07800;}
-.card.purple h2{color:#5a3a8a;}
-.card.teal h2{color:#006978;}
 .card.pink h2{color:#8a1040;}
+.card.teal h2{color:#006978;}
 .card h3{font-size:.87rem;font-weight:700;color:var(--text);margin:14px 0 7px;}
 .card p,.card li{font-size:.84rem;line-height:1.65;color:var(--text);}
 .card ul,.card ol{padding-left:18px;margin-top:5px;}
 .card li{margin-bottom:4px;}
-.intro-banner{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.intro-banner{background:linear-gradient(135deg,#5a3a8a,#7b52ab);color:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
 .intro-banner .icon{font-size:2rem;flex-shrink:0;}
 .intro-banner h2{font-size:.95rem;font-weight:700;margin-bottom:6px;}
 .intro-banner p{font-size:.81rem;line-height:1.6;opacity:.9;}
-.ref-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue-dark);border:1px solid #b3d0f0;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:#f3e5f5;color:#5a3a8a;border:1px solid #d1b3e8;border-radius:5px;padding:3px 9px;font-size:.73rem;font-weight:700;margin-bottom:14px;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
 @media(max-width:500px){.two-col{grid-template-columns:1fr;}}
 .cell{background:var(--gray-bg);border-radius:8px;padding:12px;border:1px solid var(--gray-border);}
@@ -61,75 +59,42 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
 .cell ul{padding-left:14px;}
 .alert-banner{background:#fdecea;border:1.5px solid #ef9a9a;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--red);font-weight:600;line-height:1.55;}
 .ok-banner{background:#e6f4ee;border:1.5px solid #a5d6b5;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#1e7a45;font-weight:600;line-height:1.55;}
-.info-banner{background:var(--blue-light);border:1.5px solid #b3d0f0;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:var(--blue-dark);font-weight:600;line-height:1.55;}
-
-/* SCHÉMA COMMUNICATION */
-.comm-schema{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0;}
-.comm-box{background:#fff;border:2px solid var(--blue);border-radius:9px;padding:10px 14px;text-align:center;min-width:90px;}
-.comm-box .cb-icon{font-size:1.4rem;margin-bottom:4px;}
-.comm-box h4{font-size:.78rem;font-weight:700;color:var(--blue-dark);}
-.comm-box p{font-size:.7rem;color:var(--text-light);margin-top:2px;}
-.comm-arrow{font-size:1.4rem;color:var(--blue);}
-
-/* VERBAL/NON VERBAL */
-.vnv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
-@media(max-width:480px){.vnv-grid{grid-template-columns:1fr;}}
-.vnv-card{background:#fff;border-radius:9px;padding:14px;box-shadow:var(--shadow);}
-.vnv-card h4{font-size:.84rem;font-weight:700;margin-bottom:8px;}
-.vnv-card li{font-size:.79rem;line-height:1.6;margin-bottom:3px;}
-
-/* SCÉNETTES DIALOGUE */
-.dialogue{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px;overflow:hidden;}
-.dialogue h3{font-size:.86rem;font-weight:700;color:var(--blue-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--gray-border);}
-.msg{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
-.msg.soignant{flex-direction:row-reverse;}
-.msg-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
-.msg-avatar.patient{background:#e8f2fb;border:2px solid var(--blue);}
-.msg-avatar.soignant{background:#e6f4ee;border:2px solid var(--green);}
-.msg-bubble{max-width:75%;padding:9px 12px;border-radius:10px;font-size:.81rem;line-height:1.55;}
-.msg.patient .msg-bubble{background:var(--blue-light);color:var(--blue-dark);border-bottom-left-radius:2px;}
-.msg.soignant .msg-bubble{background:#e6f4ee;color:#1e7a45;border-bottom-right-radius:2px;}
-.msg-bubble.mauvais{background:#fdecea;color:var(--red);}
-.msg-label{font-size:.7rem;font-weight:700;text-align:center;margin-top:2px;color:var(--text-light);}
-
-/* PROFILS */
-.profil-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
-@media(max-width:480px){.profil-grid{grid-template-columns:1fr;}}
-.profil-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
-.profil-card .p-icon{font-size:1.5rem;margin-bottom:6px;}
-.profil-card h4{font-size:.84rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
-.profil-card p{font-size:.78rem;line-height:1.5;color:var(--text-light);}
-.profil-card .p-tips{background:var(--blue-light);border-radius:6px;padding:6px 9px;margin-top:7px;font-size:.76rem;color:var(--blue-dark);font-weight:600;line-height:1.5;}
-
-/* ÉMOTIONS */
-.emotion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
-@media(max-width:480px){.emotion-grid{grid-template-columns:1fr 1fr;}}
-.emotion-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:12px;text-align:center;box-shadow:var(--shadow);}
-.emotion-card .e-icon{font-size:1.8rem;margin-bottom:6px;}
-.emotion-card h4{font-size:.79rem;font-weight:700;color:var(--blue-dark);margin-bottom:4px;}
-.emotion-card p{font-size:.72rem;color:var(--text-light);line-height:1.4;}
-.emotion-card .e-reponse{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:600;background:#e6f4ee;color:#1e7a45;}
-
-/* QUIZ */
+.info-banner{background:#f3e5f5;border:1.5px solid #d1b3e8;border-radius:9px;padding:12px 16px;margin:10px 0;font-size:.82rem;color:#5a3a8a;font-weight:600;line-height:1.55;}
+.comm-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:500px){.comm-grid{grid-template-columns:1fr;}}
+.comm-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;text-align:center;box-shadow:var(--shadow);}
+.comm-card .c-icon{font-size:1.6rem;margin-bottom:8px;}
+.comm-card h4{font-size:.83rem;font-weight:700;color:#5a3a8a;margin-bottom:5px;}
+.comm-card p{font-size:.76rem;color:var(--text-light);line-height:1.45;}
+.attitude-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:480px){.attitude-grid{grid-template-columns:1fr;}}
+.att-card{background:#fff;border-radius:9px;border:1.5px solid var(--gray-border);padding:14px;box-shadow:var(--shadow);}
+.att-card .att-icon{font-size:1.3rem;margin-bottom:6px;}
+.att-card h4{font-size:.83rem;font-weight:700;color:#5a3a8a;margin-bottom:5px;}
+.att-card p{font-size:.78rem;color:var(--text-light);line-height:1.5;}
+.rogers-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px;}
+.rogers-card{background:#fff;border-radius:9px;border:1.5px solid #d1b3e8;padding:14px;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow);}
+.rogers-num{width:36px;height:36px;border-radius:50%;background:#7b52ab;color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rogers-body h4{font-size:.83rem;font-weight:700;color:#5a3a8a;margin-bottom:3px;}
+.rogers-body p{font-size:.78rem;color:var(--text-light);line-height:1.45;}
 .quiz-q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;}
 .quiz-q .q-text{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.5;}
 .quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--gray-border);margin-bottom:7px;cursor:pointer;transition:all .15s;font-size:.83rem;}
-.quiz-opt:hover{border-color:var(--blue);background:var(--blue-light);}
+.quiz-opt:hover{border-color:#7b52ab;background:#f3e5f5;}
 .quiz-opt.correct{border-color:var(--green);background:#e6f4ee;color:#1e7a45;font-weight:700;}
 .quiz-opt.wrong{border-color:var(--red);background:#fdecea;color:var(--red);}
-.quiz-opt input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;}
-.quiz-correction{display:none;background:var(--blue-light);border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:var(--blue-dark);line-height:1.55;border-left:3px solid var(--blue);}
-.btn{display:inline-block;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
-.btn:hover{background:var(--blue-dark);}
-.btn.secondary{background:var(--gray-bg);color:var(--blue);border:1.5px solid var(--blue);}
-.quiz-score-box{display:none;background:var(--blue-dark);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
+.quiz-opt input[type=radio]{accent-color:#7b52ab;width:15px;height:15px;flex-shrink:0;}
+.quiz-correction{display:none;background:#f3e5f5;border-radius:7px;padding:10px 14px;margin-top:8px;font-size:.81rem;color:#5a3a8a;line-height:1.55;border-left:3px solid #7b52ab;}
+.btn{display:inline-block;background:#7b52ab;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .18s;}
+.btn:hover{background:#5a3a8a;}
+.btn.secondary{background:var(--gray-bg);color:#7b52ab;border:1.5px solid #7b52ab;}
+.quiz-score-box{display:none;background:#5a3a8a;color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px;}
 .quiz-score-box .qs-num{font-size:2.4rem;font-weight:900;}
 .quiz-score-box .qs-label{font-size:.85rem;opacity:.85;margin-top:4px;}
 .quiz-score-box .qs-msg{font-size:.88rem;margin-top:10px;}
-#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 4px 14px rgba(26,111,181,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
-#audio-btn:hover{background:var(--blue-dark);transform:scale(1.08);}
+#audio-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:#7b52ab;color:#fff;border:none;box-shadow:0 4px 14px rgba(123,82,171,.4);font-size:1.2rem;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .18s;}
+#audio-btn:hover{background:#5a3a8a;transform:scale(1.08);}
 #audio-btn.playing{background:var(--orange);}
-.divider{height:1px;background:var(--gray-border);margin:14px 0;}
 </style>
 </head>
 <body>
@@ -138,16 +103,16 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
   <div class="header-top">
     <div class="module-badge">MODULE 06 · BLOC 3 · 70h</div>
     <div>
-      <h1>PraxisCommunication-AS</h1>
-      <p class="subtitle">Communication · Relation d'aide · Écoute · DEAS 2021</p>
+      <h1>SimCommunication-AS</h1>
+      <p class="subtitle">Relation et communication dans les soins · DEAS 2021</p>
     </div>
   </div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('bases',this)">💬 Les bases</button>
-    <button class="tab-btn" onclick="showTab('ecoute',this)">👂 Écoute active</button>
+    <button class="tab-btn active" onclick="showTab('bases',this)">💬 Bases</button>
+    <button class="tab-btn" onclick="showTab('rogers',this)">🌟 Relation d'aide</button>
     <button class="tab-btn" onclick="showTab('profils',this)">👥 Profils</button>
-    <button class="tab-btn" onclick="showTab('emotions',this)">💙 Émotions</button>
-    <button class="tab-btn" onclick="showTab('situations',this)">🎭 Situations</button>
+    <button class="tab-btn" onclick="showTab('famille',this)">👨‍👩‍👧 Famille</button>
+    <button class="tab-btn" onclick="showTab('bientraitance',this)">🛡️ Bientraitance</button>
     <button class="tab-btn" onclick="showTab('quiz',this)">✏️ Quiz</button>
   </div>
 </header>
@@ -159,239 +124,212 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
   <div class="intro-banner">
     <div class="icon">💬</div>
     <div>
-      <h2>La communication — Bien plus que les mots</h2>
-      <p>Communiquer, c'est transmettre un message. Mais 93 % de la communication est non verbale — la façon dont on dit les choses compte plus que ce qu'on dit. En soin, chaque regard, chaque ton, chaque posture envoie un message.</p>
+      <h2>La communication — Bien plus que des mots</h2>
+      <p>Communiquer, c'est transmettre un message. Mais dans les soins, 93% du message passe par le non-verbal. L'AS apprend à lire et à maîtriser ces canaux de communication pour un soin de qualité.</p>
     </div>
   </div>
-  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021</span>
+  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021 — Loi 2002-2</span>
 
   <div class="card">
-    <h2>📡 Le schéma de la communication</h2>
-    <div class="comm-schema">
-      <div class="comm-box">
-        <div class="cb-icon">🗣️</div>
-        <h4>Émetteur</h4>
-        <p>Celui qui envoie le message</p>
+    <h2>📡 Les 3 canaux de communication — Règle de Mehrabian</h2>
+    <div class="comm-grid">
+      <div class="comm-card">
+        <div class="c-icon">🗣️</div>
+        <h4>Verbal — 7%</h4>
+        <p>Les mots eux-mêmes. Le contenu du message. Ce qu'on dit littéralement.</p>
       </div>
-      <div class="comm-arrow">→</div>
-      <div class="comm-box">
-        <div class="cb-icon">📨</div>
-        <h4>Message</h4>
-        <p>Ce qu'on dit + comment</p>
+      <div class="comm-card">
+        <div class="c-icon">🎵</div>
+        <h4>Para-verbal — 38%</h4>
+        <p>Le ton, le rythme, le volume, les intonations. Comment on dit les mots.</p>
       </div>
-      <div class="comm-arrow">→</div>
-      <div class="comm-box">
-        <div class="cb-icon">📻</div>
-        <h4>Canal</h4>
-        <p>Voix, regard, toucher, écrit</p>
-      </div>
-      <div class="comm-arrow">→</div>
-      <div class="comm-box">
-        <div class="cb-icon">👂</div>
-        <h4>Récepteur</h4>
-        <p>Celui qui reçoit</p>
-      </div>
-      <div class="comm-arrow">→</div>
-      <div class="comm-box">
-        <div class="cb-icon">↩️</div>
-        <h4>Feedback</h4>
-        <p>La réponse — confirme que le message est reçu</p>
+      <div class="comm-card">
+        <div class="c-icon">🤲</div>
+        <h4>Non-verbal — 55%</h4>
+        <p>Posture, regard, expressions du visage, gestes, distance, tenue. Ce que le corps dit.</p>
       </div>
     </div>
-    <div class="info-banner">💡 Un message peut être parfaitement formulé et mal reçu — à cause du contexte, des émotions du récepteur, ou d'un bruit parasite (douleur, bruit, peur). L'AS vérifie toujours que son message a été compris.</div>
-  </div>
-
-  <div class="card green">
-    <h2>📊 Verbal vs Non verbal — La règle des 93 %</h2>
-    <div style="display:flex;justify-content:center;margin:14px 0;">
-      <svg width="280" height="140" viewBox="0 0 280 140">
-        <rect width="280" height="140" fill="#f5f7fa" rx="10"/>
-        <!-- cercle camembert -->
-        <!-- 7% verbal -->
-        <path d="M140 70 L140 20 A50 50 0 0 1 165 25 Z" fill="#1a6fb5"/>
-        <!-- 38% para-verbal -->
-        <path d="M140 70 L165 25 A50 50 0 0 1 185 90 Z" fill="#2d87d0"/>
-        <!-- 55% non verbal -->
-        <path d="M140 70 L185 90 A50 50 0 0 1 140 20 Z" fill="#e8f2fb" stroke="#1a6fb5" stroke-width="1"/>
-        <!-- légendes -->
-        <rect x="10" y="20" width="12" height="12" rx="3" fill="#1a6fb5"/>
-        <text x="28" y="30" font-size="11" fill="#1e2a3a" font-weight="700">7 %</text>
-        <text x="28" y="42" font-size="9" fill="#5a6a7e">Mots (verbal)</text>
-        <rect x="10" y="55" width="12" height="12" rx="3" fill="#2d87d0"/>
-        <text x="28" y="65" font-size="11" fill="#1e2a3a" font-weight="700">38 %</text>
-        <text x="28" y="77" font-size="9" fill="#5a6a7e">Ton de la voix (para-verbal)</text>
-        <rect x="10" y="90" width="12" height="12" rx="3" fill="#e8f2fb" stroke="#1a6fb5" stroke-width="1"/>
-        <text x="28" y="100" font-size="11" fill="#1e2a3a" font-weight="700">55 %</text>
-        <text x="28" y="112" font-size="9" fill="#5a6a7e">Langage du corps (non verbal)</text>
-        <text x="140" y="130" text-anchor="middle" font-size="9" fill="#5a6a7e">Étude Mehrabian — communication émotionnelle</text>
-      </svg>
-    </div>
-    <div class="vnv-grid">
-      <div class="vnv-card" style="border-left:4px solid var(--blue);">
-        <h4 style="color:var(--blue-dark);">🗣️ Communication verbale (7 %)</h4>
-        <ul>
-          <li>Les mots choisis</li>
-          <li>Le vocabulaire adapté</li>
-          <li>La formulation des phrases</li>
-          <li>Les questions ouvertes ou fermées</li>
-        </ul>
-      </div>
-      <div class="vnv-card" style="border-left:4px solid var(--blue-mid);">
-        <h4 style="color:var(--blue-mid);">🎵 Communication para-verbale (38 %)</h4>
-        <ul>
-          <li>Le ton de la voix (doux, brusque, ironique)</li>
-          <li>Le rythme (trop vite = stress)</li>
-          <li>Le volume (trop fort = agressif)</li>
-          <li>Les silences</li>
-        </ul>
-      </div>
-      <div class="vnv-card" style="border-left:4px solid var(--green);grid-column:span 2;">
-        <h4 style="color:#1e7a45;">🤝 Communication non verbale (55 %)</h4>
-        <ul style="column-count:2;column-gap:20px;">
-          <li>Le regard (contact visuel, yeux fuyants)</li>
-          <li>Le sourire, les mimiques</li>
-          <li>La posture (ouverte ou fermée)</li>
-          <li>La distance entre les personnes</li>
-          <li>Le toucher (main, épaule)</li>
-          <li>Les gestes</li>
-          <li>La tenue vestimentaire</li>
-          <li>La position du corps (face à face, côte à côte)</li>
-        </ul>
-      </div>
-    </div>
-    <div class="alert-banner">⚠️ "C'est pas ce que j'ai dit, c'est comment tu l'as dit." — Si vos mots sont bienveillants mais votre ton est impatient, c'est le ton que la personne retient. Toujours.</div>
+    <div class="info-banner">💡 "Je vais bien" dit avec les épaules basses, la tête courbée et une voix monocorde — ce n'est pas "je vais bien". L'AS lit le non-verbal en priorité.</div>
   </div>
 
   <div class="card orange">
-    <h2>🚧 Les obstacles à la communication</h2>
+    <h2>⚡ Les obstacles à la communication</h2>
     <div class="two-col">
       <div class="cell">
-        <h4>Obstacles liés au soignant</h4>
+        <h4>Obstacles chez l'AS</h4>
         <ul>
-          <li>Parler trop vite</li>
-          <li>Utiliser du jargon médical</li>
-          <li>Finir les phrases de la personne</li>
-          <li>Donner des conseils non demandés</li>
-          <li>Minimiser ("c'est rien, vous verrez")</li>
+          <li>Aller trop vite — ne pas laisser le temps de répondre</li>
+          <li>Parler en jargon médical incompréhensible</li>
+          <li>Couper la parole ou finir les phrases</li>
+          <li>Minimiser ("c'est rien, ça va aller")</li>
           <li>Juger ou moraliser</li>
-          <li>Faire autre chose en même temps</li>
+          <li>Donner des conseils non demandés</li>
+          <li>Ne pas regarder la personne pendant le soin</li>
         </ul>
       </div>
       <div class="cell">
-        <h4>Obstacles liés à l'environnement</h4>
+        <h4>Obstacles chez la personne</h4>
         <ul>
-          <li>Bruit (télévision allumée)</li>
-          <li>Manque de confidentialité</li>
-          <li>Interruptions répétées</li>
-          <li>Mauvais éclairage (malvoyant)</li>
-          <li>Prothèse auditive absente</li>
-          <li>Douleur (empêche la concentration)</li>
-          <li>Fatigue de la personne</li>
+          <li>Troubles auditifs (prothèse retirée, acouphènes)</li>
+          <li>Troubles cognitifs (Alzheimer, démence)</li>
+          <li>Aphasie après AVC</li>
+          <li>Douleur intense qui empêche la concentration</li>
+          <li>Peur, anxiété, choc émotionnel</li>
+          <li>Barrière linguistique</li>
+          <li>Dépression, repli sur soi</li>
         </ul>
       </div>
     </div>
+  </div>
+
+  <div class="card green">
+    <h2>✅ Les techniques de communication bienveillante</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce qu'on fait</h4>
+        <ul>
+          <li>Se placer à la hauteur de la personne (s'asseoir)</li>
+          <li>Maintenir un contact visuel doux — pas fixe</li>
+          <li>Parler doucement, lentement, en articulant</li>
+          <li>Utiliser le prénom ou le nom préféré</li>
+          <li>Reformuler pour vérifier qu'on a bien compris</li>
+          <li>Laisser des silences — la personne a le droit de ne pas répondre</li>
+          <li>Toucher la main ou l'épaule si la personne l'accepte</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Questions ouvertes vs fermées</h4>
+        <ul>
+          <li><strong>Fermée :</strong> "Vous avez mal ?" → réponse oui/non</li>
+          <li><strong>Ouverte :</strong> "Comment vous sentez-vous ce matin ?" → laisse la personne s'exprimer</li>
+          <li>En situation de crise → commencer par des questions fermées (moins angoissant)</li>
+          <li>Pour approfondir → passer aux questions ouvertes</li>
+        </ul>
+        <div style="margin-top:8px;font-size:.77rem;color:#1e7a45;font-weight:600;">✅ "Vous voulez commencer par quoi ?" → autonomie</div>
+      </div>
+    </div>
+    <div class="ok-banner">✅ La reformulation : "Si j'ai bien compris, vous me dites que..." — elle montre à la personne qu'on l'a écoutée et permet de corriger un malentendu.</div>
+  </div>
+
+  <div class="card">
+    <h2>🗺️ La proxémique — La distance dans le soin</h2>
+    <p style="font-size:.82rem;color:var(--text-light);margin-bottom:10px;">Edward Hall a défini 4 zones de distance dans la communication humaine. L'AS entre dans la zone intime à chaque soin — cela demande un accord implicite ou explicite.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>🔴 Zone intime (0 à 45 cm)</h4>
+        <p>La zone du soin, de la toilette, des soins techniques. Réservée aux très proches. L'AS y entre avec la permission de la personne et en prévenant toujours.</p>
+      </div>
+      <div class="cell">
+        <h4>🟡 Zone personnelle (45 cm à 1,2 m)</h4>
+        <p>La zone de la conversation face à face. Pour l'aide au repas, la discussion au chevet. Distance naturelle entre soignant et personne.</p>
+      </div>
+      <div class="cell">
+        <h4>🟢 Zone sociale (1,2 m à 3,6 m)</h4>
+        <p>La zone des échanges professionnels formels. Pour la transmission entre collègues, la conversation dans le couloir.</p>
+      </div>
+      <div class="cell">
+        <h4>🔵 Zone publique (&gt; 3,6 m)</h4>
+        <p>La zone des discours, des groupes. Peu utilisée dans le soin direct.</p>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Entrer dans la zone intime sans prévenir = agression ressentie. Toujours frapper, se présenter, expliquer le geste AVANT de toucher la personne.</div>
   </div>
 </div>
 
-<!-- ===== ÉCOUTE ACTIVE ===== -->
-<div id="tab-ecoute" class="tab-panel">
+<!-- ===== RELATION D'AIDE ===== -->
+<div id="tab-rogers" class="tab-panel">
   <div class="intro-banner">
-    <div class="icon">👂</div>
+    <div class="icon">🌟</div>
     <div>
-      <h2>L'écoute active — Écouter pour de vrai</h2>
-      <p>Il y a une différence entre entendre et écouter. Entendre, c'est passif — les sons arrivent aux oreilles. Écouter, c'est actif — on s'engage, on observe, on reformule, on valide. En soin, l'écoute active est un outil thérapeutique à part entière.</p>
+      <h2>La relation d'aide — Carl Rogers</h2>
+      <p>Carl Rogers (1902-1987), psychologue humaniste américain, a défini les conditions nécessaires à une relation thérapeutique aidante. Ces principes fondent la pratique de l'AS dans la relation de soin.</p>
     </div>
   </div>
-  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021 — Carl Rogers</span>
+  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021 — Théorie de Carl Rogers</span>
 
   <div class="card">
-    <h2>🎯 Les 4 piliers de l'écoute active</h2>
-    <div class="two-col">
-      <div class="cell" style="border-left:3px solid var(--blue);">
-        <h4>👁️ 1. La présence totale</h4>
-        <p>S'arrêter. Poser le matériel. Regarder la personne. Pas de téléphone, pas de tâche parallèle. La présence physique et mentale complète envoie le message : "vous êtes important pour moi."</p>
+    <h2>🌟 Les 3 conditions de Rogers — Fondements de la relation d'aide</h2>
+    <div class="rogers-grid">
+      <div class="rogers-card">
+        <div class="rogers-num">1</div>
+        <div class="rogers-body">
+          <h4>La congruence — Être authentique</h4>
+          <p>L'AS est en accord avec lui-même. Il ne joue pas un rôle. S'il est triste ce jour-là, il peut le reconnaître sans le déverser sur la personne. L'authenticité crée la confiance.</p>
+          <div style="margin-top:6px;font-size:.77rem;color:#5a3a8a;font-weight:600;">Exemple : "Ce que vous traversez me touche aussi" — plutôt que feindre l'indifférence.</div>
+        </div>
       </div>
+      <div class="rogers-card">
+        <div class="rogers-num">2</div>
+        <div class="rogers-body">
+          <h4>L'empathie — Se mettre à la place de l'autre</h4>
+          <p>Comprendre ce que vit la personne de son point de vue — sans se perdre dans son émotion (ce serait la sympathie). L'empathie c'est : "Je comprends ce que vous ressentez" sans "Moi aussi j'ai vécu ça".</p>
+          <div style="margin-top:6px;font-size:.77rem;color:#5a3a8a;font-weight:600;">⚠️ Empathie ≠ Sympathie : la sympathie fusionne, l'empathie comprend en restant soi-même.</div>
+        </div>
+      </div>
+      <div class="rogers-card">
+        <div class="rogers-num">3</div>
+        <div class="rogers-body">
+          <h4>Le regard positif inconditionnel — Accepter sans juger</h4>
+          <p>Accueillir la personne telle qu'elle est, sans jugement de valeur. Qu'elle soit agressive, alcoolique, maltraitante par le passé — elle mérite d'être soignée avec dignité. Ce n'est pas approuver ses actes, c'est respecter la personne.</p>
+          <div style="margin-top:6px;font-size:.77rem;color:#5a3a8a;font-weight:600;">Le soin ne se conditionne jamais au comportement de la personne.</div>
+        </div>
+      </div>
+    </div>
+    <div class="info-banner">💡 Rogers a montré que ces 3 conditions sont nécessaires ET suffisantes pour qu'une relation aide la personne à évoluer. L'AS les applique quotidiennement, même sans le savoir.</div>
+  </div>
+
+  <div class="card purple">
+    <h2>💜 L'écoute active — La technique concrète</h2>
+    <p style="font-size:.82rem;margin-bottom:12px;">L'écoute active n'est pas une attitude passive. C'est un engagement total de l'AS dans la compréhension de ce que dit la personne — et surtout de ce qu'elle ne dit pas.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce que fait l'AS</h4>
+        <ul>
+          <li>Se tait et laisse la personne parler</li>
+          <li>Regarde sans fixer (regard doux, légèrement de côté)</li>
+          <li>Hoche la tête pour montrer qu'il suit</li>
+          <li>Reformule : "Donc vous me dites que..."</li>
+          <li>Verbalise les émotions : "Vous semblez inquiet..."</li>
+          <li>Pose des questions ouvertes pour approfondir</li>
+          <li>Supporte les silences sans les combler</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Ce que l'AS évite</h4>
+        <ul>
+          <li>Couper la parole</li>
+          <li>Minimiser ("c'est rien, ça va aller")</li>
+          <li>Raconter sa propre expérience</li>
+          <li>Donner des conseils non demandés</li>
+          <li>Regarder son téléphone ou la porte</li>
+          <li>Juger ou moraliser</li>
+          <li>Rassurer trop vite sans laisser s'exprimer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>🎭 Empathie vs Sympathie vs Antipathie</h2>
+    <div class="two-col">
       <div class="cell" style="border-left:3px solid var(--green);">
-        <h4>🔄 2. La reformulation</h4>
-        <p>Répéter avec ses propres mots ce qu'on a entendu. Ça montre qu'on a écouté et ça permet à la personne de corriger si on a mal compris.</p>
-        <p style="margin-top:6px;font-style:italic;color:var(--text-light);">"Si je comprends bien, vous me dites que…"</p>
+        <h4 style="color:#1e7a45;">✅ Empathie — La juste distance</h4>
+        <p>Je comprends ce que vous vivez, sans le vivre à votre place. Je reste moi-même tout en étant pleinement présent pour vous. Je peux vous aider parce que je ne me noie pas avec vous.</p>
       </div>
       <div class="cell" style="border-left:3px solid var(--orange);">
-        <h4>💙 3. L'empathie</h4>
-        <p>Se mettre à la place de l'autre sans confondre avec la sympathie. L'empathie = comprendre ce que la personne ressent. La sympathie = ressentir la même chose (risque de perdre la distance professionnelle).</p>
+        <h4 style="color:#b55f10;">⚠️ Sympathie — La fusion dangereuse</h4>
+        <p>Je ressens ce que vous ressentez. Je pleure avec vous. Je ne peux plus être objectif. Je risque l'épuisement professionnel (burn-out) parce que je n'ai plus de distance protectrice.</p>
       </div>
-      <div class="cell" style="border-left:3px solid var(--purple);">
-        <h4>❓ 4. Les questions ouvertes</h4>
-        <p>Les questions qui commencent par "comment", "que", "qu'est-ce que" invitent à développer. Les questions fermées (oui/non) bloquent la conversation.</p>
-        <p style="margin-top:6px;font-style:italic;color:var(--text-light);">"Comment vous sentez-vous ce matin ?" ✅<br>"Vous avez bien dormi ?" ❌</p>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">❌ Antipathie — Le rejet</h4>
+        <p>Ce que vous vivez me laisse indifférent ou m'agace. Je n'arrive pas à comprendre votre point de vue. La relation de soin devient impossible — signaler à l'IDE.</p>
       </div>
-    </div>
-  </div>
-
-  <div class="dialogue">
-    <h3>💬 Scénette — Bonne vs Mauvaise écoute</h3>
-    <p style="font-size:.8rem;color:var(--text-light);margin-bottom:12px;">Mme Aubert dit à l'AS pendant la toilette : "Je ne veux plus manger, ça ne sert à rien."</p>
-
-    <p style="font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Mauvaise réponse :</p>
-    <div class="msg soignant">
-      <div class="msg-avatar soignant">🧑‍⚕️</div>
-      <div>
-        <div class="msg-bubble mauvais">"Mais si, il faut manger Mme Aubert ! Vous allez vous affaiblir. Allez, voilà votre plateau."</div>
-        <div class="msg-label">AS — minimise et passe à autre chose</div>
+      <div class="cell" style="border-left:3px solid var(--blue);">
+        <h4 style="color:var(--blue-dark);">🔵 La juste distance thérapeutique</h4>
+        <p>C'est l'espace entre la fusion et l'indifférence. L'AS professionnel apprend à maintenir cette distance tout au long de sa carrière — c'est une compétence qui se travaille.</p>
       </div>
     </div>
-
-    <div class="divider"></div>
-
-    <p style="font-size:.8rem;font-weight:700;color:#1e7a45;margin-bottom:6px;">✅ Bonne réponse (écoute active) :</p>
-    <div class="msg soignant">
-      <div class="msg-avatar soignant">🧑‍⚕️</div>
-      <div>
-        <div class="msg-bubble">"Vous dites que ça ne sert à rien… qu'est-ce qui vous fait dire ça ?"</div>
-        <div class="msg-label">AS — reformule et ouvre la conversation</div>
-      </div>
-    </div>
-    <div class="msg patient">
-      <div class="msg-avatar patient">👵</div>
-      <div>
-        <div class="msg-bubble">"Mon mari me manque trop. Depuis qu'il est parti, je n'ai plus envie de rien."</div>
-        <div class="msg-label">Mme Aubert</div>
-      </div>
-    </div>
-    <div class="msg soignant">
-      <div class="msg-avatar soignant">🧑‍⚕️</div>
-      <div>
-        <div class="msg-bubble">"Je comprends que ce soit très difficile. Je vais en parler à l'infirmière pour qu'on puisse vous aider."</div>
-        <div class="msg-label">AS — valide, accompagne, transmet</div>
-      </div>
-    </div>
-    <div class="ok-banner">✅ La 2e réponse a permis de découvrir la vraie raison du refus alimentaire — un deuil. Sans écoute active, on passait à côté et on forçait le repas.</div>
-  </div>
-
-  <div class="card teal">
-    <h2>🤐 Le silence — Outil de communication</h2>
-    <p style="margin-bottom:10px;">Le silence fait peur aux soignants. On s'empresse de remplir les vides. Pourtant le silence est parfois le meilleur accompagnement.</p>
-    <div class="two-col">
-      <div class="cell">
-        <h4>✅ Quand laisser le silence</h4>
-        <ul>
-          <li>Quand la personne pleure — laisser les larmes</li>
-          <li>Quand elle cherche ses mots — ne pas finir ses phrases</li>
-          <li>Après une question difficile — lui donner le temps de réfléchir</li>
-          <li>En fin de vie — la présence silencieuse suffit</li>
-        </ul>
-      </div>
-      <div class="cell">
-        <h4>🤝 Ce qu'on peut faire dans le silence</h4>
-        <ul>
-          <li>Tenir la main si accepté</li>
-          <li>Maintenir le contact visuel avec douceur</li>
-          <li>Hocher la tête doucement</li>
-          <li>Rester présent sans s'agiter</li>
-        </ul>
-      </div>
-    </div>
-    <div class="info-banner">💡 "Je ne savais pas quoi dire alors je suis resté là" est souvent plus précieux que n'importe quelle parole maladroite.</div>
+    <div class="alert-banner">⚠️ Un AS qui pleure systématiquement avec ses résidents n'est pas "trop gentil" — il est en difficulté. La supervision et les groupes de parole en équipe sont des outils essentiels.</div>
   </div>
 </div>
 
@@ -400,235 +338,304 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
   <div class="intro-banner">
     <div class="icon">👥</div>
     <div>
-      <h2>Communication adaptée — Selon le profil</h2>
-      <p>Il n'y a pas une façon de communiquer — il y a autant de façons que de personnes. L'AS adapte constamment son langage, son rythme, son mode de communication à la personne qu'il a en face de lui.</p>
-    </div>
-  </div>
-  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021</span>
-
-  <div class="profil-grid">
-
-    <div class="profil-card">
-      <div class="p-icon">👴</div>
-      <h4>Personne âgée valide</h4>
-      <p>Adulte à part entière — ne pas infantiliser. Vérifier que la prothèse auditive est en place. Articuler sans crier.</p>
-      <div class="p-tips">✅ Parler normalement · Face à face · Vérifier la compréhension · Vouvoyer systématiquement</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">🧠</div>
-      <h4>Personne avec Alzheimer</h4>
-      <p>Le langage verbal se perd progressivement mais les émotions restent intactes. La personne "ressent" avant de comprendre.</p>
-      <div class="p-tips">✅ Phrases courtes · Une idée à la fois · Ne jamais corriger · Entrer dans son monde · Communication non verbale prioritaire</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">⚡</div>
-      <h4>Personne avec aphasie (AVC)</h4>
-      <p>Comprend souvent mais ne peut pas s'exprimer correctement. Frustration intense — ne jamais finir ses phrases à sa place.</p>
-      <div class="p-tips">✅ Questions fermées (oui/non) · Pictogrammes · Laisser le temps · S'adresser à la personne, pas à sa famille</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">🤲</div>
-      <h4>Personne avec Parkinson</h4>
-      <p>Voix faible et monotone, visage peu expressif (hypomimie) — ne pas interpréter ça comme de l'indifférence.</p>
-      <div class="p-tips">✅ Se rapprocher pour entendre · Ne pas interpréter le visage figé comme une absence d'émotion · Laisser du temps</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">😔</div>
-      <h4>Personne en fin de vie</h4>
-      <p>Les mots ne sont plus nécessaires. La présence, le toucher, le regard suffisent. La personne perçoit même quand elle semble inconsciente.</p>
-      <div class="p-tips">✅ Continuer à parler même sans réponse · Toucher doux · Silence bienveillant · Éviter les conversations sur elle devant elle</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">😤</div>
-      <h4>Personne agitée ou agressives</h4>
-      <p>L'agitation est souvent un symptôme (douleur, peur, confusion) — pas un caprice. Ne jamais répondre à l'agressivité par l'agressivité.</p>
-      <div class="p-tips">✅ Voix calme · Distance de sécurité · Ne pas s'approcher de face si menaçant · Différer le soin · Signaler à l'IDE</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">😢</div>
-      <h4>Personne en pleurs</h4>
-      <p>Ne jamais dire "pleurez pas" ou "c'est pas grave". Les larmes sont une soupape — les empêcher aggrave la souffrance.</p>
-      <div class="p-tips">✅ "Je suis là" · Silence · Main sur l'épaule si accepté · Laisser pleurer · Transmettre à l'IDE si détresse importante</div>
-    </div>
-
-    <div class="profil-card">
-      <div class="p-icon">🌍</div>
-      <h4>Barrière de langue</h4>
-      <p>Quand la personne ne parle pas français. Ne pas hausser le ton — parler plus fort ne rend pas plus compréhensible.</p>
-      <div class="p-tips">✅ Pictogrammes · Gestes · Famille comme interprète si disponible · Signaler à l'équipe pour organiser une interprétation</div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== ÉMOTIONS ===== -->
-<div id="tab-emotions" class="tab-panel">
-  <div class="intro-banner">
-    <div class="icon">💙</div>
-    <div>
-      <h2>Gérer les émotions — Les siennes et celles des autres</h2>
-      <p>Les soins sont chargés d'émotions — la peur, la tristesse, la colère, le deuil. L'AS les rencontre chaque jour. Il doit apprendre à les accueillir sans les nier ni les amplifier, et à prendre soin de ses propres émotions.</p>
+      <h2>Adapter sa communication — Selon le profil de la personne</h2>
+      <p>Chaque personne est unique. L'AS adapte sa communication à l'état, aux capacités et au profil de chaque résident — ce qui fonctionne avec une personne valide ne fonctionne pas avec une personne démente.</p>
     </div>
   </div>
   <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021</span>
 
   <div class="card">
-    <h2>😊 Les émotions fréquentes en EHPAD — Comment les accueillir</h2>
-    <div class="emotion-grid">
-      <div class="emotion-card">
-        <div class="e-icon">😢</div>
-        <h4>Tristesse / Deuil</h4>
-        <p>Perte du conjoint, de l'autonomie, de la maison. Deuil normal et nécessaire.</p>
-        <span class="e-reponse">Présence · Écoute · Ne pas minimiser</span>
+    <h2>🧠 Personne avec démence (Alzheimer) — Approche validation</h2>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">❌ Ce qu'on ne fait PAS</h4>
+        <ul>
+          <li>Corriger brutalement ("Mais non, votre mère est décédée !")</li>
+          <li>Argumenter ou débattre de la réalité</li>
+          <li>Se moquer ou minimiser devant les autres</li>
+          <li>Parler d'elle en sa présence comme si elle n'était pas là</li>
+          <li>Hausser le ton parce qu'elle ne comprend pas</li>
+          <li>Trop de stimuli en même temps</li>
+        </ul>
       </div>
-      <div class="emotion-card">
-        <div class="e-icon">😨</div>
-        <h4>Peur / Anxiété</h4>
-        <p>Peur de la maladie, de la mort, de l'abandon, des soins douloureux.</p>
-        <span class="e-reponse">Expliquer · Rassurer · Ne pas mentir</span>
-      </div>
-      <div class="emotion-card">
-        <div class="e-icon">😡</div>
-        <h4>Colère</h4>
-        <p>Souvent masque la peur ou l'impuissance. Rarement dirigée contre vous personnellement.</p>
-        <span class="e-reponse">Calme · Distance · Ne pas répondre par la colère</span>
-      </div>
-      <div class="emotion-card">
-        <div class="e-icon">😞</div>
-        <h4>Dépression</h4>
-        <p>Retrait, perte d'intérêt, refus alimentaire. Signal d'alarme à transmettre.</p>
-        <span class="e-reponse">Signaler IDE · Maintenir le lien · Ne pas forcer</span>
-      </div>
-      <div class="emotion-card">
-        <div class="e-icon">😰</div>
-        <h4>Culpabilité</h4>
-        <p>La personne culpabilise d'être un "fardeau" pour sa famille.</p>
-        <span class="e-reponse">Valoriser · "Vous n'êtes pas un fardeau"</span>
-      </div>
-      <div class="emotion-card">
-        <div class="e-icon">😤</div>
-        <h4>Refus / Opposition</h4>
-        <p>Droit au refus. Peut masquer une douleur, une peur ou une dépression.</p>
-        <span class="e-reponse">Respecter · Investiguer · Transmettre IDE</span>
+      <div class="cell" style="border-left:3px solid var(--green);">
+        <h4 style="color:#1e7a45;">✅ Ce qu'on fait</h4>
+        <ul>
+          <li>Entrer doucement dans son monde (approche validation de Naomi Feil)</li>
+          <li>Phrases courtes, simples, une idée à la fois</li>
+          <li>Contact visuel doux, sourire, voix calme</li>
+          <li>Utiliser les souvenirs anciens (mémoire à long terme préservée)</li>
+          <li>La musique de son époque calme et oriente</li>
+          <li>Nommer ses émotions : "Vous semblez inquiète..."</li>
+        </ul>
       </div>
     </div>
+    <div class="info-banner">💡 Naomi Feil (méthode Validation) : entrer dans le monde de la personne démente plutôt que la ramener dans le nôtre. Ce n'est pas mentir — c'est respecter sa réalité intérieure.</div>
+  </div>
+
+  <div class="card teal">
+    <h2>⚡ Personne avec aphasie (après AVC)</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">L'aphasie c'est la perte ou l'altération du langage après une lésion cérébrale. La personne comprend souvent tout — mais ne peut pas s'exprimer normalement.</p>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Techniques adaptées</h4>
+        <ul>
+          <li>Questions fermées (oui/non) en priorité</li>
+          <li>Donner le temps — ne jamais finir les phrases à sa place</li>
+          <li>Utiliser des gestes, des images, des pictogrammes</li>
+          <li>Un mot clé plutôt que des phrases longues</li>
+          <li>Répéter sans élever la voix — l'aphasique n'est pas sourd</li>
+          <li>S'adresser à la personne, pas à sa famille</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Ce qu'on ne fait jamais</h4>
+        <ul>
+          <li>Parler de la personne devant elle en la faisant abstraction</li>
+          <li>Hausser la voix</li>
+          <li>Finir ses phrases ou deviner à haute voix sans lui laisser le temps</li>
+          <li>Montrer l'impatience</li>
+          <li>Faire semblant d'avoir compris quand ce n'est pas le cas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Intelligence préservée : une personne aphasique comprend souvent tout ce qu'on dit autour d'elle. Parler d'elle en sa présence comme si elle n'entendait pas = atteinte à sa dignité.</div>
   </div>
 
   <div class="card orange">
-    <h2>🛡️ La distance professionnelle — Ni trop près ni trop loin</h2>
+    <h2>😠 Personne agressive ou agitée — CAT</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">L'agressivité est souvent un signe d'alerte — douleur non exprimée, peur, perte de contrôle, démence. L'AS ne la prend pas personnellement.</p>
     <div class="two-col">
-      <div class="cell" style="border-left:3px solid var(--red);">
-        <h4 style="color:var(--red);">❌ Trop proche — La fusion</h4>
+      <div class="cell">
+        <h4>Phase de montée</h4>
         <ul>
-          <li>Pleurer avec le patient</li>
-          <li>Ramener des problèmes à la maison</li>
-          <li>"C'est ma résidente préférée"</li>
-          <li>S'impliquer dans ses affaires personnelles</li>
-          <li>Risque d'épuisement professionnel</li>
+          <li>Rester calme et posé — ne pas répondre à l'agitation par l'agitation</li>
+          <li>Voix douce et ferme</li>
+          <li>Maintenir une distance de sécurité</li>
+          <li>Ne pas tourner le dos</li>
+          <li>Proposer de l'espace : "Je reviens dans quelques minutes"</li>
+          <li>Chercher la cause : douleur ? faim ? peur ?</li>
         </ul>
       </div>
-      <div class="cell" style="border-left:3px solid var(--red);">
-        <h4 style="color:var(--red);">❌ Trop loin — L'indifférence</h4>
+      <div class="cell">
+        <h4>Phase de crise</h4>
         <ul>
-          <li>Traiter les résidents comme des objets</li>
-          <li>"C'est son problème, pas le mien"</li>
-          <li>Soins techniques sans relation</li>
-          <li>Pas de regard, pas de parole</li>
-          <li>Risque de maltraitance passive</li>
+          <li>Appeler l'IDE ou un collègue</li>
+          <li>Ne jamais rester seul face à une personne violente</li>
+          <li>Assurer sa propre sécurité d'abord</li>
+          <li>Tracer l'incident dans le dossier</li>
+          <li>Débriefer avec l'équipe</li>
+          <li>Signaler si récurrence (protocole établissement)</li>
         </ul>
       </div>
     </div>
-    <div class="ok-banner">✅ La bonne distance = empathie sans fusion. Je comprends ce que vous ressentez, je suis là pour vous — mais je reste moi-même, avec mes propres émotions gérées.</div>
+    <div class="ok-banner">✅ Après une agression verbale ou physique, un temps de décompression est légitime. Parler avec un collègue, l'IDE ou la cadre. L'AS n'est pas seul face à ces situations.</div>
   </div>
 
-  <div class="card purple">
-    <h2>💜 Prendre soin de soi — La prévention du burn-out</h2>
-    <p style="margin-bottom:10px;">On ne peut pas prendre soin des autres si on ne prend pas soin de soi. Le métier AS est émotionnellement exigeant — les deuils répétés, la souffrance, les conflits s'accumulent.</p>
+  <div class="card pink">
+    <h2>😢 Personne en fin de vie — Présence et silence</h2>
     <div class="two-col">
       <div class="cell">
-        <h4>Signaux d'alarme</h4>
+        <h4>Ce qui aide</h4>
         <ul>
-          <li>Fatigue persistante malgré le repos</li>
-          <li>Cynisme envers les résidents</li>
-          <li>Erreurs inhabituelles</li>
-          <li>Irritabilité, pleurs fréquents</li>
-          <li>Sentiment d'inutilité</li>
-          <li>Douleurs physiques inexpliquées</li>
+          <li>La présence physique — être là, même sans parler</li>
+          <li>Tenir la main si la personne l'accepte</li>
+          <li>Continuer à parler même si la personne semble inconsciente (l'ouïe persiste)</li>
+          <li>Respecter les silences sans les remplir</li>
+          <li>Nommer ce qu'on fait : "Je suis là, je vous tiens la main"</li>
+          <li>Respecter les croyances et les rituels</li>
         </ul>
       </div>
       <div class="cell">
-        <h4>Ce qu'on peut faire</h4>
+        <h4>Ce qu'on évite</h4>
         <ul>
-          <li>En parler à l'équipe, au cadre</li>
-          <li>Demander un soutien psychologique</li>
-          <li>Participer aux réunions d'analyse de pratiques</li>
-          <li>Maintenir des activités hors travail</li>
-          <li>Ne pas rester seul avec des situations difficiles</li>
+          <li>Les fausses promesses ("vous allez guérir")</li>
+          <li>Les phrases toutes faites ("c'est mieux comme ça")</li>
+          <li>Parler fort ou de façon agitée</li>
+          <li>Laisser la personne seule si elle manifeste de l'angoisse</li>
+          <li>Faire semblant que tout va bien si ce n'est pas le cas</li>
         </ul>
       </div>
     </div>
-    <div class="info-banner">💡 Ressentir de la tristesse après le décès d'un résident qu'on soignait depuis 2 ans, c'est normal et humain. Ce qui n'est pas normal, c'est de ne pas en parler et de tout garder pour soi.</div>
+    <div class="info-banner">💡 Elisabeth Kübler-Ross (1926-2004) a décrit les 5 stades du deuil : Déni → Colère → Marchandage → Dépression → Acceptation. La personne en fin de vie peut traverser ces stades dans n'importe quel ordre — et l'AS aussi face au deuil répété.</div>
   </div>
 </div>
 
-<!-- ===== SITUATIONS ===== -->
-<div id="tab-situations" class="tab-panel">
+<!-- ===== FAMILLE ===== -->
+<div id="tab-famille" class="tab-panel">
   <div class="intro-banner">
-    <div class="icon">🎭</div>
+    <div class="icon">👨‍👩‍👧</div>
     <div>
-      <h2>Situations concrètes — Comment réagir</h2>
-      <p>Des situations difficiles, vous en vivrez chaque jour. Voici des scénettes avec les bonnes et les mauvaises réponses pour vous entraîner avant d'y être confronté.</p>
+      <h2>La communication avec les familles</h2>
+      <p>Les familles sont des partenaires essentiels du soin. Mais elles peuvent aussi être source de tensions. L'AS apprend à les accueillir, les informer et les accompagner dans le respect de son rôle.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021 — Loi 2002-2</span>
+
+  <div class="card">
+    <h2>🤝 Accueillir les familles — Les fondamentaux</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Ce que l'AS fait</h4>
+        <ul>
+          <li>Les accueillir avec bienveillance, même quand c'est difficile</li>
+          <li>Les appeler par leur nom</li>
+          <li>Reconnaître leur rôle et leur investissement</li>
+          <li>Répondre à leurs questions dans la limite de ses compétences</li>
+          <li>Les orienter vers l'IDE ou le médecin pour les questions médicales</li>
+          <li>Ne jamais dénigrer l'établissement ou l'équipe</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Les limites à respecter</h4>
+        <ul>
+          <li>Ne jamais divulguer des informations médicales confidentielles</li>
+          <li>Ne pas critiquer l'équipe ou les soins devant la famille</li>
+          <li>Ne pas promettre ce qu'on ne peut pas tenir</li>
+          <li>Ne pas entrer dans les conflits familiaux</li>
+          <li>Ne pas donner son numéro de téléphone personnel</li>
+          <li>Transmettre à l'IDE si la famille fait des demandes inappropriées</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Le secret professionnel s'applique aussi aux familles. Un fils qui demande "Est-ce que maman a pris son traitement ?" → "Je vous invite à en parler avec l'IDE ou le médecin." L'AS ne divulgue pas d'informations médicales.</div>
+  </div>
+
+  <div class="card orange">
+    <h2>😤 Familles difficiles — Comment gérer</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Famille exigeante ou agressive</h4>
+        <ul>
+          <li>Rester calme — ne pas répondre à l'agressivité par l'agressivité</li>
+          <li>Écouter sans interrompre, puis reformuler</li>
+          <li>Reconnaître l'inquiétude : "Je comprends que vous soyez préoccupé"</li>
+          <li>Orienter vers le cadre ou l'IDE pour les plaintes formelles</li>
+          <li>Tracer l'incident dans le dossier</li>
+          <li>Débriefer avec l'équipe</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Famille absente ou en rupture</h4>
+        <ul>
+          <li>Ne pas juger — on ne connaît pas l'histoire</li>
+          <li>Signaler à l'équipe si la personne semble souffrir de l'isolement</li>
+          <li>Orienter vers l'assistante sociale si nécessaire</li>
+          <li>Noter les appels téléphoniques dans le dossier</li>
+          <li>L'AS ne remplace pas la famille — mais il comble une part du lien</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="dialogue">
-    <h3>🎭 Situation 1 — La question sur la mort</h3>
-    <p style="font-size:.8rem;color:var(--text-light);margin-bottom:12px;">M. Girard, 89 ans, vous demande pendant la toilette : "Je ne vais plus en avoir pour longtemps, n'est-ce pas ?"</p>
+  <div class="card green">
+    <h2>💚 Accompagner la famille en fin de vie</h2>
+    <ul>
+      <li>Leur expliquer ce qu'ils peuvent faire : tenir la main, parler, chanter, lire</li>
+      <li>Les préparer aux changements physiques si approprié (avec l'IDE)</li>
+      <li>Leur proposer un espace de repos si les visites sont longues</li>
+      <li>Ne pas les laisser seuls s'ils semblent dépassés</li>
+      <li>Après le décès : accueillir leur douleur avec bienveillance, proposer un temps de recueillement</li>
+      <li>Signaler à l'IDE ou au médecin si une famille semble en grande détresse</li>
+    </ul>
+    <div class="info-banner">💡 La famille vit son propre deuil anticipatoire. L'AS peut être un témoin bienveillant de ce processus — sans se substituer au psychologue ou au médecin.</div>
+  </div>
+</div>
 
-    <p style="font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Mauvaises réponses :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble mauvais">"Mais non ! Vous êtes solide, vous allez vous en sortir !"</div><div class="msg-label">Mensonge rassurant — ne respecte pas la réalité</div></div></div>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble mauvais">"Je ne suis pas médecin, je ne peux pas vous dire ça."</div><div class="msg-label">Fuite — laisse la personne seule avec sa question</div></div></div>
+<!-- ===== BIENTRAITANCE ===== -->
+<div id="tab-bientraitance" class="tab-panel">
+  <div class="intro-banner">
+    <div class="icon">🛡️</div>
+    <div>
+      <h2>Bientraitance et prévention de la maltraitance</h2>
+      <p>La bientraitance n'est pas l'absence de maltraitance — c'est une démarche active de soin de qualité, centrée sur la personne. La maltraitance peut être visible ou invisible, intentionnelle ou non.</p>
+    </div>
+  </div>
+  <span class="ref-badge">📋 Module 06 · Bloc 3 · DEAS 2021 — Loi 2007-293</span>
 
-    <div class="divider"></div>
-
-    <p style="font-size:.8rem;font-weight:700;color:#1e7a45;margin-bottom:6px;">✅ Bonne réponse :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble">"Qu'est-ce qui vous fait penser à ça ce matin ?"</div><div class="msg-label">Ouvre la conversation sans mentir ni fuir</div></div></div>
-    <div class="msg patient"><div class="msg-avatar patient">👴</div><div><div class="msg-bubble">"J'ai de plus en plus de mal à respirer. J'ai peur."</div></div></div>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble">"Je comprends que vous ayez peur. Je suis là. Et je vais en parler au médecin pour qu'on puisse mieux vous aider."</div><div class="msg-label">Présence + transmission IDE/médecin</div></div></div>
+  <div class="card">
+    <h2>⚖️ Les 7 formes de maltraitance — Définition HAS</h2>
+    <div class="attitude-grid">
+      <div class="att-card">
+        <div class="att-icon">🤜</div>
+        <h4>Physique</h4>
+        <p>Coups, brûlures, contention abusive, médicamentation excessive pour calmer la personne.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">😢</div>
+        <h4>Psychologique</h4>
+        <p>Insultes, humiliations, menaces, moqueries, isolement forcé, chantage affectif.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">💰</div>
+        <h4>Financière</h4>
+        <p>Abus de faiblesse, vol, escroquerie, pression pour modifier un testament.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">🧼</div>
+        <h4>Négligence active</h4>
+        <p>Laisser délibérément la personne dans sa souillure, ne pas donner les médicaments prescrits.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">😶</div>
+        <h4>Négligence passive</h4>
+        <p>Ne pas répondre aux appels, oublier les repas, laisser la personne isolée par manque de temps ou de vigilance.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">🔞</div>
+        <h4>Sexuelle</h4>
+        <p>Tout acte ou propos à caractère sexuel non consenti. Y compris les gestes "anodins" non acceptés.</p>
+      </div>
+      <div class="att-card">
+        <div class="att-icon">⚖️</div>
+        <h4>Institutionnelle</h4>
+        <p>Règles de l'établissement qui ne tiennent pas compte des droits individuels : lever forcé à heure fixe, repas pris au lit systématiquement...</p>
+      </div>
+    </div>
+    <div class="info-banner">💡 La maltraitance institutionnelle est la moins visible mais souvent la plus répandue. "On fait toujours comme ça ici" n'est pas une justification acceptable.</div>
   </div>
 
-  <div class="dialogue">
-    <h3>🎭 Situation 2 — La famille en colère</h3>
-    <p style="font-size:.8rem;color:var(--text-light);margin-bottom:12px;">La fille de Mme Dupont arrive et vous dit avec agressivité : "Ma mère n'a toujours pas été lavée ! C'est un scandale !"</p>
-
-    <p style="font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Mauvaise réponse :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble mauvais">"Ce n'est pas de ma faute, j'avais 12 résidents ce matin."</div><div class="msg-label">Défensive — amplifie le conflit</div></div></div>
-
-    <div class="divider"></div>
-
-    <p style="font-size:.8rem;font-weight:700;color:#1e7a45;margin-bottom:6px;">✅ Bonne réponse :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble">"Je comprends votre inquiétude pour votre maman. Votre maman avait refusé la toilette ce matin — j'allais la reprendre cet après-midi. Si vous souhaitez plus d'informations, le cadre de santé est disponible."</div><div class="msg-label">Explication factuelle + orientation cadre</div></div></div>
-    <div class="ok-banner">✅ Ne jamais se justifier sous le coup de l'émotion. Informer factuellement, rester calme, orienter vers le cadre si la situation dépasse votre rôle.</div>
+  <div class="card red">
+    <h2>🚨 Signalement — Que fait l'AS ?</h2>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Signes évocateurs de maltraitance</h4>
+        <ul>
+          <li>Hématomes inexpliqués ou multiples</li>
+          <li>Peur inhabituelle lors de l'arrivée d'une personne</li>
+          <li>Retrait, état dépressif brutal</li>
+          <li>Refus de parler en présence d'un proche</li>
+          <li>Lésions qui ne correspondent pas aux explications données</li>
+          <li>Sous-alimentation ou déshydratation inexpliquées</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Procédure de signalement</h4>
+        <ul>
+          <li>L'AS ne garde pas ça pour lui — il signale à l'IDE ou au cadre</li>
+          <li>Il ne mène pas l'enquête seul</li>
+          <li>Il note précisément ce qu'il a vu, entendu ou observé</li>
+          <li>Il ne confronte pas l'auteur présumé seul</li>
+          <li>Le signalement est protégé par la loi — l'AS ne peut pas être sanctionné pour un signalement de bonne foi</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">⚠️ Ne pas signaler une suspicion de maltraitance = complicité par omission. L'obligation de signalement prime sur la peur de "se tromper" ou de "créer des problèmes".</div>
   </div>
 
-  <div class="dialogue">
-    <h3>🎭 Situation 3 — Le résident qui refuse</h3>
-    <p style="font-size:.8rem;color:var(--text-light);margin-bottom:12px;">Mme Bernard, atteinte d'Alzheimer, vous repousse et crie quand vous approchez pour la toilette.</p>
-
-    <p style="font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Mauvaise réponse :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble mauvais">"Allez, Mme Bernard, soyez sage, on va faire vite."</div><div class="msg-label">Infantilise + force — risque de maltraitance</div></div></div>
-
-    <div class="divider"></div>
-
-    <p style="font-size:.8rem;font-weight:700;color:#1e7a45;margin-bottom:6px;">✅ Bonne réponse :</p>
-    <div class="msg soignant"><div class="msg-avatar soignant">🧑‍⚕️</div><div><div class="msg-bubble">"Je vois que ce n'est pas le bon moment, Mme Bernard. Je reviendrai plus tard." (sort de la chambre, revient 20 minutes après avec une approche différente)</div><div class="msg-label">Différer + changer d'approche</div></div></div>
-    <div class="ok-banner">✅ Un refus chez une personne avec Alzheimer n'est jamais une obstination. C'est souvent de la peur, de la douleur ou une mauvaise compréhension. Différer presque toujours suffit.</div>
+  <div class="card green">
+    <h2>✅ La bientraitance — Ce que c'est concrètement</h2>
+    <ul>
+      <li>Frapper et attendre avant d'entrer dans la chambre</li>
+      <li>Expliquer chaque geste avant de le faire</li>
+      <li>Demander le prénom utilisé et l'utiliser</li>
+      <li>Respecter les préférences vestimentaires</li>
+      <li>Laisser les objets personnels à leur place</li>
+      <li>Parler avec la personne, pas d'elle devant elle</li>
+      <li>Donner le temps qu'il faut, même si on est pressé</li>
+      <li>Reconnaître ses émotions : "Je vois que ce n'est pas facile ce matin"</li>
+    </ul>
+    <div class="ok-banner">✅ La bientraitance se mesure souvent aux petites choses — pas aux grandes déclarations. C'est l'addition de centaines de petits gestes quotidiens de respect.</div>
   </div>
 </div>
 
@@ -638,7 +645,7 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
     <div class="icon">✏️</div>
     <div>
       <h2>Quiz — Communication et relation d'aide</h2>
-      <p>10 questions sur les bases de la communication, l'écoute active, les profils et la gestion des émotions.</p>
+      <p>10 questions couvrant la communication, Rogers, les profils, les familles et la bientraitance.</p>
     </div>
   </div>
   <div id="quiz-container"></div>
@@ -658,7 +665,6 @@ header p.subtitle{font-size:.75rem;opacity:.8;margin-top:2px;}
 
 <script>
 function showTab(id,btn){
-  stopAudio();
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
@@ -670,16 +676,16 @@ window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({ty
 document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
 
 const questions=[
-  {q:"Selon l'étude Mehrabian, quelle est la part de la communication non verbale (langage du corps) dans la communication émotionnelle ?",opts:["7 %","38 %","55 %","93 %"],correct:2,expl:"55 % de la communication émotionnelle passe par le langage du corps (posture, regard, mimiques, gestes). 38 % par le ton de la voix (para-verbal). Seulement 7 % par les mots eux-mêmes. C'est pourquoi un AS qui dit 'je suis là pour vous' d'une voix impatiente en regardant sa montre envoie un message contradictoire — et c'est le corps qui gagne."},
-  {q:"Mme Aubert dit : 'Je ne veux plus manger, ça ne sert à rien.' Quelle est la meilleure réponse d'écoute active ?",opts:["'Mais si, vous devez manger pour garder vos forces !'","'Je comprends, c'est dur. Qu'est-ce qui vous fait dire ça ?'","'Vous n'avez pas le droit de refuser votre repas.'","'Je note ça dans le dossier et l'IDE décidera.'"],correct:1,expl:"La bonne réponse reformule et ouvre la conversation avec une question ouverte. Cela permet de découvrir la vraie raison (deuil, dépression, douleur…) derrière le refus alimentaire. Forcer ou minimiser ne fait que fermer la communication et aggraver la situation."},
-  {q:"Quelle est la différence entre l'empathie et la sympathie ?",opts:["Ce sont deux mots pour la même chose","L'empathie = comprendre ce que l'autre ressent sans le ressentir soi-même. La sympathie = ressentir la même chose","La sympathie est plus professionnelle que l'empathie","L'empathie est réservée aux psychologues, pas aux AS"],correct:1,expl:"L'empathie, c'est se mettre à la place de l'autre tout en restant soi-même ('je comprends ce que vous ressentez'). La sympathie, c'est ressentir la même chose — risque de perte de distance professionnelle et d'épuisement. En soin, l'empathie est la bonne posture."},
-  {q:"M. Girard (Alzheimer) dit que sa femme va venir le chercher ce soir (sa femme est décédée il y a 5 ans). Que faites-vous ?",opts:["Vous lui dites clairement que sa femme est décédée depuis 5 ans","Vous entrez doucement dans son monde : 'Ah, elle arrive ce soir ?' et restez présent","Vous appelez l'IDE car c'est une hallucination grave","Vous l'ignorez et continuez le soin"],correct:1,expl:"Corriger brutalement une personne atteinte d'Alzheimer provoque de l'angoisse sans bénéfice thérapeutique. La validation (entrer dans son monde avec douceur) est l'approche recommandée. Ce n'est pas mentir — c'est accompagner là où est la personne."},
-  {q:"La fille d'un résident vous dit avec agressivité que votre service est incompétent. Comment réagissez-vous ?",opts:["Vous lui expliquez que vous avez fait de votre mieux","Vous restez calme, écoutez sans vous justifier sous l'émotion, informez factuellement et orientez vers le cadre si nécessaire","Vous lui dites que vous n'acceptez pas cette façon de parler et partez","Vous vous excusez de tout même si vous n'avez rien fait"],correct:1,expl:"Face à une famille en colère, l'AS reste calme, écoute sans se défendre sous le coup de l'émotion, donne une information factuelle et oriente vers le cadre de santé pour les questions qui dépassent son rôle. La colère d'une famille cache souvent de l'anxiété ou de la culpabilité — y répondre par la défense amplifie le conflit."},
-  {q:"Mme Bernard (Alzheimer) repousse votre main et crie lors de la toilette. Quelle est la bonne conduite ?",opts:["Insister doucement — elle finira par accepter","Appeler un collègue pour la maintenir à deux","Différer le soin, sortir, revenir avec une approche différente 20 minutes plus tard","Signaler à l'IDE et ne plus faire la toilette de cette patiente"],correct:2,expl:"Le refus chez une personne avec Alzheimer est souvent lié à la peur, à la douleur ou à une mauvaise compréhension du contexte. Différer presque toujours suffit — revenir 20 minutes après avec une autre approche (différente heure, différente présentation, musique…). Forcer est un risque de maltraitance."},
-  {q:"Quelle question favorise le plus l'écoute active et le dialogue ?",opts:["'Vous avez bien dormi ?' (oui/non)","'Comment vous sentez-vous ce matin ?'","'Vous n'avez pas mal ?'","'Tout va bien ?'"],correct:1,expl:"'Comment vous sentez-vous ce matin ?' est une question ouverte qui invite la personne à développer. Les autres questions attendent une réponse oui/non qui ferme la conversation. Les questions ouvertes commencent par comment, que, qu'est-ce que, pourquoi."},
-  {q:"Le silence pendant un entretien ou un soin est :",opts:["Un signe que la communication a échoué — il faut remplir le vide","Un outil de communication — parfois la meilleure présence que vous puissiez offrir","Une gêne qu'il faut éviter en parlant constamment","Une marque d'impolitesse envers le patient"],correct:1,expl:"Le silence est un outil de communication à part entière. Après une question difficile, il faut laisser du temps pour réfléchir. Quand quelqu'un pleure, laisser les larmes est souvent plus utile que n'importe quelle parole. La présence silencieuse, surtout en fin de vie, peut être le plus beau cadeau qu'on puisse offrir."},
-  {q:"Vous réalisez que vous ramenez les soucis du travail à la maison, que vous pensez constamment aux résidents décédés et que vous pleurez souvent. Ces signes indiquent :",opts:["Que vous êtes trop sensible pour ce métier","Des signaux d'alarme d'épuisement professionnel à prendre en charge — parler au cadre, demander un soutien","Que vous êtes plus impliqué que vos collègues — c'est une qualité","Que vous devez changer d'établissement"],correct:1,expl:"Ces signes sont des signaux d'alarme classiques du burn-out (épuisement professionnel). Ils ne signifient pas qu'on est 'trop sensible' — ils signifient qu'on a besoin d'aide. Parler au cadre, demander un soutien psychologique et ne pas rester seul avec ces difficultés est la bonne conduite."},
-  {q:"Pour communiquer avec une personne aphasique suite à un AVC, quelle technique est la plus adaptée ?",opts:["Parler très fort et très lentement","Lui poser des questions auxquelles elle peut répondre par oui ou non, utiliser des pictogrammes, et lui laisser du temps","Demander à sa famille de traduire systématiquement","Éviter de lui parler pour ne pas la frustrer"],correct:1,expl:"La personne aphasique comprend souvent mais ne peut pas s'exprimer correctement. Les questions fermées (oui/non) lui permettent de répondre sans chercher ses mots. Les pictogrammes sont un support visuel précieux. Le plus important : toujours s'adresser directement à la personne et jamais à sa famille à sa place."}
+  {q:"Selon la règle de Mehrabian, quel pourcentage du message passe par le canal non-verbal ?",opts:["7%","38%","55%","80%"],correct:2,expl:"55% du message passe par le non-verbal (posture, regard, expressions, gestes), 38% par le para-verbal (ton, rythme, volume) et seulement 7% par les mots eux-mêmes. C'est pourquoi l'AS qui dit 'Je suis là pour vous' en regardant la porte ne communique pas grand chose."},
+  {q:"Mme Martin (Alzheimer) dit que sa mère va venir la chercher. Sa mère est décédée depuis 30 ans. Que faites-vous ?",opts:["Vous lui dites clairement que sa mère est décédée pour la ramener à la réalité","Vous entrez doucement dans son monde : 'Ah, et elle arrive bientôt ?' en restant bienveillant","Vous changez de sujet immédiatement","Vous appelez l'IDE car c'est une hallucination"],correct:1,expl:"La méthode Validation de Naomi Feil recommande d'entrer dans le monde de la personne démente plutôt que de la confronter à une réalité qu'elle ne peut plus intégrer. Corriger brutalement provoque de l'angoisse sans bénéfice thérapeutique. Ce n'est pas mentir — c'est respecter sa réalité intérieure."},
+  {q:"Quelle est la différence entre empathie et sympathie dans la relation de soin ?",opts:["Ce sont deux mots pour dire la même chose","L'empathie est la compréhension sans fusion ; la sympathie est la fusion émotionnelle avec la personne","La sympathie est plus professionnelle que l'empathie","L'empathie concerne les soins, la sympathie les familles"],correct:1,expl:"Carl Rogers distingue empathie (comprendre ce que vit la personne de son point de vue, sans se perdre dans son émotion) et sympathie (fusion émotionnelle qui fait perdre la distance professionnelle). La sympathie épuise l'AS et l'empêche d'être objectif. L'empathie lui permet d'être pleinement présent tout en restant lui-même."},
+  {q:"Lors de votre tournée, vous trouvez Mme Dupont avec un hématome sur le bras qu'elle ne sait pas expliquer. Que faites-vous ?",opts:["Vous notez dans le dossier et signalez à l'IDE dans la journée","Vous signalez immédiatement à l'IDE avec une description précise de ce que vous avez observé","Vous interrogez les autres résidents pour savoir ce qui s'est passé","Vous attendez que l'hématome soit plus visible pour avoir des certitudes"],correct:1,expl:"Tout signe évocateur de maltraitance se signale immédiatement à l'IDE — jamais plus tard. L'AS ne mène pas l'enquête seul, ne confronte pas l'auteur présumé, ne juge pas — il décrit précisément ce qu'il a observé. Le signalement de bonne foi est protégé par la loi."},
+  {q:"Quelle est la première des 3 conditions de Carl Rogers pour une relation d'aide efficace ?",opts:["L'empathie","La congruence (authenticité)","Le regard positif inconditionnel","La bienveillance"],correct:1,expl:"Rogers définit 3 conditions : 1) La congruence (être authentique, en accord avec soi-même), 2) L'empathie (comprendre le point de vue de l'autre sans se perdre), 3) Le regard positif inconditionnel (accepter la personne sans jugement). Ces 3 conditions sont nécessaires ET suffisantes pour que la relation aide la personne à évoluer."},
+  {q:"M. Petit, aphasique après un AVC, ne trouve pas ses mots. Il met du temps à s'exprimer. Que faites-vous ?",opts:["Vous finissez ses phrases pour lui faire gagner du temps","Vous lui donnez le temps nécessaire et attendez patiemment qu'il s'exprime","Vous posez des questions ouvertes pour l'aider à s'exprimer","Vous demandez à sa famille de traduire"],correct:1,expl:"En cas d'aphasie, la règle absolue est de ne jamais finir les phrases à la place de la personne. Donner du temps — même long — est la marque de respect fondamentale. L'aphasique comprend souvent tout : l'impatience est perçue et blessante. Des questions fermées (oui/non) et des gestes peuvent aider."},
+  {q:"Quelle forme de maltraitance est-il le plus difficile à identifier ?",opts:["La maltraitance physique","La maltraitance institutionnelle","La maltraitance financière","La maltraitance sexuelle"],correct:1,expl:"La maltraitance institutionnelle est la moins visible car elle s'inscrit dans des routines normalisées : lever systématique à 7h sans tenir compte des habitudes, repas pris au lit par défaut, activités imposées... 'On fait toujours comme ça ici' peut masquer une maltraitance institutionnelle quotidienne."},
+  {q:"La famille de M. Bernard vous interpelle dans le couloir et vous demande des informations sur son état de santé. Que faites-vous ?",opts:["Vous lui répondez brièvement car c'est la famille","Vous l'invitez à s'adresser à l'IDE ou au médecin pour les informations médicales","Vous lui dites que vous ne savez pas","Vous lui communiquez les informations de base car c'est son droit"],correct:1,expl:"Le secret professionnel s'applique aussi aux familles. L'AS ne divulgue pas d'informations médicales — même à la famille directe. Il oriente vers l'IDE ou le médecin. Seul le patient peut autoriser la communication d'informations médicales à sa famille (Loi 2002-303 relative aux droits des malades)."},
+  {q:"La proxémique de Edward Hall définit 4 zones de distance. Dans quelle zone entre l'AS lors de la toilette ?",opts:["Zone publique","Zone sociale","Zone personnelle","Zone intime"],correct:3,expl:"La zone intime (0 à 45 cm) est la zone du soin, de la toilette, du contact physique. Elle est normalement réservée aux très proches. L'AS y entre à chaque soin — ce qui impose un protocole strict : frapper, se présenter, expliquer le geste avant de toucher. Entrer dans la zone intime sans prévenir est vécu comme une agression."},
+  {q:"Qu'est-ce que le 'regard positif inconditionnel' selon Rogers ?",opts:["Sourire en permanence à la personne","Accepter la personne telle qu'elle est, sans jugement, quels que soient ses actes passés ou son comportement","Approuver tous les choix de la personne même dangereux","Trouver quelque chose de positif à dire à chaque interaction"],correct:1,expl:"Le regard positif inconditionnel de Rogers signifie accueillir la personne telle qu'elle est — sa valeur intrinsèque n'est pas conditionnée à son comportement ou à son histoire. Un résident agressif, alcoolique, ou au passé difficile mérite d'être soigné avec la même dignité. Ce n'est pas approuver ses actes — c'est respecter sa personne."}
 ];
 
 function buildQuiz(){
@@ -706,7 +712,6 @@ function submitQuiz(){
   const pct=score/10;
   document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 06 maîtrisé ✅';
   box.scrollIntoView({behavior:'smooth',block:'center'});
-  window.parent&&window.parent.postMessage({type:'activite'},'*');
 }
 
 function resetQuiz(){
@@ -718,8 +723,8 @@ function resetQuiz(){
 
 let speaking=false;const synth=window.speechSynthesis;
 document.getElementById('audio-btn').addEventListener('click',toggleAudio);
-function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text,.msg-bubble,.p-tips')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
-function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};const trySpeak=()=>{const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'))||voices[0];if(fr)utt.voice=fr;synth.cancel();setTimeout(()=>{synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';},100);};if(synth.getVoices().length>0){trySpeak();}else{synth.onvoiceschanged=trySpeak;}}
+function getTabText(){const a=document.querySelector('.tab-panel.active');if(!a)return'';return[...a.querySelectorAll('h2,h3,h4,p,li,.q-text')].map(e=>e.innerText.trim()).filter(t=>t.length>5).join('. ');}
+function toggleAudio(){if(speaking){stopAudio();return;}const text=getTabText();if(!text)return;const utt=new SpeechSynthesisUtterance(text);utt.lang='fr-FR';utt.rate=0.93;const voices=synth.getVoices();const fr=voices.find(v=>v.lang.startsWith('fr')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('fr'));if(fr)utt.voice=fr;utt.onend=()=>{speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';};synth.speak(utt);speaking=true;const b=document.getElementById('audio-btn');b.classList.add('playing');b.textContent='⏹';}
 function stopAudio(){synth.cancel();speaking=false;const b=document.getElementById('audio-btn');b.classList.remove('playing');b.textContent='🔊';}
 if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>{};
 buildQuiz();
