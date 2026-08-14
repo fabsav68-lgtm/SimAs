@@ -41,19 +41,9 @@ footer{border-top:1px solid rgba(255,255,255,.07);padding:24px 20px;text-align:c
 </style>
 <script>
 (function(){
-  var CODES=['PRAXIS-AS-001','PRAXIS-AS-002','PRAXIS-AS-003','PRAXIS-AS-004','PRAXIS-AS-005',
-    'PRAXIS-AS-006','PRAXIS-AS-007','PRAXIS-AS-008','PRAXIS-AS-009','PRAXIS-AS-010',
-    'PRAXIS-AS-011','PRAXIS-AS-012','PRAXIS-AS-013','PRAXIS-AS-014','PRAXIS-AS-015',
-    'PRAXIS-AS-016','PRAXIS-AS-017','PRAXIS-AS-018','PRAXIS-AS-019','PRAXIS-AS-020',
-    'PRAXIS-AS-021','PRAXIS-AS-022','PRAXIS-AS-023','PRAXIS-AS-024','PRAXIS-AS-025',
-    'PRAXIS-AS-026','PRAXIS-AS-027','PRAXIS-AS-028','PRAXIS-AS-029','PRAXIS-AS-030',
-    'PRAXIS-AS-031','PRAXIS-AS-032','PRAXIS-AS-033','PRAXIS-AS-034','PRAXIS-AS-035',
-    'PRAXIS-AS-036','PRAXIS-AS-037','PRAXIS-AS-038','PRAXIS-AS-039','PRAXIS-AS-040',
-    'PRAXIS-AS-041','PRAXIS-AS-042','PRAXIS-AS-043','PRAXIS-AS-044','PRAXIS-AS-045',
-    'PRAXIS-AS-046','PRAXIS-AS-047','PRAXIS-AS-048','PRAXIS-AS-049','PRAXIS-AS-050',
-    'PRAXIS-AS-FORM-01'];
   var code=sessionStorage.getItem('praxisas_code');
-  if(!code||CODES.indexOf(code)===-1)window.location.replace('acces-as.html');
+  var promo=sessionStorage.getItem('praxisas_promo');
+  if(!code||!promo)window.location.replace('acces-as.html');
 })();
 document.addEventListener('visibilitychange',function(){
   if(document.visibilityState==='hidden'){
