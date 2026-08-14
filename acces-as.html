@@ -48,17 +48,7 @@ input:focus{border-color:rgba(96,168,248,.4);}
   </div>
 </div>
 <script>
-var CODES={};
-for(var i=1;i<=50;i++){
-  var code='PRAXIS-AS-'+(i<10?'00':i<100?'0':'')+i;
-  CODES[code]={promo:'AS 2026'};
-}
-CODES['PRAXIS-AS-FORM-01']={promo:'Formateur AS'};
-
-function validerCode(){
- function validerCode(){
-  var code=document.getElementById('code-input').value.trim().toUpperCase();
-  var err=document.getElementById('error-msg');
+ var err=document.getElementById('error-msg');
   if(!code){err.textContent='Entrez votre code.';return;}
 
   err.textContent='Verification...';
