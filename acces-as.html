@@ -48,7 +48,9 @@ input:focus{border-color:rgba(96,168,248,.4);}
   </div>
 </div>
 <script>
- var err=document.getElementById('error-msg');
+function validerCode(){
+  var code=document.getElementById('code-input').value.trim().toUpperCase();
+  var err=document.getElementById('error-msg');
   if(!code){err.textContent='Entrez votre code.';return;}
 
   err.textContent='Verification...';
