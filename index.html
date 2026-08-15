@@ -326,6 +326,14 @@ document.addEventListener('touchstart',resetInactivityTimer);
 document.addEventListener('keypress',resetInactivityTimer);
 resetInactivityTimer();
 
+function ouvrirBinome(){
+  document.getElementById('binome-overlay').style.display='flex';
+  var b=localStorage.getItem('praxisas_binome');
+  document.getElementById('binome-actuel').textContent=b?'Binome actuel : '+b:'Aucun binome lie pour le moment';
+  document.getElementById('binome-score').style.display='none';
+  document.getElementById('binome-msg').textContent='';
+}
+function fermerBinome(){document.getElementById('binome-overlay').style.display='none';}
 function lierBinome(){
   var monCode=sessionStorage.getItem('praxisas_code');
   var cb=document.getElementById('binome-input').value.trim().toUpperCase();
@@ -346,27 +354,6 @@ function lierBinome(){
   }).catch(function(){
     msg.style.color='#e84040';msg.textContent='Erreur de verification, reessayez.';
   });
-}
-
-function ouvrirBinome(){
-  document.getElementById('binome-overlay').style.display='flex';
-  var b=localStorage.getItem('praxisas_binome');
-  document.getElementById('binome-actuel').textContent=b?'Binome actuel : '+b:'Aucun binome lie pour le moment';
-  document.getElementById('binome-score').style.display='none';
-  document.getElementById('binome-msg').textContent='';
-}
-function fermerBinome(){document.getElementById('binome-overlay').style.display='none';}
-function lierBinome(){
-  var monCode=sessionStorage.getItem('praxisas_code');
-  var cb=document.getElementById('binome-input').value.trim().toUpperCase();
-  var msg=document.getElementById('binome-msg');
-  if(!cb){msg.style.color='#e84040';msg.textContent='Entrez un code binome.';return;}
-  if(cb===monCode){msg.style.color='#e84040';msg.textContent='Vous ne pouvez pas vous lier a vous-meme !';return;}
-  if(CODES_AS.indexOf(cb)===-1){msg.style.color='#e84040';msg.textContent='Ce code n\'est pas un abonne actif.';return;}
-  localStorage.setItem('praxisas_binome',cb);
-  sbPost({student_code:monCode,app:"praxisas",module:"binome",step:cb,session_id:monCode+"_binome_"+Date.now()});
-  msg.style.color='#40c878';msg.textContent='Binome '+cb+' lie avec succes !';
-  document.getElementById('binome-actuel').textContent='Binome actuel : '+cb;
 }
 function voirScoreBinome(){
   var monCode=sessionStorage.getItem('praxisas_code');
