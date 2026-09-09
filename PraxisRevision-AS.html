@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PraxisRevision · QCM AS</title>
+<style>
+:root{
+  --bg:#080c14; --bg2:#0d1525; --card:rgba(255,255,255,.03); --bdr:rgba(255,255,255,.08);
+  --txt:#e0e8f8; --txt2:#3a5070; --em:#60a8f8; --green:#4ade80; --red:#f87171;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 55%,var(--bg) 100%);color:var(--txt);min-height:100vh;padding-bottom:40px}
+.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+header{padding:24px 0 16px;text-align:center}
+.badge{display:inline-block;background:rgba(96,168,248,.1);border:1px solid rgba(96,168,248,.25);color:var(--em);padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:2px;font-family:monospace;margin-bottom:12px}
+h1{font-family:Georgia,serif;font-size:26px;font-weight:300}
+h1 em{font-style:italic;color:var(--em)}
+
+.bloc-select{display:flex;gap:8px;overflow-x:auto;margin:16px 0}
+.bloc-chip{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:8px 16px;font-size:13px;color:var(--txt2);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.bloc-chip.active{background:var(--em);color:#04121f;font-weight:700;border-color:var(--em)}
+
+.progress{font-size:13px;color:var(--txt2);text-align:center;margin-bottom:16px}
+.progress b{color:var(--em)}
+
+.question-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:20px;margin-bottom:16px}
+.module-tag{font-size:10.5px;color:var(--txt2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.question-text{font-size:16px;font-weight:600;line-height:1.5;margin-bottom:16px}
+
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:12px;border:1px solid var(--bdr);margin-bottom:8px;cursor:pointer;font-size:14px;line-height:1.5}
+.option:active{border-color:var(--em)}
+.option.correct{background:rgba(74,222,128,.1);border-color:var(--green)}
+.option.incorrect{background:rgba(248,113,113,.1);border-color:var(--red)}
+.option-letter{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+
+.explanation{display:none;background:rgba(96,168,248,.06);border:1px solid rgba(96,168,248,.2);border-radius:12px;padding:14px;margin-top:12px;font-size:13.5px;line-height:1.6}
+.explanation.show{display:block}
+.explanation strong{color:var(--em)}
+
+.nav-btns{display:flex;gap:10px;margin-top:16px}
+.nav-btn{flex:1;padding:12px;border-radius:12px;border:1px solid var(--bdr);background:rgba(255,255,255,.04);color:var(--txt);font-weight:700;font-size:14px;cursor:pointer;text-align:center}
+.nav-btn:active{opacity:.8}
+.nav-btn.primary{background:var(--em);color:#04121f;border-color:var(--em)}
+
+.score-final{text-align:center;padding:40px 20px}
+.score-final .big{font-size:48px;font-weight:800;color:var(--em)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge">RÉVISION QCM</div>
+    <h1>Praxis<em>Revision</em></h1>
+  </header>
+
+  <div class="bloc-select" id="bloc-select"></div>
+  <div class="progress" id="progress"></div>
+  <div id="quiz-container"></div>
+</div>
+
+<script src="praxis-qcm-data-as.js"></script>
+<script>
+const BLOCS = Object.keys(QCM_AS);
+let blocActuel = BLOCS[0];
+let indexActuel = 0;
+let score = 0;
+let repondu = false;
+
+function afficherBlocs(){
+  document.getElementById('bloc-select').innerHTML = BLOCS.map(b =>
+    `<div class="bloc-chip ${b === blocActuel ? 'active' : ''}" onclick="choisirBloc('${b}')">${b.replace('bloc', 'Bloc ')}</div>`
+  ).join('');
+}
+
+function choisirBloc(b){
+  blocActuel = b;
+  indexActuel = 0;
+  score = 0;
+  repondu = false;
+  afficherBlocs();
+  afficherQuestion();
+}
+
+function afficherQuestion(){
+  const questions = QCM_AS[blocActuel];
+  if(indexActuel >= questions.length){
+    afficherScoreFinal(questions.length);
+    return;
+  }
+  const q = questions[indexActuel];
+  repondu = false;
+  document.getElementById('progress').innerHTML = `Question <b>${indexActuel + 1}</b> / ${questions.length} — Score : <b>${score}</b>`;
+
+  const lettres = ['A','B','C','D'];
+  document.getElementById('quiz-container').innerHTML = `
+    <div class="question-card">
+      <div class="module-tag">${q.module}</div>
+      <div class="question-text">${q.q}</div>
+      <div id="options">
+        ${q.opts.map((opt, i) => `
+          <div class="option" id="opt-${i}" onclick="repondre(${i})">
+            <div class="option-letter">${lettres[i]}</div>
+            <div>${opt}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="explanation" id="explanation">${q.expl}</div>
+      <div class="nav-btns">
+        <div class="nav-btn primary" id="btn-suivant" onclick="questionSuivante()" style="display:none">Question suivante →</div>
+      </div>
+    </div>
+  `;
+}
+
+function repondre(i){
+  if(repondu) return;
+  repondu = true;
+  const q = QCM_AS[blocActuel][indexActuel];
+  const options = document.querySelectorAll('.option');
+  options.forEach((opt, idx) => {
+    if(idx === q.rep) opt.classList.add('correct');
+    else if(idx === i) opt.classList.add('incorrect');
+  });
+  if(i === q.rep) score++;
+  document.getElementById('explanation').classList.add('show');
+  document.getElementById('btn-suivant').style.display = 'block';
+  document.getElementById('progress').innerHTML = `Question <b>${indexActuel + 1}</b> / ${QCM_AS[blocActuel].length} — Score : <b>${score}</b>`;
+}
+
+function questionSuivante(){
+  indexActuel++;
+  afficherQuestion();
+}
+
+function afficherScoreFinal(total){
+  document.getElementById('quiz-container').innerHTML = `
+    <div class="question-card score-final">
+      <div class="big">${score}/${total}</div>
+      <p style="color:var(--txt2);margin-top:8px">Bloc terminé</p>
+      <div class="nav-btns" style="margin-top:20px">
+        <div class="nav-btn primary" onclick="choisirBloc('${blocActuel}')">Recommencer ce bloc</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('progress').innerHTML = '';
+}
+
+afficherBlocs();
+afficherQuestion();
+</script>
+</body>
+</html>
