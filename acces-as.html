@@ -2,367 +2,120 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PraxisAS · Suite pedagogique DEAS</title>
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PraxisAS · Acces</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="PraxisAS">
 <meta name="theme-color" content="#080c14">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:#080c14}
-#home{position:fixed;inset:0;background:linear-gradient(160deg,#080c14 0%,#0d1525 55%,#080c14 100%);color:#e0e8f8;overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:system-ui,sans-serif;display:flex;flex-direction:column;}
-#module-frame{position:fixed;inset:0;width:100%;height:100%;border:none;display:none;background:#080c14;z-index:100;}
-#btn-retour{position:fixed;top:env(safe-area-inset-top,12px);left:16px;z-index:200;display:none;background:rgba(8,12,20,.9);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:8px 16px;color:#e0e8f8;font-size:14px;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-family:system-ui,sans-serif;}
-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(8,12,20,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
-.nav-logo{font-size:22px;font-weight:700;color:#e0e8f8;font-family:Georgia,serif}
-.nav-logo span{color:#60a8f8}
-.nav-tag{font-size:10px;letter-spacing:2px;color:#2a3a55;border:1px solid rgba(255,255,255,.07);padding:3px 10px;border-radius:20px;font-family:monospace}
-.hero{text-align:center;padding:48px 24px 36px}
-.hero-badge{display:inline-block;background:rgba(96,168,248,.1);border:1px solid rgba(96,168,248,.25);color:#60a8f8;padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:2px;font-family:monospace;margin-bottom:18px}
-.hero h1{font-family:Georgia,serif;font-size:clamp(32px,7vw,60px);font-weight:300;line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
-.hero h1 em{font-style:italic;color:#60a8f8}
-.hero h1 strong{font-weight:700}
-.hero p{font-size:15px;color:#3a5070;line-height:1.75;max-width:440px;margin:0 auto}
-.modules-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 40px;max-width:680px;margin:0 auto;width:100%;}
-@media(max-width:380px){.modules-grid{grid-template-columns:1fr}}
-.module-card{border-radius:16px;padding:18px 16px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);display:flex;flex-direction:column;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s,opacity .15s;user-select:none;-webkit-user-select:none;}
-.module-card:active{transform:scale(.97);opacity:.85}
-.module-num{font-family:monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.2);margin-bottom:10px}
-.module-icon{font-size:28px;margin-bottom:8px}
-.module-name{font-size:20px;font-weight:700;letter-spacing:-0.5px;margin-bottom:3px;line-height:1}
-.module-sub{font-size:11px;color:#3a5070;margin-bottom:8px}
-.module-desc{font-size:12px;color:#3a5070;line-height:1.6;flex:1;margin-bottom:12px}
-.module-btn{display:block;text-align:center;padding:9px;border-radius:8px;font-size:12px;font-weight:700;border:1.5px solid transparent;}
-footer{border-top:1px solid rgba(255,255,255,.07);padding:24px 20px;text-align:center;font-size:11px;color:#2a3a55;font-family:monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#080c14;color:#e0e8f8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 20% 0%,rgba(96,168,248,.06) 0%,transparent 55%);}
+.card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 24px;max-width:340px;width:100%;text-align:center;position:relative;z-index:1;}
+.logo{font-family:Georgia,serif;font-size:32px;font-weight:700;color:#e0e8f8;margin-bottom:4px}
+.logo span{color:#60a8f8}
+.badge{display:inline-block;background:rgba(96,168,248,.08);border:1px solid rgba(96,168,248,.22);color:#60a8f8;padding:3px 12px;border-radius:20px;font-size:10px;letter-spacing:2px;font-family:monospace;margin-bottom:20px;}
+h2{font-size:18px;margin-bottom:6px;color:#e0e8f8}
+p{font-size:13px;color:#3a5070;margin-bottom:20px;line-height:1.6}
+input{width:100%;padding:12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;color:#e0e8f8;font-size:16px;text-align:center;font-family:monospace;letter-spacing:2px;text-transform:uppercase;outline:none;margin-bottom:12px;}
+input:focus{border-color:rgba(96,168,248,.4);}
+input.success{border-color:#60a8f8;}
+.btn{width:100%;padding:12px;background:linear-gradient(135deg,#3878c8,#60a8f8);color:#080c14;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.danger{color:#e84040;font-size:12px;margin-top:8px;min-height:18px;}
+.small{font-size:11px;color:#3a5070;margin-top:16px;font-family:monospace;}
+.bar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:16px;overflow:hidden;display:none;}
+.bar-fill{height:100%;width:0%;background:#60a8f8;border-radius:2px;transition:width .05s linear;}
+.card-success{display:none;}
+.card-success h2{color:#60a8f8;font-size:20px;margin-bottom:8px;}
 </style>
-
 </head>
 <body>
-<button id="btn-retour" onclick="retourAccueil()">PraxisAS</button>
-<iframe id="module-frame" src="" allowfullscreen></iframe>
-<div id="home">
-  <nav>
-    <div class="nav-logo">Praxis<span>AS</span></div>
-    <div class="nav-tag">DEAS 2021</div>
-  </nav>
-  <div class="hero">
-    <div class="hero-badge">Suite pedagogique DEAS - 10 modules</div>
-    <h1><em>Le soin</em> <strong>commence</strong><br>par la personne</h1>
-    <p>Referentiel DEAS - Arrete du 10 juin 2021 - 5 blocs de competences</p>
+<div class="card">
+  <div class="logo">Praxis<span>AS</span></div>
+  <div class="badge">AIDE-SOIGNANT · DEAS 2021</div>
+
+  <div id="card-login">
+    <h2>Acces PraxisAS</h2>
+    <p>Entrez votre code personnel pour acceder a la suite pedagogique DEAS.</p>
+    <input type="text" id="code-input" placeholder="PRAXIS-AS-001" maxlength="20"
+      onkeydown="if(event.key==='Enter')validerCode()"
+      oninput="this.value=this.value.toUpperCase()">
+    <button class="btn" onclick="validerCode()">Acceder</button>
+    <p class="danger" id="error-msg"></p>
+    <div class="bar-wrap" id="bar-wrap">
+      <div class="bar-fill" id="bar-fill"></div>
+    </div>
+    <p class="small">Code de test : TEST-AS-001</p>
   </div>
-  <div class="modules-grid">
 
-    <div class="module-card" onclick="ouvrirModule('SimAs-VieQuotidienne.html')" style="border-color:rgba(96,168,248,.2);grid-column:span 2">
-      <div class="module-num">MODULE 01 - BLOC 1 - 147h</div>
-      <div class="module-icon">🏠</div>
-      <div class="module-name" style="color:#60a8f8">PraxisVieQuotidienne</div>
-      <div class="module-sub">Accompagnement vie quotidienne et sociale</div>
-      <div class="module-desc">Toilette, habillage, alimentation, elimination, sommeil, activites sociales - respecter l'autonomie et le projet de vie.</div>
-      <div class="module-btn" style="background:rgba(96,168,248,.1);color:#60a8f8;border-color:rgba(96,168,248,.3)">Ouvrir</div>
+  <div class="card-success" id="card-success">
+    <h2>Bienvenue !</h2>
+    <p id="success-msg">Redirection en cours...</p>
+    <div class="bar-wrap" id="bar-wrap2" style="display:block">
+      <div class="bar-fill" id="bar-fill2"></div>
     </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Risques-prevention.html')" style="border-color:rgba(232,160,48,.2)">
-      <div class="module-num">MODULE 02 - BLOC 2 - 21h</div>
-      <div class="module-icon">⚠️</div>
-      <div class="module-name" style="color:#e8a030">PraxisRisques</div>
-      <div class="module-sub">Reperage et prevention des situations a risque</div>
-      <div class="module-desc">Chutes, escarres, deshydratation, maltraitance, signes d'alerte.</div>
-      <div class="module-btn" style="background:rgba(232,160,48,.1);color:#e8a030;border-color:rgba(232,160,48,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-EtatClinique.html')" style="border-color:rgba(232,64,64,.2)">
-      <div class="module-num">MODULE 03 - BLOC 2 - 77h</div>
-      <div class="module-icon">📊</div>
-      <div class="module-name" style="color:#e84040">PraxisEtatClinique</div>
-      <div class="module-sub">Evaluation de l'etat clinique</div>
-      <div class="module-desc">Constantes vitales, douleur, conscience, hydratation - evaluer et transmettre.</div>
-      <div class="module-btn" style="background:rgba(232,64,64,.1);color:#e84040;border-color:rgba(232,64,64,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-SoinsQuotidiens.html')" style="border-color:rgba(64,200,120,.2);grid-column:span 2">
-      <div class="module-num">MODULE 04 - BLOC 2 - 182h</div>
-      <div class="module-icon">💊</div>
-      <div class="module-name" style="color:#40c878">PraxisSoins</div>
-      <div class="module-sub">Mise en oeuvre des soins adaptes</div>
-      <div class="module-desc">Soins de confort, pansements simples, preparation et aide a la prise des medicaments, soins post-mortem.</div>
-      <div class="module-btn" style="background:rgba(64,200,120,.1);color:#40c878;border-color:rgba(64,200,120,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Mobilite.html')" style="border-color:rgba(240,192,64,.2)">
-      <div class="module-num">MODULE 05 - BLOC 1 - 35h</div>
-      <div class="module-icon">🚶</div>
-      <div class="module-name" style="color:#f0c040">PraxisMobilite</div>
-      <div class="module-sub">Accompagnement de la mobilite</div>
-      <div class="module-desc">Manutention, transferts, installation au fauteuil, prevention des chutes, aides techniques.</div>
-      <div class="module-btn" style="background:rgba(240,192,64,.1);color:#f0c040;border-color:rgba(240,192,64,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Communication.html')" style="border-color:rgba(160,96,255,.2)">
-      <div class="module-num">MODULE 06 - BLOC 3 - 70h</div>
-      <div class="module-icon">💬</div>
-      <div class="module-name" style="color:#a060ff">PraxisCommunication</div>
-      <div class="module-sub">Relation et communication</div>
-      <div class="module-desc">Communication verbale et non verbale, relation d'aide, famille, bientraitance.</div>
-      <div class="module-btn" style="background:rgba(160,96,255,.1);color:#a060ff;border-color:rgba(160,96,255,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Formation.html')" style="border-color:rgba(56,189,248,.2)">
-      <div class="module-num">MODULE 07 - BLOC 3 - 21h</div>
-      <div class="module-icon">🎓</div>
-      <div class="module-name" style="color:#38bdf8">PraxisFormation</div>
-      <div class="module-sub">Formation professionnelle</div>
-      <div class="module-desc">Tutorat, portfolio, entretiens professionnels, DPC, developpement professionnel continu.</div>
-      <div class="module-btn" style="background:rgba(56,189,248,.1);color:#38bdf8;border-color:rgba(56,189,248,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Hygiene.html')" style="border-color:rgba(64,200,120,.2)">
-      <div class="module-num">MODULE 08 - BLOC 4 - 35h</div>
-      <div class="module-icon">🧹</div>
-      <div class="module-name" style="color:#40c878">PraxisHygiene</div>
-      <div class="module-sub">Entretien des locaux et materiels</div>
-      <div class="module-desc">Bionettoyage, desinfection, DASRI, prevention infections nosocomiales, EPI, AES.</div>
-      <div class="module-btn" style="background:rgba(64,200,120,.1);color:#40c878;border-color:rgba(64,200,120,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Informations.html')" style="border-color:rgba(232,168,64,.2)">
-      <div class="module-num">MODULE 09 - BLOC 5 - 35h</div>
-      <div class="module-icon">📋</div>
-      <div class="module-name" style="color:#e8a840">PraxisInfos</div>
-      <div class="module-sub">Traitement des informations</div>
-      <div class="module-desc">Dossier de soins, transmissions DAR et SBAR, secret professionnel, tracabilite.</div>
-      <div class="module-btn" style="background:rgba(232,168,64,.1);color:#e8a840;border-color:rgba(232,168,64,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Equipe.html')" style="border-color:rgba(56,200,255,.2)">
-      <div class="module-num">MODULE 10 - BLOC 5 - 35h</div>
-      <div class="module-icon">👥</div>
-      <div class="module-name" style="color:#38c8ff">PraxisEquipe</div>
-      <div class="module-sub">Travail en equipe pluriprofessionnelle</div>
-      <div class="module-desc">Role AS/IDE, delegation, qualite des soins, AFGSU, gestion des risques.</div>
-      <div class="module-btn" style="background:rgba(56,200,255,.1);color:#38c8ff;border-color:rgba(56,200,255,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('PraxisRealites-AS.html')" style="border-color:rgba(232,168,64,.2)">
-      <div class="module-num">MODULE 11 · SANTÉ AU TRAVAIL</div>
-      <div class="module-icon">💪</div>
-      <div class="module-name" style="color:#e8a840">PraxisRéalités</div>
-      <div class="module-sub">Les réalités du métier d'aide-soignant</div>
-      <div class="module-desc">Préserver son dos, grossesse et port de charges, agressivité, fin de vie et deuil professionnel.</div>
-      <div class="module-btn" style="background:rgba(232,168,64,.1);color:#e8a840;border-color:rgba(232,168,64,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Parametres.html')" style="border-color:rgba(232,64,64,.2)">
-      <div class="module-num">MODULE A · Arrêté 26/02/2025</div>
-      <div class="module-icon">📏</div>
-      <div class="module-name" style="color:#e84040">PraxisParamètres</div>
-      <div class="module-sub">Paramètres vitaux et pathologies EHPAD</div>
-      <div class="module-desc">Anatomie simplifiée, TA, pouls, SpO2, glycémie, pathologies courantes en EHPAD et gériatrie.</div>
-      <div class="module-btn" style="background:rgba(232,64,64,.1);color:#e84040;border-color:rgba(232,64,64,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-SoinsAigus.html')" style="border-color:rgba(0,151,167,.2)">
-      <div class="module-num">MODULE B · Arrêté 26/02/2025</div>
-      <div class="module-icon">🩺</div>
-      <div class="module-name" style="color:#0097a7">PraxisSoinsAigus</div>
-      <div class="module-sub">Soins en situation aiguë</div>
-      <div class="module-desc">Actes délégués, O2, suppositoires, glycémie, surveillance perfusion, évaluation qualité du soin.</div>
-      <div class="module-btn" style="background:rgba(0,151,167,.1);color:#0097a7;border-color:rgba(0,151,167,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-RepererAlerter.html')" style="border-color:rgba(123,82,171,.2)">
-      <div class="module-num">MODULE C · Arrêté 26/02/2025</div>
-      <div class="module-icon">🛡️</div>
-      <div class="module-name" style="color:#7b52ab">PraxisRepérerAlerter</div>
-      <div class="module-sub">Fragilités, situations à risque, pluripro</div>
-      <div class="module-desc">Identifier les fragilités, repérer la maltraitance, collaboration pluriprofessionnelle.</div>
-      <div class="module-btn" style="background:rgba(123,82,171,.1);color:#7b52ab;border-color:rgba(123,82,171,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Numerique.html')" style="border-color:rgba(56,189,248,.2)">
-      <div class="module-num">NUMÉRIQUE · Bloc 5 · DEAS 2021</div>
-      <div class="module-icon">📱</div>
-      <div class="module-name" style="color:#38bdf8">PraxisNumerique</div>
-      <div class="module-sub">Le numérique en santé</div>
-      <div class="module-desc">Dossier patient informatisé, traçabilité, confidentialité, outils connectés, bonnes pratiques numériques.</div>
-      <div class="module-btn" style="background:rgba(56,189,248,.1);color:#38bdf8;border-color:rgba(56,189,248,.3)">Ouvrir</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Situations.html')" style="border-color:rgba(123,82,171,.2)">
-      <div class="module-num">CERTIFICATION · SITUATIONS SIGNIFICATIVES</div>
-      <div class="module-icon">📝</div>
-      <div class="module-name" style="color:#7b52ab">PraxisSituations</div>
-      <div class="module-sub">Analysez · Rédigez · Comparez à la correction</div>
-      <div class="module-desc">6 situations cliniques à analyser — format identique au jury de certification DEAS.</div>
-      <div class="module-btn" style="background:rgba(123,82,171,.1);color:#7b52ab;border-color:rgba(123,82,171,.3)">Analyser</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-References.html')" style="border-color:rgba(26,111,181,.2);grid-column:span 2">
-      <div class="module-num">RÉFÉRENCES · BIBLIOGRAPHIE</div>
-      <div class="module-icon">📚</div>
-      <div class="module-name" style="color:#1a6fb5">PraxisRéférences</div>
-      <div class="module-sub">Les auteurs et théories qui fondent les soins AS</div>
-      <div class="module-desc">Rogers, Maslow, Henderson, Kübler-Ross, Morse, Braden, McCaffery, Mehrabian — et les textes réglementaires.</div>
-      <div class="module-btn" style="background:rgba(26,111,181,.1);color:#1a6fb5;border-color:rgba(26,111,181,.3)">Consulter</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirModule('SimAs-Tips.html')" style="border-color:rgba(232,160,48,.3);grid-column:span 2">
-      <div class="module-num">MODULE TIPS</div>
-      <div class="module-icon">🎲</div>
-      <div class="module-name" style="color:#e8a030">PraxisTips AS</div>
-      <div class="module-sub">Loterie examen - Situations - Soins - Communication - Urgences</div>
-      <div class="module-desc">Tirage au sort de situations aleatoires pour se preparer aux epreuves DEAS - avec analyse IA de votre reponse.</div>
-      <div class="module-btn" style="background:rgba(232,160,48,.1);color:#e8a030;border-color:rgba(232,160,48,.3)">Tirer un sujet</div>
-    </div>
-
-    <div class="module-card" onclick="ouvrirBinome()" style="border-color:rgba(96,168,248,.4);background:rgba(96,168,248,.05);grid-column:span 2">
-      <div class="module-num">BINOME AS</div>
-      <div class="module-icon">🤝</div>
-      <div class="module-name" style="color:#60a8f8">Mon Binome</div>
-      <div class="module-sub">Apprendre a deux - progresser ensemble</div>
-      <div class="module-desc">Liez-vous a un autre etudiant AS abonne - explorez les memes modules - comparez vos scores en binome.</div>
-      <div class="module-btn" style="background:rgba(96,168,248,.2);color:#60a8f8;border-color:rgba(96,168,248,.4)">Choisir mon Binome</div>
-    </div>
-
-  </div>
-  <footer>
-    Formateur certifie PRAP 2S - BCI - contact@praxiscare.fr<br>
-    Referentiel DEAS - Arrete du 10 juin 2021 - 478 IFAS en France
-    <br><a href="stats-formateur-as.html" style="color:rgba(96,168,248,.3);font-size:10px;text-decoration:none">acces formateur</a>
-  </footer>
-</div>
-
-<!-- POPUP BINOME -->
-<div id="binome-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,12,20,.95);z-index:300;align-items:center;justify-content:center;">
-  <div style="background:#0d1525;border:1px solid rgba(96,168,248,.2);border-radius:16px;padding:24px;max-width:320px;width:90%;text-align:center">
-    <h2 style="color:#60a8f8;font-size:18px;margin-bottom:8px">Mon Duetiste AS</h2>
-    <p style="color:#3a5070;font-size:12px;margin-bottom:16px">Entrez le code de votre binome.</p>
-    <div id="binome-actuel" style="background:rgba(96,168,248,.08);border:1px solid rgba(96,168,248,.15);border-radius:8px;padding:10px;margin-bottom:16px;font-size:13px;color:#60a8f8"></div>
-    <input id="binome-input" placeholder="PRAXIS-AS-XXX" style="width:100%;padding:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e0e8f8;font-size:14px;text-align:center;text-transform:uppercase;margin-bottom:8px">
-    <button onclick="lierBinome()" style="width:100%;padding:10px;background:#60a8f8;color:#080c14;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-bottom:8px">Lier ce binome</button>
-    <button onclick="voirScoreBinome()" style="width:100%;padding:10px;background:rgba(96,168,248,.1);color:#60a8f8;border:1px solid rgba(96,168,248,.2);border-radius:8px;font-weight:700;cursor:pointer;margin-bottom:8px">Voir notre score commun</button>
-    <div id="binome-msg" style="font-size:12px;margin-bottom:12px"></div>
-    <div id="binome-score" style="display:none;background:rgba(255,255,255,.04);border-radius:8px;padding:12px;margin-bottom:12px;text-align:left"></div>
-    <button onclick="fermerBinome()" style="background:none;border:1px solid rgba(255,255,255,.1);color:#3a5070;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:12px">Fermer</button>
   </div>
 </div>
 
 <script>
-var _moduleStart=null,_moduleNom=null;
-const SB_URL="https://fvrfiikrasezlzpaxpqz.supabase.co";
-const SB_KEY="sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt";
+function validerCode(){
+  var code = document.getElementById('code-input').value.trim().toUpperCase();
+  var err = document.getElementById('error-msg');
+  if(!code){ err.textContent='Entrez votre code.'; return; }
 
-function sbPost(data){fetch(SB_URL+"/rest/v1/connexions_historique",{method:"POST",headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY},body:JSON.stringify(data)});}
-function trackModule(nom){var s=JSON.parse(localStorage.getItem('praxisas_stats')||'{}');if(!s.modules)s.modules={};s.modules[nom]=(s.modules[nom]||0)+1;localStorage.setItem('praxisas_stats',JSON.stringify(s));}
+  err.textContent = 'Vérification...';
 
-function ouvrirModule(fichier){
-  var frame=document.getElementById('module-frame');
-  var home=document.getElementById('home');
-  var nomModule=fichier.replace('.html','');
-  trackModule(nomModule);
-  _moduleStart=Date.now();_moduleNom=nomModule;
-  var code=sessionStorage.getItem('praxisas_code');
-  sbPost({student_code:code,app:"praxisas",module:nomModule,step:"ouverture",session_id:code+"_"+Date.now()});
-  frame.src=fichier;frame.style.display='block';
-  document.getElementById('btn-retour').style.display='block';
-  home.style.display='none';window.scrollTo(0,0);
-}
+  fetch('https://fvrfiikrasezlzpaxpqz.supabase.co/functions/v1/verifier-acces', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt',
+      'Authorization': 'Bearer sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt',
+    },
+    body: JSON.stringify({ code: code, app: 'SimAs' }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(!data.valide){
+      err.textContent = data.message || 'Code invalide. Verifiez votre code AS.';
+      return;
+    }
+    err.textContent = '';
+    var promo = 'DEAS 2026';
 
-function envoyerTempsModule(){
-  if(_moduleStart&&_moduleNom){
-    var code=sessionStorage.getItem('praxisas_code');
-    sbPost({student_code:code,app:"praxisas",module:_moduleNom,step:"fermeture",time_spent_ms:Date.now()-_moduleStart,session_id:code+"_"+_moduleStart});
-    _moduleStart=null;_moduleNom=null;
-  }
-}
+    sessionStorage.setItem('praxisas_code', code);
+    sessionStorage.setItem('praxisas_promo', promo);
 
-function retourAccueil(){
-  var frame=document.getElementById('module-frame');
-  frame.style.display='none';envoyerTempsModule();frame.src='about:blank';
-  document.getElementById('btn-retour').style.display='none';
-  document.getElementById('home').style.display='flex';
-}
+    fetch("https://fvrfiikrasezlzpaxpqz.supabase.co/rest/v1/connexions_historique", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": "sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt",
+        "Authorization": "Bearer sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt"
+      },
+      body: JSON.stringify({
+        student_code: code,
+        student_name: promo,
+        app: "simas",
+        module: "login",
+        session_id: code + "_" + Date.now()
+      })
+    }).catch(function(){});
 
-window.addEventListener('message',function(e){
-  if(e.data&&e.data.type==='navigate')ouvrirModule(e.data.url);
-  if(e.data&&e.data.type==='retour')retourAccueil();
-  if(e.data&&e.data.type==='activite')resetInactivityTimer();
-});
+    document.getElementById('card-login').style.display = 'none';
+    document.getElementById('card-success').style.display = 'block';
+    document.getElementById('success-msg').textContent = 'Bienvenue ' + promo + ' ! Redirection en cours...';
 
-document.getElementById('module-frame').addEventListener('load',function(){
-  try{var u=this.contentWindow.location.href;if(u&&u!=='about:blank')document.getElementById('btn-retour').style.display='block';}catch(e){}
-});
-
-if('serviceWorker'in navigator)navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(x){x.unregister();});});
-if('caches'in window)caches.keys().then(function(k){k.forEach(function(x){caches.delete(x);});});
-
-var _inactivityTimer=null;
-function resetInactivityTimer(){
-  clearTimeout(_inactivityTimer);
-  _inactivityTimer=setTimeout(function(){
-    envoyerTempsModule();
-    sessionStorage.removeItem('praxisas_code');
-    sessionStorage.removeItem('praxisas_promo');
-    window.location.replace('acces-as.html');
-  },5*60*1000);
-}
-document.addEventListener('click',resetInactivityTimer);
-document.addEventListener('touchstart',resetInactivityTimer);
-document.addEventListener('keypress',resetInactivityTimer);
-resetInactivityTimer();
-
-function ouvrirBinome(){
-  document.getElementById('binome-overlay').style.display='flex';
-  var b=localStorage.getItem('praxisas_binome');
-  document.getElementById('binome-actuel').textContent=b?'Binome actuel : '+b:'Aucun binome lie pour le moment';
-  document.getElementById('binome-score').style.display='none';
-  document.getElementById('binome-msg').textContent='';
-}
-function fermerBinome(){document.getElementById('binome-overlay').style.display='none';}
-function lierBinome(){
-  var monCode=sessionStorage.getItem('praxisas_code');
-  var cb=document.getElementById('binome-input').value.trim().toUpperCase();
-  var msg=document.getElementById('binome-msg');
-  if(!cb){msg.style.color='#e84040';msg.textContent='Entrez un code binome.';return;}
-  if(cb===monCode){msg.style.color='#e84040';msg.textContent='Vous ne pouvez pas vous lier a vous-meme !';return;}
-  msg.style.color='#3a5070';msg.textContent='Verification...';
-  fetch('https://fvrfiikrasezlzpaxpqz.supabase.co/functions/v1/verifier-acces',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':'sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt','Authorization':'Bearer sb_publishable_TNksbociGaWCY53M4wCAXg_faOxEqKt'},
-    body:JSON.stringify({code:cb,app:'SimAs'}),
-  }).then(function(r){return r.json();}).then(function(data){
-    if(!data.valide){msg.style.color='#e84040';msg.textContent='Ce code n\'est pas un abonne actif.';return;}
-    localStorage.setItem('praxisas_binome',cb);
-    sbPost({student_code:monCode,app:"praxisas",module:"binome",step:cb,session_id:monCode+"_binome_"+Date.now()});
-    msg.style.color='#40c878';msg.textContent='Binome '+cb+' lie avec succes !';
-    document.getElementById('binome-actuel').textContent='Binome actuel : '+cb;
-  }).catch(function(){
-    msg.style.color='#e84040';msg.textContent='Erreur de verification, reessayez.';
-  });
-}
-function voirScoreBinome(){
-  var monCode=sessionStorage.getItem('praxisas_code');
-  var cb=localStorage.getItem('praxisas_binome');
-  var scoreDiv=document.getElementById('binome-score');
-  var msg=document.getElementById('binome-msg');
-  if(!cb){msg.style.color='#e84040';msg.textContent='Liez d\'abord un binome.';return;}
-  msg.style.color='#3a5070';msg.textContent='Chargement...';
-  fetch(SB_URL+"/rest/v1/connexions_historique?student_code=in.("+monCode+","+cb+")&step=eq.ouverture&select=student_code,module",{
-    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
-  }).then(function(r){return r.json();}).then(function(data){
-    var moi=data.filter(function(d){return d.student_code===monCode;}).map(function(d){return d.module;});
-    var bin=data.filter(function(d){return d.student_code===cb;}).map(function(d){return d.module;});
-    var communs=[...new Set(moi.filter(function(m){return bin.indexOf(m)!==-1;}))];
-    var badge=communs.length>=8?'Duetiste Expert AS':communs.length>=4?'Duetiste Actif':communs.length>=1?'Duetiste Debutant':'Duetiste Inscrit';
-    scoreDiv.style.display='block';
-    scoreDiv.innerHTML='<div style="text-align:center;font-size:18px;color:#60a8f8;margin-bottom:8px">'+badge+'</div>'+
-      '<div style="color:#3a5070;font-size:12px">Modules explores en commun : <strong style="color:#60a8f8">'+communs.length+'</strong></div>'+
-      '<div style="color:#3a5070;font-size:12px;margin-top:4px">Binome : <strong style="color:#a060ff">'+cb+'</strong></div>'+
-      (communs.length>0?'<div style="margin-top:8px;font-size:11px;color:#3a5070">'+communs.join(', ')+'</div>':'');
-    msg.textContent='';
+    var fill = document.getElementById('bar-fill2');
+    var pct = 0;
+    var iv = setInterval(function(){
+      pct += 2;
+      fill.style.width = pct + '%';
+      if(pct >= 100){ clearInterval(iv); window.location.replace('index.html'); }
+    }, 20);
+  })
+  .catch(function(){
+    err.textContent = 'Erreur de connexion, réessaie.';
   });
 }
 </script>
