@@ -130,6 +130,14 @@ input[type=range]{width:100%;accent-color:var(--blue-dark);}
 .tag.red{background:#fdecea;color:var(--red);}
 .tag.green{background:#e6f4ee;color:#1e7a45;}
 .tag.warn{background:#fff3e0;color:#e65100;}
+.qcard{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;margin-bottom:14px}
+.qcard .profil{font-size:.85rem;line-height:1.6;color:var(--text);margin-bottom:12px}
+.qcard .profil b{color:var(--blue-dark)}
+.sit-opt{display:block;width:100%;text-align:left;padding:11px 12px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(0,0,0,.12);background:#fff;color:var(--text);font-size:.82rem;cursor:pointer;font-family:inherit}
+.sit-opt.good{background:#e6f4ee;border-color:#1e7a45;color:#1e7a45;font-weight:700}
+.sit-opt.bad{background:#fdecea;border-color:#c0392b;color:#c0392b}
+.sit-explic{display:none;font-size:.82rem;line-height:1.6;padding:12px;margin-top:6px;border-radius:8px;background:#eef4fb;border:1px solid #b3d0f0}
+.sit-explic.show{display:block}
 </style>
 </head>
 <body>
@@ -429,6 +437,32 @@ input[type=range]{width:100%;accent-color:var(--blue-dark);}
     <div class="alert-banner">⚠️ Une agitation soudaine chez une personne habituellement calme peut être une douleur non exprimée. Ne jamais conclure à un "trouble du comportement" sans avoir éliminé la douleur.</div>
   </div>
 
+  <div class="card orange">
+    <h2>📐 DOLOPLUS-2 et ALGOPLUS — deux échelles, deux usages différents</h2>
+    <p style="font-size:.82rem;color:#6a3a00;margin-bottom:10px;">Ces deux échelles d'hétéro-évaluation (remplies par le soignant, pas par le patient) ne sont <strong>pas interchangeables</strong> — ALGOPLUS n'est pas une version courte de DOLOPLUS.</p>
+    <div class="two-col">
+      <div class="cell" style="border-left:3px solid var(--orange);">
+        <h4 style="color:#b55f10;">DOLOPLUS-2 — douleur chronique</h4>
+        <ul>
+          <li>10 items en 3 groupes : 5 somatiques, 2 psychomoteurs, 3 psychosociaux</li>
+          <li>Chaque item coté de 0 à 3 → score global sur 30</li>
+          <li>Douleur confirmée si score ≥ 5/30</li>
+          <li>Adaptée au suivi dans la durée (douleurs articulaires, plaies chroniques...)</li>
+        </ul>
+      </div>
+      <div class="cell" style="border-left:3px solid var(--red);">
+        <h4 style="color:var(--red);">ALGOPLUS — douleur aiguë</h4>
+        <ul>
+          <li>5 items seulement, réponse Oui/Non (plus rapide à réaliser)</li>
+          <li>Douleur confirmée si score ≥ 2/5</li>
+          <li>Conçue pour la douleur ponctuelle : soin douloureux, chute, poussée aiguë</li>
+          <li>Utilisée pour la mauvaise indication, elle peut sous-estimer une douleur chronique</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-banner">🚨 Bien choisir l'échelle selon le contexte : une douleur qui dure (arthrose, escarre) → DOLOPLUS-2. Une douleur ponctuelle liée à un soin ou un événement → ALGOPLUS.</div>
+  </div>
+
   <div class="card green">
     <h2>✅ Rôle AS dans l'évaluation de la douleur</h2>
     <ul>
@@ -689,6 +723,27 @@ input[type=range]{width:100%;accent-color:var(--blue-dark);}
     </div>
     <div class="alert-banner">⚠️ En situation d'urgence, l'AS ne reste jamais seul avec un patient en détresse. Il appelle TOUJOURS à l'aide — même en criant si nécessaire — avant de réaliser les gestes de premiers secours.</div>
   </div>
+
+  <div class="card">
+    <h2>🎯 Situations approfondies — Réfléchissez avant de voir la réponse</h2>
+    <p style="font-size:.82rem;margin-bottom:10px;">Formulez votre réponse dans votre tête avant de cliquer sur une option — c'est cet exercice de réflexion qui compte, pas seulement la bonne réponse.</p>
+
+    <div class="qcard">
+      <p class="profil"><b>Situation 1 —</b> Vous surveillez deux résidents en même temps. M. A. sonne car il se sent "bizarre" et un peu essoufflé. Au même moment, Mme B., que vous veniez de mobiliser, grimace fortement et se tient le dos. Vous êtes seul sur l'étage pour quelques minutes. Que faites-vous en priorité ?</p>
+      <button class="sit-opt" onclick="sitRep(this,false,'sit1')">Vous vous occupez d'abord de Mme B. car la douleur est visible immédiatement</button>
+      <button class="sit-opt" onclick="sitRep(this,true,'sit1')">Vous évaluez rapidement M. A. en premier — l'essoufflement peut signaler une urgence vitale — tout en gardant Mme B. à vue et en appelant à l'aide</button>
+      <button class="sit-opt" onclick="sitRep(this,false,'sit1')">Vous demandez à Mme B. d'attendre et vous allez chercher l'IDE avant de voir qui que ce soit</button>
+      <div class="sit-explic" id="sit1">✅ Un essoufflement nouveau est potentiellement un signe d'urgence vitale (détresse respiratoire, cardiaque) — il prime sur une douleur dorsale visible mais non vitale. L'essentiel : ne jamais rester seul, appeler à l'aide immédiatement, et garder les deux patients sous surveillance autant que possible en attendant du renfort.</div>
+    </div>
+
+    <div class="qcard">
+      <p class="profil"><b>Situation 2 —</b> M. D., atteint de la maladie d'Alzheimer à un stade avancé, ne parle presque plus. Depuis deux jours, une collègue le trouve "plus agité que d'habitude" pendant la toilette, sans autre signe visible. Comment évaluez-vous s'il souffre ?</p>
+      <button class="sit-opt" onclick="sitRep(this,false,'sit2')">Comme il ne peut pas dire s'il a mal, il est impossible de savoir — on ne peut qu'attendre</button>
+      <button class="sit-opt" onclick="sitRep(this,true,'sit2')">Vous utilisez une échelle d'hétéro-évaluation comportementale (DOLOPLUS-2 si c'est une gêne qui dure, ALGOPLUS si cela semble lié à un geste précis) et vous transmettez le score à l'IDE</button>
+      <button class="sit-opt" onclick="sitRep(this,false,'sit2')">L'agitation chez une personne démente est toujours normale, rien à signaler</button>
+      <div class="sit-explic" id="sit2">✅ Une agitation nouvelle et inhabituelle est un signe comportemental de douleur à prendre au sérieux, même sans plainte verbale. Le choix de l'échelle dépend du contexte : DOLOPLUS-2 si la gêne semble s'installer dans la durée, ALGOPLUS si elle est clairement liée à un geste ponctuel (la toilette). Dans les deux cas, le score se transmet à l'IDE — ce n'est jamais à l'AS de conclure seul à l'absence de douleur.</div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== QUIZ ===== -->
@@ -697,7 +752,7 @@ input[type=range]{width:100%;accent-color:var(--blue-dark);}
     <div class="icon">✏️</div>
     <div>
       <h2>Quiz — État clinique et surveillance</h2>
-      <p>10 questions sur les paramètres vitaux, la conscience, la douleur, l'hydratation et les urgences.</p>
+      <p>16 questions sur les paramètres vitaux, la conscience, la douleur, l'hydratation et les urgences.</p>
     </div>
   </div>
   <div id="quiz-container"></div>
@@ -707,7 +762,7 @@ input[type=range]{width:100%;accent-color:var(--blue-dark);}
   </div>
   <div class="quiz-score-box" id="quiz-score-box">
     <div class="qs-num" id="qs-num"></div>
-    <div class="qs-label">bonne(s) réponse(s) sur 10</div>
+    <div class="qs-label">bonne(s) réponse(s) sur 16</div>
     <div class="qs-msg" id="qs-msg"></div>
   </div>
 </div>
@@ -725,6 +780,24 @@ function showTab(id,btn){
   window.parent&&window.parent.postMessage({type:'activite'},'*');
 }
 window.PRAXIS_APP='SimAs';
+
+let _sitReponses={};
+function sitRep(btn,ok,sitId){
+  if(_sitReponses[sitId])return;
+  _sitReponses[sitId]=true;
+  const card=btn.closest('.qcard');
+  card.querySelectorAll('.sit-opt').forEach(o=>o.style.pointerEvents='none');
+  if(ok){btn.classList.add('good');}
+  else{
+    btn.classList.add('bad');
+    card.querySelectorAll('.sit-opt').forEach(o=>{
+      if(o.getAttribute('onclick').includes('true'))o.classList.add('good');
+    });
+  }
+  document.getElementById(sitId).classList.add('show');
+  window.parent&&window.parent.postMessage({type:'activite'},'*');
+}
+
 window.addEventListener('load',()=>{window.parent&&window.parent.postMessage({type:'activite'},'*');setInterval(()=>window.parent&&window.parent.postMessage({type:'activite'},'*'),30000);});
 document.addEventListener('click',()=>window.parent&&window.parent.postMessage({type:'activite'},'*'));
 
@@ -762,7 +835,13 @@ const questions=[
   {q:"Vous trouvez Mme Aubert inconsciente dans sa chambre, elle ne répond pas à votre voix ni à votre toucher. Quelle est votre première action ?",opts:["Lui faire la toilette rapidement puis prévenir l'IDE","Appeler à l'aide et alerter l'IDE et le 15 immédiatement","Prendre ses constantes avant d'alerter","Attendre 5 minutes pour voir si elle reprend conscience"],correct:1,expl:"Une personne inconsciente est une urgence vitale. La première action est d'appeler à l'aide et d'alerter l'IDE et le 15 — simultanément si possible. On ne perd pas de temps à prendre des constantes ou à attendre. Si elle ne respire pas, on commence la RCP en attendant les secours."},
   {q:"Vous suspectez un AVC chez M. Bernard qui présente une asymétrie du visage et ne peut plus lever le bras droit. Quelle information est CRUCIALE à noter immédiatement ?",opts:["Sa tension artérielle du matin","L'heure exacte d'apparition des premiers signes","Son dernier repas","Son traitement anticoagulant"],correct:1,expl:"L'heure de début des signes d'AVC est cruciale pour le traitement : la thrombolyse (traitement dissolvant le caillot) ne peut être administrée que dans les 4h30 suivant le début des symptômes. L'AS qui note l'heure exacte contribue directement à sauver la vie et à limiter les séquelles."},
   {q:"La fréquence respiratoire normale d'un adulte est de :",opts:["6 à 12 mouvements par minute","12 à 20 mouvements par minute","20 à 30 mouvements par minute","Peu importe tant que la personne ne se plaint pas"],correct:1,expl:"La fréquence respiratoire normale est de 12 à 20 mouvements par minute. En dessous de 12 (bradypnée) ou au-dessus de 25 (tachypnée), alerter l'IDE. La mesure se fait discrètement sans prévenir le patient — qui modifie automatiquement sa respiration s'il sait qu'on le surveille."},
-  {q:"Lors d'une crise convulsive, quelle action est INTERDITE ?",opts:["Chronométrer la durée de la crise","Protéger la tête avec quelque chose de mou","Mettre un objet entre les dents pour éviter qu'il se morde","Libérer l'espace autour de la personne"],correct:2,expl:"Il ne faut JAMAIS mettre quoi que ce soit dans la bouche d'une personne en crise convulsive — risque de fracture dentaire, de luxation de mâchoire et de fausse route. Contrairement aux idées reçues, une personne en crise ne peut pas avaler sa langue. Les bonne actions : chronométrer, protéger la tête, libérer l'espace, appeler l'IDE."}
+  {q:"Lors d'une crise convulsive, quelle action est INTERDITE ?",opts:["Chronométrer la durée de la crise","Protéger la tête avec quelque chose de mou","Mettre un objet entre les dents pour éviter qu'il se morde","Libérer l'espace autour de la personne"],correct:2,expl:"Il ne faut JAMAIS mettre quoi que ce soit dans la bouche d'une personne en crise convulsive — risque de fracture dentaire, de luxation de mâchoire et de fausse route. Contrairement aux idées reçues, une personne en crise ne peut pas avaler sa langue. Les bonne actions : chronométrer, protéger la tête, libérer l'espace, appeler l'IDE."},
+  {q:"Mme L. présente une douleur chronique liée à son arthrose depuis plusieurs mois. Quelle échelle est la plus adaptée pour évaluer cette douleur si elle ne peut plus communiquer verbalement ?",opts:["ALGOPLUS, plus rapide à réaliser","DOLOPLUS-2, conçue pour le suivi de la douleur chronique","L'EVA, quelle que soit la situation","Aucune échelle n'est utilisable si la personne ne parle plus"],correct:1,expl:"DOLOPLUS-2 est spécifiquement conçue pour la douleur chronique (10 items, score sur 30, douleur confirmée dès 5/30). ALGOPLUS est réservée à la douleur aiguë et sous-estimerait une douleur qui dure depuis des mois."},
+  {q:"Lors d'un soin douloureux ponctuel (pansement), M. K. grimace fortement. Quelle échelle utiliser en priorité pour évaluer cette douleur aiguë ?",opts:["DOLOPLUS-2, plus complète","ALGOPLUS, conçue pour la douleur aiguë liée aux soins","Attendre que la douleur devienne chronique pour évaluer","Aucune échelle, se fier uniquement à l'impression générale"],correct:1,expl:"ALGOPLUS (5 items, score ≥2/5) est spécifiquement conçue pour les douleurs aiguës et ponctuelles, notamment celles provoquées par les soins."},
+  {q:"Vous mesurez une SpO2 à 91% chez un patient sans oxygène prescrit. Quelle est la bonne conduite ?",opts:["Noter la valeur, ce n'est pas grave si le patient ne se plaint pas","Alerter l'IDE, la valeur est sous le seuil normal (95%)","Retirer l'oxymètre et réessayer demain","Donner de l'eau pour améliorer l'oxygénation"],correct:1,expl:"Une SpO2 à 91% est en dessous du seuil normal (≥95%) et constitue une alerte à transmettre à l'IDE sans délai, même en l'absence de plainte du patient."},
+  {q:"Le bilan de la journée montre une diurèse de 380 mL sur 24h chez un patient. Que faites-vous ?",opts:["C'est normal, rien à signaler", "Vous alertez l'IDE : la diurèse est bien en dessous du seuil normal (500 mL/24h)","Vous attendez le lendemain pour voir si ça s'améliore","Vous donnez un diurétique"],correct:1,expl:"Une diurèse inférieure à 500 mL/24h est un signe d'alerte à transmettre à l'IDE — elle peut évoquer une déshydratation sévère ou un problème rénal."},
+  {q:"Vous constatez qu'un résident a perdu 6% de son poids en un mois, sans régime particulier. Quelle est la bonne interprétation ?",opts:["C'est sans importance si le résident se sent bien","C'est un signe de dénutrition à signaler à l'IDE (seuil d'alerte à 5%)","Il faut attendre 3 mois pour confirmer la tendance","Seule une perte de plus de 20% est significative"],correct:1,expl:"Une perte de poids supérieure à 5% en un mois est un seuil d'alerte reconnu de dénutrition, à signaler sans attendre à l'IDE."},
+  {q:"Un patient diabétique présente une glycémie capillaire à 3,10 g/L. Quelle est la conduite prioritaire ?",opts:["Noter la valeur dans le dossier et continuer la tournée","Alerter l'IDE en urgence, la valeur dépasse largement le seuil critique","Redonner une collation sucrée","Attendre la prochaine mesure prévue"],correct:1,expl:"Une glycémie à 3,10 g/L dépasse très largement le seuil d'alerte (>2,50 g/L) et impose une alerte IDE urgente — risque d'hyperglycémie sévère."}
 ];
 
 function buildQuiz(){
@@ -785,8 +864,8 @@ function submitQuiz(){
   });
   const box=document.getElementById('quiz-score-box');
   box.style.display='block';
-  document.getElementById('qs-num').textContent=score+'/10';
-  const pct=score/10;
+  document.getElementById('qs-num').textContent=score+'/16';
+  const pct=score/16;
   document.getElementById('qs-msg').textContent=pct<0.5?'Révisez les fiches avant de continuer 💪':pct<0.7?'Bon début, continuez la révision !':pct<0.9?'Bien ! Quelques points à consolider':'Excellent ! Module 03 maîtrisé ✅';
   box.scrollIntoView({behavior:'smooth',block:'center'});
   window.parent&&window.parent.postMessage({type:'activite'},'*');
