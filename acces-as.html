@@ -39,19 +39,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .module-btn{display:block;text-align:center;padding:9px;border-radius:8px;font-size:12px;font-weight:700;border:1.5px solid transparent;}
 footer{border-top:1px solid rgba(255,255,255,.07);padding:24px 20px;text-align:center;font-size:11px;color:#2a3a55;font-family:monospace;}
 </style>
-<script>
-(function(){
-  var code=sessionStorage.getItem('praxisas_code');
-  var promo=sessionStorage.getItem('praxisas_promo');
-  if(!code||!promo)window.location.replace('acces-as.html');
-})();
-document.addEventListener('visibilitychange',function(){
-  if(document.visibilityState==='hidden'){
-    sessionStorage.removeItem('praxisas_code');
-    sessionStorage.removeItem('praxisas_promo');
-  }
-});
-</script>
+
 </head>
 <body>
 <button id="btn-retour" onclick="retourAccueil()">PraxisAS</button>
