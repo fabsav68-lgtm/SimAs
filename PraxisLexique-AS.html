@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PraxisLexique · SimAs</title>
+<style>
+:root{
+  --bg:#080c14; --bg2:#0d1525; --card:rgba(255,255,255,.03); --bdr:rgba(255,255,255,.08);
+  --txt:#e8edf5; --txt2:#5a6478; --em:#60a8f8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 55%,var(--bg) 100%);color:var(--txt);min-height:100vh;padding-bottom:40px}
+.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+header{padding:24px 0 16px;text-align:center}
+.badge{display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--bdr);color:var(--em);padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:2px;font-family:monospace;margin-bottom:12px}
+h1{font-family:Georgia,serif;font-size:26px;font-weight:300}
+h1 em{font-style:italic;color:var(--em)}
+.sub{color:var(--txt2);font-size:12.5px;margin-top:6px}
+
+.search-box{position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:10}
+.search-input{width:100%;padding:12px 16px;border-radius:14px;border:1px solid var(--bdr);background:var(--card);color:var(--txt);font-size:14px}
+.search-input::placeholder{color:var(--txt2)}
+.search-input:focus{outline:none;border-color:var(--em)}
+
+.count{font-size:12px;color:var(--txt2);margin:10px 0}
+
+.terme-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:16px;margin-bottom:10px}
+.terme-nom{font-size:15px;font-weight:700;color:var(--em);margin-bottom:6px}
+.terme-def{font-size:13.5px;line-height:1.6;color:var(--txt)}
+
+.no-result{text-align:center;color:var(--txt2);padding:40px 20px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge">GLOSSAIRE</div>
+    <h1>Praxis<em>Lexique</em></h1>
+    <p class="sub">Vocabulaire aide-soignant — 25 termes essentiels</p>
+  </header>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="search" placeholder="Rechercher un terme..." oninput="filtrer()">
+  </div>
+  <div class="count" id="count"></div>
+  <div id="liste"></div>
+</div>
+
+<script>
+const TERMES = [{"terme": "AGGIR", "def": "Grille nationale d'évaluation du degré de perte d'autonomie de la personne âgée (Autonomie Gérontologie Groupes Iso-Ressources)."}, {"terme": "Ankylose", "def": "Diminution ou perte de la mobilité d'une articulation, souvent liée à l'immobilisation prolongée."}, {"terme": "Bientraitance", "def": "Démarche visant à promouvoir le bien-être de la personne accompagnée, dans le respect de sa dignité et de ses choix."}, {"terme": "Braden (échelle de)", "def": "Outil d'évaluation du risque d'escarre, basé sur 6 critères (perception sensorielle, humidité, activité, mobilité, nutrition, friction/cisaillement). Score ≤ 18 = risque."}, {"terme": "Cachexie", "def": "État d'amaigrissement extrême et d'affaiblissement général, souvent lié à une maladie chronique sévère."}, {"terme": "Cyanose", "def": "Coloration bleutée de la peau et des muqueuses, traduisant un manque d'oxygénation du sang."}, {"terme": "Dyspnée", "def": "Sensation de gêne ou de difficulté respiratoire."}, {"terme": "Décubitus", "def": "Position du corps allongé (dorsal = sur le dos, latéral = sur le côté, ventral = sur le ventre)."}, {"terme": "Dénutrition", "def": "Déficit d'apports ou d'assimilation des nutriments par rapport aux besoins de l'organisme, dépisté notamment par le MNA."}, {"terme": "Escarre", "def": "Lésion cutanée due à une pression prolongée, souvent au niveau des points d'appui (sacrum, talons, coudes)."}, {"terme": "Fausse route", "def": "Passage accidentel d'aliments ou de liquide dans les voies respiratoires au lieu de l'œsophage."}, {"terme": "FLACC (échelle)", "def": "Échelle d'évaluation de la douleur chez l'enfant de 1 à 4 ans, basée sur 5 critères comportementaux."}, {"terme": "Grabataire", "def": "Personne alitée en permanence, ne pouvant plus se déplacer seule."}, {"terme": "Hydratation (bilan)", "def": "Suivi des apports et pertes en eau de l'organisme, essentiel chez la personne âgée à risque de déshydratation."}, {"terme": "Hématome", "def": "Épanchement de sang sous la peau suite à un choc, formant une masse colorée."}, {"terme": "Incontinence", "def": "Perte du contrôle volontaire des urines et/ou des selles."}, {"terme": "MNA (Mini Nutritional Assessment)", "def": "Outil de référence pour dépister la dénutrition chez la personne âgée, existant en version courte (6 items) et longue (18 items)."}, {"terme": "PRAP 2S", "def": "Prévention des Risques liés à l'Activité Physique dans le Secteur Sanitaire et social — formation à la manutention sécurisée."}, {"terme": "Prothèse", "def": "Dispositif remplaçant un membre, un organe ou une partie du corps (dentaire, auditive, articulaire...)."}, {"terme": "Sonde urinaire", "def": "Dispositif médical inséré dans la vessie pour évacuer les urines."}, {"terme": "Toilette au lit", "def": "Toilette réalisée pour un patient ne pouvant se déplacer, nécessitant une technique et une organisation spécifiques."}, {"terme": "Transfert", "def": "Passage d'un patient d'un support à un autre (lit-fauteuil par exemple), nécessitant une technique sécurisée."}, {"terme": "Transmissions ciblées", "def": "Méthode de transmission écrite structurée autour d'une cible (problème), de données, actions et résultats."}, {"terme": "Vigilance (troubles de la)", "def": "Altération de l'état de conscience, à surveiller et transmettre immédiatement."}, {"terme": "Œdème", "def": "Accumulation anormale de liquide dans les tissus, se traduisant par un gonflement."}];
+
+function filtrer(){
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const filtres = q ? TERMES.filter(t => t.terme.toLowerCase().includes(q) || t.def.toLowerCase().includes(q)) : TERMES;
+  afficher(filtres);
+}
+
+function afficher(liste){
+  document.getElementById('count').textContent = liste.length + ' terme' + (liste.length > 1 ? 's' : '');
+  if(liste.length === 0){
+    document.getElementById('liste').innerHTML = '<div class="no-result">Aucun terme trouvé</div>';
+    return;
+  }
+  document.getElementById('liste').innerHTML = liste.map(t => `
+    <div class="terme-card">
+      <div class="terme-nom">${t.terme}</div>
+      <div class="terme-def">${t.def}</div>
+    </div>
+  `).join('');
+}
+
+afficher(TERMES);
+</script>
+</body>
+</html>
