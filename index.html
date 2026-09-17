@@ -344,15 +344,11 @@ document.getElementById('module-frame').addEventListener('load',function(){
   try{var u=this.contentWindow.location.href;if(u&&u!=='about:blank')document.getElementById('btn-retour').style.display='block';}catch(e){}
 });
 
-<link rel="manifest" href="manifest.json">
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js');
-  });
-}
-</script>
-if('caches'in window)caches.keys().then(function(k){k.forEach(function(x){caches.delete(x);});});
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
 
 var _inactivityTimer=null;
 function resetInactivityTimer(){
